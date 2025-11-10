@@ -6,16 +6,23 @@ namespace ContentMicroservice.Infrastructure.Persistence.Entities
     public class Trick
     {
         [BsonId]
-        [BsonRepresentation(BsonType.ObjectId)]
-        public string Id { get; set; } = ObjectId.GenerateNewId().ToString();
+        [BsonRepresentation(BsonType.String)]
+        public string Id { get; set; } = Guid.NewGuid().ToString();
 
         public string Name { get; set; } = null!;
-        public string? Description { get; set; }
-        public string? Difficulty { get; set; }
-        public string? VideoUrl { get; set; }
-        public List<string> Tags { get; set; } = new List<string>();
-        public string? AuthorId { get; set; }
+        public string Level { get; set; } = "beginner";
+        public double Price { get; set; }
+        public string Description { get; set; } = null!;
+        public List<string> Steps { get; set; } = new();
+        public List<string> Images { get; set; } = new();
+        public TrickVideos Videos { get; set; } = new();
+        public string? FunFact { get; set; }
         public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
+    }
 
+    public class TrickVideos
+    {
+        public string? AmateurUrl { get; set; }
+        public string? ProUrl { get; set; }
     }
 }
