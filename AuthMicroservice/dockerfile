@@ -1,9 +1,9 @@
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 WORKDIR /src
-COPY ["AuthMicroservice/AuthMicroservice.csproj", "AuthMicroservice/"]
-RUN dotnet restore "AuthMicroservice/AuthMicroservice.csproj"
+COPY ["AuthMicroservice.csproj", "./"]
+RUN dotnet restore "AuthMicroservice.csproj"
 COPY . .
-RUN dotnet publish "AuthMicroservice/AuthMicroservice.csproj" -c Release -o /app/publish
+RUN dotnet publish "AuthMicroservice.csproj" -c Release -o /app/publish
 
 # Étape 2 : runtime
 FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS runtime
