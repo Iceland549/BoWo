@@ -8,7 +8,7 @@ namespace ContentMicroservice.Infrastructure.Clients
     /// Lightweight wrapper / stub for interacting with Firebase (Storage or Auth).
     /// In production replace implementation with Firebase Admin SDK or a proper HTTP client.
     /// </summary>
-    public class FirebaseClient
+    public class FirebaseClient : IFirebaseClient
     {
         private readonly ILogger<FirebaseClient> _logger;
 
