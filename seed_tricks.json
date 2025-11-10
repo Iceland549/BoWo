@@ -1,0 +1,48 @@
+[
+  {
+    "_id": "ollie",
+    "name": "Ollie",
+    "level": "beginner",
+    "price": 0.0,
+    "description": "L�Ollie est le trick de base qui te permet de faire d�coller ta planche du sol sans les mains.",
+    "steps": [
+      "Positionne tes pieds : arri�re sur le tail, avant derri�re les vis.",
+      "Frappe le tail et glisse ton pied avant vers le nez.",
+      "Monte les genoux et garde les �paules droites.",
+      "Atterris souplement."
+    ],
+    "images": [
+      "http://localhost:5002/images/tricks/ollie_1.jpg",
+      "http://localhost:5002/images/tricks/ollie_2.jpg",
+      "http://localhost:5002/images/tricks/ollie_3.jpg"
+    ],
+    "videos": {
+      "amateurUrl": "",
+      "proUrl": ""
+    },
+    "funFact": "L Ollie a ete invente par Alan 'Ollie' Gelfand dans une piscine vide en 1978 !"
+  }, 
+  {
+    "_id": "popshoveit",
+    "name": "Pop Shove-it",
+    "level": "intermediate",
+    "price": 0.49,
+    "description": "Le Pop Shove-it, c est l evolution directe de ton Ollie : la planche tourne � 180� sous tes pieds, un mouvement qui demande timing et engagement.",
+    "steps": [
+      "Place ton pied arri�re sur le tail, legerement decale vers le bord.",
+      "Frappe le tail vers le bas et legerement vers l arriere pour initier la rotation.",
+      "Garde ton corps centre et regarde la planche tourner sous toi.",
+      "Rattrape la planche avec tes pieds et atterris fl�chis pour amortir."
+    ],
+    "images": [
+      "http://localhost:5002/images/tricks/popshoveit_1.jpg",
+      "http://localhost:5002/images/tricks/popshoveit_2.jpg",
+      "http://localhost:5002/images/tricks/popshoveit_3.jpg"
+    ],
+    "videos": {
+      "amateurUrl": "https://storage.googleapis.com/bowo-content/videos/popshoveit_amateur.mp4",
+      "proUrl": "https://storage.googleapis.com/bowo-content/videos/popshoveit_pro.mp4"
+    },
+    "funFact": "Fun fact: Jason Lee, connu pour son role dans 'My Name Is Earl' et 'Alvin et les Chipmunks', etait un skateur pro avant d etre acteur, il a popularise le kickflip apres Rodney Mullen !"
+  }
+]

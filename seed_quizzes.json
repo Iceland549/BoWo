@@ -1,0 +1,15 @@
+[
+  {
+    "_id": "quiz_popshoveit",
+    "trickId": "popshoveit",
+    "question": "Qu est-ce qu un Pop Shove-it ?",
+    "answers": [
+      "Une rotation de la planche 180 sur l�axe horizontal (comme un flip)",
+      "Un saut sans rotation",
+      "Une rotation de la planche 180 sur l�axe vertical (sous les pieds)",
+      "Une figure ou le corps et la planche tournent ensemble"
+    ],
+    "correctAnswerIndex": 2,
+    "difficulty": "easy"
+  }
+]
