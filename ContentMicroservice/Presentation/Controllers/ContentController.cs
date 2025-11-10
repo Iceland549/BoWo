@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using ContentMicroservice.Application.DTOs;
-using ContentMicroservice.Application.UseCases;
+using ContentMicroservice.Application.UseCases.Content;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
