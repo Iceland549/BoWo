@@ -1,10 +1,11 @@
 using ContentMicroservice.Extensions;
 using ContentMicroservice.Infrastructure.Config;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.OpenApi.Models;
 using Microsoft.IdentityModel.Tokens;
-using System.Text;
+using Microsoft.OpenApi.Models;
+using MongoDB.Bson.Serialization.Conventions;
 using MongoDB.Driver;
+using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -14,6 +15,9 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.Configure<MongoDbConfig>(
     builder.Configuration.GetSection("Mongo")
 );
+
+var pack = new ConventionPack { new CamelCaseElementNameConvention() };
+ConventionRegistry.Register("CamelCase", pack, t => true);
 builder.Services.AddSingleton<IMongoClient>(sp =>
 {
     var cfg = builder.Configuration.GetSection("Mongo").Get<MongoDbConfig>();
@@ -135,6 +139,7 @@ else
 {
     app.UseExceptionHandler("/error");
 }
+app.UseStaticFiles();
 
 app.UseHttpsRedirection();
 
