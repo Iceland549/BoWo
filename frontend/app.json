@@ -2,7 +2,6 @@
   "expo": {
     "name": "My Board, My World",
     "slug": "frontend",
-    "entryPoint": "./App.tsx",
     "version": "1.0.0",
     "orientation": "portrait",
     "platforms": ["ios", "android", "web"],
