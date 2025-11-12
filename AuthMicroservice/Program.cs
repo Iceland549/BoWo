@@ -59,15 +59,20 @@ builder.Services.AddDbContext<AuthDbContext>(opts =>
 // Configurations
 builder.Services.AddAuthMicroserviceServices(builder.Configuration);
 
-// CORS
+// Cross origins (frontend React)
 builder.Services.AddCors(options =>
 {
-    options.AddPolicy("AllowReactApp", policy =>
+    options.AddPolicy("AllowFrontend", policy =>
     {
-        policy.WithOrigins("http://localhost:3000")
-              .AllowAnyHeader()
-              .AllowAnyMethod()
-              .AllowCredentials();
+        policy
+            .WithOrigins(
+                "http://localhost:8081",      // Expo web
+                "http://192.168.1.44:8081",   // Expo sur ton téléphone
+                "exp://192.168.1.44:8081"     // Expo Go app
+            )
+            .AllowAnyHeader()
+            .AllowAnyMethod()
+            .AllowCredentials();
     });
 });
 
@@ -146,9 +151,7 @@ else
 }
 
 
-app.UseHttpsRedirection();
-
-app.UseCors("AllowReactApp");
+app.UseCors("AllowFrontend");
 
 app.UseAuthentication();
 
