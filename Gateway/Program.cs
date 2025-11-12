@@ -19,13 +19,6 @@ var connToUse = useLocal ? localConn : defaultConn;
 // Configure the gateway to listen on port 5000.
 builder.WebHost.UseUrls("http://+:5000");
 
-// CORS
-builder.Services.AddCors(p =>
-  p.AddPolicy("AllowReactApp", b =>
-    b.WithOrigins("http://localhost:3000")
-     .AllowAnyHeader()
-     .AllowAnyMethod()
-     .AllowCredentials()));
 
 // Ocelot Configuration
 builder.Configuration.AddJsonFile("ocelot.json", optional: false, reloadOnChange: true);
@@ -34,7 +27,7 @@ builder.Configuration.AddJsonFile("ocelot.json", optional: false, reloadOnChange
 var jwtSection = builder.Configuration.GetSection("Jwt");
 var key = Encoding.UTF8.GetBytes(jwtSection["Secret"]!);
 
-builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+builder.Services.AddAuthentication("Bearer")
     .AddJwtBearer("Bearer", options =>
     {
         options.RequireHttpsMetadata = false;
@@ -52,12 +45,17 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 // Cross origins (frontend React)
 builder.Services.AddCors(options =>
 {
-    options.AddPolicy("AllowReactApp", policy =>
+    options.AddPolicy("AllowFrontend", policy =>
     {
-        policy.WithOrigins("http://localhost:3000")
-              .AllowAnyHeader()
-              .AllowAnyMethod()
-              .AllowCredentials();
+        policy
+            .WithOrigins(
+                "http://localhost:8081",      // Expo web
+                "http://192.168.1.44:8081",   // Expo sur ton téléphone
+                "exp://192.168.1.44:8081"     // Expo Go app
+            )
+            .AllowAnyHeader()
+            .AllowAnyMethod()
+            .AllowCredentials();
     });
 });
 
@@ -103,9 +101,7 @@ else
     app.UseExceptionHandler("/error"); // Route for global error handling
 }
 
-app.UseCors("AllowReactApp");
-
-app.UseHttpsRedirection();
+app.UseCors("AllowFrontend");
 
 app.UseAuthentication();
 
