@@ -84,12 +84,13 @@ builder.Services.AddContentMicroserviceServices(builder.Configuration);
 // -------------------------------------------------------------------
 builder.Services.AddCors(options =>
 {
-    options.AddPolicy("AllowExpo", policy =>
+    options.AddPolicy("AllowFrontend", policy =>
     {
-        policy.WithOrigins(
-                "http://localhost:8081",      // Expo local dev
-                "exp://192.168.0.0:8081",     // Expo LAN (change IP)
-                "http://localhost:5000"       // Gateway
+        policy
+            .WithOrigins(
+                "http://localhost:8081",      // Expo web
+                "http://192.168.1.44:8081",   // Expo sur ton téléphone
+                "exp://192.168.1.44:8081"     // Expo Go app
             )
             .AllowAnyHeader()
             .AllowAnyMethod()
@@ -141,9 +142,7 @@ else
 }
 app.UseStaticFiles();
 
-app.UseHttpsRedirection();
-
-app.UseCors("AllowExpo");
+app.UseCors("AllowFrontend");
 
 app.UseAuthentication();
 app.UseAuthorization();
