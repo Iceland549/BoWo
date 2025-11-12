@@ -6,7 +6,7 @@ using System.Security.Claims;
 namespace ContentMicroservice.Presentation.Controllers
 {
     [ApiController]
-    [Route("api/progress")]
+    [Route("progress")]
     [Authorize]
     public class UserProgressController : ControllerBase
     {

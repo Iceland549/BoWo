@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace AuthMicroservice.Presentation.Controllers
 {
     [ApiController]
-    [Route("api/auth")]
+    [Route("auth")]
     public class AuthController : ControllerBase
     {
         private readonly LoginUseCase _login;

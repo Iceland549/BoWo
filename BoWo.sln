@@ -1,13 +1,32 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.14.36616.10 d17.14
+VisualStudioVersion = 17.14.36616.10
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AuthMicroservice", "AuthMicroservice\AuthMicroservice.csproj", "{4DDFCDBE-7DF3-D50F-4B7F-253B9BAF9A42}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gateway", "Gateway\Gateway.csproj", "{2CADB68C-FB3B-D474-56C8-AE901F365B9C}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ContentMicroservice", "ContentMicroservice\ContentMicroservice.csproj", "{D1A3F932-D084-4175-A4D9-EE88A15E00E3}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Éléments de solution", "Éléments de solution", "{9C8CB701-102D-CF49-A3E0-89AC09D42C2C}"
+	ProjectSection(SolutionItems) = preProject
+		docker-compose.yml = docker-compose.yml
+		seed_quizzes.json = seed_quizzes.json
+		seed_tricks.json = seed_tricks.json
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "images", "images", "{02EA681E-C7D8-13C7-8484-4AC65E1B71E8}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tricks", "tricks", "{2598DFE9-4662-41BB-BC1E-D7F425C91BF6}"
+	ProjectSection(SolutionItems) = preProject
+		..\..\..\Pictures\BoWo\ollie_1.jpg = ..\..\..\Pictures\BoWo\ollie_1.jpg
+		..\..\..\Pictures\BoWo\ollie_2.jpg = ..\..\..\Pictures\BoWo\ollie_2.jpg
+		..\..\..\Pictures\BoWo\ollie_3.jpg = ..\..\..\Pictures\BoWo\ollie_3.jpg
+		..\..\..\Pictures\BoWo\popshoveit_1.jpg = ..\..\..\Pictures\BoWo\popshoveit_1.jpg
+		..\..\..\Pictures\BoWo\popshoveit_2.jpg = ..\..\..\Pictures\BoWo\popshoveit_2.jpg
+		..\..\..\Pictures\BoWo\popshoveit_3.jpg = ..\..\..\Pictures\BoWo\popshoveit_3.jpg
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -30,6 +49,9 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{2598DFE9-4662-41BB-BC1E-D7F425C91BF6} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {043EDE13-2719-4D91-9CE1-DE515761A390}

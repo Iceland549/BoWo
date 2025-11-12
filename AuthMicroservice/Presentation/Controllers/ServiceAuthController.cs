@@ -6,7 +6,7 @@ using System;
 namespace AuthMicroservice.Presentation.Controllers
 {
     [ApiController]
-    [Route("api/service-auth")]
+    [Route("service-auth")]
     public class ServiceAuthController : ControllerBase
     {
         private readonly GenerateServiceTokenUseCase _generateToken;

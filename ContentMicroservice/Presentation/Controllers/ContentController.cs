@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace ContentMicroservice.Presentation.Controllers
 {
     [ApiController]
-    [Route("api/content")]
+    [Route("content")]
     public class ContentController : ControllerBase
     {
         private readonly GetTrickUseCase _getTrickUseCase;

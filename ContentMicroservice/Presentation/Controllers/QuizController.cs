@@ -8,7 +8,7 @@ using System.Security.Claims;
 namespace ContentMicroservice.Presentation.Controllers
 {
     [ApiController]
-    [Route("api/quiz")]
+    [Route("quiz")]
     [Authorize]
     public class QuizController : ControllerBase
     {
