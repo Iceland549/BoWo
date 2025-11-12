@@ -13,7 +13,7 @@ export default function QuizScreen({ route, navigation }) {
     (async () => {
       try {
         log('QuizScreen loading quiz for', trickId);
-        const { data } = await api.get(`/content/quiz/${trickId}`);
+        const { data } = await api.get(`/quiz/${trickId}`);
         setQuiz(data);
         log('QuizScreen quiz loaded', data);
       } catch (err) {
@@ -25,7 +25,7 @@ export default function QuizScreen({ route, navigation }) {
 
   const submit = async () => {
     try {
-      const { data } = await api.post('/content/quiz/validate', { trickId, answerIndex: selected });
+      const { data } = await api.post('/quiz/validate', { trickId, answerIndex: selected });
       setResult(data);
       if (data.success) {
         alert('Correct. Trick unlocked.');

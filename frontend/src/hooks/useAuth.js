@@ -1,54 +1,90 @@
 import { useState, useEffect } from 'react';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useAuthStore } from '@/store/authStore';
 import { login as apiLogin, logout as apiLogout } from '../services/authService';
 import { log } from '../utils/logger';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 
+/**
+ * Custom hook useAuth()
+ * Gère la logique d'authentification côté client :
+ * - Initialisation à partir du stockage local (AsyncStorage)
+ * - Connexion / déconnexion
+ * - Synchronisation avec Zustand (authStore)
+ * - Gestion d'un état "loading" pour indiquer les transitions
+ */
 export default function useAuth() {
-  const [userId, setUserId] = useState(() => AsyncStorage.getItem('userId'));
-  const [token, setToken] = useState(() => AsyncStorage.getItem('accessToken'));
+  const { setCredentials, clearCredentials } = useAuthStore();
   const [loading, setLoading] = useState(true);
 
+  // 🔹 Initialisation au montage : vérifie si un token existe déjà
   useEffect(() => {
-    let mounted = true;
+    let active = true;
     (async () => {
       try {
-        const [u, t] = await Promise.all([
+        const [userId, token] = await Promise.all([
           AsyncStorage.getItem('userId'),
           AsyncStorage.getItem('accessToken'),
         ]);
-        if (mounted) {
-          setUserId(u);
-          setToken(t);
+
+        if (active) {
+          if (token && userId) {
+            setCredentials(userId, token);
+            log('useAuth init: user authenticated', { userId });
+          } else {
+            log('useAuth init: no existing session');
+          }
         }
-        log('useAuth init', { userId: u, token: !!t });
-      } catch (e) {
-        log('useAuth init error', e);
+      } catch (err) {
+        log('useAuth init error', err);
       } finally {
-        if (mounted) setLoading(false);
+        if (active) setLoading(false);
       }
     })();
-    return () => { mounted = false; };
-  }, []);
 
+    return () => {
+      active = false; // évite les setState après démontage
+    };
+  }, [setCredentials]);
+
+  // 🔹 Connexion utilisateur
   const login = async (creds) => {
     setLoading(true);
-    const res = await apiLogin(creds);
-    const t = await AsyncStorage.getItem('accessToken');
-    const u = await AsyncStorage.getItem('userId');
-    setToken(t);
-    setUserId(u);
-    setLoading(false);
-    return res;
+    try {
+      const res = await apiLogin(creds);
+
+      const token = await AsyncStorage.getItem('accessToken');
+      const userId = await AsyncStorage.getItem('userId');
+
+      if (token && userId) {
+        setCredentials(userId, token);
+        log('Login success: token stored', { userId });
+      } else {
+        log('Login warning: token or userId missing after login');
+      }
+
+      return res;
+    } catch (err) {
+      log('Login error', err);
+      throw err;
+    } finally {
+      setLoading(false);
+    }
   };
 
-
+  // 🔹 Déconnexion utilisateur
   const logout = async () => {
     setLoading(true);
-    await apiLogout();
-    setToken(null);
-    setUserId(null);
-    setLoading(false);
+    try {
+      await apiLogout();
+      await AsyncStorage.multiRemove(['accessToken', 'refreshToken', 'userId']);
+      clearCredentials();
+      log('Logout success: credentials cleared');
+    } catch (err) {
+      log('Logout error', err);
+    } finally {
+      setLoading(false);
+    }
   };
 
-  return { userId, token, login, logout, loading };
+  return { login, logout, loading };
 }

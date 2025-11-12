@@ -12,7 +12,6 @@ export default function LoginScreen({ navigation }) {
     log('LoginScreen.onSubmit', { email });
     try {
       await login({ email, password });
-      navigation.replace('Home');
     } catch (err) {
       log('login failed', err);
       alert('Login failed');
