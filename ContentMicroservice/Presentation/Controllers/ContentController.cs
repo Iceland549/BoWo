@@ -60,6 +60,7 @@ namespace ContentMicroservice.Presentation.Controllers
         /// </summary>
         [HttpGet("tricks/{id}/learn")]
         [Authorize]
+        [ResponseCache(Duration = 86400, Location = ResponseCacheLocation.Client)]
         public async Task<IActionResult> GetLearn(string id, CancellationToken ct = default)
         {
             // userId depuis le token (NameIdentifier ou "sub")

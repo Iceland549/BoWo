@@ -6,6 +6,8 @@ using Microsoft.OpenApi.Models;
 using MongoDB.Bson.Serialization.Conventions;
 using MongoDB.Driver;
 using System.Text;
+using Microsoft.Extensions.FileProviders;
+using System.IO;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -28,6 +30,8 @@ builder.Services.AddSingleton<IMongoClient>(sp =>
     }
     return new MongoClient(cfg.ConnectionString);
 });
+
+builder.Services.AddResponseCaching();
 
 // -------------------------------------------------------------------
 // Core Services
@@ -140,7 +144,14 @@ else
 {
     app.UseExceptionHandler("/error");
 }
-app.UseStaticFiles();
+app.UseStaticFiles(new StaticFileOptions
+{
+    FileProvider = new PhysicalFileProvider(
+        Path.Combine(Directory.GetCurrentDirectory(), "wwwroot")),
+    RequestPath = "/static",
+    ServeUnknownFileTypes = true 
+});
+app.UseResponseCaching();
 
 app.UseCors("AllowFrontend");
 

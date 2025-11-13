@@ -34,26 +34,49 @@ namespace ContentMicroservice.Application.UseCases.Content
                 return (false, null, "NotFound");
             }
 
-            // 2) Vérifier le déverrouillage côté progression utilisateur
+            // 2) Images
+            if (trick.Images == null || trick.Images.Count == 0)
+            {
+                _logger.LogWarning("Trick {TrickId} has no images configured", trickId);
+                trick.Images = new List<string>();
+            }
+
+            // 3) Vidéos (on ne crée pas de nouvel objet, on vérifie juste / log)
+            if (trick.Videos == null)
+            {
+                _logger.LogWarning("Trick {TrickId} has no video section defined", trickId);
+            }
+            else
+            {
+                if (string.IsNullOrWhiteSpace(trick.Videos.ProUrl))
+                    _logger.LogWarning("Trick {TrickId} has no Pro video", trickId);
+
+                if (string.IsNullOrWhiteSpace(trick.Videos.AmateurUrl))
+                    _logger.LogWarning("Trick {TrickId} has no Amateur video", trickId);
+            }
+
+            // 4) Vérifier la progression utilisateur
             var progress = await _progressRepo.GetByUserIdAsync(userId, ct);
             var unlocked = progress?.UnlockedTricks?.Contains(trickId) ?? false;
 
             if (!unlocked)
             {
-                _logger.LogInformation("User {UserId} tried to access locked trick {TrickId}", userId, trickId);
+                _logger.LogInformation(
+                    "User {UserId} attempted to access locked trick {TrickId}",
+                    userId, trickId);
                 return (false, null, "Forbidden");
             }
 
-            // 3) Mapper les champs d’apprentissage
+            // 5) Mapper les données vers le DTO
             var dto = new TrickLearnDto
             {
                 Id = trick.Id,
                 Name = trick.Name,
-                Description = trick.Description,
+                Description = trick.Description ?? string.Empty,
                 Steps = trick.Steps ?? new List<string>(),
                 Images = trick.Images ?? new List<string>(),
                 AmateurVideoUrl = trick.Videos?.AmateurUrl,
-                ProVideoUrl = trick.Videos?.ProUrl,
+                ProVideoUrl = trick.Videos?.ProUrl
             };
 
             return (true, dto, null);
