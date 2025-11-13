@@ -3,10 +3,12 @@ import { View, Text, FlatList, TouchableOpacity } from 'react-native';
 import api from '../api/api';
 import TrickCard from '../components/TrickCard';
 import { log } from '../utils/logger';
+import useAuth from '@/hooks/useAuth';
 
 export default function HomeScreen({ navigation }) {
   const [tricks, setTricks] = useState([]);
   const [loading, setLoading] = useState(true);
+  const { logout } = useAuth();
 
   useEffect(() => {
     (async () => {
@@ -38,6 +40,14 @@ export default function HomeScreen({ navigation }) {
           </TouchableOpacity>
         )}
       />
+      <TouchableOpacity onPress={() => navigation.navigate('Login')}
+        style={{ padding:8, backgroundColor:'#eee', borderRadius:8 }}>
+        <Text>Login</Text>
+      </TouchableOpacity>
+      <TouchableOpacity onPress={logout}
+        style={{ padding:8, backgroundColor:'#fee', borderRadius:8 }}>
+        <Text>Logout</Text>
+      </TouchableOpacity>
     </View>
   );
 }
