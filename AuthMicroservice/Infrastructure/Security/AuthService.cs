@@ -80,6 +80,9 @@ namespace AuthMicroservice.Infrastructure.Security
             if (user == null)
                 return null;
 
+            // Nettoie les vieux tokens avant d'en créer un nouveau
+            await _refreshRepo.DeleteExpiredAsync(user.Id);
+
             // Récupérer les rôles de l’utilisateur
             var roles = await _userRepo.GetRolesAsync(user.Id);
 

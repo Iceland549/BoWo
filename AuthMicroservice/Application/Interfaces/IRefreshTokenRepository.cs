@@ -21,5 +21,11 @@ namespace AuthMicroservice.Application.Interfaces
         /// Marks a refresh token as revoked.
         /// </summary>
         Task InvalidateAsync(string token);
+
+        /// <summary>
+        /// Deletes expired or revoked refresh tokens for a user.
+        /// </summary>
+        Task DeleteExpiredAsync(string userId);
+
     }
 }

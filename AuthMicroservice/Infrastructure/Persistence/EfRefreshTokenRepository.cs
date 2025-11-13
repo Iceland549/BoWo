@@ -30,6 +30,14 @@ namespace AuthMicroservice.Infrastructure.Persistence.Repositories
                                  .FirstOrDefaultAsync(rt => rt.Token == token);
         }
 
+        public async Task DeleteExpiredAsync(string userId)
+        {
+            await _context.RefreshTokens
+                .Where(r => r.UserId == userId &&
+                           (r.ExpiresAt < DateTime.UtcNow || r.IsRevoked))
+                .ExecuteDeleteAsync();
+        }
+
         public async Task InvalidateAsync(string token)
         {
             var rt = await _context.Set<RefreshToken>()
