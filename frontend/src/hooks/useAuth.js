@@ -76,7 +76,7 @@ export default function useAuth() {
     setLoading(true);
     try {
       await apiLogout();
-      await AsyncStorage.multiRemove(['accessToken', 'refreshToken', 'userId']);
+      await AsyncStorage.multiRemove(['accessToken', 'refreshToken', 'userId', 'expiresAt']);
       clearCredentials();
       log('Logout success: credentials cleared');
     } catch (err) {
