@@ -10,12 +10,14 @@ namespace AuthMicroservice.Presentation.Controllers
     public class AccountController : ControllerBase
     {
         private readonly RegisterUserUseCase _register;
+        private readonly ILogger<AccountController> _logger;
         private readonly GetProfileUseCase _profile;
 
-        public AccountController(RegisterUserUseCase register, GetProfileUseCase profile)
+        public AccountController(RegisterUserUseCase register, GetProfileUseCase profile, ILogger<AccountController> logger)
         {
             _register = register;
             _profile = profile;
+            _logger = logger;
         }
 
         [HttpPost("register")]
@@ -29,26 +31,16 @@ namespace AuthMicroservice.Presentation.Controllers
             {
                 await _register.ExecuteAsync(req.Email, req.Password);
 
-                return Ok(new
-                {
-                    success = true,
-                    message = "Registration successful"
-                });
+                return Ok(ApiResponse.Ok());
             }
             catch (InvalidOperationException ex)
             {
-                // Email already in use
-                return BadRequest(new { success = false, message = ex.Message });
+                return BadRequest(ApiResponse.Fail(ex.Message));
             }
             catch (Exception ex)
             {
-                // Unexpected error → now logged cleanly
-                return StatusCode(500, new
-                {
-                    success = false,
-                    message = "Internal server error",
-                    detail = ex.Message
-                });
+                _logger.LogError(ex, "Unhandled error during registration");
+                return StatusCode(500, ApiResponse.Fail("Internal server error"));
             }
         }
 
@@ -57,7 +49,7 @@ namespace AuthMicroservice.Presentation.Controllers
         public async Task<IActionResult> Profile()
         {
             var dto = await _profile.ExecuteAsync(User);
-            return Ok(dto);
+            return Ok(ApiResponse<ProfileDto>.Ok(dto));
         }
     }
 }

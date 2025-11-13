@@ -24,8 +24,9 @@ namespace AuthMicroservice.Presentation.Controllers
         {
             var jwt = await _login.ExecuteAsync(req.Email, req.Password);
             if (jwt == null)
-                return Unauthorized("Identifiants invalides");
-            return Ok(jwt);
+                return Unauthorized(ApiResponse<JwtResponse>.Fail("Invalid credentials"));
+
+            return Ok(ApiResponse<JwtResponse>.Ok(jwt));
         }
 
         [HttpPost("refresh")]
@@ -33,15 +34,16 @@ namespace AuthMicroservice.Presentation.Controllers
         {
             var jwt = await _refresh.ExecuteAsync(req.RefreshToken);
             if (jwt == null)
-                return Unauthorized("Refresh token invalide");
-            return Ok(jwt);
+                return Unauthorized(ApiResponse<JwtResponse>.Fail("Invalid refresh token"));
+
+            return Ok(ApiResponse<JwtResponse>.Ok(jwt));
         }
 
         [HttpPost("logout")]
         public async Task<IActionResult> Logout([FromBody] LogoutRequest req)
         {
             await _logout.ExecuteAsync(req.RefreshToken);
-            return NoContent();
+            return Ok(ApiResponse.Ok());
         }
     }
 }
