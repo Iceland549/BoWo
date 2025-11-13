@@ -3,6 +3,7 @@ using ContentMicroservice.Application.DTOs;
 using ContentMicroservice.Application.UseCases.Content;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 
 namespace ContentMicroservice.Presentation.Controllers
 {
@@ -11,6 +12,7 @@ namespace ContentMicroservice.Presentation.Controllers
     public class ContentController : ControllerBase
     {
         private readonly GetTrickUseCase _getTrickUseCase;
+        private readonly GetTrickLearnUseCase _getTrickLearnUseCase;
         private readonly ImportTrickFromYoutubeUseCase _importUseCase;
         private readonly UploadUserVideoUseCase _uploadUseCase;
         private readonly IMapper _mapper;
@@ -18,12 +20,14 @@ namespace ContentMicroservice.Presentation.Controllers
 
         public ContentController(
             GetTrickUseCase getTrickUseCase,
+            GetTrickLearnUseCase getTrickLearnUseCase,
             ImportTrickFromYoutubeUseCase importUseCase,
             UploadUserVideoUseCase uploadUseCase,
             IMapper mapper,
             ILogger<ContentController> logger)
         {
             _getTrickUseCase = getTrickUseCase;
+            _getTrickLearnUseCase = getTrickLearnUseCase;
             _importUseCase = importUseCase;
             _uploadUseCase = uploadUseCase;
             _mapper = mapper;
@@ -50,6 +54,27 @@ namespace ContentMicroservice.Presentation.Controllers
             if (dto == null) return NotFound();
             return Ok(dto);
         }
+
+        /// <summary>
+        /// Contenu d’apprentissage (protégé) : nécessite un trick déverrouillé.
+        /// </summary>
+        [HttpGet("tricks/{id}/learn")]
+        [Authorize]
+        public async Task<IActionResult> GetLearn(string id, CancellationToken ct = default)
+        {
+            // userId depuis le token (NameIdentifier ou "sub")
+            var claim = User.FindFirst(ClaimTypes.NameIdentifier) ?? User.FindFirst("sub");
+            var userId = claim?.Value;
+            if (string.IsNullOrEmpty(userId))
+                return Unauthorized();
+
+            (bool allowed, TrickLearnDto? data, string? error) = await _getTrickLearnUseCase.ExecuteAsync(userId, id, ct);
+            if (error == "NotFound") return NotFound();
+            if (!allowed) return Forbid(); // 403 quand non déverrouillé
+
+            return Ok(data);
+        }
+
 
         /// <summary>
         /// Import a trick from a YouTube URL.

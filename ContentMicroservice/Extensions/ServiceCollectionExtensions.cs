@@ -34,6 +34,7 @@ namespace ContentMicroservice.Extensions
 
             // Use cases - Content
             services.AddScoped<GetTrickUseCase>();
+            services.AddScoped<GetTrickLearnUseCase>();
             services.AddScoped<ImportTrickFromYoutubeUseCase>();
             services.AddScoped<UploadUserVideoUseCase>();
 
