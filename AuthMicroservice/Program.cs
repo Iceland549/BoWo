@@ -15,14 +15,9 @@ using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Choix du mode DB (Docker ou Local)
-var useLocal = builder.Configuration.GetValue<bool>("UseLocalDb", false);
-
-// Connexions SQL
-var defaultConn = builder.Configuration.GetConnectionString("DefaultConnection")!;
-var localConn = builder.Configuration.GetConnectionString("DefaultConnection_Local")!;
-var connToUse = useLocal ? localConn : defaultConn;
-
+// Always use DefaultConnection (Docker SQL Server)
+var connToUse = builder.Configuration.GetConnectionString("DefaultConnection")
+    ?? throw new Exception("DefaultConnection is missing in appsettings.json");
 
 // Add services to the container.
 builder.Services.AddControllers();
