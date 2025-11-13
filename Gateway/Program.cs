@@ -7,14 +7,6 @@ using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Choix du mode DB (Docker ou Local)
-var useLocal = builder.Configuration.GetValue<bool>("UseLocalDb", false);
-
-// Connexions SQL
-var defaultConn = builder.Configuration.GetConnectionString("DefaultConnection")!;
-var localConn = builder.Configuration.GetConnectionString("DefaultConnection_Local")!;
-var connToUse = useLocal ? localConn : defaultConn;
-
 
 // Configure the gateway to listen on port 5000.
 builder.WebHost.UseUrls("http://+:5000");
