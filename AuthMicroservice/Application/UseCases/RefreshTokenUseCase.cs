@@ -17,7 +17,12 @@ namespace AuthMicroservice.Application.UseCases
         /// </summary>
         /// <param name="refreshToken">The refresh token.</param>
         /// <returns>New JWT token if the refresh token is valid.</returns>
-        public Task<JwtResponse?> ExecuteAsync(string refreshToken) =>
-            _auth.RefreshTokenAsync(refreshToken);
+        public Task<JwtResponse?> ExecuteAsync(string refreshToken)
+        {
+            if (string.IsNullOrWhiteSpace(refreshToken))
+                throw new ArgumentException("Refresh token cannot be null or empty.", nameof(refreshToken));
+
+            return _auth.RefreshTokenAsync(refreshToken);
+        }
     }
 }

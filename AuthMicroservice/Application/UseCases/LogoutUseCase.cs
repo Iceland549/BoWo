@@ -21,9 +21,5 @@ namespace AuthMicroservice.Application.UseCases
                 throw new ArgumentException("Refresh token cannot be null or empty.", nameof(refreshToken));
             await _auth.LogoutAsync(refreshToken);
         }
-        //    public LogoutUseCase(IAuthService auth) => _auth = auth;
-
-        //    public Task ExecuteAsync(string refreshToken) => _auth.LogoutAsync(refreshToken);
-        //}
     }
 }

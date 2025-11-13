@@ -18,7 +18,14 @@ namespace AuthMicroservice.Application.UseCases
         /// <param name="email">User email.</param>
         /// <param name="password">User password.</param>
         /// <returns>JWT token if login is successful.</returns>
-        public Task<JwtResponse?> ExecuteAsync(string email, string password) =>
-            _auth.LoginAsync(email, password);
+        public Task<JwtResponse?> ExecuteAsync(string email, string password)
+        {
+            if (string.IsNullOrWhiteSpace(email) || !email.Contains("@"))
+                throw new ArgumentException("Invalid email format.");
+            if (string.IsNullOrWhiteSpace(password) || password.Length < 6)
+                throw new ArgumentException("Password too weak.");
+
+            return _auth.LoginAsync(email, password);
+        }
     }
 }
