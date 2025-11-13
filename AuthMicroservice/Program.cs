@@ -7,6 +7,7 @@ using AuthMicroservice.Infrastructure.Persistence;
 using AuthMicroservice.Infrastructure.Persistence.Entities;
 using AuthMicroservice.Infrastructure.Security;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.RateLimiting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
@@ -58,6 +59,18 @@ builder.Services.AddDbContext<AuthDbContext>(opts =>
 
 // Configurations
 builder.Services.AddAuthMicroserviceServices(builder.Configuration);
+
+// Rate Limiter for Auth endpoints
+builder.Services.AddRateLimiter(options =>
+{
+    options.AddFixedWindowLimiter("auth", limiter =>
+    {
+        limiter.Window = TimeSpan.FromSeconds(10);
+        limiter.PermitLimit = 5;
+        limiter.QueueLimit = 0;
+    });
+});
+
 
 // Cross origins (frontend React)
 builder.Services.AddCors(options =>
@@ -156,6 +169,8 @@ app.UseCors("AllowFrontend");
 app.UseAuthentication();
 
 app.UseAuthorization();
+
+app.UseRateLimiter();
 
 app.MapControllers();
 
