@@ -2,7 +2,6 @@
 using AuthMicroservice.Application.UseCases;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using System.Security.Claims;
 
 namespace AuthMicroservice.Presentation.Controllers
 {
@@ -23,15 +22,40 @@ namespace AuthMicroservice.Presentation.Controllers
         [AllowAnonymous]
         public async Task<IActionResult> Register([FromBody] RegisterRequest req)
         {
-            // Création d'un nouvel utilisateur avec rôle Player
-            await _register.ExecuteAsync(req.Email, req.Password);
-            return Ok("Inscription réussie");
+            if (!ModelState.IsValid)
+                return BadRequest(new { success = false, message = "Invalid request" });
+
+            try
+            {
+                await _register.ExecuteAsync(req.Email, req.Password);
+
+                return Ok(new
+                {
+                    success = true,
+                    message = "Registration successful"
+                });
+            }
+            catch (InvalidOperationException ex)
+            {
+                // Email already in use
+                return BadRequest(new { success = false, message = ex.Message });
+            }
+            catch (Exception ex)
+            {
+                // Unexpected error → now logged cleanly
+                return StatusCode(500, new
+                {
+                    success = false,
+                    message = "Internal server error",
+                    detail = ex.Message
+                });
+            }
         }
 
-        [HttpGet("me"), Authorize]
+        [HttpGet("me")]
+        [Authorize]
         public async Task<IActionResult> Profile()
         {
-            // Extrait le profil via AutoMapper dans le UseCase
             var dto = await _profile.ExecuteAsync(User);
             return Ok(dto);
         }

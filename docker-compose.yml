@@ -44,6 +44,8 @@ services:
     depends_on: [mongo]
     ports: ["5002:5002"]
     networks: [bowo-net]
+    volumes:
+      - ./ContentMicroservice/wwwroot:/app/wwwroot 
 
   # profile:
   #   build:
