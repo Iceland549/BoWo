@@ -3,6 +3,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import HomeScreen from '../screens/HomeScreen';
 import TrickDetailScreen from '../screens/TrickDetailScreen';
+import TrickLearnScreen from '../screens/TrickLearnScreen';
 import QuizScreen from '../screens/QuizScreen';
 import ProfileScreen from '../screens/ProfileScreen';
 import AuthNavigator from './AuthNavigator';
@@ -38,6 +39,7 @@ export default function AppNavigator() {
     >
       <Stack.Screen name="Main" component={MainTabs} />
       <Stack.Screen name="TrickDetail" component={TrickDetailScreen} />
+      <Stack.Screen name="TrickLearn" component={TrickLearnScreen} />
       <Stack.Screen name="Quiz" component={QuizScreen} />
     </Stack.Navigator>
   );

@@ -28,8 +28,8 @@ export default function QuizScreen({ route, navigation }) {
       const { data } = await api.post('/quiz/validate', { trickId, answerIndex: selected });
       setResult(data);
       if (data.success) {
-        alert('Correct. Trick unlocked.');
-        navigation.goBack();
+        alert('Correct! You unlocked this trick 🎉');
+        navigation.replace('TrickLearn', { trickId });  
       } else {
         alert(data.message || 'Wrong answer');
       }
