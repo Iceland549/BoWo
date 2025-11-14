@@ -18,6 +18,8 @@ namespace ContentMicroservice.Infrastructure.Persistence.Entities
         public TrickVideos Videos { get; set; } = new();
         public string? FunFact { get; set; }
         public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
+        public string ProTip { get; set; } = "";
+        public string CommonMistake { get; set; } = "";
     }
 
     public class TrickVideos

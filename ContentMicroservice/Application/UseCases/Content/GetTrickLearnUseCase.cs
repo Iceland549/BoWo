@@ -76,7 +76,10 @@ namespace ContentMicroservice.Application.UseCases.Content
                 Steps = trick.Steps ?? new List<string>(),
                 Images = trick.Images ?? new List<string>(),
                 AmateurVideoUrl = trick.Videos?.AmateurUrl,
-                ProVideoUrl = trick.Videos?.ProUrl
+                ProVideoUrl = trick.Videos?.ProUrl,
+                // Je viens de les ajouter
+                ProTip = trick.ProTip ?? string.Empty,
+                CommonMistake = trick.CommonMistake ?? string.Empty
             };
 
             return (true, dto, null);
