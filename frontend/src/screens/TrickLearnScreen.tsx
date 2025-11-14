@@ -1,12 +1,21 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, Image, FlatList, ScrollView, StyleSheet, TouchableOpacity, ActivityIndicator } from 'react-native';
+import {
+  View,
+  Text,
+  Image,
+  FlatList,
+  ScrollView,
+  StyleSheet,
+  TouchableOpacity,
+  ActivityIndicator,
+} from 'react-native';
 import { Video, ResizeMode } from 'expo-av';
 import api from '../api/api';
 import { log } from '../utils/logger';
 
 export default function TrickLearnScreen({ route, navigation }) {
   const { trickId } = route.params;
-  const [trick, setTrick] = useState(null);
+  const [trick, setTrick] = useState<any>(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -25,27 +34,46 @@ export default function TrickLearnScreen({ route, navigation }) {
     })();
   }, [trickId]);
 
-  if (loading) return <ActivityIndicator size="large" style={{ flex: 1, marginTop: 50 }} />;
-  if (!trick) return <Text style={{ textAlign: 'center', marginTop: 20 }}>No content found.</Text>;
+  if (loading) {
+    return (
+      <ActivityIndicator
+        size="large"
+        style={{ flex: 1, marginTop: 50 }}
+      />
+    );
+  }
+
+  if (!trick) {
+    return (
+      <Text style={{ textAlign: 'center', marginTop: 20 }}>
+        No content found.
+      </Text>
+    );
+  }
 
   return (
     <ScrollView style={styles.container}>
-
       {/* Header */}
       <Text style={styles.title}>{trick.name}</Text>
-      {trick.description && <Text style={styles.description}>{trick.description}</Text>}
+      {trick.description && (
+        <Text style={styles.description}>{trick.description}</Text>
+      )}
 
       {/* Images */}
-      {trick.images && trick.images.length > 0 && (
+      {Array.isArray(trick.images) && trick.images.length > 0 && (
         <>
           <Text style={styles.sectionTitle}>Visual Steps</Text>
           <FlatList
             data={trick.images}
             horizontal
             showsHorizontalScrollIndicator={false}
-            keyExtractor={(uri, idx) => `${uri}-${idx}`}
+            keyExtractor={(uri: string, idx: number) => `${uri}-${idx}`}
             renderItem={({ item }) => (
-              <Image source={{ uri: item }} style={styles.image} resizeMode="cover" />
+              <Image
+                source={{ uri: item }}
+                style={styles.image}
+                resizeMode="cover"
+              />
             )}
           />
         </>
@@ -79,22 +107,25 @@ export default function TrickLearnScreen({ route, navigation }) {
       )}
 
       {/* Steps */}
-      {trick.steps && trick.steps.length > 0 && (
+      {Array.isArray(trick.steps) && trick.steps.length > 0 && (
         <>
           <Text style={styles.sectionTitle}>Step-by-Step Guide</Text>
-          {trick.steps.map((s, i) => (
+          {trick.steps.map((s: string, i: number) => (
             <View key={i} style={styles.step}>
-              <Text style={styles.stepNum}>{i + 1}.</Text>
-              <Text style={styles.stepText}>{s}</Text>
+              {/* On met tout dans un seul <Text> pour éviter tout texte "perdu" */}
+              <Text style={styles.stepText}>{`${i + 1}. ${s}`}</Text>
             </View>
           ))}
         </>
       )}
-      
+
       {/* Back Button */}
-        <TouchableOpacity onPress={() => navigation.navigate('Main', { screen: 'Home' })} style={styles.backButton}>
-            <Text style={styles.backButtonText}>← Back to Home</Text>
-        </TouchableOpacity>
+      <TouchableOpacity
+        onPress={() => navigation.navigate('Main', { screen: 'Home' })}
+        style={styles.backButton}
+      >
+        <Text style={styles.backButtonText}>← Back to Home</Text>
+      </TouchableOpacity>
     </ScrollView>
   );
 }
@@ -139,40 +170,20 @@ const styles = StyleSheet.create({
     alignItems: 'flex-start',
     marginVertical: 4,
   },
-  stepNum: {
-    fontWeight: 'bold',
-    color: '#222',
-    width: 20,
-  },
   stepText: {
     flex: 1,
+    color: '#111',
     fontSize: 15,
-    color: '#444',
-  },
-  funFact: {
-    backgroundColor: '#eef9ff',
-    borderLeftWidth: 4,
-    borderLeftColor: '#00bcd4',
-    padding: 10,
-    marginVertical: 14,
-    borderRadius: 8,
-  },
-  funFactTitle: {
-    fontWeight: 'bold',
-    marginBottom: 4,
-    color: '#007b8f',
-  },
-  funFactText: {
-    fontSize: 15,
-    color: '#333',
   },
   backButton: {
-    alignSelf: 'center',
     marginTop: 20,
-    marginBottom: 40,
+    paddingVertical: 10,
+    alignItems: 'center',
+    borderRadius: 8,
+    backgroundColor: '#111',
   },
   backButtonText: {
-    color: '#007aff',
+    color: '#fff',
     fontSize: 16,
   },
 });
