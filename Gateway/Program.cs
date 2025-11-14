@@ -40,11 +40,12 @@ builder.Services.AddCors(options =>
     options.AddPolicy("AllowFrontend", policy =>
     {
         policy
-            .WithOrigins(
-                "http://localhost:8081",      // Expo web
-                "http://192.168.1.44:8081",   // Expo sur ton téléphone
-                "exp://192.168.1.44:8081"     // Expo Go app
-            )
+            //.WithOrigins(
+            //    "http://localhost:8081",      // Expo web
+            //    "http://192.168.1.44:8081",   // Expo sur ton téléphone
+            //    "exp://192.168.1.44:8081"     // Expo Go app
+            //)
+            .SetIsOriginAllowed(_ => true)
             .AllowAnyHeader()
             .AllowAnyMethod()
             .AllowCredentials();
