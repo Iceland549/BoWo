@@ -1,20 +1,32 @@
+
 services:
   sqlserver:
     image: mcr.microsoft.com/mssql/server:2022-latest
+    container_name: bowo-sqlserver
     environment:
       - SA_PASSWORD=YourStrong!Passw0rd
       - ACCEPT_EULA=Y
-    ports: ["1433:1433"]
-    networks: [bowo-net]
+    ports:
+      - "1433:1433"
+    networks:
+      - bowo-net
     healthcheck:
       test: ["CMD", "bash", "-c", "echo > /dev/tcp/localhost/1433"]
       interval: 30s
+      timeout: 5s
+      retries: 10
+    volumes:
+      - sql-data:/var/opt/mssql
 
   mongo:
     image: mongo:6.0
-    ports: ["27017:27017"]
-    networks: [bowo-net]
-    volumes: ["./mongo-data:/data/db"]
+    container_name: bowo-mongo
+    ports:
+      - "27017:27017"
+    networks:
+      - bowo-net
+    volumes:
+      - mongo-data:/data/db
 
   auth:
     build:
@@ -28,8 +40,10 @@ services:
     depends_on:
       sqlserver:
         condition: service_healthy
-    ports: ["5001:5001"]
-    networks: [bowo-net]
+    ports:
+      - "5001:5001"
+    networks:
+      - bowo-net
 
   content:
     build:
@@ -41,37 +55,14 @@ services:
       - Mongo__Database=bowo-content-db
       - ContentServiceClientSecret=SuperSecretContent
       - Firebase__ProjectId=bowo-app-123
-    depends_on: [mongo]
-    ports: ["5002:5002"]
-    networks: [bowo-net]
+    depends_on:
+      - mongo
+    ports:
+      - "5002:5002"
+    networks:
+      - bowo-net
     volumes:
-      - ./ContentMicroservice/wwwroot:/app/wwwroot 
-
-  # profile:
-  #   build:
-  #     context: ProfileMicroservice
-  #     dockerfile: Dockerfile
-  #   environment:
-  #     - ASPNETCORE_URLS=http://+:5003
-  #     - Mongo__ConnectionString=mongodb://mongo:27017
-  #     - Mongo__Database=bowo-profile-db
-  #   depends_on: [mongo]
-  #   ports: ["5003:5003"]
-  #   networks: [bowo-net]
-
-  # notification:
-  #   build:
-  #     context: NotificationMicroservice
-  #     dockerfile: Dockerfile
-  #   environment:
-  #     - ASPNETCORE_URLS=http://+:5005
-  #     - Firebase__ProjectId=bowo-app-123
-  #     - Firebase__CredentialsJson=/app/firebase-credentials.json
-  #   volumes:
-  #     - ./firebase-credentials.json:/app/firebase-credentials.json
-  #   depends_on: [mongo]
-  #   ports: ["5005:5005"]
-  #   networks: [bowo-net]
+      - ./ContentMicroservice/wwwroot:/app/wwwroot
 
   gateway:
     build:
@@ -79,23 +70,18 @@ services:
       dockerfile: Dockerfile
     environment:
       - ASPNETCORE_URLS=http://+:5000
-    ports: ["5000:5000"]
     depends_on:
       - auth
       - content
-      # - profile
-      # - notification
-    networks: [bowo-net]
-
-  # mobile:
-  #   build:
-  #     context: ./mobile
-  #     dockerfile: Dockerfile
-  #   ports: ["8081:8081"]
-  #   environment:
-  #     - EXPO_DEVTOOLS_LISTEN_ADDRESS=0.0.0.0
-  #   networks: [bowo-net]
+    ports:
+      - "5000:5000"
+    networks:
+      - bowo-net
 
 networks:
   bowo-net:
     driver: bridge
+
+volumes:
+  sql-data:
+  mongo-data:
