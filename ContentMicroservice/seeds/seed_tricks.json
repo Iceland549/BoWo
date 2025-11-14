@@ -1,0 +1,123 @@
+[
+  {
+    "_id": "ollie",
+    "name": "Ollie",
+    "difficulty": "beginner",
+    "price": 0.49,
+    "description": "Le ollie est le trick de base qui permet de faire décoller la planche sans utiliser les mains.",
+    "steps": [
+      "Positionne ton pied arrière sur le tail et ton pied avant juste derrière les vis avant.",
+      "Plie bien les genoux puis frappe sèchement le tail vers le sol pour faire pop.",
+      "Glisse ton pied avant vers le nose pour aplatir la planche en l'air.",
+      "Garde les épaules au-dessus de la board et atterris avec les deux pieds sur les vis."
+    ],
+    "images": [
+      "http://192.168.1.44:5002/static/tricks/ollie/ollie_1.jpg",
+      "http://192.168.1.44:5002/static/tricks/ollie/ollie_2.jpg",
+      "http://192.168.1.44:5002/static/tricks/ollie/ollie_3.jpg"
+    ],
+    "videos": {
+      "amateurUrl": "http://192.168.1.44:5002/static/tricks/ollie/neiji_ollie.mp4",
+      "proUrl": ""
+    },
+    "funFact": "Le ollie a été inventé par Alan 'Ollie' Gelfand à la fin des années 70 dans une piscine vide.",
+    "proTip": "Concentre-toi sur le slide du pied avant vers le nose : c'est lui qui donne vraiment de la hauteur et de la stabilité à ton ollie.",
+    "commonMistake": "Beaucoup débutent en sautant sans vraiment frapper le tail ou sans glisser le pied avant. Résultat : la board ne monte pas et colle au sol."
+  },
+  {
+    "_id": "popshoveit",
+    "name": "Pop Shove-it",
+    "difficulty": "beginner",
+    "price": 0.49,
+    "description": "Le pop shove-it fait tourner la planche de 180 degrés sous tes pieds sans la faire flipper.",
+    "steps": [
+      "Place ton pied arrière sur le tail, légèrement décalé vers le bord arrière côté talon.",
+      "Positionne ton pied avant vers le centre de la board pour garder le contrôle.",
+      "Frappe le tail vers le bas en poussant légèrement la board vers l'arrière pour lancer la rotation.",
+      "Laisse la planche tourner de 180 degrés sous toi, garde ton poids centré.",
+      "Rattrape la planche avec les pieds et atterris fléchi pour absorber l'impact."
+    ],
+    "images": [
+      "http://192.168.1.44:5002/static/tricks/popshoveit/popshoveit_1.jpg",
+      "http://192.168.1.44:5002/static/tricks/popshoveit/popshoveit_2.jpg",
+      "http://192.168.1.44:5002/static/tricks/popshoveit/popshoveit_3.jpg"
+    ],
+    "videos": {
+      "amateurUrl": "http://192.168.1.44:5002/static/tricks/popshoveit/CRITERIUM%202019.mp4",
+      "proUrl": ""
+    },
+    "funFact": "Le shove-it existait déjà dans les années 70, mais le pop shove-it moderne a explosé avec le street skating des années 90.",
+    "proTip": "Pense à un petit mouvement de scoop avec le pied arrière, pas à un énorme coup de pied. C'est la précision qui compte, pas la force.",
+    "commonMistake": "Beaucoup poussent trop fort vers l'arrière, ce qui envoie la board loin devant ou derrière. Garde ton poids au-dessus de la planche."
+  },
+  {
+    "_id": "kickflip",
+    "name": "Kickflip",
+    "difficulty": "intermediate",
+    "price": 0.49,
+    "description": "Le kickflip fait tourner la planche sur son axe longitudinal grâce à un flick du pied avant.",
+    "steps": [
+      "Place ton pied arrière sur le tail comme pour un ollie, et ton pied avant légèrement en biais derrière les vis avant.",
+      "Poppe fort comme pour un ollie en gardant les épaules au-dessus de la board.",
+      "Glisse ton pied avant vers le nose puis vers l'extérieur pour donner le flick sur le bord de la board.",
+      "Laisse la planche faire une rotation complète sous toi, garde les yeux sur le grip.",
+      "Rattrape la board avec les deux pieds au-dessus des vis et atterris fléchi."
+    ],
+    "images": [
+      "http://192.168.1.44:5002/static/tricks/kickflip/kickflip_1.jpg",
+      "http://192.168.1.44:5002/static/tricks/kickflip/kickflip_2.jpg",
+      "http://192.168.1.44:5002/static/tricks/kickflip/kickflip_3.jpg"
+    ],
+    "videos": {
+      "amateurUrl": "http://192.168.1.44:5002/static/tricks/kickflip/neiji_kickflip.mp4",
+      "proUrl": ""
+    },
+    "funFact": "Le kickflip a été popularisé par Rodney Mullen, père d'une grande partie des tricks modernes en street.",
+    "proTip": "Visualise ton flick comme un petit coup de chaussette sur le bord de la board, pas comme un énorme shoot de football.",
+    "commonMistake": "Beaucoup essaient de flicker trop fort ou trop tôt, ce qui envoie la board de côté. Il vaut mieux un flick propre et contrôlé après un bon pop."
+  },
+  {
+    "_id": "heelflip",
+    "name": "Heelflip",
+    "difficulty": "intermediate",
+    "price": 0.49,
+    "description": "Le heelflip est un flip où la planche tourne dans l'autre sens par rapport au kickflip, déclenché par le talon du pied avant.",
+    "steps": [
+      "Place ton pied arrière sur le tail comme pour un ollie.",
+      "Positionne ton pied avant légèrement en biais, un peu plus vers le centre de la board, avec les orteils proches du bord intérieur.",
+      "Poppe fort avec le pied arrière et commence ton ollie.",
+      "Lance le flick avec le talon vers le coin avant extérieur de la board.",
+      "Laisse la planche tourner, repère le grip, rattrape-la avec les pieds et atterris fléchi."
+    ],
+    "images": [],
+    "videos": {
+      "amateurUrl": "",
+      "proUrl": ""
+    },
+    "funFact": "Beaucoup de skateurs apprennent le heelflip avant le kickflip, selon leur feeling avec le talon ou la pointe du pied.",
+    "proTip": "Pense à lifter ton genou avant en même temps que tu talonnes le coin de la board, ça aide à garder le flip sous toi.",
+    "commonMistake": "Une erreur fréquente est de lancer le talon trop fort vers l'avant. La board part loin devant et devient ingérable à rattraper."
+  },
+  {
+    "_id": "fs_popshoveit",
+    "name": "Frontside Pop Shove-it",
+    "difficulty": "intermediate",
+    "price": 0.49,
+    "description": "Le frontside pop shove-it fait tourner la planche de 180 degrés vers l'avant (frontside) sous tes pieds.",
+    "steps": [
+      "Place ton pied arrière sur le tail, proche du bord côté orteils.",
+      "Positionne ton pied avant vers le centre de la board, légèrement tourné.",
+      "Plie les genoux et poppe le tail en poussant la board vers l'avant pour lancer la rotation frontside.",
+      "Garde les épaules au-dessus de la board et le buste relativement stable.",
+      "Rattrape la planche après les 180 degrés et atterris fléchi en gardant ton poids centré."
+    ],
+    "images": [],
+    "videos": {
+      "amateurUrl": "",
+      "proUrl": ""
+    },
+    "funFact": "Le frontside pop shove-it est souvent un passage obligé avant les 360 shove-it ou les flips combinés.",
+    "proTip": "Garde tes épaules relativement calmes et laisse surtout la board tourner. Ton corps n'a pas besoin de tourner autant que la planche.",
+    "commonMistake": "Beaucoup tournent tout le haut du corps en même temps que la board. Résultat : perte d'équilibre et difficulté à replaquer proprement."
+  }
+]
