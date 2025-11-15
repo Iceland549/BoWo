@@ -13,7 +13,6 @@ namespace ContentMicroservice.Presentation.Controllers
     {
         private readonly GetTrickUseCase _getTrickUseCase;
         private readonly GetTrickLearnUseCase _getTrickLearnUseCase;
-        private readonly ImportTrickFromYoutubeUseCase _importUseCase;
         private readonly UploadUserVideoUseCase _uploadUseCase;
         private readonly IMapper _mapper;
         private readonly ILogger<ContentController> _logger;
@@ -21,14 +20,12 @@ namespace ContentMicroservice.Presentation.Controllers
         public ContentController(
             GetTrickUseCase getTrickUseCase,
             GetTrickLearnUseCase getTrickLearnUseCase,
-            ImportTrickFromYoutubeUseCase importUseCase,
             UploadUserVideoUseCase uploadUseCase,
             IMapper mapper,
             ILogger<ContentController> logger)
         {
             _getTrickUseCase = getTrickUseCase;
             _getTrickLearnUseCase = getTrickLearnUseCase;
-            _importUseCase = importUseCase;
             _uploadUseCase = uploadUseCase;
             _mapper = mapper;
             _logger = logger;
@@ -76,25 +73,6 @@ namespace ContentMicroservice.Presentation.Controllers
             return Ok(data);
         }
 
-
-        /// <summary>
-        /// Import a trick from a YouTube URL.
-        /// Authenticated users only recommended (but left open for MVP)
-        /// </summary>
-        [HttpPost("import/youtube")]
-        //[Authorize] // enable when you want only logged users to import
-        public async Task<IActionResult> ImportFromYoutube([FromBody] ImportYoutubeRequest request, CancellationToken ct = default)
-        {
-            if (string.IsNullOrWhiteSpace(request.Url)) return BadRequest("Url is required");
-
-            // authorId can come from token; fallback to provided or "anonymous"
-            var authorId = User?.Identity?.IsAuthenticated == true
-                ? User.FindFirst("sub")?.Value ?? request.AuthorId ?? "anonymous"
-                : request.AuthorId ?? "anonymous";
-
-            var dto = await _importUseCase.ExecuteAsync(request.Url, authorId, ct);
-            return CreatedAtAction(nameof(GetTrickById), new { id = dto.Id }, dto);
-        }
 
         /// <summary>
         /// Upload user video (multipart/form-data)

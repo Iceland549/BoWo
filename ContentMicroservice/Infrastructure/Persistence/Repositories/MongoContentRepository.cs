@@ -87,42 +87,5 @@ namespace ContentMicroservice.Infrastructure.Persistence
                 throw;
             }
         }
-
-        public async Task<Trick?> ImportTrickFromYoutubeAsync(string youtubeUrl, string authorId, CancellationToken ct = default)
-        {
-            try
-            {
-                // Vérifie si le trick existe déjà (par URL de vidéo)
-                var existing = await _tricks.Find(t => t.Videos.AmateurUrl == youtubeUrl).FirstOrDefaultAsync(ct);
-                if (existing != null)
-                {
-                    _logger.LogInformation("Trick already imported from {Url}", youtubeUrl);
-                    return existing;
-                }
-
-                var trick = new Trick
-                {
-                    Name = $"Imported trick - {DateTime.UtcNow:yyyyMMddHHmmss}",
-                    Description = $"Auto-imported from {youtubeUrl}",
-                    Level = "intermediate",
-                    Price = 0.0,
-                    Videos = new TrickVideos
-                    {
-                        AmateurUrl = youtubeUrl
-                    },
-                    FunFact = "Imported automatically from YouTube.",
-                    CreatedAt = DateTime.UtcNow
-                };
-
-                await _tricks.InsertOneAsync(trick, null, ct);
-                _logger.LogInformation("New trick imported from YouTube: {Url}", youtubeUrl);
-                return trick;
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError(ex, "Error importing trick from YouTube {Url}", youtubeUrl);
-                throw;
-            }
-        }
     }
 }
