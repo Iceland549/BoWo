@@ -12,17 +12,17 @@
       "Garde les épaules au-dessus de la board et atterris avec les deux pieds sur les vis."
     ],
     "images": [
-      "http://192.168.1.44:5002/static/tricks/ollie/ollie_1.jpg",
-      "http://192.168.1.44:5002/static/tricks/ollie/ollie_2.jpg",
-      "http://192.168.1.44:5002/static/tricks/ollie/ollie_3.jpg"
+      "http://192.168.1.45:5002/static/tricks/ollie/ollie_1.jpg",
+      "http://192.168.1.45:5002/static/tricks/ollie/ollie_2.jpg",
+      "http://192.168.1.45:5002/static/tricks/ollie/ollie_3.jpg"
     ],
     "videos": {
-      "amateurUrl": "http://192.168.1.44:5002/static/tricks/ollie/neiji_ollie.mp4",
+      "amateurUrl": "http://192.168.1.45:5002/static/tricks/ollie/neiji_ollie.mp4",
       "proUrl": ""
     },
     "funFact": "Le ollie a été inventé par Alan 'Ollie' Gelfand à la fin des années 70 dans une piscine vide.",
     "proTip": "Concentre-toi sur le slide du pied avant vers le nose : c'est lui qui donne vraiment de la hauteur et de la stabilité à ton ollie.",
-    "commonMistake": "Beaucoup débutent en sautant sans vraiment frapper le tail ou sans glisser le pied avant. Résultat : la board ne monte pas et colle au sol."
+    "commonMistake": "Beaucoup débutent en sautant sans vraiment frapper le tail ou sans glisser le pied avant."
   },
   {
     "_id": "popshoveit",
@@ -35,20 +35,20 @@
       "Positionne ton pied avant vers le centre de la board pour garder le contrôle.",
       "Frappe le tail vers le bas en poussant légèrement la board vers l'arrière pour lancer la rotation.",
       "Laisse la planche tourner de 180 degrés sous toi, garde ton poids centré.",
-      "Rattrape la planche avec les pieds et atterris fléchi pour absorber l'impact."
+      "Rattrape la planche avec les pieds et atterris fléchi."
     ],
     "images": [
-      "http://192.168.1.44:5002/static/tricks/popshoveit/popshoveit_1.jpg",
-      "http://192.168.1.44:5002/static/tricks/popshoveit/popshoveit_2.jpg",
-      "http://192.168.1.44:5002/static/tricks/popshoveit/popshoveit_3.jpg"
+      "http://192.168.1.45:5002/static/tricks/popshoveit/popshoveit_1.jpg",
+      "http://192.168.1.45:5002/static/tricks/popshoveit/popshoveit_2.jpg",
+      "http://192.168.1.45:5002/static/tricks/popshoveit/popshoveit_3.jpg"
     ],
     "videos": {
-      "amateurUrl": "http://192.168.1.44:5002/static/tricks/popshoveit/CRITERIUM%202019.mp4",
+      "amateurUrl": "http://192.168.1.45:5002/static/tricks/popshoveit/CRITERIUM%202019.mp4",
       "proUrl": ""
     },
-    "funFact": "Le shove-it existait déjà dans les années 70, mais le pop shove-it moderne a explosé avec le street skating des années 90.",
-    "proTip": "Pense à un petit mouvement de scoop avec le pied arrière, pas à un énorme coup de pied. C'est la précision qui compte, pas la force.",
-    "commonMistake": "Beaucoup poussent trop fort vers l'arrière, ce qui envoie la board loin devant ou derrière. Garde ton poids au-dessus de la planche."
+    "funFact": "Le shove-it existait déjà dans les années 70.",
+    "proTip": "Pense à un petit mouvement de scoop avec le pied arrière.",
+    "commonMistake": "Beaucoup poussent trop fort vers l'arrière."
   },
   {
     "_id": "kickflip",
@@ -57,67 +57,458 @@
     "price": 0.49,
     "description": "Le kickflip fait tourner la planche sur son axe longitudinal grâce à un flick du pied avant.",
     "steps": [
-      "Place ton pied arrière sur le tail comme pour un ollie, et ton pied avant légèrement en biais derrière les vis avant.",
-      "Poppe fort comme pour un ollie en gardant les épaules au-dessus de la board.",
-      "Glisse ton pied avant vers le nose puis vers l'extérieur pour donner le flick sur le bord de la board.",
-      "Laisse la planche faire une rotation complète sous toi, garde les yeux sur le grip.",
-      "Rattrape la board avec les deux pieds au-dessus des vis et atterris fléchi."
+      "Place ton pied arrière sur le tail comme pour un ollie.",
+      "Poppe fort comme pour un ollie.",
+      "Glisse ton pied avant vers l'extérieur pour donner le flick.",
+      "Laisse la planche tourner et garde les yeux sur le grip.",
+      "Rattrape la board avec les deux pieds."
     ],
     "images": [
-      "http://192.168.1.44:5002/static/tricks/kickflip/kickflip_1.jpg",
-      "http://192.168.1.44:5002/static/tricks/kickflip/kickflip_2.jpg",
-      "http://192.168.1.44:5002/static/tricks/kickflip/kickflip_3.jpg"
+      "http://192.168.1.45:5002/static/tricks/kickflip/kickflip_1.jpg",
+      "http://192.168.1.45:5002/static/tricks/kickflip/kickflip_2.jpg"
     ],
     "videos": {
-      "amateurUrl": "http://192.168.1.44:5002/static/tricks/kickflip/neiji_kickflip.mp4",
+      "amateurUrl": "http://192.168.1.45:5002/static/tricks/kickflip/neiji_kickflip.mp4",
       "proUrl": ""
     },
-    "funFact": "Le kickflip a été popularisé par Rodney Mullen, père d'une grande partie des tricks modernes en street.",
-    "proTip": "Visualise ton flick comme un petit coup de chaussette sur le bord de la board, pas comme un énorme shoot de football.",
-    "commonMistake": "Beaucoup essaient de flicker trop fort ou trop tôt, ce qui envoie la board de côté. Il vaut mieux un flick propre et contrôlé après un bon pop."
+    "funFact": "Popularisé par Rodney Mullen.",
+    "proTip": "Visualise ton flick comme un petit coup sec.",
+    "commonMistake": "Flick trop fort ou trop tôt."
   },
   {
     "_id": "heelflip",
     "name": "Heelflip",
     "difficulty": "intermediate",
     "price": 0.49,
-    "description": "Le heelflip est un flip où la planche tourne dans l'autre sens par rapport au kickflip, déclenché par le talon du pied avant.",
+    "description": "Le heelflip tourne dans l'autre sens du kickflip grâce au talon.",
     "steps": [
-      "Place ton pied arrière sur le tail comme pour un ollie.",
-      "Positionne ton pied avant légèrement en biais, un peu plus vers le centre de la board, avec les orteils proches du bord intérieur.",
-      "Poppe fort avec le pied arrière et commence ton ollie.",
-      "Lance le flick avec le talon vers le coin avant extérieur de la board.",
-      "Laisse la planche tourner, repère le grip, rattrape-la avec les pieds et atterris fléchi."
+      "Place ton pied arrière sur le tail.",
+      "Positionne ton pied avant un peu plus centré.",
+      "Poppe fort, puis talonne vers l'extérieur.",
+      "Laisse tourner la board.",
+      "Rattrape-la et replaque."
     ],
-    "images": [],
+    "images": [
+      "http://192.168.1.45:5002/static/tricks/kickflip/kickflip_1.jpg",
+      "http://192.168.1.45:5002/static/tricks/kickflip/kickflip_2.jpg"
+    ],
     "videos": {
-      "amateurUrl": "",
+      "amateurUrl": "http://192.168.1.45:5002/static/tricks/kickflip/neiji_kickflip.mp4",
       "proUrl": ""
     },
-    "funFact": "Beaucoup de skateurs apprennent le heelflip avant le kickflip, selon leur feeling avec le talon ou la pointe du pied.",
-    "proTip": "Pense à lifter ton genou avant en même temps que tu talonnes le coin de la board, ça aide à garder le flip sous toi.",
-    "commonMistake": "Une erreur fréquente est de lancer le talon trop fort vers l'avant. La board part loin devant et devient ingérable à rattraper."
+    "funFact": "Certains apprennent le heelflip avant le kickflip.",
+    "proTip": "Lifte le genou avant.",
+    "commonMistake": "Talonner trop fort."
   },
   {
     "_id": "fs_popshoveit",
     "name": "Frontside Pop Shove-it",
     "difficulty": "intermediate",
     "price": 0.49,
-    "description": "Le frontside pop shove-it fait tourner la planche de 180 degrés vers l'avant (frontside) sous tes pieds.",
+    "description": "Rotation de 180° frontside sous les pieds.",
     "steps": [
-      "Place ton pied arrière sur le tail, proche du bord côté orteils.",
-      "Positionne ton pied avant vers le centre de la board, légèrement tourné.",
-      "Plie les genoux et poppe le tail en poussant la board vers l'avant pour lancer la rotation frontside.",
-      "Garde les épaules au-dessus de la board et le buste relativement stable.",
-      "Rattrape la planche après les 180 degrés et atterris fléchi en gardant ton poids centré."
+      "Place ton pied arrière près du bord côté orteils.",
+      "Positionne ton pied avant au centre.",
+      "Poppe en poussant vers l'avant.",
+      "Laisse tourner la board.",
+      "Replaque centré."
     ],
-    "images": [],
+    "images": [
+      "http://192.168.1.45:5002/static/tricks/kickflip/kickflip_1.jpg",
+      "http://192.168.1.45:5002/static/tricks/kickflip/kickflip_2.jpg"
+    ],
     "videos": {
-      "amateurUrl": "",
+      "amateurUrl": "http://192.168.1.45:5002/static/tricks/kickflip/neiji_kickflip.mp4",
       "proUrl": ""
     },
-    "funFact": "Le frontside pop shove-it est souvent un passage obligé avant les 360 shove-it ou les flips combinés.",
-    "proTip": "Garde tes épaules relativement calmes et laisse surtout la board tourner. Ton corps n'a pas besoin de tourner autant que la planche.",
-    "commonMistake": "Beaucoup tournent tout le haut du corps en même temps que la board. Résultat : perte d'équilibre et difficulté à replaquer proprement."
+    "funFact": "Important avant les 360 shove-it.",
+    "proTip": "Garde les épaules calmes.",
+    "commonMistake": "Trop tourner le haut du corps."
+  },
+  {
+    "_id": "fs_180",
+    "name": "Frontside 180",
+    "difficulty": "beginner",
+    "price": 0.49,
+    "description": "Ollie + rotation frontside du corps.",
+    "steps": [
+      "Place tes pieds comme pour un ollie.",
+      "Prépare la rotation avec les épaules.",
+      "Poppe et tourne.",
+      "Replaque en switch.",
+      "Absorbe avec les genoux."
+    ],
+    "images": [
+      "http://192.168.1.45:5002/static/tricks/kickflip/kickflip_1.jpg",
+      "http://192.168.1.45:5002/static/tricks/kickflip/kickflip_2.jpg"
+    ],
+    "videos": {
+      "amateurUrl": "http://192.168.1.45:5002/static/tricks/kickflip/neiji_kickflip.mp4",
+      "proUrl": ""
+    },
+    "funFact": "Essentiel pour frontside flip.",
+    "proTip": "Ouvre les épaules.",
+    "commonMistake": "Forcer uniquement avec les pieds."
+  },
+  {
+    "_id": "bs_180",
+    "name": "Backside 180",
+    "difficulty": "beginner",
+    "price": 0.49,
+    "description": "Rotation backside avec ollie.",
+    "steps": [
+      "Place tes pieds comme un ollie.",
+      "Prépare les épaules vers l'arrière.",
+      "Poppe et tourne.",
+      "Garde la board collée.",
+      "Replaque en switch."
+    ],
+    "images": [
+      "http://192.168.1.45:5002/static/tricks/kickflip/kickflip_1.jpg",
+      "http://192.168.1.45:5002/static/tricks/kickflip/kickflip_2.jpg"
+    ],
+    "videos": {
+      "amateurUrl": "http://192.168.1.45:5002/static/tricks/kickflip/neiji_kickflip.mp4",
+      "proUrl": ""
+    },
+    "funFact": "Souvent plus naturel pour les skaters.",
+    "proTip": "Regarde derrière toi.",
+    "commonMistake": "Poppper puis tourner."
+  },
+  {
+    "_id": "nollie",
+    "name": "Nollie",
+    "difficulty": "intermediate",
+    "price": 0.49,
+    "description": "Ollie depuis le nose.",
+    "steps": [
+      "Place ton pied avant sur le nose.",
+      "Pied arrière au milieu.",
+      "Poppe avec le nose.",
+      "Slide vers le tail.",
+      "Replaque controlé."
+    ],
+    "images": [
+      "http://192.168.1.45:5002/static/tricks/kickflip/kickflip_1.jpg",
+      "http://192.168.1.45:5002/static/tricks/kickflip/kickflip_2.jpg"
+    ],
+    "videos": {
+      "amateurUrl": "http://192.168.1.45:5002/static/tricks/kickflip/neiji_kickflip.mp4",
+      "proUrl": ""
+    },
+    "funFact": "Rodney Mullen l’a popularisé.",
+    "proTip": "Poids légèrement en avant.",
+    "commonMistake": "Ne pas assez charger le pied avant."
+  },
+  {
+    "_id": "halfcab",
+    "name": "Halfcab",
+    "difficulty": "intermediate",
+    "price": 0.49,
+    "description": "Fakie backside 180.",
+    "steps": [
+      "Pars en fakie.",
+      "Prépare la rotation.",
+      "Poppe et tourne.",
+      "Reviens en regular.",
+      "Replaque bas."
+    ],
+    "images": [
+      "http://192.168.1.45:5002/static/tricks/kickflip/kickflip_1.jpg",
+      "http://192.168.1.45:5002/static/tricks/kickflip/kickflip_2.jpg"
+    ],
+    "videos": {
+      "amateurUrl": "http://192.168.1.45:5002/static/tricks/kickflip/neiji_kickflip.mp4",
+      "proUrl": ""
+    },
+    "funFact": "Inventé par Steve Caballero.",
+    "proTip": "Tourne les épaules en avance.",
+    "commonMistake": "Tourner après le pop."
+  },
+
+  {
+    "_id": "boardslide",
+    "name": "Boardslide",
+    "difficulty": "intermediate",
+    "price": 0.49,
+    "description": "Slide sur le dessous de la board.",
+    "steps": [
+      "Approche avec vitesse stable.",
+      "Petit ollie sur la barre.",
+      "Place la board perpendiculaire.",
+      "Garde les épaules alignées.",
+      "Sors en pivoting."
+    ],
+    "images": [
+      "http://192.168.1.45:5002/static/tricks/kickflip/kickflip_1.jpg",
+      "http://192.168.1.45:5002/static/tricks/kickflip/kickflip_2.jpg"
+    ],
+    "videos": {
+      "amateurUrl": "http://192.168.1.45:5002/static/tricks/kickflip/neiji_kickflip.mp4",
+      "proUrl": ""
+    },
+    "funFact": "Premier slide appris par beaucoup.",
+    "proTip": "Fixe le rail du regard.",
+    "commonMistake": "Trop tourner les épaules."
+  },
+
+  {
+    "_id": "fifty_fifty",
+    "name": "50-50 Grind",
+    "difficulty": "intermediate",
+    "price": 0.49,
+    "description": "Grind sur les deux trucks.",
+    "steps": [
+      "Approche avec angle léger.",
+      "Poppe un ollie propre.",
+      "Place les deux trucks.",
+      "Garde les épaules alignées.",
+      "Sors droit ou pivot."
+    ],
+    "images": [
+      "http://192.168.1.45:5002/static/tricks/kickflip/kickflip_1.jpg",
+      "http://192.168.1.45:5002/static/tricks/kickflip/kickflip_2.jpg"
+    ],
+    "videos": {
+      "amateurUrl": "http://192.168.1.45:5002/static/tricks/kickflip/neiji_kickflip.mp4",
+      "proUrl": ""
+    },
+    "funFact": "Le grind classique.",
+    "proTip": "Regarde la fin du rail.",
+    "commonMistake": "Atterrir trop de côté."
+  },
+
+  {
+    "_id": "tre_flip",
+    "name": "360 Flip",
+    "difficulty": "advanced",
+    "price": 0.49,
+    "description": "Shove-it 360 + kickflip.",
+    "steps": [
+      "Place le pied arrière pour scoop.",
+      "Pied avant prêt à flick.",
+      "Poppe fort + scoop.",
+      "Flick léger.",
+      "Rattrape et replaque."
+    ],
+    "images": [
+      "http://192.168.1.45:5002/static/tricks/kickflip/kickflip_1.jpg",
+      "http://192.168.1.45:5002/static/tricks/kickflip/kickflip_2.jpg"
+    ],
+    "videos": {
+      "amateurUrl": "http://192.168.1.45:5002/static/tricks/kickflip/neiji_kickflip.mp4",
+      "proUrl": ""
+    },
+    "funFact": "Iconique grâce à Mullen.",
+    "proTip": "Flick discret.",
+    "commonMistake": "Trop flicker."
+  },
+
+  {
+    "_id": "hardflip",
+    "name": "Hardflip",
+    "difficulty": "advanced",
+    "price": 0.49,
+    "description": "Front shove + kickflip compact.",
+    "steps": [
+      "Place ton pied arrière comme un front shove.",
+      "Positionne ton pied avant en biais.",
+      "Poppe puissamment.",
+      "Flick simultané.",
+      "Rattrape et replaque."
+    ],
+    "images": [
+      "http://192.168.1.45:5002/static/tricks/kickflip/kickflip_1.jpg",
+      "http://192.168.1.45:5002/static/tricks/kickflip/kickflip_2.jpg"
+    ],
+    "videos": {
+      "amateurUrl": "http://192.168.1.45:5002/static/tricks/kickflip/neiji_kickflip.mp4",
+      "proUrl": ""
+    },
+    "funFact": "Très populaire en vidéo.",
+    "proTip": "Garde le mouvement compact.",
+    "commonMistake": "Front shove trop large."
+  },
+
+  {
+    "_id": "impossible",
+    "name": "Impossible",
+    "difficulty": "advanced",
+    "price": 0.49,
+    "description": "Rotation complète autour du pied arrière.",
+    "steps": [
+      "Pied arrière centré sur tail.",
+      "Pied avant stable.",
+      "Poppe fort et tire la rotation.",
+      "Garde-toi au-dessus.",
+      "Replaque stable."
+    ],
+    "images": [
+      "http://192.168.1.45:5002/static/tricks/kickflip/kickflip_1.jpg",
+      "http://192.168.1.45:5002/static/tricks/kickflip/kickflip_2.jpg"
+    ],
+    "videos": {
+      "amateurUrl": "http://192.168.1.45:5002/static/tricks/kickflip/neiji_kickflip.mp4",
+      "proUrl": ""
+    },
+    "funFact": "Encore Mullen !",
+    "proTip": "Imagine un cercle avec ton pied arrière.",
+    "commonMistake": "Pop droit = impossible raté."
+  },
+
+  {
+    "_id": "varial_kickflip",
+    "name": "Varial Kickflip",
+    "difficulty": "advanced",
+    "price": 0.49,
+    "description": "Shove-it + kickflip modéré.",
+    "steps": [
+      "Place ton pied arrière prêt à shove.",
+      "Pied avant comme un kickflip.",
+      "Poppe + mini shove.",
+      "Flick léger.",
+      "Replaque centré."
+    ],
+    "images": [
+      "http://192.168.1.45:5002/static/tricks/kickflip/kickflip_1.jpg",
+      "http://192.168.1.45:5002/static/tricks/kickflip/kickflip_2.jpg"
+    ],
+    "videos": {
+      "amateurUrl": "http://192.168.1.45:5002/static/tricks/kickflip/neiji_kickflip.mp4",
+      "proUrl": ""
+    },
+    "funFact": "Très populaire après le kickflip.",
+    "proTip": "Kickflip + mini shove.",
+    "commonMistake": "Shove trop fort."
+  },
+
+  {
+    "_id": "crook_grind",
+    "name": "Crook Grind",
+    "difficulty": "advanced",
+    "price": 0.49,
+    "description": "Grind technique sur truck avant.",
+    "steps": [
+      "Approche avec angle léger.",
+      "Ollie précis vers le nose.",
+      "Verrouille le truck avant.",
+      "Garde la pression avant.",
+      "Sors en poussant."
+    ],
+    "images": [
+      "http://192.168.1.45:5002/static/tricks/kickflip/kickflip_1.jpg",
+      "http://192.168.1.45:5002/static/tricks/kickflip/kickflip_2.jpg"
+    ],
+    "videos": {
+      "amateurUrl": "http://192.168.1.45:5002/static/tricks/kickflip/neiji_kickflip.mp4",
+      "proUrl": ""
+    },
+    "funFact": "Grind préféré des pros.",
+    "proTip": "Pense à planter le nose.",
+    "commonMistake": "Trop de poids arrière."
+  },
+
+  {
+    "_id": "nose_slide",
+    "name": "Nose Slide",
+    "difficulty": "intermediate",
+    "price": 0.49,
+    "description": "Slide sur le nose.",
+    "steps": [
+      "Approche à angle.",
+      "Poppe + tourne les épaules.",
+      "Pose le nose.",
+      "Garde ton poids légèrement avant.",
+      "Sors en pivot."
+    ],
+    "images": [
+      "http://192.168.1.45:5002/static/tricks/kickflip/kickflip_1.jpg",
+      "http://192.168.1.45:5002/static/tricks/kickflip/kickflip_2.jpg"
+    ],
+    "videos": {
+      "amateurUrl": "http://192.168.1.45:5002/static/tricks/kickflip/neiji_kickflip.mp4",
+      "proUrl": ""
+    },
+    "funFact": "Très stylé en vidéo.",
+    "proTip": "Regarde la sortie du ledge.",
+    "commonMistake": "Trop se pencher en arrière."
+  },
+
+  {
+    "_id": "tail_slide",
+    "name": "Tail Slide",
+    "difficulty": "intermediate",
+    "price": 0.49,
+    "description": "Slide en posant le tail.",
+    "steps": [
+      "Approche avec angle.",
+      "Poppe et aligne le tail.",
+      "Pose le tail.",
+      "Contrôle la stabilité.",
+      "Sors naturellement."
+    ],
+    "images": [
+      "http://192.168.1.45:5002/static/tricks/kickflip/kickflip_1.jpg",
+      "http://192.168.1.45:5002/static/tricks/kickflip/kickflip_2.jpg"
+    ],
+    "videos": {
+      "amateurUrl": "http://192.168.1.45:5002/static/tricks/kickflip/neiji_kickflip.mp4",
+      "proUrl": ""
+    },
+    "funFact": "Plus simple que nose slide pour certains.",
+    "proTip": "Pied avant guide.",
+    "commonMistake": "Trop de poids avant."
+  },
+
+  {
+    "_id": "five_o",
+    "name": "Five-O Grind",
+    "difficulty": "advanced",
+    "price": 0.49,
+    "description": "Grind sur le truck arrière uniquement.",
+    "steps": [
+      "Approche comme un 50-50.",
+      "Poppe plus vertical.",
+      "Verrouille le truck arrière.",
+      "Lève légèrement le nose.",
+      "Sors proprement."
+    ],
+    "images": [
+      "http://192.168.1.45:5002/static/tricks/kickflip/kickflip_1.jpg",
+      "http://192.168.1.45:5002/static/tricks/kickflip/kickflip_2.jpg"
+    ],
+    "videos": {
+      "amateurUrl": "http://192.168.1.45:5002/static/tricks/kickflip/neiji_kickflip.mp4",
+      "proUrl": ""
+    },
+    "funFact": "Stylé dans les gaps-to-ledge.",
+    "proTip": "Contrôle du pied arrière.",
+    "commonMistake": "Écraser le nose."
+  },
+
+  {
+    "_id": "fakie_bs_180",
+    "name": "Fakie Backside 180",
+    "difficulty": "intermediate",
+    "price": 0.49,
+    "description": "Rotation en fakie backside.",
+    "steps": [
+      "Avance en fakie.",
+      "Prépare une rotation légère.",
+      "Poppe et laisse tourner.",
+      "Garde les hanches alignées.",
+      "Replaque forward."
+    ],
+    "images": [
+      "http://192.168.1.45:5002/static/tricks/kickflip/kickflip_1.jpg",
+      "http://192.168.1.45:5002/static/tricks/kickflip/kickflip_2.jpg"
+    ],
+    "videos": {
+      "amateurUrl": "http://192.168.1.45:5002/static/tricks/kickflip/neiji_kickflip.mp4",
+      "proUrl": ""
+    },
+    "funFact": "Très naturel une fois maîtrisé.",
+    "proTip": "Épaules relax.",
+    "commonMistake": "Forcer avec les pieds."
   }
 ]
