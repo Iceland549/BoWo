@@ -10,7 +10,8 @@ namespace ContentMicroservice.Infrastructure.Persistence.Entities
         public string Id { get; set; } = Guid.NewGuid().ToString();
 
         public string Name { get; set; } = null!;
-        public string Level { get; set; } = "beginner";
+        [BsonElement("difficulty")]
+        public string Difficulty { get; set; } = "";
         public double Price { get; set; }
         public string Description { get; set; } = null!;
         public List<string> Steps { get; set; } = new();
@@ -18,7 +19,11 @@ namespace ContentMicroservice.Infrastructure.Persistence.Entities
         public TrickVideos Videos { get; set; } = new();
         public string? FunFact { get; set; }
         public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
+
+        [BsonElement("proTip")]
         public string ProTip { get; set; } = "";
+
+        [BsonElement("commonMistake")]
         public string CommonMistake { get; set; } = "";
     }
 
