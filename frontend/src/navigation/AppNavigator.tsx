@@ -9,7 +9,7 @@ import TrickLearnScreen from '../screens/TrickLearnScreen';
 import QuizScreen from '../screens/QuizScreen';
 import ProfileScreen from '../screens/ProfileScreen';
 import AuthNavigator from './AuthNavigator';
-
+import KillerTimeCoinFlip from '../screens/CoinFlip';
 import { useAuthStore } from '../store/authStore';
 
 // Stack = navigation interne
@@ -100,6 +100,7 @@ export default function AppNavigator() {
       <Stack.Screen name="TrickDetail" component={TrickDetailScreen} />
       <Stack.Screen name="TrickLearn" component={TrickLearnScreen} />
       <Stack.Screen name="Quiz" component={QuizScreen} />
+      <Stack.Screen name="KillerTimeCoinFlip" component={KillerTimeCoinFlip} />
     </Stack.Navigator>
   );
 }

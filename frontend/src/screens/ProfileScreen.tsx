@@ -11,11 +11,14 @@ import { getProfile, logout } from '../services/authService';
 import { useAuthStore } from '../store/authStore';
 import { log } from '../utils/logger';
 import XPBar from '../components/XPBar';
+import KillerTimeUnlockedModal from '../components/KillerTimeUnlockedModal';
 
 export default function ProfileScreen({ navigation }) {
   const { clearCredentials } = useAuthStore();
   const [profile, setProfile] = useState<any>(null);
   const [loading, setLoading] = useState(true);
+  const [killerTimeVisible, setKillerTimeVisible] = useState(false);
+
 
   useEffect(() => {
     (async () => {
@@ -30,6 +33,16 @@ export default function ProfileScreen({ navigation }) {
       }
     })();
   }, []);
+
+  useEffect(() => {
+  if (
+      profile?.unlockedMiniGames?.includes("coin-flip") ||
+      profile?.UnlockedMiniGames?.includes("coin-flip")
+    ) {
+      setKillerTimeVisible(true);
+    }
+
+  }, [profile]);
 
   const onLogout = async () => {
     await logout();
@@ -78,6 +91,22 @@ export default function ProfileScreen({ navigation }) {
         <Text style={styles.label}>Progression globale</Text>
         <Text style={styles.value}>{completionPercent}%</Text>
       </View>
+
+      <KillerTimeUnlockedModal
+        visible={killerTimeVisible}
+        onClose={() => setKillerTimeVisible(false)}
+        navigation={navigation}
+      />
+
+      {profile?.unlockedMiniGames?.includes("coin-flip") && (
+        <TouchableOpacity
+          style={styles.killerBtn}
+          onPress={() => navigation.navigate("KillerTimeCoinFlip")}
+        >
+          <Text style={styles.killerBtnText}>🔥 Killer-Time : Coin Flip</Text>
+        </TouchableOpacity>
+      )}
+
 
       {/* LOGOUT BUTTON */}
       <TouchableOpacity style={styles.logoutBtn} onPress={onLogout}>
@@ -150,6 +179,26 @@ const styles = StyleSheet.create({
   },
   logoutText: {
     color: '#111215',
+    fontWeight: '900',
+    textAlign: 'center',
+    fontSize: 16,
+    letterSpacing: 1,
+    textTransform: 'uppercase',
+  },
+  killerBtn: {
+  backgroundColor: '#0AA5FF',
+  paddingVertical: 14,
+  borderRadius: 40,
+  borderWidth: 2,
+  borderColor: '#FFD600',
+  alignSelf: 'center',
+  width: '85%',
+  marginBottom: 25,
+  marginTop: -10,
+  },
+
+  killerBtnText: {
+    color: '#111',
     fontWeight: '900',
     textAlign: 'center',
     fontSize: 16,
