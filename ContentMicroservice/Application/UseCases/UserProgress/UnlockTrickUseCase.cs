@@ -76,6 +76,16 @@ namespace ContentMicroservice.Application.UseCases.UserProgress
                 progress.TricksUnlockedToday += 1;
                 progress.LastUnlockDateUtc = DateTime.UtcNow;
 
+                // --- NOUVEAU : Déblocage automatique du mini-jeu Flip Coin ---
+                if (progress.UnlockedTricks.Count >= 3 &&
+                    !progress.UnlockedMiniGames.Contains("coin-flip"))
+                {
+                    progress.UnlockedMiniGames ??= new List<string>();
+                    progress.UnlockedMiniGames.Add("coin-flip");
+
+                    _logger.LogInformation("Mini-game 'coin-flip' unlocked for user {UserId}", userId);
+                }
+
                 await _progressRepo.SaveAsync(progress, ct);
                 _logger.LogInformation(
                     "User {UserId} unlocked trick {TrickId}. Today unlocked: {Count}",
