@@ -10,13 +10,13 @@ import {
 import { getProfile, logout } from '../services/authService';
 import { useAuthStore } from '../store/authStore';
 import { log } from '../utils/logger';
+import XPBar from '../components/XPBar';
 
 export default function ProfileScreen({ navigation }) {
   const { clearCredentials } = useAuthStore();
-  const [profile, setProfile] = useState(null);
+  const [profile, setProfile] = useState<any>(null);
   const [loading, setLoading] = useState(true);
 
-  // Load progress (profile)
   useEffect(() => {
     (async () => {
       try {
@@ -46,16 +46,19 @@ export default function ProfileScreen({ navigation }) {
     );
   }
 
-  const {
-    level,
-    totalUnlocked,
-    totalTricksAvailable,
-    completionPercent
-  } = profile || {};
+  // fallback pour supporter XP / xp, Level / level, etc.
+  const xp = profile?.xp ?? profile?.XP ?? 0;
+  const level = profile?.level ?? profile?.Level ?? 0;
+  const totalUnlocked = profile?.totalUnlocked ?? profile?.TotalUnlocked ?? 0;
+  const totalTricksAvailable =
+    profile?.totalTricksAvailable ?? profile?.TotalTricksAvailable ?? 0;
+  const completionPercent =
+    profile?.completionPercent ?? profile?.CompletionPercent ?? 0;
+
+  const nextLevelXP = (level + 1) * 500;
 
   return (
     <View style={styles.container}>
-
       {/* TITLE */}
       <Text style={styles.title}>My Board, My World</Text>
 
@@ -63,6 +66,9 @@ export default function ProfileScreen({ navigation }) {
       <View style={styles.card}>
         <Text style={styles.label}>Niveau</Text>
         <Text style={styles.value}>{level}</Text>
+
+        {/* XP BAR */}
+        <XPBar xp={xp} nextLevelXP={nextLevelXP} />
 
         <Text style={styles.label}>Tricks débloqués</Text>
         <Text style={styles.value}>
@@ -77,7 +83,6 @@ export default function ProfileScreen({ navigation }) {
       <TouchableOpacity style={styles.logoutBtn} onPress={onLogout}>
         <Text style={styles.logoutText}>Se déconnecter</Text>
       </TouchableOpacity>
-
     </View>
   );
 }
@@ -90,20 +95,17 @@ const styles = StyleSheet.create({
     backgroundColor: '#111215',
     padding: 20,
   },
-
   loadingWrap: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: '#111215',
   },
-
   loadingText: {
     marginTop: 10,
     color: '#FFD600',
     fontSize: 14,
   },
-
   title: {
     fontSize: 32,
     color: '#0AA5FF',
@@ -115,7 +117,6 @@ const styles = StyleSheet.create({
     textShadowColor: '#FF355E',
     textShadowRadius: 6,
   },
-
   card: {
     backgroundColor: '#1A1B20',
     padding: 20,
@@ -124,14 +125,12 @@ const styles = StyleSheet.create({
     borderColor: '#FFD600',
     marginBottom: 40,
   },
-
   label: {
     color: '#FFD600',
     fontSize: 14,
     marginTop: 12,
     opacity: 0.8,
   },
-
   value: {
     color: '#0AA5FF',
     fontSize: 20,
@@ -140,7 +139,6 @@ const styles = StyleSheet.create({
     textShadowColor: '#FF355E',
     textShadowRadius: 4,
   },
-
   logoutBtn: {
     backgroundColor: '#FF355E',
     paddingVertical: 14,
@@ -150,7 +148,6 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     width: '70%',
   },
-
   logoutText: {
     color: '#111215',
     fontWeight: '900',
