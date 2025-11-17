@@ -12,6 +12,7 @@ import {
 import { Video, ResizeMode } from 'expo-av';
 import api from '../api/api';
 import { log } from '../utils/logger';
+import { MEDIA_BASE_URL } from '../config/env';
 
 type TrickLearn = {
   id: string;
@@ -23,6 +24,24 @@ type TrickLearn = {
   proVideoUrl?: string | null;
   proTip?: string;
   commonMistake?: string;
+};
+
+// helper pour rendre les URLs robustes
+const resolveMediaUrl = (raw?: string | null): string | null => {
+  if (!raw) return null;
+
+  // si c'est déjà une URL complète (http/https) → on touche à rien
+  if (raw.startsWith('http://') || raw.startsWith('https://')) {
+    return raw;
+  }
+
+  // si ça commence par "/" → on préfixe avec MEDIA_BASE_URL
+  if (raw.startsWith('/')) {
+    return `${MEDIA_BASE_URL}${raw}`;
+  }
+
+  // sinon → on met un "/" entre les deux
+  return `${MEDIA_BASE_URL}/${raw}`;
 };
 
 export default function TrickLearnScreen({ route, navigation }: any) {
@@ -69,15 +88,21 @@ export default function TrickLearnScreen({ route, navigation }: any) {
   }
 
   const mainImage =
-    trick.images?.[0] ?? 'https://via.placeholder.com/600x400';
+    resolveMediaUrl(trick.images?.[0]) ??
+    'https://images.pexels.com/photos/1762825/pexels-photo-1762825.jpeg';
 
-  const hasAnyVideo = trick.proVideoUrl || trick.amateurVideoUrl;
+  const proVideo = resolveMediaUrl(trick.proVideoUrl || undefined);
+  const amateurVideo = resolveMediaUrl(trick.amateurVideoUrl || undefined);
+
+  const hasAnyVideo = !!proVideo || !!amateurVideo;
 
   return (
     <ScrollView style={styles.container} contentContainerStyle={styles.content}>
       {/* HERO */}
       <View style={styles.heroWrapper}>
-        <Image source={{ uri: mainImage }} style={styles.heroImage} />
+        {mainImage && (
+          <Image source={{ uri: mainImage }} style={styles.heroImage} />
+        )}
         <View style={styles.heroOverlay} />
 
         <View style={styles.heroTextWrap}>
@@ -99,11 +124,11 @@ export default function TrickLearnScreen({ route, navigation }: any) {
         <View style={styles.section}>
           <Text style={styles.sectionTitle}>Clips 🎬</Text>
 
-          {trick.proVideoUrl && (
+          {proVideo && (
             <View style={[styles.videoCard, styles.videoBlue]}>
               <Text style={styles.videoLabel}>Pro Clip</Text>
               <Video
-                source={{ uri: trick.proVideoUrl }}
+                source={{ uri: proVideo }}
                 style={styles.video}
                 resizeMode={ResizeMode.CONTAIN}
                 useNativeControls
@@ -111,11 +136,11 @@ export default function TrickLearnScreen({ route, navigation }: any) {
             </View>
           )}
 
-          {trick.amateurVideoUrl && (
+          {amateurVideo && (
             <View style={[styles.videoCard, styles.videoYellow]}>
               <Text style={styles.videoLabel}>Real Life Clip</Text>
               <Video
-                source={{ uri: trick.amateurVideoUrl }}
+                source={{ uri: amateurVideo }}
                 style={styles.video}
                 resizeMode={ResizeMode.CONTAIN}
                 useNativeControls
@@ -132,12 +157,14 @@ export default function TrickLearnScreen({ route, navigation }: any) {
           <FlatList
             data={trick.images}
             horizontal
-            keyExtractor={(u, i) => u + i}
+            keyExtractor={(u, i) => `${u}-${i}`}
             showsHorizontalScrollIndicator={false}
             contentContainerStyle={styles.imagesList}
-            renderItem={({ item }) => (
-              <Image source={{ uri: item }} style={styles.stepImage} />
-            )}
+            renderItem={({ item }) => {
+              const url = resolveMediaUrl(item);
+              if (!url) return null;
+              return <Image source={{ uri: url }} style={styles.stepImage} />;
+            }}
           />
         </View>
       )}
@@ -191,157 +218,186 @@ export default function TrickLearnScreen({ route, navigation }: any) {
   );
 }
 
-/* 🎨 STYLES SANTA CRUZ */
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#111215', // fond dark neutre pour laisser les couleurs pop
+    // fond "bleu nuit" plus marqué, esprit Santa Cruz nocturne
+    backgroundColor: '#050816',
   },
-  content: { paddingBottom: 80 },
-
-  loadingContainer: {
-    flex: 1,
-    backgroundColor: '#111215',
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  loadingText: {
-    marginTop: 10,
-    color: '#FFD600',
-    fontSize: 14,
+  content: {
+    paddingBottom: 32,
   },
 
-  /* HERO */
-  heroWrapper: { height: 260, position: 'relative' },
-  heroImage: { width: '100%', height: '100%' },
+  // HERO
+  heroWrapper: {
+    position: 'relative',
+    borderBottomLeftRadius: 24,
+    borderBottomRightRadius: 24,
+    overflow: 'hidden',
+    marginBottom: 16,
+  },
+  heroImage: {
+    width: '100%',
+    height: 260,
+  },
   heroOverlay: {
     ...StyleSheet.absoluteFillObject,
-    backgroundColor: 'rgba(10,165,255,0.25)', // overlay bleu électrique
+    backgroundColor: '#050816CC',
   },
   heroTextWrap: {
     position: 'absolute',
-    bottom: 22,
-    left: 18,
+    bottom: 20,
+    left: 20,
   },
   heroTag: {
-    backgroundColor: '#FFD600',
-    color: '#111215',
-    paddingVertical: 4,
-    paddingHorizontal: 10,
-    borderRadius: 4,
-    fontSize: 11,
-    fontWeight: '900',
-    textTransform: 'uppercase',
+    color: '#FFD600',
+    fontSize: 12,
+    fontWeight: '700',
+    letterSpacing: 2,
   },
   heroTitle: {
-    marginTop: 8,
-    color: '#FFFFFF',
+    color: '#F9FAFB',
     fontSize: 28,
-    letterSpacing: 1.5,
     fontWeight: '900',
     textTransform: 'uppercase',
-    textShadowColor: '#0AA5FF',
-    textShadowRadius: 6,
+    marginTop: 4,
   },
 
-  /* SECTION */
+  // SECTIONS
   section: {
-    marginTop: 16,
     marginHorizontal: 16,
-    backgroundColor: '#1A1B20',
-    padding: 16,
+    marginVertical: 8,
+    padding: 14,
     borderRadius: 18,
-    borderColor: '#27282E',
+    backgroundColor: '#111827',
     borderWidth: 1,
+    borderColor: '#1F2937',
   },
   sectionTitle: {
     color: '#0AA5FF',
-    fontWeight: '900',
     fontSize: 16,
-    marginBottom: 6,
+    fontWeight: '800',
     textTransform: 'uppercase',
+    marginBottom: 8,
   },
   description: {
-    color: '#EDEDF5',
+    color: '#E5E7EB',
     fontSize: 14,
     lineHeight: 20,
   },
 
-  /* IMAGES */
-  imagesList: { paddingVertical: 8 },
+  // VIDEOS
+  videoCard: {
+    marginTop: 8,
+    padding: 10,
+    borderRadius: 16,
+  },
+  videoBlue: {
+    backgroundColor: '#0B1120',
+    borderWidth: 1,
+    borderColor: '#0AA5FF',
+  },
+  videoYellow: {
+    backgroundColor: '#451A03',
+    borderWidth: 1,
+    borderColor: '#FFD600',
+  },
+  videoLabel: {
+    color: '#F9FAFB',
+    fontWeight: '700',
+    marginBottom: 6,
+    textTransform: 'uppercase',
+    fontSize: 12,
+  },
+  video: {
+    width: '100%',
+    height: 220,
+    borderRadius: 14,
+    overflow: 'hidden',
+  },
+
+  // IMAGES
+  imagesList: {
+    paddingVertical: 4,
+  },
   stepImage: {
-    width: 180,
-    height: 120,
-    borderRadius: 12,
+    width: 220,
+    height: 140,
+    borderRadius: 16,
     marginRight: 10,
   },
 
-  /* STEPS */
+  // STEPS
   stepRow: {
     flexDirection: 'row',
     alignItems: 'flex-start',
-    marginBottom: 12,
+    marginBottom: 10,
   },
   stepIndex: {
-    width: 30,
-    height: 30,
-    borderRadius: 6,
+    width: 26,
+    height: 26,
+    borderRadius: 999,
     alignItems: 'center',
     justifyContent: 'center',
-    marginRight: 10,
+    marginRight: 8,
   },
   stepIndexText: {
+    color: '#050816',
     fontWeight: '900',
-    color: '#111215',
     fontSize: 14,
   },
   stepText: {
     flex: 1,
-    color: '#EDEDF5',
+    color: '#E5E7EB',
+    fontSize: 14,
+    lineHeight: 20,
+  },
+
+  // PRO TIP & MISTAKE
+  proTip: {
+    backgroundColor: '#022C22',
+    borderColor: '#22C55E',
+  },
+  proTipText: {
+    color: '#BBF7D0',
+  },
+  mistake: {
+    backgroundColor: '#450A0A',
+    borderColor: '#F97373',
+  },
+  mistakeText: {
+    color: '#FECACA',
+  },
+
+  // LOADING / ERROR
+  loadingContainer: {
+    flex: 1,
+    backgroundColor: '#050816',
+    alignItems: 'center',
+    justifyContent: 'center',
+    padding: 16,
+  },
+  loadingText: {
+    marginTop: 12,
+    color: '#E5E7EB',
     fontSize: 14,
   },
 
-  /* VIDEOS */
-  videoCard: {
-    marginTop: 10,
-    padding: 10,
-    borderRadius: 14,
-  },
-  videoBlue: { borderColor: '#0AA5FF', borderWidth: 2 },
-  videoYellow: { borderColor: '#FFD600', borderWidth: 2 },
-  videoLabel: {
-    color: '#FFD600',
-    fontWeight: '800',
-    marginBottom: 6,
-    textTransform: 'uppercase',
-  },
-  video: {
-    width: '100%',
-    height: 210,
-    borderRadius: 10,
-  },
-
-  /* PRO TIP */
-  proTip: { borderColor: '#0AA5FF' },
-  proTipText: { color: '#B5E8FF', fontSize: 14 },
-
-  /* MISTAKE */
-  mistake: { borderColor: '#FF355E' },
-  mistakeText: { color: '#FFB8C6', fontSize: 14 },
-
-  /* BACK BTN */
+  // BACK BUTTON
   backBtn: {
-    marginTop: 30,
-    alignSelf: 'center',
-    borderColor: '#FFD600',
-    borderWidth: 2,
-    borderRadius: 50,
-    paddingVertical: 10,
-    paddingHorizontal: 24,
+    marginTop: 16,
+    marginHorizontal: 16,
+    marginBottom: 24,
+    borderRadius: 999,
+    paddingVertical: 12,
+    alignItems: 'center',
+    borderWidth: 1,
+    borderColor: '#3B82F6',
+    backgroundColor: '#020617',
   },
   backBtnText: {
-    color: '#FFD600',
-    fontWeight: '900',
-    textTransform: 'uppercase',
+    color: '#E5E7EB',
+    fontSize: 14,
+    fontWeight: '600',
   },
 });
