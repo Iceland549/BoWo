@@ -11,12 +11,10 @@ import {
 import api from '../api/api';
 import TrickCard from '../components/TrickCard';
 import { log } from '../utils/logger';
-import useAuth from '@/hooks/useAuth';
 
 export default function HomeScreen({ navigation }) {
   const [tricks, setTricks] = useState([]);
   const [loading, setLoading] = useState(true);
-  const { logout } = useAuth();
 
   useEffect(() => {
     (async () => {
@@ -66,16 +64,6 @@ export default function HomeScreen({ navigation }) {
         )}
       />
 
-      {/* BOTTOM BUTTONS */}
-      <View style={styles.bottomButtons}>
-        <TouchableOpacity style={styles.btn} onPress={logout}>
-          <Text style={styles.btnText}>Login</Text>
-        </TouchableOpacity>
-
-        <TouchableOpacity style={styles.btnDanger} onPress={logout}>
-          <Text style={styles.btnDangerText}>Logout</Text>
-        </TouchableOpacity>
-      </View>
     </SafeAreaView>
   );
 }
@@ -123,38 +111,4 @@ const styles = StyleSheet.create({
     letterSpacing: 0.5,
   },
 
-  /* BOTTOM BUTTONS */
-  bottomButtons: {
-    position: 'absolute',
-    bottom: 20,
-    left: 12,
-    right: 12,
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-  },
-  btn: {
-    flex: 1,
-    backgroundColor: '#0AA5FF',
-    paddingVertical: 12,
-    borderRadius: 12,
-    marginRight: 8,
-  },
-  btnText: {
-    color: 'white',
-    fontWeight: '800',
-    textAlign: 'center',
-  },
-
-  btnDanger: {
-    flex: 1,
-    backgroundColor: '#FF355E',
-    paddingVertical: 12,
-    borderRadius: 12,
-    marginLeft: 8,
-  },
-  btnDangerText: {
-    color: '#111215',
-    fontWeight: '900',
-    textAlign: 'center',
-  },
 });

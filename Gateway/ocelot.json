@@ -64,7 +64,7 @@
       "UpstreamHttpMethod": [ "POST" ]
     },
 
-    // ---------- CONTENT ----------
+    // ---------- CONTENT PUBLIC ----------
     {
       "DownstreamPathTemplate": "/content/{everything}",
       "DownstreamScheme": "http",
@@ -75,7 +75,25 @@
         }
       ],
       "UpstreamPathTemplate": "/api/content/{everything}",
-      "UpstreamHttpMethod": [ "GET", "POST" ]
+      "UpstreamHttpMethod": [ "GET" ]
+    },
+
+    // ---------- CONTENT PRIVATE : PROGRESS ----------
+    {
+      "DownstreamPathTemplate": "/progress",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "content",
+          "Port": 5002
+        }
+      ],
+      "UpstreamPathTemplate": "/api/progress",
+      "UpstreamHttpMethod": [ "GET", "POST" ],
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer",
+        "AllowedScopes": []
+      }
     },
 
     // ---------- QUIZ ----------
@@ -89,24 +107,6 @@
         }
       ],
       "UpstreamPathTemplate": "/api/quiz/{everything}",
-      "UpstreamHttpMethod": [ "GET", "POST" ],
-      "AuthenticationOptions": {
-        "AuthenticationProviderKey": "Bearer",
-        "AllowedScopes": []
-      }
-    },
-
-    // ---------- USER PROGRESS ----------
-    {
-      "DownstreamPathTemplate": "/progress/{everything}",
-      "DownstreamScheme": "http",
-      "DownstreamHostAndPorts": [
-        {
-          "Host": "content",
-          "Port": 5002
-        }
-      ],
-      "UpstreamPathTemplate": "/api/progress/{everything}",
       "UpstreamHttpMethod": [ "GET", "POST" ],
       "AuthenticationOptions": {
         "AuthenticationProviderKey": "Bearer",

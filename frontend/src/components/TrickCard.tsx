@@ -7,12 +7,17 @@ import {
 } from 'react-native';
 
 export default function TrickCard({ trick }) {
-  const image = trick?.images?.[0] || 'https://via.placeholder.com/400x250';
+  const fallbackImage = require('../../assets/images/home.jpg');
+
+  const finalImage =
+    trick?.images?.[0]
+      ? { uri: trick.images[0] }
+      : fallbackImage;
 
   return (
     <View style={styles.card}>
       {/* IMAGE */}
-      <Image source={{ uri: image }} style={styles.image} />
+      <Image source={finalImage} style={styles.image} />
 
       {/* NAME */}
       <View style={styles.info}>
@@ -27,12 +32,12 @@ export default function TrickCard({ trick }) {
 
 const styles = StyleSheet.create({
   card: {
-    backgroundColor: '#1A1B20', // fond sombre Santa Cruz
+    backgroundColor: '#1A1B20',
     borderRadius: 18,
     overflow: 'hidden',
     marginBottom: 16,
     borderWidth: 2,
-    borderColor: '#0AA5FF', // bleu électrique Santa Cruz
+    borderColor: '#0AA5FF',
   },
 
   image: {
@@ -48,16 +53,16 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: '900',
     textTransform: 'uppercase',
-    color: '#0AA5FF',        // 💙 Nom du trick → BLEU ÉLECTRIQUE
+    color: '#0AA5FF',
     letterSpacing: 1,
-    textShadowColor: '#FF355E', // mini glow rouge
+    textShadowColor: '#FF355E',
     textShadowRadius: 4,
   },
 
   difficulty: {
     marginTop: 4,
     fontSize: 12,
-    color: '#FFD600',         // jaune Santa Cruz
+    color: '#FFD600',
     fontWeight: '700',
   },
 });
