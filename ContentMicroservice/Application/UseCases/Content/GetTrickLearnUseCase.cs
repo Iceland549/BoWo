@@ -77,7 +77,6 @@ namespace ContentMicroservice.Application.UseCases.Content
                 Images = trick.Images ?? new List<string>(),
                 AmateurVideoUrl = trick.Videos?.AmateurUrl,
                 ProVideoUrl = trick.Videos?.ProUrl,
-                // Je viens de les ajouter
                 ProTip = trick.ProTip ?? string.Empty,
                 CommonMistake = trick.CommonMistake ?? string.Empty
             };

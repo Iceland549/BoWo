@@ -147,7 +147,7 @@ else
 app.UseStaticFiles(new StaticFileOptions
 {
     FileProvider = new PhysicalFileProvider(
-        Path.Combine(Directory.GetCurrentDirectory(), "wwwroot")),
+        Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "static")),
     RequestPath = "/static",
     ServeUnknownFileTypes = true 
 });

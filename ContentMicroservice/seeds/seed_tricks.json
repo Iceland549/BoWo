@@ -12,12 +12,12 @@
       "Garde les épaules au-dessus de la board et atterris avec les deux pieds sur les vis."
     ],
     "images": [
-      "http://192.168.1.45:5002/static/tricks/ollie/ollie_1.jpg",
-      "http://192.168.1.45:5002/static/tricks/ollie/ollie_2.jpg",
-      "http://192.168.1.45:5002/static/tricks/ollie/ollie_3.jpg"
+      "/static/tricks/ollie/ollie_1.jpg",
+      "/static/tricks/ollie/ollie_2.jpg",
+      "/static/tricks/ollie/ollie_3.jpg"
     ],
     "videos": {
-      "amateurUrl": "http://192.168.1.45:5002/static/tricks/ollie/neiji_ollie.mp4",
+      "amateurUrl": "/static/tricks/ollie/neiji_ollie-converted.mp4",
       "proUrl": ""
     },
     "funFact": "Le ollie a été inventé par Alan 'Ollie' Gelfand à la fin des années 70 dans une piscine vide.",
@@ -38,12 +38,12 @@
       "Rattrape la planche avec les pieds et atterris fléchi."
     ],
     "images": [
-      "http://192.168.1.45:5002/static/tricks/popshoveit/popshoveit_1.jpg",
-      "http://192.168.1.45:5002/static/tricks/popshoveit/popshoveit_2.jpg",
-      "http://192.168.1.45:5002/static/tricks/popshoveit/popshoveit_3.jpg"
+      "/static/tricks/popshoveit/popshoveit_1.jpg",
+      "/static/tricks/popshoveit/popshoveit_2.jpg",
+      "/static/tricks/popshoveit/popshoveit_3.jpg"
     ],
     "videos": {
-      "amateurUrl": "http://192.168.1.45:5002/static/tricks/popshoveit/CRITERIUM%202019.mp4",
+      "amateurUrl": "/static/tricks/popshoveit/CRITERIUM%202019.mp4",
       "proUrl": ""
     },
     "funFact": "Le shove-it existait déjà dans les années 70.",
@@ -64,11 +64,11 @@
       "Rattrape la board avec les deux pieds."
     ],
     "images": [
-      "http://192.168.1.45:5002/static/tricks/kickflip/kickflip_1.jpg",
-      "http://192.168.1.45:5002/static/tricks/kickflip/kickflip_2.jpg"
+      "/static/tricks/kickflip/kickflip_1.jpg",
+      "/static/tricks/kickflip/kickflip_2.jpg"
     ],
     "videos": {
-      "amateurUrl": "http://192.168.1.45:5002/static/tricks/kickflip/neiji_kickflip.mp4",
+      "amateurUrl": "/static/tricks/kickflip/neiji_kickflip-converted.mp4",
       "proUrl": ""
     },
     "funFact": "Popularisé par Rodney Mullen.",
@@ -89,11 +89,11 @@
       "Rattrape-la et replaque."
     ],
     "images": [
-      "http://192.168.1.45:5002/static/tricks/kickflip/kickflip_1.jpg",
-      "http://192.168.1.45:5002/static/tricks/kickflip/kickflip_2.jpg"
+      "/static/tricks/kickflip/kickflip_1.jpg",
+      "/static/tricks/kickflip/kickflip_2.jpg"
     ],
     "videos": {
-      "amateurUrl": "http://192.168.1.45:5002/static/tricks/kickflip/neiji_kickflip.mp4",
+      "amateurUrl": "/static/tricks/kickflip/neiji_kickflip.mp4",
       "proUrl": ""
     },
     "funFact": "Certains apprennent le heelflip avant le kickflip.",
@@ -114,11 +114,11 @@
       "Replaque centré."
     ],
     "images": [
-      "http://192.168.1.45:5002/static/tricks/kickflip/kickflip_1.jpg",
-      "http://192.168.1.45:5002/static/tricks/kickflip/kickflip_2.jpg"
+      "/static/tricks/kickflip/kickflip_1.jpg",
+      "/static/tricks/kickflip/kickflip_2.jpg"
     ],
     "videos": {
-      "amateurUrl": "http://192.168.1.45:5002/static/tricks/kickflip/neiji_kickflip.mp4",
+      "amateurUrl": "/static/tricks/kickflip/neiji_kickflip.mp4",
       "proUrl": ""
     },
     "funFact": "Important avant les 360 shove-it.",
@@ -139,11 +139,11 @@
       "Absorbe avec les genoux."
     ],
     "images": [
-      "http://192.168.1.45:5002/static/tricks/kickflip/kickflip_1.jpg",
-      "http://192.168.1.45:5002/static/tricks/kickflip/kickflip_2.jpg"
+      "/static/tricks/kickflip/kickflip_1.jpg",
+      "/static/tricks/kickflip/kickflip_2.jpg"
     ],
     "videos": {
-      "amateurUrl": "http://192.168.1.45:5002/static/tricks/kickflip/neiji_kickflip.mp4",
+      "amateurUrl": "/static/tricks/kickflip/neiji_kickflip.mp4",
       "proUrl": ""
     },
     "funFact": "Essentiel pour frontside flip.",
@@ -164,11 +164,11 @@
       "Replaque en switch."
     ],
     "images": [
-      "http://192.168.1.45:5002/static/tricks/kickflip/kickflip_1.jpg",
-      "http://192.168.1.45:5002/static/tricks/kickflip/kickflip_2.jpg"
+      "/static/tricks/kickflip/kickflip_1.jpg",
+      "/static/tricks/kickflip/kickflip_2.jpg"
     ],
     "videos": {
-      "amateurUrl": "http://192.168.1.45:5002/static/tricks/kickflip/neiji_kickflip.mp4",
+      "amateurUrl": "/static/tricks/kickflip/neiji_kickflip.mp4",
       "proUrl": ""
     },
     "funFact": "Souvent plus naturel pour les skaters.",
@@ -189,14 +189,14 @@
       "Replaque controlé."
     ],
     "images": [
-      "http://192.168.1.45:5002/static/tricks/kickflip/kickflip_1.jpg",
-      "http://192.168.1.45:5002/static/tricks/kickflip/kickflip_2.jpg"
+      "/static/tricks/kickflip/kickflip_1.jpg",
+      "/static/tricks/kickflip/kickflip_2.jpg"
     ],
     "videos": {
-      "amateurUrl": "http://192.168.1.45:5002/static/tricks/kickflip/neiji_kickflip.mp4",
+      "amateurUrl": "/static/tricks/kickflip/neiji_kickflip.mp4",
       "proUrl": ""
     },
-    "funFact": "Rodney Mullen l’a popularisé.",
+    "funFact": "Rodney Mullen l'a popularisé.",
     "proTip": "Poids légèrement en avant.",
     "commonMistake": "Ne pas assez charger le pied avant."
   },
@@ -214,18 +214,17 @@
       "Replaque bas."
     ],
     "images": [
-      "http://192.168.1.45:5002/static/tricks/kickflip/kickflip_1.jpg",
-      "http://192.168.1.45:5002/static/tricks/kickflip/kickflip_2.jpg"
+      "/static/tricks/kickflip/kickflip_1.jpg",
+      "/static/tricks/kickflip/kickflip_2.jpg"
     ],
     "videos": {
-      "amateurUrl": "http://192.168.1.45:5002/static/tricks/kickflip/neiji_kickflip.mp4",
+      "amateurUrl": "/static/tricks/kickflip/neiji_kickflip.mp4",
       "proUrl": ""
     },
     "funFact": "Inventé par Steve Caballero.",
     "proTip": "Tourne les épaules en avance.",
     "commonMistake": "Tourner après le pop."
   },
-
   {
     "_id": "boardslide",
     "name": "Boardslide",
@@ -240,18 +239,17 @@
       "Sors en pivoting."
     ],
     "images": [
-      "http://192.168.1.45:5002/static/tricks/kickflip/kickflip_1.jpg",
-      "http://192.168.1.45:5002/static/tricks/kickflip/kickflip_2.jpg"
+      "/static/tricks/kickflip/kickflip_1.jpg",
+      "/static/tricks/kickflip/kickflip_2.jpg"
     ],
     "videos": {
-      "amateurUrl": "http://192.168.1.45:5002/static/tricks/kickflip/neiji_kickflip.mp4",
+      "amateurUrl": "/static/tricks/kickflip/neiji_kickflip.mp4",
       "proUrl": ""
     },
     "funFact": "Premier slide appris par beaucoup.",
     "proTip": "Fixe le rail du regard.",
     "commonMistake": "Trop tourner les épaules."
   },
-
   {
     "_id": "fifty_fifty",
     "name": "50-50 Grind",
@@ -266,18 +264,17 @@
       "Sors droit ou pivot."
     ],
     "images": [
-      "http://192.168.1.45:5002/static/tricks/kickflip/kickflip_1.jpg",
-      "http://192.168.1.45:5002/static/tricks/kickflip/kickflip_2.jpg"
+      "/static/tricks/kickflip/kickflip_1.jpg",
+      "/static/tricks/kickflip/kickflip_2.jpg"
     ],
     "videos": {
-      "amateurUrl": "http://192.168.1.45:5002/static/tricks/kickflip/neiji_kickflip.mp4",
+      "amateurUrl": "/static/tricks/kickflip/neiji_kickflip.mp4",
       "proUrl": ""
     },
     "funFact": "Le grind classique.",
     "proTip": "Regarde la fin du rail.",
     "commonMistake": "Atterrir trop de côté."
   },
-
   {
     "_id": "tre_flip",
     "name": "360 Flip",
@@ -292,18 +289,17 @@
       "Rattrape et replaque."
     ],
     "images": [
-      "http://192.168.1.45:5002/static/tricks/kickflip/kickflip_1.jpg",
-      "http://192.168.1.45:5002/static/tricks/kickflip/kickflip_2.jpg"
+      "/static/tricks/kickflip/kickflip_1.jpg",
+      "/static/tricks/kickflip/kickflip_2.jpg"
     ],
     "videos": {
-      "amateurUrl": "http://192.168.1.45:5002/static/tricks/kickflip/neiji_kickflip.mp4",
+      "amateurUrl": "/static/tricks/kickflip/neiji_kickflip.mp4",
       "proUrl": ""
     },
     "funFact": "Iconique grâce à Mullen.",
     "proTip": "Flick discret.",
     "commonMistake": "Trop flicker."
   },
-
   {
     "_id": "hardflip",
     "name": "Hardflip",
@@ -318,18 +314,17 @@
       "Rattrape et replaque."
     ],
     "images": [
-      "http://192.168.1.45:5002/static/tricks/kickflip/kickflip_1.jpg",
-      "http://192.168.1.45:5002/static/tricks/kickflip/kickflip_2.jpg"
+      "/static/tricks/kickflip/kickflip_1.jpg",
+      "/static/tricks/kickflip/kickflip_2.jpg"
     ],
     "videos": {
-      "amateurUrl": "http://192.168.1.45:5002/static/tricks/kickflip/neiji_kickflip.mp4",
+      "amateurUrl": "/static/tricks/kickflip/neiji_kickflip.mp4",
       "proUrl": ""
     },
     "funFact": "Très populaire en vidéo.",
     "proTip": "Garde le mouvement compact.",
     "commonMistake": "Front shove trop large."
   },
-
   {
     "_id": "impossible",
     "name": "Impossible",
@@ -344,18 +339,17 @@
       "Replaque stable."
     ],
     "images": [
-      "http://192.168.1.45:5002/static/tricks/kickflip/kickflip_1.jpg",
-      "http://192.168.1.45:5002/static/tricks/kickflip/kickflip_2.jpg"
+      "/static/tricks/kickflip/kickflip_1.jpg",
+      "/static/tricks/kickflip/kickflip_2.jpg"
     ],
     "videos": {
-      "amateurUrl": "http://192.168.1.45:5002/static/tricks/kickflip/neiji_kickflip.mp4",
+      "amateurUrl": "/static/tricks/kickflip/neiji_kickflip.mp4",
       "proUrl": ""
     },
     "funFact": "Encore Mullen !",
     "proTip": "Imagine un cercle avec ton pied arrière.",
     "commonMistake": "Pop droit = impossible raté."
   },
-
   {
     "_id": "varial_kickflip",
     "name": "Varial Kickflip",
@@ -370,18 +364,17 @@
       "Replaque centré."
     ],
     "images": [
-      "http://192.168.1.45:5002/static/tricks/kickflip/kickflip_1.jpg",
-      "http://192.168.1.45:5002/static/tricks/kickflip/kickflip_2.jpg"
+      "/static/tricks/kickflip/kickflip_1.jpg",
+      "/static/tricks/kickflip/kickflip_2.jpg"
     ],
     "videos": {
-      "amateurUrl": "http://192.168.1.45:5002/static/tricks/kickflip/neiji_kickflip.mp4",
+      "amateurUrl": "/static/tricks/kickflip/neiji_kickflip.mp4",
       "proUrl": ""
     },
     "funFact": "Très populaire après le kickflip.",
     "proTip": "Kickflip + mini shove.",
     "commonMistake": "Shove trop fort."
   },
-
   {
     "_id": "crook_grind",
     "name": "Crook Grind",
@@ -396,18 +389,17 @@
       "Sors en poussant."
     ],
     "images": [
-      "http://192.168.1.45:5002/static/tricks/kickflip/kickflip_1.jpg",
-      "http://192.168.1.45:5002/static/tricks/kickflip/kickflip_2.jpg"
+      "/static/tricks/kickflip/kickflip_1.jpg",
+      "/static/tricks/kickflip/kickflip_2.jpg"
     ],
     "videos": {
-      "amateurUrl": "http://192.168.1.45:5002/static/tricks/kickflip/neiji_kickflip.mp4",
+      "amateurUrl": "/static/tricks/kickflip/neiji_kickflip.mp4",
       "proUrl": ""
     },
     "funFact": "Grind préféré des pros.",
     "proTip": "Pense à planter le nose.",
     "commonMistake": "Trop de poids arrière."
   },
-
   {
     "_id": "nose_slide",
     "name": "Nose Slide",
@@ -422,18 +414,17 @@
       "Sors en pivot."
     ],
     "images": [
-      "http://192.168.1.45:5002/static/tricks/kickflip/kickflip_1.jpg",
-      "http://192.168.1.45:5002/static/tricks/kickflip/kickflip_2.jpg"
+      "/static/tricks/kickflip/kickflip_1.jpg",
+      "/static/tricks/kickflip/kickflip_2.jpg"
     ],
     "videos": {
-      "amateurUrl": "http://192.168.1.45:5002/static/tricks/kickflip/neiji_kickflip.mp4",
+      "amateurUrl": "/static/tricks/kickflip/neiji_kickflip.mp4",
       "proUrl": ""
     },
     "funFact": "Très stylé en vidéo.",
     "proTip": "Regarde la sortie du ledge.",
     "commonMistake": "Trop se pencher en arrière."
   },
-
   {
     "_id": "tail_slide",
     "name": "Tail Slide",
@@ -448,18 +439,17 @@
       "Sors naturellement."
     ],
     "images": [
-      "http://192.168.1.45:5002/static/tricks/kickflip/kickflip_1.jpg",
-      "http://192.168.1.45:5002/static/tricks/kickflip/kickflip_2.jpg"
+      "/static/tricks/kickflip/kickflip_1.jpg",
+      "/static/tricks/kickflip/kickflip_2.jpg"
     ],
     "videos": {
-      "amateurUrl": "http://192.168.1.45:5002/static/tricks/kickflip/neiji_kickflip.mp4",
+      "amateurUrl": "/static/tricks/kickflip/neiji_kickflip.mp4",
       "proUrl": ""
     },
     "funFact": "Plus simple que nose slide pour certains.",
     "proTip": "Pied avant guide.",
     "commonMistake": "Trop de poids avant."
   },
-
   {
     "_id": "five_o",
     "name": "Five-O Grind",
@@ -474,18 +464,17 @@
       "Sors proprement."
     ],
     "images": [
-      "http://192.168.1.45:5002/static/tricks/kickflip/kickflip_1.jpg",
-      "http://192.168.1.45:5002/static/tricks/kickflip/kickflip_2.jpg"
+      "/static/tricks/kickflip/kickflip_1.jpg",
+      "/static/tricks/kickflip/kickflip_2.jpg"
     ],
     "videos": {
-      "amateurUrl": "http://192.168.1.45:5002/static/tricks/kickflip/neiji_kickflip.mp4",
+      "amateurUrl": "/static/tricks/kickflip/neiji_kickflip.mp4",
       "proUrl": ""
     },
     "funFact": "Stylé dans les gaps-to-ledge.",
     "proTip": "Contrôle du pied arrière.",
     "commonMistake": "Écraser le nose."
   },
-
   {
     "_id": "fakie_bs_180",
     "name": "Fakie Backside 180",
@@ -500,11 +489,11 @@
       "Replaque forward."
     ],
     "images": [
-      "http://192.168.1.45:5002/static/tricks/kickflip/kickflip_1.jpg",
-      "http://192.168.1.45:5002/static/tricks/kickflip/kickflip_2.jpg"
+      "/static/tricks/kickflip/kickflip_1.jpg",
+      "/static/tricks/kickflip/kickflip_2.jpg"
     ],
     "videos": {
-      "amateurUrl": "http://192.168.1.45:5002/static/tricks/kickflip/neiji_kickflip.mp4",
+      "amateurUrl": "/static/tricks/kickflip/neiji_kickflip.mp4",
       "proUrl": ""
     },
     "funFact": "Très naturel une fois maîtrisé.",

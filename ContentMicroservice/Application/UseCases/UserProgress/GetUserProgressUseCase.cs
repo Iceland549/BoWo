@@ -1,19 +1,30 @@
-﻿using ContentMicroservice.Application.DTOs;
+﻿using System;
+using System.Threading;
+using System.Threading.Tasks;
+using ContentMicroservice.Application.DTOs;
 using ContentMicroservice.Application.Interfaces;
 using ContentMicroservice.Infrastructure.Persistence.Entities;
 using Microsoft.Extensions.Logging;
+using ProgressEntity = ContentMicroservice.Infrastructure.Persistence.Entities.UserProgress;
 
 
 namespace ContentMicroservice.Application.UseCases.UserProgress
 {
     public class GetUserProgressUseCase
     {
-        private readonly IUserProgressRepository _repo;
+        private readonly IUserProgressRepository _progressRepo;
+        private readonly IContentRepository _contentRepo;
         private readonly ILogger<GetUserProgressUseCase> _logger;
 
-        public GetUserProgressUseCase(IUserProgressRepository repo, ILogger<GetUserProgressUseCase> logger)
+        private const int XP_PER_LEVEL = 500;
+
+        public GetUserProgressUseCase(
+            IUserProgressRepository progressRepo,
+            IContentRepository contentRepo,
+            ILogger<GetUserProgressUseCase> logger)
         {
-            _repo = repo;
+            _progressRepo = progressRepo;
+            _contentRepo = contentRepo;
             _logger = logger;
         }
 
@@ -22,20 +33,52 @@ namespace ContentMicroservice.Application.UseCases.UserProgress
             try
             {
                 _logger.LogDebug("Fetching progress for user {UserId}", userId);
-                var progress = await _repo.GetByUserIdAsync(userId, ct)
-                              ?? new ContentMicroservice.Infrastructure.Persistence.Entities.UserProgress { UserId = userId };
 
+                // 1) Charger ou initialiser la progression
+                var progress = await _progressRepo.GetByUserIdAsync(userId, ct)
+                               ?? new ProgressEntity { UserId = userId };
+
+                progress.UnlockedTricks ??= new System.Collections.Generic.List<string>();
+                progress.QuizAttempts ??= new System.Collections.Generic.Dictionary<string, int>();
+                progress.UnlockedMiniGames ??= new System.Collections.Generic.List<string>();
+
+                // 2) Connaitre le nombre total de tricks disponibles
+                var tricks = await _contentRepo.GetAllTricksAsync(ct);
+                var totalTricks = tricks?.Count ?? 0;
+
+                var totalUnlocked = progress.UnlockedTricks.Count;
+                var completionPercent = totalTricks == 0
+                    ? 0
+                    : (int)((double)totalUnlocked / totalTricks * 100);
+
+                // 3) Niveau basé sur l'XP
+                var level = progress.XP / XP_PER_LEVEL;
+
+                // 4) Construire le DTO
                 var dto = new UserProgressDto
                 {
                     UserId = progress.UserId,
-                    UnlockedTricks = progress.UnlockedTricks ?? new System.Collections.Generic.List<string>(),
+                    UnlockedTricks = progress.UnlockedTricks,
                     LastUnlockDateUtc = progress.LastUnlockDateUtc,
                     TricksUnlockedToday = progress.TricksUnlockedToday,
-                    QuizAttempts = progress.QuizAttempts ?? new System.Collections.Generic.Dictionary<string, int>()
+                    QuizAttempts = progress.QuizAttempts,
+
+                    XP = progress.XP,
+                    Level = level,
+                    TotalTricksAvailable = totalTricks,
+                    CompletionPercent = completionPercent,
+                    UnlockedMiniGames = progress.UnlockedMiniGames
                 };
 
-                _logger.LogInformation("Returning progress for user {UserId}: {TotalUnlocked} unlocked, {Today} today",
-                    userId, dto.TotalUnlocked, dto.TricksUnlockedToday);
+                _logger.LogInformation(
+                    "Returning progress for user {UserId}: {TotalUnlocked} unlocked, {Today} today, {XP} XP, level {Level}, {TotalTricks} tricks available",
+                    userId,
+                    dto.TotalUnlocked,
+                    dto.TricksUnlockedToday,
+                    dto.XP,
+                    dto.Level,
+                    dto.TotalTricksAvailable
+                );
 
                 return dto;
             }
@@ -46,5 +89,4 @@ namespace ContentMicroservice.Application.UseCases.UserProgress
             }
         }
     }
-
 }

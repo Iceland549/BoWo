@@ -23,5 +23,22 @@ namespace ContentMicroservice.Infrastructure.Persistence.Entities
         /// </summary>
         public Dictionary<string, int> QuizAttempts { get; set; } = new();
 
+        // --------------- NOUVEAU : SYSTÈME XP & MINI-JEUX ---------------
+
+        /// <summary>
+        /// XP global de l'utilisateur (toutes actions confondues).
+        /// </summary>
+        public int XP { get; set; }
+
+        /// <summary>
+        /// Dernière activité significative (lecture, vidéo, quiz, etc.).
+        /// Optionnel, utile pour des stats ou claims plus tard.
+        /// </summary>
+        public DateTime? LastActivityDateUtc { get; set; }
+
+        /// <summary>
+        /// Liste des mini-jeux débloqués (ex: "coin_flip", "dice", "spinner").
+        /// </summary>
+        public List<string> UnlockedMiniGames { get; set; } = new();
     }
 }

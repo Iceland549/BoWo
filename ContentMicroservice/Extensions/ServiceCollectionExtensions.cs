@@ -16,7 +16,7 @@ namespace ContentMicroservice.Extensions
     {
         public static IServiceCollection AddContentMicroserviceServices(this IServiceCollection services, IConfiguration configuration)
         {
-            // Configure Mongo settings
+            // MongoDB
             services.Configure<MongoDbConfig>(configuration.GetSection("Mongo"));
             services.AddSingleton(resolver =>
             {
@@ -24,20 +24,23 @@ namespace ContentMicroservice.Extensions
                 return new MongoClient(cfg.ConnectionString);
             });
 
-            // Repository
+            // Repositories
             services.AddScoped<IContentRepository, MongoContentRepository>();
             services.AddScoped<IUserProgressRepository, MongoUserProgressRepository>();
             services.AddScoped<IQuizRepository, MongoQuizRepository>();
 
-            // Firebase client (stub)
+            // Firebase (stub)
             services.AddSingleton<IFirebaseClient, FirebaseClient>();
 
-            // Use cases - Content
+            // Content UseCases
             services.AddScoped<GetTrickUseCase>();
             services.AddScoped<GetTrickLearnUseCase>();
             services.AddScoped<UploadUserVideoUseCase>();
 
-            // Use cases - UserProgress 
+            // XP UseCase
+            services.AddScoped<AddXPUseCase>();
+
+            // UserProgress UseCases
             services.AddScoped<GetUserProgressUseCase>();
             services.AddScoped<UnlockTrickUseCase>();
             services.AddScoped<UpdateDailyProgressUseCase>();
@@ -49,25 +52,42 @@ namespace ContentMicroservice.Extensions
             services.AddScoped<RewardAdCompleteUseCase>();
             services.AddScoped<PurchaseValidationUseCase>();
 
-            // Parameters
-            int dailyLimit = configuration.GetValue<int>("UserProgress:DailyUnlockLimit", 1);
+            // ----------- PARAMÈTRES DE CONFIG -------------
+            int dailyLimit = configuration.GetValue<int>("UserProgress:DailyUnlockLimit", 3);
             int maxAttempts = configuration.GetValue<int>("UserProgress:MaxQuizAttempts", 3);
 
+            // ----------- UnlockTrickUseCase -------------
             services.AddScoped(provider =>
             {
-                var up = provider.GetRequiredService<IUserProgressRepository>();
+                var progress = provider.GetRequiredService<IUserProgressRepository>();
                 var content = provider.GetRequiredService<IContentRepository>();
-                var log = provider.GetRequiredService<ILogger<UnlockTrickUseCase>>();
-                return new UnlockTrickUseCase(up, content, log, dailyLimit);
+                var addXP = provider.GetRequiredService<AddXPUseCase>();
+                var logger = provider.GetRequiredService<ILogger<UnlockTrickUseCase>>();
+
+                return new UnlockTrickUseCase(
+                    progress,
+                    content,
+                    addXP,
+                    logger,
+                    dailyLimit
+                );
             });
 
+            // ----------- ValidateQuizUseCase -------------
             services.AddScoped(provider =>
             {
                 var quizRepo = provider.GetRequiredService<IQuizRepository>();
                 var record = provider.GetRequiredService<RecordQuizAttemptUseCase>();
                 var unlock = provider.GetRequiredService<UnlockTrickUseCase>();
-                var log = provider.GetRequiredService<ILogger<ValidateQuizUseCase>>();
-                return new ValidateQuizUseCase(quizRepo, record, unlock, log, maxAttempts);
+                var logger = provider.GetRequiredService<ILogger<ValidateQuizUseCase>>();
+
+                return new ValidateQuizUseCase(
+                    quizRepo,
+                    record,
+                    unlock,
+                    logger,
+                    maxAttempts
+                );
             });
 
             // AutoMapper
@@ -75,6 +95,5 @@ namespace ContentMicroservice.Extensions
 
             return services;
         }
-
     }
 }

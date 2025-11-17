@@ -1,4 +1,8 @@
-﻿using ContentMicroservice.Application.Interfaces;
+﻿using System;
+using System.Collections.Generic;
+using System.Threading;
+using System.Threading.Tasks;
+using ContentMicroservice.Application.Interfaces;
 using Microsoft.Extensions.Logging;
 
 namespace ContentMicroservice.Application.UseCases.UserProgress
@@ -11,17 +15,20 @@ namespace ContentMicroservice.Application.UseCases.UserProgress
     {
         private readonly IUserProgressRepository _progressRepo;
         private readonly IContentRepository _contentRepo;
+        private readonly AddXPUseCase _addXP;
         private readonly ILogger<UnlockTrickUseCase> _logger;
         private readonly int _dailyLimit;
 
         public UnlockTrickUseCase(
             IUserProgressRepository progressRepo,
             IContentRepository contentRepo,
+            AddXPUseCase addXP,
             ILogger<UnlockTrickUseCase> logger,
             int dailyLimit = 3)
         {
             _progressRepo = progressRepo;
             _contentRepo = contentRepo;
+            _addXP = addXP;
             _logger = logger;
             _dailyLimit = dailyLimit;
         }
@@ -70,7 +77,24 @@ namespace ContentMicroservice.Application.UseCases.UserProgress
                 progress.LastUnlockDateUtc = DateTime.UtcNow;
 
                 await _progressRepo.SaveAsync(progress, ct);
-                _logger.LogInformation("User {UserId} unlocked trick {TrickId}. Today unlocked: {Count}", userId, trickId, progress.TricksUnlockedToday);
+                _logger.LogInformation(
+                    "User {UserId} unlocked trick {TrickId}. Today unlocked: {Count}",
+                    userId, trickId, progress.TricksUnlockedToday
+                );
+
+                // --- NOUVEAU : AJOUT XP SUR DÉBLOCAGE ---
+                try
+                {
+                    const int XP_UNLOCK_TRICK = 120; // table XP officielle
+                    await _addXP.ExecuteAsync(userId, XP_UNLOCK_TRICK, ct);
+                }
+                catch (Exception ex)
+                {
+                    // On ne casse pas l'UNLOCK si l'XP bugge, on log seulement
+                    _logger.LogError(ex,
+                        "Error while adding XP after unlock for user {UserId} trick {TrickId}",
+                        userId, trickId);
+                }
 
                 return (true, "Unlocked");
             }
@@ -81,5 +105,4 @@ namespace ContentMicroservice.Application.UseCases.UserProgress
             }
         }
     }
-
 }
