@@ -53,6 +53,17 @@ export async function refresh() {
   return data;
 }
 
+export async function getProfile() {
+  try {
+    const { data } = await api.get('/progress'); // JWT token → userId auto
+    return unwrap(data); // ApiResponse<T> → T
+  } catch (err) {
+    log('authService.getProfile error', err);
+    throw err;
+  }
+}
+
+
 export async function logout() {
   const refreshToken = await AsyncStorage.getItem('refreshToken');
   try {
