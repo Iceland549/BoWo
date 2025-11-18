@@ -46,6 +46,8 @@ namespace ContentMicroservice.Extensions
             services.AddScoped<UpdateDailyProgressUseCase>();
             services.AddScoped<ResetProgressIfNewDayUseCase>();
             services.AddScoped<RecordQuizAttemptUseCase>();
+            services.AddScoped<UnlockMiniGameUseCase>();
+
 
             // Use cases - Quiz 
             services.AddScoped<ValidateQuizUseCase>();
