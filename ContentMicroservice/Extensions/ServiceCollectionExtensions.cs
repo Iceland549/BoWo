@@ -53,7 +53,7 @@ namespace ContentMicroservice.Extensions
             services.AddScoped<PurchaseValidationUseCase>();
 
             // ----------- PARAMÈTRES DE CONFIG -------------
-            int dailyLimit = configuration.GetValue<int>("UserProgress:DailyUnlockLimit", 3);
+            int dailyLimit = configuration.GetValue<int>("UserProgress:DailyUnlockLimit", 1);
             int maxAttempts = configuration.GetValue<int>("UserProgress:MaxQuizAttempts", 3);
 
             // ----------- UnlockTrickUseCase -------------
@@ -79,12 +79,14 @@ namespace ContentMicroservice.Extensions
                 var quizRepo = provider.GetRequiredService<IQuizRepository>();
                 var record = provider.GetRequiredService<RecordQuizAttemptUseCase>();
                 var unlock = provider.GetRequiredService<UnlockTrickUseCase>();
+                var content = provider.GetRequiredService<IContentRepository>();
                 var logger = provider.GetRequiredService<ILogger<ValidateQuizUseCase>>();
 
                 return new ValidateQuizUseCase(
                     quizRepo,
                     record,
                     unlock,
+                    content,
                     logger,
                     maxAttempts
                 );
