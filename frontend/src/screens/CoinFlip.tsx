@@ -13,11 +13,12 @@ import {
 const skull: ImageSourcePropType = require('../../assets/coin/skull.jpg');
 const astronaut: ImageSourcePropType = require('../../assets/coin/astronaut.jpg');
 
-export default function KillerTimeCoinFlip() {
+export default function KillerTimeCoinFlip({ navigation }) {
   const spinAnim = useRef(new Animated.Value(0)).current;
 
   const [face, setFace] = useState<'PILE' | 'FACE' | null>(null);
   const [isFlipping, setIsFlipping] = useState(false);
+  const [displayImage, setDisplayImage] = useState<ImageSourcePropType>(astronaut);
 
   const flipCoin = () => {
     if (isFlipping) return;
@@ -25,52 +26,57 @@ export default function KillerTimeCoinFlip() {
     setIsFlipping(true);
     setFace(null);
 
-    // reset
     spinAnim.setValue(0);
 
-    // rotation rapide → lente
+    // ⏱ durée random : 5 à 10 secondes
+    const duration = 5000 + Math.random() * 5000;
+
+    // 🔄 alternance des faces pendant la rotation (toutes les 80ms)
+    const interval = setInterval(() => {
+      setDisplayImage(prev => (prev === astronaut ? skull : astronaut));
+    }, 80);
+
     Animated.timing(spinAnim, {
       toValue: 1,
-      duration: 1200,
+      duration,
       easing: Easing.out(Easing.cubic),
       useNativeDriver: true,
     }).start(() => {
+      clearInterval(interval);
+
+      // 🎲 résultat final
       const result = Math.random() < 0.5 ? 'PILE' : 'FACE';
       setFace(result);
+      setDisplayImage(result === 'FACE' ? skull : astronaut);
+
       setIsFlipping(false);
     });
   };
 
-  // 3D rotation
+  // 🔁 rotation 3D infiniment plus naturelle
   const rotateY = spinAnim.interpolate({
     inputRange: [0, 1],
-    outputRange: ['0deg', '720deg'], // 2 tours complets
+    outputRange: ['0deg', '7200deg'], // multi-tours
   });
-
-  // Face visible
-  const currentImage =
-    face === 'FACE'
-      ? skull
-      : face === 'PILE'
-      ? astronaut
-      : astronaut; // image pendant animation
 
   return (
     <View style={styles.container}>
+      
+      {/* ───── QUOTE ───── */}
       <Text style={styles.quote}>
         “Pile tu perds... Face je gagne.”
       </Text>
 
-      {/* -------- COIN ANIMÉ -------- */}
+      {/* ───── COIN ANIMÉ ───── */}
       <Animated.Image
-        source={currentImage}
+        source={displayImage}
         style={[
           styles.coinImage,
           { transform: [{ rotateY }] }
         ]}
       />
 
-      {/* -------- BUTTON -------- */}
+      {/* ───── BOUTON LANCER ───── */}
       <TouchableOpacity
         style={[styles.flipBtn, isFlipping && { opacity: 0.5 }]}
         onPress={flipCoin}
@@ -81,12 +87,20 @@ export default function KillerTimeCoinFlip() {
         </Text>
       </TouchableOpacity>
 
-      {/* -------- RESULT -------- */}
+      {/* ───── RÉSULTAT ───── */}
       {face && (
         <Text style={styles.result}>
           👉 {face === 'FACE' ? 'FACE 🎉' : 'PILE 😈'}
         </Text>
       )}
+
+      {/* ───── BACK TO PARK ───── */}
+      <TouchableOpacity
+        style={styles.backBtn}
+        onPress={() => navigation.navigate('Main', { screen: 'Home' })}
+      >
+        <Text style={styles.backText}>Back to Park</Text>
+      </TouchableOpacity>
     </View>
   );
 }
@@ -110,7 +124,6 @@ const styles = StyleSheet.create({
     marginBottom: 30,
   },
 
-  // COIN
   coinImage: {
     width: 160,
     height: 160,
@@ -121,7 +134,6 @@ const styles = StyleSheet.create({
     backfaceVisibility: 'hidden',
   },
 
-  // BUTTON
   flipBtn: {
     backgroundColor: '#FF355E',
     paddingVertical: 16,
@@ -138,7 +150,6 @@ const styles = StyleSheet.create({
     textTransform: 'uppercase',
   },
 
-  // RESULT
   result: {
     marginTop: 40,
     color: '#0AA5FF',
@@ -146,5 +157,23 @@ const styles = StyleSheet.create({
     fontWeight: '900',
     textShadowColor: '#FF355E',
     textShadowRadius: 4,
+  },
+
+  /* ---- BUTTON RETOUR ---- */
+  backBtn: {
+    marginTop: 50,
+    paddingVertical: 14,
+    paddingHorizontal: 40,
+    borderRadius: 40,
+    borderWidth: 3,
+    borderColor: '#FFD600',
+    backgroundColor: '#0AA5FF',
+  },
+  backText: {
+    color: '#111',
+    fontWeight: '900',
+    fontSize: 16,
+    textTransform: 'uppercase',
+    letterSpacing: 1,
   },
 });
