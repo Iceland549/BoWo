@@ -38,15 +38,18 @@ namespace ContentMicroservice.Presentation.Controllers
             return claim?.Value ?? throw new InvalidOperationException("User id not found in token");
         }
 
+        // ---------------------------------------------------------
+        // GET QUIZ
+        // ---------------------------------------------------------
         [HttpGet("{trickId}")]
         public async Task<IActionResult> GetQuiz(string trickId, CancellationToken ct = default)
         {
             try
             {
                 var quiz = await _quizRepo.GetByTrickIdAsync(trickId, ct);
-                if (quiz == null) return NotFound();
+                if (quiz == null)
+                    return NotFound();
 
-                // return DTO without correct answer index
                 var dto = new QuizDto
                 {
                     Id = quiz.Id,
@@ -65,6 +68,9 @@ namespace ContentMicroservice.Presentation.Controllers
             }
         }
 
+        // ---------------------------------------------------------
+        // VALIDATE QUIZ
+        // ---------------------------------------------------------
         public class QuizAnswerRequest
         {
             public string TrickId { get; set; } = null!;
@@ -75,10 +81,13 @@ namespace ContentMicroservice.Presentation.Controllers
         public async Task<IActionResult> Validate([FromBody] QuizAnswerRequest req, CancellationToken ct = default)
         {
             var userId = GetUserId();
+
             try
             {
-                var (success, message) = await _validateUseCase.ExecuteAsync(userId, req.TrickId, req.AnswerIndex, ct);
-                return Ok(new { success, message });
+                QuizValidationResponseDto result =
+                    await _validateUseCase.ExecuteAsync(userId, req.TrickId, req.AnswerIndex, ct);
+
+                return Ok(result); // <-- IMPORTANT : renvoyer l'objet complet
             }
             catch (Exception ex)
             {
@@ -87,6 +96,9 @@ namespace ContentMicroservice.Presentation.Controllers
             }
         }
 
+        // ---------------------------------------------------------
+        // AD REWARD
+        // ---------------------------------------------------------
         public class AdRewardRequest
         {
             public string TrickId { get; set; } = null!;
@@ -109,6 +121,9 @@ namespace ContentMicroservice.Presentation.Controllers
             }
         }
 
+        // ---------------------------------------------------------
+        // PURCHASE VALIDATION
+        // ---------------------------------------------------------
         public class PurchaseValidateRequest
         {
             public string TrickId { get; set; } = null!;
@@ -131,5 +146,4 @@ namespace ContentMicroservice.Presentation.Controllers
             }
         }
     }
-
 }
