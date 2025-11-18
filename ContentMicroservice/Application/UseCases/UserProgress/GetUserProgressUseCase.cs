@@ -7,7 +7,6 @@ using ContentMicroservice.Infrastructure.Persistence.Entities;
 using Microsoft.Extensions.Logging;
 using ProgressEntity = ContentMicroservice.Infrastructure.Persistence.Entities.UserProgress;
 
-
 namespace ContentMicroservice.Application.UseCases.UserProgress
 {
     public class GetUserProgressUseCase
@@ -42,7 +41,19 @@ namespace ContentMicroservice.Application.UseCases.UserProgress
                 progress.QuizAttempts ??= new System.Collections.Generic.Dictionary<string, int>();
                 progress.UnlockedMiniGames ??= new System.Collections.Generic.List<string>();
 
-                // 2) Connaitre le nombre total de tricks disponibles
+                // 2) Auto-débloquer le mini-jeu "coin-flip" si 3 tricks ou plus
+                if (progress.UnlockedTricks.Count >= 3 &&
+                    !progress.UnlockedMiniGames.Contains("coin-flip"))
+                {
+                    progress.UnlockedMiniGames.Add("coin-flip");
+                    await _progressRepo.SaveAsync(progress, ct);
+
+                    _logger.LogInformation(
+                        "Auto-unlocked mini-game 'coin-flip' for user {UserId} (GetUserProgress)",
+                        userId);
+                }
+
+                // 3) Connaitre le nombre total de tricks disponibles
                 var tricks = await _contentRepo.GetAllTricksAsync(ct);
                 var totalTricks = tricks?.Count ?? 0;
 
@@ -51,10 +62,10 @@ namespace ContentMicroservice.Application.UseCases.UserProgress
                     ? 0
                     : (int)((double)totalUnlocked / totalTricks * 100);
 
-                // 3) Niveau basé sur l'XP
+                // 4) Niveau basé sur l'XP
                 var level = progress.XP / XP_PER_LEVEL;
 
-                // 4) Construire le DTO
+                // 5) Construire le DTO
                 var dto = new UserProgressDto
                 {
                     UserId = progress.UserId,
@@ -71,13 +82,14 @@ namespace ContentMicroservice.Application.UseCases.UserProgress
                 };
 
                 _logger.LogInformation(
-                    "Returning progress for user {UserId}: {TotalUnlocked} unlocked, {Today} today, {XP} XP, level {Level}, {TotalTricks} tricks available",
+                    "Returning progress for user {UserId}: {TotalUnlocked} unlocked, {Today} today, {XP} XP, level {Level}, {TotalTricks} tricks available, {MiniGames} mini-games",
                     userId,
                     dto.TotalUnlocked,
                     dto.TricksUnlockedToday,
                     dto.XP,
                     dto.Level,
-                    dto.TotalTricksAvailable
+                    dto.TotalTricksAvailable,
+                    dto.UnlockedMiniGames?.Count ?? 0
                 );
 
                 return dto;
