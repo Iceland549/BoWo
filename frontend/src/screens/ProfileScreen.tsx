@@ -7,6 +7,8 @@ import {
   ActivityIndicator,
 } from 'react-native';
 
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
 import { getProfile, logout } from '../services/authService';
 import { useAuthStore } from '../store/authStore';
 import { log } from '../utils/logger';
@@ -19,7 +21,9 @@ export default function ProfileScreen({ navigation }) {
   const [loading, setLoading] = useState(true);
   const [killerTimeVisible, setKillerTimeVisible] = useState(false);
 
-
+  /* -------------------------------------------------------- */
+  /*  🔵 CHARGER LE PROFIL                                     */
+  /* -------------------------------------------------------- */
   useEffect(() => {
     (async () => {
       try {
@@ -34,22 +38,46 @@ export default function ProfileScreen({ navigation }) {
     })();
   }, []);
 
+  /* -------------------------------------------------------- */
+  /*  🔥 AFFICHER LA MODALE UNE SEULE FOIS                     */
+  /* -------------------------------------------------------- */
   useEffect(() => {
-  if (
-      profile?.unlockedMiniGames?.includes("coin-flip") ||
-      profile?.UnlockedMiniGames?.includes("coin-flip")
-    ) {
-      setKillerTimeVisible(true);
-    }
+    if (!profile) return;
 
+    const checkKillerTimeModal = async () => {
+      const unlocked =
+        profile?.unlockedMiniGames?.includes("coin-flip") ||
+        profile?.UnlockedMiniGames?.includes("coin-flip");
+
+      if (!unlocked) return;
+
+      // Vérifier si la modale a déjà été affichée
+      const alreadyShown = await AsyncStorage.getItem("coinflip_modal_shown");
+
+      if (!alreadyShown) {
+        // Première fois → on affiche
+        setKillerTimeVisible(true);
+
+        // On enregistre qu’elle a été montrée
+        await AsyncStorage.setItem("coinflip_modal_shown", "true");
+      }
+    };
+
+    checkKillerTimeModal();
   }, [profile]);
 
+  /* -------------------------------------------------------- */
+  /*  🔴 LOGOUT                                                */
+  /* -------------------------------------------------------- */
   const onLogout = async () => {
     await logout();
     clearCredentials();
     navigation.replace('Login');
   };
 
+  /* -------------------------------------------------------- */
+  /*  🔄 LOADING                                               */
+  /* -------------------------------------------------------- */
   if (loading) {
     return (
       <View style={styles.loadingWrap}>
@@ -59,7 +87,9 @@ export default function ProfileScreen({ navigation }) {
     );
   }
 
-  // fallback pour supporter XP / xp, Level / level, etc.
+  /* -------------------------------------------------------- */
+  /*  📊 FALLBACKS POUR LES PROPS DU BACKEND                  */
+  /* -------------------------------------------------------- */
   const xp = profile?.xp ?? profile?.XP ?? 0;
   const level = profile?.level ?? profile?.Level ?? 0;
   const totalUnlocked = profile?.totalUnlocked ?? profile?.TotalUnlocked ?? 0;
@@ -70,9 +100,11 @@ export default function ProfileScreen({ navigation }) {
 
   const nextLevelXP = (level + 1) * 500;
 
+  /* -------------------------------------------------------- */
+  /*  🎨 RENDER                                                */
+  /* -------------------------------------------------------- */
   return (
     <View style={styles.container}>
-      {/* TITLE */}
       <Text style={styles.title}>My Board, My World</Text>
 
       {/* PROFILE CARD */}
@@ -80,7 +112,6 @@ export default function ProfileScreen({ navigation }) {
         <Text style={styles.label}>Niveau</Text>
         <Text style={styles.value}>{level}</Text>
 
-        {/* XP BAR */}
         <XPBar xp={xp} nextLevelXP={nextLevelXP} />
 
         <Text style={styles.label}>Tricks débloqués</Text>
@@ -92,21 +123,23 @@ export default function ProfileScreen({ navigation }) {
         <Text style={styles.value}>{completionPercent}%</Text>
       </View>
 
+      {/* 🔥 MODALE UNIQUE */}
       <KillerTimeUnlockedModal
         visible={killerTimeVisible}
         onClose={() => setKillerTimeVisible(false)}
         navigation={navigation}
       />
 
-      {profile?.unlockedMiniGames?.includes("coin-flip") && (
+      {/* 🔵 BOUTON PERMANENT KILLER-TIME */}
+      {(profile?.unlockedMiniGames?.includes("coin-flip") ||
+        profile?.UnlockedMiniGames?.includes("coin-flip")) && (
         <TouchableOpacity
-          style={styles.killerBtn}
+          style={styles.killerTimeBtn}
           onPress={() => navigation.navigate("KillerTimeCoinFlip")}
         >
-          <Text style={styles.killerBtnText}>🔥 Killer-Time : Coin Flip</Text>
+          <Text style={styles.killerTimeText}>🔥 Killer-Time : Flip Coin</Text>
         </TouchableOpacity>
       )}
-
 
       {/* LOGOUT BUTTON */}
       <TouchableOpacity style={styles.logoutBtn} onPress={onLogout}>
@@ -116,7 +149,9 @@ export default function ProfileScreen({ navigation }) {
   );
 }
 
-/* --------------- SANTA CRUZ STYLES ---------------- */
+/* -------------------------------------------------------- */
+/*              🎨 SANTA CRUZ STYLES                         */
+/* -------------------------------------------------------- */
 
 const styles = StyleSheet.create({
   container: {
@@ -185,24 +220,27 @@ const styles = StyleSheet.create({
     letterSpacing: 1,
     textTransform: 'uppercase',
   },
-  killerBtn: {
-  backgroundColor: '#0AA5FF',
-  paddingVertical: 14,
-  borderRadius: 40,
-  borderWidth: 2,
-  borderColor: '#FFD600',
-  alignSelf: 'center',
-  width: '85%',
-  marginBottom: 25,
-  marginTop: -10,
-  },
 
-  killerBtnText: {
+  killerTimeBtn: {
+    backgroundColor: '#0AA5FF',
+    paddingVertical: 14,
+    borderRadius: 40,
+    borderWidth: 2,
+    borderColor: '#FFD600',
+    alignSelf: 'center',
+    width: '80%',
+    marginBottom: 20,
+    shadowColor: '#FF355E',
+    shadowOpacity: 0.4,
+    shadowRadius: 6,
+    elevation: 6,
+  },
+  killerTimeText: {
     color: '#111',
     fontWeight: '900',
     textAlign: 'center',
     fontSize: 16,
-    letterSpacing: 1,
     textTransform: 'uppercase',
+    letterSpacing: 1,
   },
 });
