@@ -8,13 +8,11 @@ import {
   ActivityIndicator,
 } from 'react-native';
 
-import { getProfile, logout } from '../services/authService';
-import { useAuthStore } from '../store/authStore';
+import { getProfile } from '../services/authService';
 import { log } from '../utils/logger';
 import XPBar from '../components/XPBar';
 
 export default function ProfileScreen({ navigation }) {
-  const { clearCredentials } = useAuthStore();
   const [profile, setProfile] = useState<any>(null);
   const [loading, setLoading] = useState(true);
 
@@ -115,15 +113,6 @@ export default function ProfileScreen({ navigation }) {
   };
 
   /* -------------------------------------------------------- */
-  /*  🔴 LOGOUT                                                */
-  /* -------------------------------------------------------- */
-  const onLogout = async () => {
-    await logout();
-    clearCredentials();
-    navigation.replace('Login');
-  };
-
-  /* -------------------------------------------------------- */
   /*  🎨 RENDER                                                */
   /* -------------------------------------------------------- */
   return (
@@ -188,13 +177,9 @@ export default function ProfileScreen({ navigation }) {
         style={styles.backBtn}
         onPress={() => navigation.navigate('Home')}
       >
-        <Text style={styles.backText}>← Retour au park</Text>
+        <Text style={styles.backText}>← Back to Profile</Text>
       </TouchableOpacity>
 
-      {/* LOGOUT */}
-      <TouchableOpacity style={styles.logoutBtn} onPress={onLogout}>
-        <Text style={styles.logoutText}>Se déconnecter</Text>
-      </TouchableOpacity>
     </View>
   );
 }
@@ -310,25 +295,6 @@ const styles = StyleSheet.create({
     fontSize: 15,
     fontWeight: '800',
     textAlign: 'center',
-  },
-
-  /* LOGOUT */
-  logoutBtn: {
-    backgroundColor: '#FF355E',
-    paddingVertical: 14,
-    borderRadius: 40,
-    borderWidth: 2,
-    borderColor: '#FFD600',
-    alignSelf: 'center',
-    width: '70%',
-  },
-  logoutText: {
-    color: '#111215',
-    fontWeight: '900',
-    textAlign: 'center',
-    fontSize: 16,
-    letterSpacing: 1,
-    textTransform: 'uppercase',
   },
 
   loadingWrap: {
