@@ -13,6 +13,7 @@ import KillerTimeCoinFlip from '../screens/TimeKiller/CoinFlip';
 import { useAuthStore } from '../store/authStore';
 import FunFactScreen from '../screens/FunFactScreen';
 import Magic8Ball from '@/screens/TimeKiller/Magic8Ball';
+import MiniGameUnlockChoice from '@/screens/MiniGameUnlockChoice';
 
 // Stack = navigation interne
 const Stack: any = createNativeStackNavigator();
@@ -103,6 +104,7 @@ export default function AppNavigator() {
       <Stack.Screen name="TrickLearn" component={TrickLearnScreen} />
       <Stack.Screen name="Quiz" component={QuizScreen} />
       <Stack.Screen name="FunFact" component={FunFactScreen} />
+      <Stack.Screen name="MiniGameUnlockChoice" component={MiniGameUnlockChoice} options={{ headerShown: false }}/>
       <Stack.Screen name="KillerTimeCoinFlip" component={KillerTimeCoinFlip} />
       <Stack.Screen name="Magic8Ball" component={Magic8Ball} />
     </Stack.Navigator>
