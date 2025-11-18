@@ -96,6 +96,24 @@
       }
     },
 
+    {
+      "DownstreamPathTemplate": "/progress/unlock-mini-game",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "content",
+          "Port": 5002
+        }
+      ],
+      "UpstreamPathTemplate": "/api/progress/unlock-mini-game",
+      "UpstreamHttpMethod": [ "POST" ],
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer",
+        "AllowedScopes": []
+      }
+    },
+
+
     // ---------- QUIZ ----------
     {
       "DownstreamPathTemplate": "/quiz/{everything}",
