@@ -97,9 +97,9 @@ export default function KillerTimeCoinFlip({ navigation }) {
       {/* ───── BACK TO PARK ───── */}
       <TouchableOpacity
         style={styles.backBtn}
-        onPress={() => navigation.navigate('Main', { screen: 'Home' })}
+        onPress={() => navigation.navigate('Main', { screen: 'Profile' })}
       >
-        <Text style={styles.backText}>Back to Park</Text>
+        <Text style={styles.backText}>Back to Profile</Text>
       </TouchableOpacity>
     </View>
   );
