@@ -1,4 +1,7 @@
 import React, { useEffect, useState } from 'react';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import { useAuthStore } from '../store/authStore';
+
 import {
   View,
   Text,
@@ -6,7 +9,6 @@ import {
   TouchableOpacity,
   StyleSheet,
   ActivityIndicator,
-  SafeAreaView,
 } from 'react-native';
 import api from '../api/api';
 import TrickCard from '../components/TrickCard';
@@ -15,6 +17,7 @@ import { log } from '../utils/logger';
 export default function HomeScreen({ navigation }) {
   const [tricks, setTricks] = useState([]);
   const [loading, setLoading] = useState(true);
+  const { token, clearCredentials } = useAuthStore();
 
   useEffect(() => {
     (async () => {
@@ -49,6 +52,23 @@ export default function HomeScreen({ navigation }) {
         <Text style={styles.headerSubtitle}>Choose your next move</Text>
       </View>
 
+      <View style={styles.topButtons}>
+        {!token ? (
+          <TouchableOpacity onPress={() => navigation.navigate("Login")}>
+            <Text style={styles.topBtnText}>Login</Text>
+          </TouchableOpacity>
+        ) : (
+          <TouchableOpacity
+            onPress={() => {
+              clearCredentials();
+              navigation.replace("Login");
+            }}
+          >
+            <Text style={styles.topBtnText}>Logout</Text>
+          </TouchableOpacity>
+        )}
+      </View>
+
       {/* LIST */}
       <FlatList
         data={tricks}
@@ -74,6 +94,26 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#111215', // même fond que TrickLearn Santa Cruz
     paddingHorizontal: 12,
+  },
+
+  topButtons: {
+    position: 'absolute',
+    top: 20,
+    right: 20,
+    flexDirection: 'row',
+    gap: 10,
+    zIndex: 99,
+  },
+  topBtnText: {
+    color: '#FFD600',
+    fontWeight: '900',
+    fontSize: 14,
+    backgroundColor: '#1A1B20',
+    paddingVertical: 6,
+    paddingHorizontal: 12,
+    borderRadius: 12,
+    borderWidth: 2,
+    borderColor: '#FF355E',
   },
 
   /* LOADING */
