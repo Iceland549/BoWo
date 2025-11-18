@@ -15,7 +15,6 @@ export default function QuizScreen({ route, navigation }) {
   const [quiz, setQuiz] = useState(null);
   const [selected, setSelected] = useState(null);
   const [result, setResult] = useState(null);
-  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     (async () => {
