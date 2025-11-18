@@ -1,9 +1,10 @@
 import React from 'react';
-import { View, Text, TouchableOpacity, StyleSheet, SafeAreaView } from 'react-native';
-import { log } from '../utils/logger';
+import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
+
 
 export default function FunFactScreen({ route, navigation }) {
-  const { funFact, trickId } = route.params || {};
+  const { funFact } = route.params || {};
 
   const onBack = () => {
     navigation.navigate('Main', { screen: 'Home' });
