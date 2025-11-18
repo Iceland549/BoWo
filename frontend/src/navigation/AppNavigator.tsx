@@ -11,6 +11,7 @@ import ProfileScreen from '../screens/ProfileScreen';
 import AuthNavigator from './AuthNavigator';
 import KillerTimeCoinFlip from '../screens/CoinFlip';
 import { useAuthStore } from '../store/authStore';
+import FunFactScreen from '../screens/FunFactScreen';
 
 // Stack = navigation interne
 const Stack: any = createNativeStackNavigator();
@@ -100,6 +101,7 @@ export default function AppNavigator() {
       <Stack.Screen name="TrickDetail" component={TrickDetailScreen} />
       <Stack.Screen name="TrickLearn" component={TrickLearnScreen} />
       <Stack.Screen name="Quiz" component={QuizScreen} />
+      <Stack.Screen name="FunFact" component={FunFactScreen} />
       <Stack.Screen name="KillerTimeCoinFlip" component={KillerTimeCoinFlip} />
     </Stack.Navigator>
   );
