@@ -1,4 +1,5 @@
 import React, { useRef, useState } from 'react';
+import ScreenWrapper from '../../components/ScreenWrapper';
 import {
   View,
   Text,
@@ -70,57 +71,59 @@ export default function KillerTimeCoinFlip({ navigation }) {
       resizeMode="repeat"
       imageStyle={{ opacity: 0.20 }}   // 🔥 filtre léger Santa Cruz style
     >
-      <ScrollView
-        contentContainerStyle={styles.scroll}
-        showsVerticalScrollIndicator={false}
-      >
-        <View style={styles.container}>
+      <ScreenWrapper>
+        <ScrollView
+          contentContainerStyle={styles.scroll}
+          showsVerticalScrollIndicator={false}
+        >
+          <View style={styles.container}>
 
-          {/* ───── LOGO ───── */}
-          <Image source={logoFlip} style={styles.gameLogo} resizeMode="contain" />
+            {/* ───── LOGO ───── */}
+            <Image source={logoFlip} style={styles.gameLogo} resizeMode="contain" />
 
-          {/* ───── QUOTE ───── */}
-          <Text style={styles.quote}>
-            “Pile tu perds... Face je gagne.”
-          </Text>
-
-          {/* ───── COIN ───── */}
-          <Animated.Image
-            source={displayImage}
-            style={[
-              styles.coinImage,
-              { transform: [{ rotateY }] }
-            ]}
-          />
-
-          {/* ───── LANCER ───── */}
-          <TouchableOpacity
-            style={[styles.flipBtn, isFlipping && { opacity: 0.5 }]}
-            onPress={flipCoin}
-            disabled={isFlipping}
-          >
-            <Text style={styles.flipText}>
-              {isFlipping ? '...' : 'Lancer la pièce'}
+            {/* ───── QUOTE ───── */}
+            <Text style={styles.quote}>
+              “Pile tu perds... Face je gagne.”
             </Text>
-          </TouchableOpacity>
 
-          {/* ───── RÉSULTAT ───── */}
-          {face && (
-            <Text style={styles.result}>
-              👉 {face === 'FACE' ? 'FACE 🎉' : 'PILE 😈'}
-            </Text>
-          )}
+            {/* ───── COIN ───── */}
+            <Animated.Image
+              source={displayImage}
+              style={[
+                styles.coinImage,
+                { transform: [{ rotateY }] }
+              ]}
+            />
 
-          {/* ───── BACK ───── */}
-          <TouchableOpacity
-            style={styles.backBtn}
-            onPress={() => navigation.navigate('Main', { screen: 'Profile' })}
-          >
-            <Text style={styles.backText}>Back to Roots</Text>
-          </TouchableOpacity>
+            {/* ───── LANCER ───── */}
+            <TouchableOpacity
+              style={[styles.flipBtn, isFlipping && { opacity: 0.5 }]}
+              onPress={flipCoin}
+              disabled={isFlipping}
+            >
+              <Text style={styles.flipText}>
+                {isFlipping ? '...' : 'Lancer la pièce'}
+              </Text>
+            </TouchableOpacity>
 
-        </View>
-      </ScrollView>
+            {/* ───── RÉSULTAT ───── */}
+            {face && (
+              <Text style={styles.result}>
+                👉 {face === 'FACE' ? 'FACE 🎉' : 'PILE 😈'}
+              </Text>
+            )}
+
+            {/* ───── BACK ───── */}
+            <TouchableOpacity
+              style={styles.backBtn}
+              onPress={() => navigation.navigate('Main', { screen: 'Profile' })}
+            >
+              <Text style={styles.backText}>Back to Roots</Text>
+            </TouchableOpacity>
+
+          </View>
+        </ScrollView>
+      </ScreenWrapper>  
     </ImageBackground>
   );
 }

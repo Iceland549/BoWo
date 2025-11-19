@@ -1,4 +1,5 @@
 import React from 'react';
+import ScreenWrapper from '../components/ScreenWrapper';
 import {
   View,
   Text,
@@ -44,44 +45,46 @@ export default function TrickDetailScreen({ route, navigation }) {
     );
 
   return (
-    <ScrollView contentContainerStyle={styles.container}>
-      {/* TITLE */}
-      <Text style={styles.title}>{trick.name}</Text>
+    <ScreenWrapper>
+      <ScrollView contentContainerStyle={styles.container}>
+        {/* TITLE */}
+        <Text style={styles.title}>{trick.name}</Text>
 
-      {/* DESCRIPTION */}
-      {trick.description && (
-        <Text style={styles.description}>{trick.description}</Text>
-      )}
+        {/* DESCRIPTION */}
+        {trick.description && (
+          <Text style={styles.description}>{trick.description}</Text>
+        )}
 
-      {/* IMAGES */}
-      {(trick.images || []).map((src, i) => (
-        <Image key={i} style={styles.image} source={{ uri: src }} />
-      ))}
+        {/* IMAGES */}
+        {(trick.images || []).map((src, i) => (
+          <Image key={i} style={styles.image} source={{ uri: src }} />
+        ))}
 
-      {/* BUTTONS */}
-      <View style={styles.buttonsWrap}>
-        <TouchableOpacity style={styles.adBtn} onPress={onWatchAd}>
-          <Text style={styles.adBtnText}>Pay Only 0.49e to Unlock</Text>
-        </TouchableOpacity>
+        {/* BUTTONS */}
+        <View style={styles.buttonsWrap}>
+          <TouchableOpacity style={styles.adBtn} onPress={onWatchAd}>
+            <Text style={styles.adBtnText}>Pay Only 0.49e to Unlock</Text>
+          </TouchableOpacity>
 
+          <TouchableOpacity
+            style={styles.quizBtn}
+            onPress={() =>
+              navigation.navigate('Quiz', { trickId: trick._id || trick.id })
+            }
+          >
+            <Text style={styles.quizBtnText}>Open Quiz</Text>
+          </TouchableOpacity>
+        </View>
+
+        {/* BACK BUTTON */}
         <TouchableOpacity
-          style={styles.quizBtn}
-          onPress={() =>
-            navigation.navigate('Quiz', { trickId: trick._id || trick.id })
-          }
+          style={styles.backBtn}
+          onPress={() => navigation.navigate('Main', { screen: 'Home' })}
         >
-          <Text style={styles.quizBtnText}>Open Quiz</Text>
+          <Text style={styles.backBtnText}>← Back to Park</Text>
         </TouchableOpacity>
-      </View>
-
-      {/* BACK BUTTON */}
-      <TouchableOpacity
-        style={styles.backBtn}
-        onPress={() => navigation.navigate('Main', { screen: 'Home' })}
-      >
-        <Text style={styles.backBtnText}>← Back to Park</Text>
-      </TouchableOpacity>
-    </ScrollView>
+      </ScrollView>
+    </ScreenWrapper>
   );
 }
 

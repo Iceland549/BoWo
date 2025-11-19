@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useAuthStore } from '../store/authStore';
+import ScreenWrapper from '../components/ScreenWrapper';
 
 import {
   View,
@@ -46,44 +47,45 @@ export default function HomeScreen({ navigation }) {
 
   return (
     <SafeAreaView style={styles.container}>
-      {/* HEADER */}
-      <View style={styles.header}>
-        <Text style={styles.headerTitle}>🔥 TRICKS</Text>
-        <Text style={styles.headerSubtitle}>Choose your next move</Text>
-      </View>
+      <ScreenWrapper>
+        {/* HEADER */}
+        <View style={styles.header}>
+          <Text style={styles.headerTitle}>🔥 TRICKS</Text>
+          <Text style={styles.headerSubtitle}>Choose your next move</Text>
+        </View>
 
-      <View style={styles.topButtons}>
-        {!token ? (
-          <TouchableOpacity onPress={() => navigation.navigate("Login")}>
-            <Text style={styles.topBtnText}>Login</Text>
-          </TouchableOpacity>
-        ) : (
-          <TouchableOpacity
-            onPress={() => {
-              clearCredentials();
-              navigation.replace("Login");
-            }}
-          >
-            <Text style={styles.topBtnText}>Logout</Text>
-          </TouchableOpacity>
-        )}
-      </View>
+        <View style={styles.topButtons}>
+          {!token ? (
+            <TouchableOpacity onPress={() => navigation.navigate("Login")}>
+              <Text style={styles.topBtnText}>Login</Text>
+            </TouchableOpacity>
+          ) : (
+            <TouchableOpacity
+              onPress={() => {
+                clearCredentials();
+                navigation.replace("Login");
+              }}
+            >
+              <Text style={styles.topBtnText}>Logout</Text>
+            </TouchableOpacity>
+          )}
+        </View>
 
-      {/* LIST */}
-      <FlatList
-        data={tricks}
-        keyExtractor={(i) => i.id || i._id || i.name}
-        showsVerticalScrollIndicator={false}
-        contentContainerStyle={{ paddingBottom: 120 }}
-        renderItem={({ item }) => (
-          <TouchableOpacity
-            onPress={() => navigation.navigate('TrickDetail', { trick: item })}
-          >
-            <TrickCard trick={item} />
-          </TouchableOpacity>
-        )}
-      />
-
+        {/* LIST */}
+        <FlatList
+          data={tricks}
+          keyExtractor={(i) => i.id || i._id || i.name}
+          showsVerticalScrollIndicator={false}
+          contentContainerStyle={{ paddingBottom: 120 }}
+          renderItem={({ item }) => (
+            <TouchableOpacity
+              onPress={() => navigation.navigate('TrickDetail', { trick: item })}
+            >
+              <TrickCard trick={item} />
+            </TouchableOpacity>
+          )}
+        />
+      </ScreenWrapper>
     </SafeAreaView>
   );
 }

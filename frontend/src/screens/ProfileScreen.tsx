@@ -1,5 +1,6 @@
 // frontend/src/screens/ProfileScreen.tsx
 import React, { useEffect, useState } from 'react';
+import ScreenWrapper from '../components/ScreenWrapper';
 import {
   View,
   Image,
@@ -124,70 +125,71 @@ export default function ProfileScreen({ navigation }) {
   /* -------------------------------------------------------- */
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>My Board, My World</Text>
+      <ScreenWrapper>
+        <Text style={styles.title}>My Board, My World</Text>
 
-      {/* PROFILE CARD */}
-      <View style={styles.card}>
-        <Text style={styles.label}>Niveau</Text>
+        {/* PROFILE CARD */}
+        <View style={styles.card}>
+          <Text style={styles.label}>Niveau</Text>
 
-        {/* 🔥 N’affiche plus le numéro "0" */}
-        {level > 0 && <Text style={styles.value}>{level}</Text>}
+          {/* 🔥 N’affiche plus le numéro "0" */}
+          {level > 0 && <Text style={styles.value}>{level}</Text>}
 
-        <Text style={styles.levelTitle}>{levelTitle}</Text>
+          <Text style={styles.levelTitle}>{levelTitle}</Text>
 
-        <XPBar xp={xp} nextLevelXP={nextLevelXP} />
+          <XPBar xp={xp} nextLevelXP={nextLevelXP} />
 
-        <Text style={styles.label}>Tricks débloqués</Text>
-        <Text style={styles.value}>
-          {totalUnlocked}/{totalTricksAvailable}
-        </Text>
+          <Text style={styles.label}>Tricks débloqués</Text>
+          <Text style={styles.value}>
+            {totalUnlocked}/{totalTricksAvailable}
+          </Text>
 
-        <Text style={styles.label}>Progression globale</Text>
-        <Text style={styles.value}>{completionPercent}%</Text>
+          <Text style={styles.label}>Progression globale</Text>
+          <Text style={styles.value}>{completionPercent}%</Text>
 
-        {/* ⭐ MESSAGE MOTIVATION */}
-        <Text style={styles.motivation}>{motivation}</Text>
-      </View>
+          {/* ⭐ MESSAGE MOTIVATION */}
+          <Text style={styles.motivation}>{motivation}</Text>
+        </View>
 
-      {/* 🔥 TIME-KILLER ZONE */}
-      <Text style={styles.killZoneTitle}>TIME-KILLER ZONE</Text>
+        {/* 🔥 TIME-KILLER ZONE */}
+        <Text style={styles.killZoneTitle}>TIME-KILLER ZONE</Text>
 
-      <View style={styles.grid}>
-        {MINI_GAMES.map((g) => {
-          const isUnlocked = unlockedMiniGames.includes(g.key);
+        <View style={styles.grid}>
+          {MINI_GAMES.map((g) => {
+            const isUnlocked = unlockedMiniGames.includes(g.key);
 
-          return (
-            <TouchableOpacity
-              key={g.key}
-              style={[
-                styles.gameBtn,
-                !isUnlocked && styles.gameLocked,
-              ]}
-              onPress={() => onPressMiniGame(g)}
-            >
-              <Image source={g.logo} style={styles.gameLogo} resizeMode="contain" />
-              <Text style={styles.gameName}>{g.name}</Text>
+            return (
+              <TouchableOpacity
+                key={g.key}
+                style={[
+                  styles.gameBtn,
+                  !isUnlocked && styles.gameLocked,
+                ]}
+                onPress={() => onPressMiniGame(g)}
+              >
+                <Image source={g.logo} style={styles.gameLogo} resizeMode="contain" />
+                <Text style={styles.gameName}>{g.name}</Text>
 
-              <Text style={styles.gameInfo}>
-                {isUnlocked
-                  ? 'Débloqué ✔'
-                  : canUnlockMiniGames
-                  ? 'Débloqué après 2 tricks !'
-                  : 'Choisis ce mini-jeu à débloquer'}
-              </Text>
-            </TouchableOpacity>
-          );
-        })}
-      </View>
+                <Text style={styles.gameInfo}>
+                  {isUnlocked
+                    ? 'Débloqué ✔'
+                    : canUnlockMiniGames
+                    ? 'Débloqué après 2 tricks !'
+                    : 'Choisis ce mini-jeu à débloquer'}
+                </Text>
+              </TouchableOpacity>
+            );
+          })}
+        </View>
 
-      {/* 🔙 BACK TO PARK */}
-      <TouchableOpacity
-        style={styles.backBtn}
-        onPress={() => navigation.navigate('Home')}
-      >
-        <Text style={styles.backText}>← Back to Profile</Text>
-      </TouchableOpacity>
-
+        {/* 🔙 BACK TO PARK */}
+        <TouchableOpacity
+          style={styles.backBtn}
+          onPress={() => navigation.navigate('Home')}
+        >
+          <Text style={styles.backText}>← Back to Profile</Text>
+        </TouchableOpacity>
+      </ScreenWrapper>
     </View>
   );
 }

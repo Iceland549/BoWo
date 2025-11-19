@@ -1,6 +1,7 @@
 // frontend/src/screens/TimeKiller/FortuneCookie.tsx
 
 import React, { useRef, useState } from "react";
+import ScreenWrapper from "../../components/ScreenWrapper"; 
 import {
   View,
   Text,
@@ -202,102 +203,103 @@ export default function FortuneCookie({ navigation }) {
       imageStyle={{ opacity: 0.32 }}
       style={styles.bg}
     >
-      <ScrollView contentContainerStyle={styles.scroll}>
-        <View style={styles.container}>
+      <ScreenWrapper>
+        <ScrollView contentContainerStyle={styles.scroll}>
+          <View style={styles.container}>
 
-          {/* ▶ LOGO EN HAUT */}
-          <Image source={logoFortune} style={styles.gameLogo} resizeMode="contain" />
+            {/* ▶ LOGO EN HAUT */}
+            <Image source={logoFortune} style={styles.gameLogo} resizeMode="contain" />
 
-          {/* ▶ PARCHEMIN */}
-          {opened && (
-            <Animated.View
-              style={[
-                styles.bannerWrapper,
-                {
-                  opacity: paperOpacity,
-                  transform: [
-                    { scaleX: paperScaleX },
-                    { scaleY: paperScaleY },
-                  ],
-                },
-              ]}
-            >
-              <Image source={banner} style={styles.bannerImage} />
-
-              {/* HALO DERRIÈRE LE MESSAGE */}
+            {/* ▶ PARCHEMIN */}
+            {opened && (
               <Animated.View
                 style={[
-                  styles.halo,
+                  styles.bannerWrapper,
                   {
-                    opacity: haloOpacity,
-                    transform: [{ scale: haloScale }],
+                    opacity: paperOpacity,
+                    transform: [
+                      { scaleX: paperScaleX },
+                      { scaleY: paperScaleY },
+                    ],
                   },
                 ]}
-              />
+              >
+                <Image source={banner} style={styles.bannerImage} />
 
-              {/* CONTENU DU MESSAGE */}
-              <View style={styles.bannerContent}>
-
-                <Animated.Text
+                {/* HALO DERRIÈRE LE MESSAGE */}
+                <Animated.View
                   style={[
-                    styles.sparkles,
-                    { opacity: sparkleOpacity },
-                  ]}
-                >
-                  ✨ ✨ ✨
-                </Animated.Text>
-
-                <Animated.Text
-                  style={[
-                    styles.messageText,
+                    styles.halo,
                     {
-                      opacity: textOpacity,
-                      transform: [{ translateY: floatY }],
+                      opacity: haloOpacity,
+                      transform: [{ scale: haloScale }],
                     },
                   ]}
-                >
-                  {message}
-                </Animated.Text>
+                />
 
-                <Animated.Text
-                  style={[
-                    styles.dust,
-                    {
-                      opacity: dustOpacity,
-                      transform: [{ translateY: dustY }],
-                    },
-                  ]}
-                >
-                  ✧ ✦ ✧ ✦ ✧
-                </Animated.Text>
+                {/* CONTENU DU MESSAGE */}
+                <View style={styles.bannerContent}>
 
-              </View>
-            </Animated.View>
-          )}
+                  <Animated.Text
+                    style={[
+                      styles.sparkles,
+                      { opacity: sparkleOpacity },
+                    ]}
+                  >
+                    ✨ ✨ ✨
+                  </Animated.Text>
 
-          {/* Bouton initial */}
-          {!opened && (
-            <TouchableOpacity style={styles.mainBtn} onPress={openCookie}>
-              <Text style={styles.mainBtnText}>Ouvrir le Cookie</Text>
+                  <Animated.Text
+                    style={[
+                      styles.messageText,
+                      {
+                        opacity: textOpacity,
+                        transform: [{ translateY: floatY }],
+                      },
+                    ]}
+                  >
+                    {message}
+                  </Animated.Text>
+
+                  <Animated.Text
+                    style={[
+                      styles.dust,
+                      {
+                        opacity: dustOpacity,
+                        transform: [{ translateY: dustY }],
+                      },
+                    ]}
+                  >
+                    ✧ ✦ ✧ ✦ ✧
+                  </Animated.Text>
+
+                </View>
+              </Animated.View>
+            )}
+
+            {/* Bouton initial */}
+            {!opened && (
+              <TouchableOpacity style={styles.mainBtn} onPress={openCookie}>
+                <Text style={styles.mainBtnText}>Ouvrir le Cookie</Text>
+              </TouchableOpacity>
+            )}
+
+            {/* Encore une fortune */}
+            {opened && (
+              <TouchableOpacity style={styles.mainBtn} onPress={openCookie}>
+                <Text style={styles.mainBtnText}>Encore une Fortune</Text>
+              </TouchableOpacity>
+            )}
+
+            <TouchableOpacity
+              style={styles.backBtn}
+              onPress={() => navigation.navigate('Main', { screen: 'Profile' })}
+            >
+              <Text style={styles.backText}>BACK TO ROOTS</Text>
             </TouchableOpacity>
-          )}
-
-          {/* Encore une fortune */}
-          {opened && (
-            <TouchableOpacity style={styles.mainBtn} onPress={openCookie}>
-              <Text style={styles.mainBtnText}>Encore une Fortune</Text>
-            </TouchableOpacity>
-          )}
-
-          <TouchableOpacity
-            style={styles.backBtn}
-            onPress={() => navigation.navigate('Main', { screen: 'Profile' })}
-          >
-            <Text style={styles.backText}>BACK TO ROOTS</Text>
-          </TouchableOpacity>
-
-        </View>
-      </ScrollView>
+          </View>
+        </ScrollView>
+      </ScreenWrapper>  
     </ImageBackground>
   );
 }

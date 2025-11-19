@@ -1,4 +1,5 @@
 import React, { useRef, useState } from 'react';
+import ScreenWrapper from '../../components/ScreenWrapper';
 import {
   View,
   Text,
@@ -161,69 +162,70 @@ export default function Magic8Ball({ navigation }) {
 
   return (
     <View style={styles.pageContainer}>
-      <ScrollView contentContainerStyle={styles.scroll} showsVerticalScrollIndicator={false}>
-        <View style={styles.inner}>
+      <ScreenWrapper>
+        <ScrollView contentContainerStyle={styles.scroll} showsVerticalScrollIndicator={false}>
+          <View style={styles.inner}>
 
-          <Image source={logoMagic} style={styles.gameLogo} resizeMode="contain" />
+            <Image source={logoMagic} style={styles.gameLogo} resizeMode="contain" />
 
-          <Text style={styles.title}>Magic 8-Ball</Text>
+            <Text style={styles.title}>Magic 8-Ball</Text>
 
-          <Animated.View style={[styles.aura, { opacity: auraOpacity }]} />
+            <Animated.View style={[styles.aura, { opacity: auraOpacity }]} />
 
-          <Animated.View
-            style={[
-              styles.ball,
-              { transform: [{ rotate: spin }, { translateX: shakeX }] }
-            ]}
-          >
-            <Text style={styles.ballText}>8</Text>
-          </Animated.View>
+            <Animated.View
+              style={[
+                styles.ball,
+                { transform: [{ rotate: spin }, { translateX: shakeX }] }
+              ]}
+            >
+              <Text style={styles.ballText}>8</Text>
+            </Animated.View>
 
-          {/* ✨ Réponse animée */}
-          {answer !== "" && (
-            <View style={{ alignItems: "center", minHeight: 80 }}>
-              
-              {/* Particules */}
-              <Animated.Text
-                style={[
-                  styles.particles,
-                  {
-                    opacity: particlesOpacity,
-                    transform: [{ translateY: particlesY }],
-                  }
-                ]}
-              >
-                ✧ ✦ ✧
-              </Animated.Text>
+            {/* ✨ Réponse animée */}
+            {answer !== "" && (
+              <View style={{ alignItems: "center", minHeight: 80 }}>
+                
+                {/* Particules */}
+                <Animated.Text
+                  style={[
+                    styles.particles,
+                    {
+                      opacity: particlesOpacity,
+                      transform: [{ translateY: particlesY }],
+                    }
+                  ]}
+                >
+                  ✧ ✦ ✧
+                </Animated.Text>
 
-              {/* Texte */}
-              <Animated.Text
-                style={[
-                  styles.answer,
-                  {
-                    opacity: answerOpacity,
-                    transform: [
-                      { scale: answerScale },
-                      { translateY: answerFloat },
-                    ]
-                  }
-                ]}
-              >
-                {answer}
-              </Animated.Text>
-            </View>
-          )}
+                {/* Texte */}
+                <Animated.Text
+                  style={[
+                    styles.answer,
+                    {
+                      opacity: answerOpacity,
+                      transform: [
+                        { scale: answerScale },
+                        { translateY: answerFloat },
+                      ]
+                    }
+                  ]}
+                >
+                  {answer}
+                </Animated.Text>
+              </View>
+            )}
 
-          <TouchableOpacity style={styles.btn} onPress={shake}>
-            <Text style={styles.btnText}>ASK YOUR DESTINY</Text>
-          </TouchableOpacity>
+            <TouchableOpacity style={styles.btn} onPress={shake}>
+              <Text style={styles.btnText}>ASK YOUR DESTINY</Text>
+            </TouchableOpacity>
 
-          <TouchableOpacity style={styles.backBtn} onPress={() => navigation.goBack()}>
-            <Text style={styles.backText}>BACK TO ROOTS</Text>
-          </TouchableOpacity>
-
-        </View>
-      </ScrollView>
+            <TouchableOpacity style={styles.backBtn} onPress={() => navigation.goBack()}>
+              <Text style={styles.backText}>BACK TO ROOTS</Text>
+            </TouchableOpacity>
+          </View>
+        </ScrollView>
+      </ScreenWrapper>
     </View>
   );
 }
@@ -231,8 +233,10 @@ export default function Magic8Ball({ navigation }) {
 const styles = StyleSheet.create({
   pageContainer: {
     flex: 1,
-    backgroundColor: '#111215',
+    backgroundColor: '#000',   // 🔥 noir total
+    paddingTop: 10,
   },
+
   scroll: { flexGrow: 1, paddingVertical: 30, paddingBottom: 100 },
   inner: { alignItems: 'center', paddingHorizontal: 20 },
 

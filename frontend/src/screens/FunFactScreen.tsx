@@ -1,4 +1,5 @@
 import React from 'react';
+import ScreenWrapper from '../components/ScreenWrapper';
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
@@ -12,38 +13,39 @@ export default function FunFactScreen({ route, navigation }) {
 
   return (
     <SafeAreaView style={styles.container}>
-      {/* HEADER */}
-      <Text style={styles.header}>Fun Fact ✨</Text>
+      <ScreenWrapper>
+        {/* HEADER */}
+        <Text style={styles.header}>Fun Fact ✨</Text>
 
-      {/* BOX */}
-      <View style={styles.card}>
-        <Text style={styles.factText}>{funFact}</Text>
+        {/* BOX */}
+        <View style={styles.card}>
+          <Text style={styles.factText}>{funFact}</Text>
 
-        <Text style={styles.subText}>
-          Cool man 😎  
-          {"\n"}Tu as atteint la limite d’essais pour aujourd’hui.
-          {"\n"}Reviens demain pour retenter ta chance !
-        </Text>
-      </View>
+          <Text style={styles.subText}>
+            Cool man 😎  
+            {"\n"}Tu as atteint la limite d’essais pour aujourd’hui.
+            {"\n"}Reviens demain pour retenter ta chance !
+          </Text>
+        </View>
 
-      {/* BUTTONS */}
-      <View style={styles.buttonsWrapper}>
+        {/* BUTTONS */}
+        <View style={styles.buttonsWrapper}>
 
-        <TouchableOpacity
-          style={styles.retryBtn}
-          onPress={onBack}
-        >
-          <Text style={styles.retryText}>Réessayer demain</Text>
-        </TouchableOpacity>
+          <TouchableOpacity
+            style={styles.retryBtn}
+            onPress={onBack}
+          >
+            <Text style={styles.retryText}>Réessayer demain</Text>
+          </TouchableOpacity>
 
-        <TouchableOpacity
-          style={styles.backBtn}
-          onPress={onBack}
-        >
-          <Text style={styles.backText}>← Retour au park</Text>
-        </TouchableOpacity>
-
-      </View>
+          <TouchableOpacity
+            style={styles.backBtn}
+            onPress={onBack}
+          >
+            <Text style={styles.backText}>← Retour au park</Text>
+          </TouchableOpacity>
+        </View>
+      </ScreenWrapper>    
     </SafeAreaView>
   );
 }

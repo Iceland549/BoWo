@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import api from '../api/api';
 import { log } from '../utils/logger';
+import ScreenWrapper from '../components/ScreenWrapper';
 
 export default function QuizScreen({ route, navigation }) {
   const { trickId } = route.params;
@@ -63,35 +64,37 @@ const [result, setResult] = useState(null);
 
   return (
     <View style={styles.container}>
-      <Text style={styles.question}>{quiz.question}</Text>
+      <ScreenWrapper>
+        <Text style={styles.question}>{quiz.question}</Text>
 
-      {quiz.answers.map((a, i) => (
+        {quiz.answers.map((a, i) => (
+          <TouchableOpacity
+            key={i}
+            onPress={() => setSelected(i)}
+            style={[
+              styles.answer,
+              selected === i && styles.answerSelected
+            ]}
+          >
+            <Text style={styles.answerText}>{a}</Text>
+          </TouchableOpacity>
+        ))}
+
         <TouchableOpacity
-          key={i}
-          onPress={() => setSelected(i)}
-          style={[
-            styles.answer,
-            selected === i && styles.answerSelected
-          ]}
+          disabled={selected === null}
+          onPress={submit}
+          style={[styles.submitBtn, selected === null && styles.submitDisabled]}
         >
-          <Text style={styles.answerText}>{a}</Text>
+          <Text style={styles.submitText}>Valider</Text>
         </TouchableOpacity>
-      ))}
 
-      <TouchableOpacity
-        disabled={selected === null}
-        onPress={submit}
-        style={[styles.submitBtn, selected === null && styles.submitDisabled]}
-      >
-        <Text style={styles.submitText}>Valider</Text>
-      </TouchableOpacity>
-
-      <TouchableOpacity
-        style={styles.backBtn}
-        onPress={() => navigation.navigate('Main', { screen: 'Home' })}
-      >
-        <Text style={styles.backBtnText}>← Retour au park</Text>
-      </TouchableOpacity>
+        <TouchableOpacity
+          style={styles.backBtn}
+          onPress={() => navigation.navigate('Main', { screen: 'Home' })}
+        >
+          <Text style={styles.backBtnText}>← Retour au park</Text>
+        </TouchableOpacity>
+      </ScreenWrapper>  
     </View>
   );
 }

@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import ScreenWrapper from '../../components/ScreenWrapper';
 import {
   View,
   Text,
@@ -47,38 +48,40 @@ export default function RegisterScreen({ navigation }) {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Créer un compte</Text>
+      <ScreenWrapper>
+        <Text style={styles.title}>Créer un compte</Text>
 
-      <TextInput
-        placeholder="Email"
-        placeholderTextColor="#999"
-        style={styles.input}
-        autoCapitalize="none"
-        keyboardType="email-address"
-        value={email}
-        onChangeText={setEmail}
-      />
+        <TextInput
+          placeholder="Email"
+          placeholderTextColor="#999"
+          style={styles.input}
+          autoCapitalize="none"
+          keyboardType="email-address"
+          value={email}
+          onChangeText={setEmail}
+        />
 
-      <TextInput
-        placeholder="Mot de passe"
-        placeholderTextColor="#999"
-        style={styles.input}
-        secureTextEntry
-        value={password}
-        onChangeText={setPassword}
-      />
+        <TextInput
+          placeholder="Mot de passe"
+          placeholderTextColor="#999"
+          style={styles.input}
+          secureTextEntry
+          value={password}
+          onChangeText={setPassword}
+        />
 
-      <TouchableOpacity style={styles.btn} onPress={onRegister}>
-        {!loading ? (
-          <Text style={styles.btnText}>Créer</Text>
-        ) : (
-          <ActivityIndicator color="#111" />
-        )}
-      </TouchableOpacity>
+        <TouchableOpacity style={styles.btn} onPress={onRegister}>
+          {!loading ? (
+            <Text style={styles.btnText}>Créer</Text>
+          ) : (
+            <ActivityIndicator color="#111" />
+          )}
+        </TouchableOpacity>
 
-      <TouchableOpacity onPress={() => navigation.navigate('Login')}>
-        <Text style={styles.link}>Retour à la connexion</Text>
-      </TouchableOpacity>
+        <TouchableOpacity onPress={() => navigation.navigate('Login')}>
+          <Text style={styles.link}>Retour à la connexion</Text>
+        </TouchableOpacity>
+      </ScreenWrapper>
     </View>
   );
 }

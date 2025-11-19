@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import ScreenWrapper from '../../components/ScreenWrapper';
 import {
   View,
   TextInput,
@@ -34,39 +35,41 @@ export default function LoginScreen({ navigation }) {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>BoWo</Text>
-      <Text style={styles.subtitle}>Connecte-toi</Text>
+      <ScreenWrapper>
+        <Text style={styles.title}>BoWo</Text>
+        <Text style={styles.subtitle}>Connecte-toi</Text>
 
-      <TextInput
-        placeholder="Email"
-        placeholderTextColor="#999"
-        style={styles.input}
-        autoCapitalize="none"
-        keyboardType="email-address"
-        value={email}
-        onChangeText={setEmail}
-      />
+        <TextInput
+          placeholder="Email"
+          placeholderTextColor="#999"
+          style={styles.input}
+          autoCapitalize="none"
+          keyboardType="email-address"
+          value={email}
+          onChangeText={setEmail}
+        />
 
-      <TextInput
-        placeholder="Mot de passe"
-        placeholderTextColor="#999"
-        style={styles.input}
-        secureTextEntry
-        value={password}
-        onChangeText={setPassword}
-      />
+        <TextInput
+          placeholder="Mot de passe"
+          placeholderTextColor="#999"
+          style={styles.input}
+          secureTextEntry
+          value={password}
+          onChangeText={setPassword}
+        />
 
-      <TouchableOpacity style={styles.btn} onPress={onSubmit}>
-        {!loading ? (
-          <Text style={styles.btnText}>Se connecter</Text>
-        ) : (
-          <ActivityIndicator color="#111" />
-        )}
-      </TouchableOpacity>
+        <TouchableOpacity style={styles.btn} onPress={onSubmit}>
+          {!loading ? (
+            <Text style={styles.btnText}>Se connecter</Text>
+          ) : (
+            <ActivityIndicator color="#111" />
+          )}
+        </TouchableOpacity>
 
-      <TouchableOpacity onPress={() => navigation.navigate('Register')}>
-        <Text style={styles.link}>Créer un compte</Text>
-      </TouchableOpacity>
+        <TouchableOpacity onPress={() => navigation.navigate('Register')}>
+          <Text style={styles.link}>Créer un compte</Text>
+        </TouchableOpacity>
+      </ScreenWrapper>  
     </View>
   );
 }

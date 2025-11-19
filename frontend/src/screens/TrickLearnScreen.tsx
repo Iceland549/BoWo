@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import ScreenWrapper from '../components/ScreenWrapper';
 import {
   View,
   Text,
@@ -98,122 +99,124 @@ export default function TrickLearnScreen({ route, navigation }: any) {
 
   return (
     <ScrollView style={styles.container} contentContainerStyle={styles.content}>
-      {/* HERO */}
-      <View style={styles.heroWrapper}>
-        {mainImage && (
-          <Image source={{ uri: mainImage }} style={styles.heroImage} />
+      <ScreenWrapper>
+        {/* HERO */}
+        <View style={styles.heroWrapper}>
+          {mainImage && (
+            <Image source={{ uri: mainImage }} style={styles.heroImage} />
+          )}
+          <View style={styles.heroOverlay} />
+
+          <View style={styles.heroTextWrap}>
+            <Text style={styles.heroTag}>TRICK UNLOCKED</Text>
+            <Text style={styles.heroTitle}>{trick.name}</Text>
+          </View>
+        </View>
+
+        {/* DESCRIPTION */}
+        {trick.description && (
+          <View style={styles.section}>
+            <Text style={styles.sectionTitle}>Pourquoi ce trick déchire 💥</Text>
+            <Text style={styles.description}>{trick.description}</Text>
+          </View>
         )}
-        <View style={styles.heroOverlay} />
 
-        <View style={styles.heroTextWrap}>
-          <Text style={styles.heroTag}>TRICK UNLOCKED</Text>
-          <Text style={styles.heroTitle}>{trick.name}</Text>
-        </View>
-      </View>
+        {/* VIDEOS */}
+        {hasAnyVideo && (
+          <View style={styles.section}>
+            <Text style={styles.sectionTitle}>Clips 🎬</Text>
 
-      {/* DESCRIPTION */}
-      {trick.description && (
-        <View style={styles.section}>
-          <Text style={styles.sectionTitle}>Pourquoi ce trick déchire 💥</Text>
-          <Text style={styles.description}>{trick.description}</Text>
-        </View>
-      )}
-
-      {/* VIDEOS */}
-      {hasAnyVideo && (
-        <View style={styles.section}>
-          <Text style={styles.sectionTitle}>Clips 🎬</Text>
-
-          {proVideo && (
-            <View style={[styles.videoCard, styles.videoBlue]}>
-              <Text style={styles.videoLabel}>Pro Clip</Text>
-              <Video
-                source={{ uri: proVideo }}
-                style={styles.video}
-                resizeMode={ResizeMode.CONTAIN}
-                useNativeControls
-              />
-            </View>
-          )}
-
-          {amateurVideo && (
-            <View style={[styles.videoCard, styles.videoYellow]}>
-              <Text style={styles.videoLabel}>Real Life Clip</Text>
-              <Video
-                source={{ uri: amateurVideo }}
-                style={styles.video}
-                resizeMode={ResizeMode.CONTAIN}
-                useNativeControls
-              />
-            </View>
-          )}
-        </View>
-      )}
-
-      {/* IMAGES */}
-      {!!trick.images?.length && (
-        <View style={styles.section}>
-          <Text style={styles.sectionTitle}>Visual Steps 🌀</Text>
-          <FlatList
-            data={trick.images}
-            horizontal
-            keyExtractor={(u, i) => `${u}-${i}`}
-            showsHorizontalScrollIndicator={false}
-            contentContainerStyle={styles.imagesList}
-            renderItem={({ item }) => {
-              const url = resolveMediaUrl(item);
-              if (!url) return null;
-              return <Image source={{ uri: url }} style={styles.stepImage} />;
-            }}
-          />
-        </View>
-      )}
-
-      {/* STEPS */}
-      {!!trick.steps?.length && (
-        <View style={styles.section}>
-          <Text style={styles.sectionTitle}>Step-by-step 🔥</Text>
-
-          {trick.steps.map((s, i) => {
-            const colors = ['#0AA5FF', '#FFD600', '#FF355E']; // bleu / jaune / rouge Santa Cruz
-            const bg = colors[i % 3];
-
-            return (
-              <View key={i} style={styles.stepRow}>
-                <View style={[styles.stepIndex, { backgroundColor: bg }]}>
-                  <Text style={styles.stepIndexText}>{i + 1}</Text>
-                </View>
-
-                <Text style={styles.stepText}>{s}</Text>
+            {proVideo && (
+              <View style={[styles.videoCard, styles.videoBlue]}>
+                <Text style={styles.videoLabel}>Pro Clip</Text>
+                <Video
+                  source={{ uri: proVideo }}
+                  style={styles.video}
+                  resizeMode={ResizeMode.CONTAIN}
+                  useNativeControls
+                />
               </View>
-            );
-          })}
-        </View>
-      )}
+            )}
 
-      {/* PRO TIP */}
-      {trick.proTip && (
-        <View style={[styles.section, styles.proTip]}>
-          <Text style={styles.sectionTitle}>💡 Pro Tip</Text>
-          <Text style={styles.proTipText}>{trick.proTip}</Text>
-        </View>
-      )}
+            {amateurVideo && (
+              <View style={[styles.videoCard, styles.videoYellow]}>
+                <Text style={styles.videoLabel}>Real Life Clip</Text>
+                <Video
+                  source={{ uri: amateurVideo }}
+                  style={styles.video}
+                  resizeMode={ResizeMode.CONTAIN}
+                  useNativeControls
+                />
+              </View>
+            )}
+          </View>
+        )}
 
-      {/* COMMON MISTAKE */}
-      {trick.commonMistake && (
-        <View style={[styles.section, styles.mistake]}>
-          <Text style={styles.sectionTitle}>⚠️ Erreurs fréquentes</Text>
-          <Text style={styles.mistakeText}>{trick.commonMistake}</Text>
-        </View>
-      )}
+        {/* IMAGES */}
+        {!!trick.images?.length && (
+          <View style={styles.section}>
+            <Text style={styles.sectionTitle}>Visual Steps 🌀</Text>
+            <FlatList
+              data={trick.images}
+              horizontal
+              keyExtractor={(u, i) => `${u}-${i}`}
+              showsHorizontalScrollIndicator={false}
+              contentContainerStyle={styles.imagesList}
+              renderItem={({ item }) => {
+                const url = resolveMediaUrl(item);
+                if (!url) return null;
+                return <Image source={{ uri: url }} style={styles.stepImage} />;
+              }}
+            />
+          </View>
+        )}
 
-      {/* RETURN */}
-      <TouchableOpacity
-        style={styles.backBtn}
-        onPress={() => navigation.navigate('Main', { screen: 'Home' })}
-      >
-        <Text style={styles.backBtnText}>← Back to Park</Text>
-      </TouchableOpacity>
+        {/* STEPS */}
+        {!!trick.steps?.length && (
+          <View style={styles.section}>
+            <Text style={styles.sectionTitle}>Step-by-step 🔥</Text>
+
+            {trick.steps.map((s, i) => {
+              const colors = ['#0AA5FF', '#FFD600', '#FF355E']; // bleu / jaune / rouge Santa Cruz
+              const bg = colors[i % 3];
+
+              return (
+                <View key={i} style={styles.stepRow}>
+                  <View style={[styles.stepIndex, { backgroundColor: bg }]}>
+                    <Text style={styles.stepIndexText}>{i + 1}</Text>
+                  </View>
+
+                  <Text style={styles.stepText}>{s}</Text>
+                </View>
+              );
+            })}
+          </View>
+        )}
+
+        {/* PRO TIP */}
+        {trick.proTip && (
+          <View style={[styles.section, styles.proTip]}>
+            <Text style={styles.sectionTitle}>💡 Pro Tip</Text>
+            <Text style={styles.proTipText}>{trick.proTip}</Text>
+          </View>
+        )}
+
+        {/* COMMON MISTAKE */}
+        {trick.commonMistake && (
+          <View style={[styles.section, styles.mistake]}>
+            <Text style={styles.sectionTitle}>⚠️ Erreurs fréquentes</Text>
+            <Text style={styles.mistakeText}>{trick.commonMistake}</Text>
+          </View>
+        )}
+
+        {/* RETURN */}
+        <TouchableOpacity
+          style={styles.backBtn}
+          onPress={() => navigation.navigate('Main', { screen: 'Home' })}
+        >
+          <Text style={styles.backBtnText}>← Back to Park</Text>
+        </TouchableOpacity>
+      </ScreenWrapper>
     </ScrollView>
   );
 }
