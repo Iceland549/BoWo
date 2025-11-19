@@ -5,7 +5,7 @@
     "version": "1.0.0",
     "orientation": "portrait",
     "platforms": ["ios", "android", "web"],
-    "icon": "./assets/images/icon.png",
+    "icon": "./assets/images/bowo2_logo.png",
     "scheme": "frontend",
     "userInterfaceStyle": "automatic",
     "newArchEnabled": false,
