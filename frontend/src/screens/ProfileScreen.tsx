@@ -103,7 +103,7 @@ export default function ProfileScreen({ navigation }) {
     { name: 'Flip Coin', key: 'coin-flip', screen: 'KillerTimeCoinFlip', logo: logoFlip },
     { name: 'Magic 8-Ball', key: 'magic-8ball', screen: 'Magic8Ball', logo: logoMagic },
     { name: 'Fortune Cookie', key: 'fortune-cookie', screen: 'FortuneCookie', logo: logoFortune },
-    { name: 'Casino Trick Slot', key: 'casino-slot', screen: 'CasinoSlot', logo: logoCasino },
+    { name: 'Casino Trick Slot', key: 'casino-slot', screen: 'CasinoTrickSlot', logo: logoCasino },
   ];
 
 

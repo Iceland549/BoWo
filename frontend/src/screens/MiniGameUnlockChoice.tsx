@@ -49,7 +49,7 @@ export default function MiniGameUnlockChoice({ route, navigation }) {
           navigation.replace('FortuneCookie');
           break;
         case 'casino-slot':
-          navigation.replace('CasinoSlot');
+          navigation.replace('CasinoTrickSlot');
           break;
       }
     } catch (err) {
