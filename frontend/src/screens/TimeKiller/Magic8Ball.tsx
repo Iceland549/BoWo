@@ -6,54 +6,67 @@ import {
   StyleSheet,
   Animated,
   Easing,
+  ScrollView,
+  Image
 } from 'react-native';
 
+const logoMagic = require('../../../assets/logos/magic-ball_logo.png');
+
 const RESPONSES = [
-  "Oui, envoie du lourd ! 🔥🛹",
-  "Pas aujourd’hui… tu vas baisser le pied. ❌🙃",
-  "Fonce, t’es chaud ! ⚡️🔥",
-  "Hmm… c’est bancal, réessaye. 🤔🌀",
-  "Seulement si tu t’engages à fond ! 💪🛹",
-  "Ton board approuve. 😎🛹",
-  "Nope. Absolument nope. 🚫😅",
-  "Ça sent le style… vas-y ! ✨🛹",
-  "Travaille encore un peu. 📈🧠",
-  "Tu vas le stomp bolts ! 🛹⚡️",
-  "La tête d’abord, le trick ensuite. 🧠➡️🛹",
-  "Tu es à un push de la réussite. 🏁🛹",
-  "Pas assez de pop aujourd’hui. 🫥⬆️",
-  "Les dieux du street te donnent le go. 🏙️✨",
-  "Vibes du park : feu vert. 🟢😎",
-  "Essaie en switch… ou pas. 🤷‍♂️🛹",
-  "Mets du wax et retente. 🧼🛹",
-  "Aujourd’hui t’es en feu ! 🔥🔥🔥",
-  "Fais une pause, puis drop. ☕🛹",
-  "Tes chevilles ne valident pas. 🦶❌😂"
+  "Les astres du street te donnent le go. 🌌🛹",
+  "Ta board vibre “oui”. Fort. ⚡️🛹",
+  "Pas aujourd’hui, rider… la vibe est off. ❌😶‍🌫️",
+  "La poussière du park murmure un non. 🌫️🚫",
+  "Le vent du bowl dit : “Fonce.” 💨🔥",
+  "Ton équilibre intérieur hésite encore… ⚖️🤔",
+  "Négatif, ton style n’est pas aligné. ❌🌀",
+  "La nuit t’accorde un léger oui. 🌙✨",
+  "L’ombre du rail dit : pas maintenant. 🛹🌑",
+  "Les esprits du flat sourient : vas-y. 👻🛹",
+  "Ton destin fait un manual… il vacille. 🛹😬",
+  "Les dieux du vert ramp applaudissent. 🏄‍♂️🔥",
+  "Non. Tes trucks grincent une mise en garde. 🚫🛹",
+  "La lune trace un flip : signe positif. 🌙🌀",
+  "Mystère total… réessaie. ❓🌫️",
+  "Ton aura poppe un “OUI !” net. ✨🛹",
+  "Le karma du curb grince un refus. 🚫🪬",
+  "Le futur est flou, comme une session nocturne. 🌌🛹",
+  "Go ! Le cosmos te dit “Bolts landing”. 🌠⚡️",
+  "Un non… mais un non stylé. 😎❌",
 ];
 
 export default function Magic8Ball({ navigation }) {
 
-  /* -------------------------------------------------------------------------- */
-  /*                                   🔮 Animations                             */
-  /* -------------------------------------------------------------------------- */
-
   const rotationAnim = useRef(new Animated.Value(0)).current;
+  const shakeAnim = useRef(new Animated.Value(0)).current;
   const auraOpacity = useRef(new Animated.Value(0)).current;
+
+  // ✨ Animations texte
   const answerOpacity = useRef(new Animated.Value(0)).current;
   const answerScale = useRef(new Animated.Value(0.7)).current;
+  const answerFloat = useRef(new Animated.Value(0)).current;
+  const particlesOpacity = useRef(new Animated.Value(0)).current;
+  const particlesY = useRef(new Animated.Value(0)).current;
 
   const [answer, setAnswer] = useState("");
 
   const shake = () => {
-    // Reset apparition
     answerOpacity.setValue(0);
     answerScale.setValue(0.7);
+    answerFloat.setValue(0);
+    particlesOpacity.setValue(0);
+    particlesY.setValue(0);
 
-    // Random answer after animation
     const randomAnswer = RESPONSES[Math.floor(Math.random() * RESPONSES.length)];
 
-    /* ------------------------------- Rotation 80's ------------------------------- */
+    shakeAnim.setValue(0);
     Animated.sequence([
+      Animated.timing(shakeAnim, {
+        toValue: 1,
+        duration: 300,
+        easing: Easing.elastic(1.5),
+        useNativeDriver: true,
+      }),
       Animated.parallel([
         Animated.timing(rotationAnim, {
           toValue: 1,
@@ -64,7 +77,6 @@ export default function Magic8Ball({ navigation }) {
         Animated.timing(auraOpacity, {
           toValue: 1,
           duration: 900,
-          easing: Easing.ease,
           useNativeDriver: true,
         })
       ]),
@@ -76,22 +88,64 @@ export default function Magic8Ball({ navigation }) {
     ]).start(() => {
       setAnswer(randomAnswer);
 
-      // apparition fantôme du texte
       Animated.parallel([
+
+        // 🟣 Fade-in + scale
         Animated.timing(answerOpacity, {
           toValue: 1,
-          duration: 800,
+          duration: 700,
           useNativeDriver: true,
         }),
         Animated.timing(answerScale, {
           toValue: 1,
-          duration: 800,
+          duration: 700,
           easing: Easing.out(Easing.exp),
           useNativeDriver: true,
-        })
+        }),
+
+        // 🌬️ Flottement subtil
+        Animated.loop(
+          Animated.sequence([
+            Animated.timing(answerFloat, {
+              toValue: -4,
+              duration: 1400,
+              easing: Easing.inOut(Easing.sin),
+              useNativeDriver: true,
+            }),
+            Animated.timing(answerFloat, {
+              toValue: 0,
+              duration: 1400,
+              easing: Easing.inOut(Easing.sin),
+              useNativeDriver: true,
+            })
+          ])
+        ),
+
+        // ✨ Particules dorées
+        Animated.sequence([
+          Animated.timing(particlesOpacity, {
+            toValue: 1,
+            duration: 600,
+            useNativeDriver: true,
+          }),
+          Animated.loop(
+            Animated.sequence([
+              Animated.timing(particlesY, {
+                toValue: -12,
+                duration: 1200,
+                useNativeDriver: true,
+              }),
+              Animated.timing(particlesY, {
+                toValue: 0,
+                duration: 1200,
+                useNativeDriver: true,
+              }),
+            ])
+          ),
+        ]),
       ]).start();
 
-      rotationAnim.setValue(0); // reset
+      rotationAnim.setValue(0);
     });
   };
 
@@ -100,100 +154,116 @@ export default function Magic8Ball({ navigation }) {
     outputRange: ['0deg', '720deg'],
   });
 
+  const shakeX = shakeAnim.interpolate({
+    inputRange: [0, 0.25, 0.5, 0.75, 1],
+    outputRange: [0, -12, 12, -8, 0],
+  });
+
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Magic 8-Ball 🔮</Text>
+    <View style={styles.pageContainer}>
+      <ScrollView contentContainerStyle={styles.scroll} showsVerticalScrollIndicator={false}>
+        <View style={styles.inner}>
 
-      {/* 🌫️ Aura mystique */}
-      <Animated.View
-        style={[
-          styles.aura,
-          { opacity: auraOpacity }
-        ]}
-      />
+          <Image source={logoMagic} style={styles.gameLogo} resizeMode="contain" />
 
-      {/* 🔮 Boule */}
-      <Animated.View
-        style={[
-          styles.ball,
-          {
-            transform: [
-              { rotate: spin },
-              { scale: auraOpacity.interpolate({
-                  inputRange: [0, 1],
-                  outputRange: [1, 1.15]
-                })
-              }
-            ]
-          }
-        ]}
-      >
-        <Text style={styles.ballText}>8</Text>
-      </Animated.View>
+          <Text style={styles.title}>Magic 8-Ball</Text>
 
-      {/* ✨ Réponse mystique */}
-      {answer !== "" && (
-        <Animated.Text
-          style={[
-            styles.answer,
-            { opacity: answerOpacity, transform: [{ scale: answerScale }] }
-          ]}
-        >
-          {answer}
-        </Animated.Text>
-      )}
+          <Animated.View style={[styles.aura, { opacity: auraOpacity }]} />
 
-      <TouchableOpacity style={styles.btn} onPress={shake}>
-        <Text style={styles.btnText}>Ask me...</Text>
-      </TouchableOpacity>
+          <Animated.View
+            style={[
+              styles.ball,
+              { transform: [{ rotate: spin }, { translateX: shakeX }] }
+            ]}
+          >
+            <Text style={styles.ballText}>8</Text>
+          </Animated.View>
 
-      <TouchableOpacity
-        style={styles.backBtn}
-        onPress={() => navigation.goBack()}
-      >
-        <Text style={styles.backText}>Back to Profile</Text>
-      </TouchableOpacity>
+          {/* ✨ Réponse animée */}
+          {answer !== "" && (
+            <View style={{ alignItems: "center", minHeight: 80 }}>
+              
+              {/* Particules */}
+              <Animated.Text
+                style={[
+                  styles.particles,
+                  {
+                    opacity: particlesOpacity,
+                    transform: [{ translateY: particlesY }],
+                  }
+                ]}
+              >
+                ✧ ✦ ✧
+              </Animated.Text>
+
+              {/* Texte */}
+              <Animated.Text
+                style={[
+                  styles.answer,
+                  {
+                    opacity: answerOpacity,
+                    transform: [
+                      { scale: answerScale },
+                      { translateY: answerFloat },
+                    ]
+                  }
+                ]}
+              >
+                {answer}
+              </Animated.Text>
+            </View>
+          )}
+
+          <TouchableOpacity style={styles.btn} onPress={shake}>
+            <Text style={styles.btnText}>ASK YOUR DESTINY</Text>
+          </TouchableOpacity>
+
+          <TouchableOpacity style={styles.backBtn} onPress={() => navigation.goBack()}>
+            <Text style={styles.backText}>BACK TO ROOTS</Text>
+          </TouchableOpacity>
+
+        </View>
+      </ScrollView>
     </View>
   );
 }
 
-/* 🎨 Santa Cruz + Stranger Things 80's vibes */
 const styles = StyleSheet.create({
-  container: {
+  pageContainer: {
     flex: 1,
     backgroundColor: '#111215',
-    alignItems: 'center',
-    justifyContent: 'center',
-    padding: 20,
   },
+  scroll: { flexGrow: 1, paddingVertical: 30, paddingBottom: 100 },
+  inner: { alignItems: 'center', paddingHorizontal: 20 },
+
+  gameLogo: { width: 380, height: 230, marginBottom: 10 },
 
   title: {
     fontSize: 28,
-    color: '#0AA5FF',
+    color: '#FFD600',
     fontWeight: '900',
-    marginBottom: 20,
+    marginBottom: 25,
+    textAlign: 'center',
     textShadowColor: '#FF355E',
     textShadowRadius: 6,
   },
 
-  /* 🌫️ Aura mystique */
   aura: {
     position: 'absolute',
-    width: 240,
-    height: 240,
+    width: 260,
+    height: 260,
     borderRadius: 200,
     backgroundColor: '#FF355E55',
     shadowColor: '#FF355E',
     shadowRadius: 60,
-    shadowOpacity: 0.9,
+    shadowOpacity: 0.8,
   },
 
-  /* 🔮 Boule noire */
   ball: {
-    width: 170,
-    height: 170,
+    width: 175,
+    height: 175,
     backgroundColor: '#000',
-    borderRadius: 100,
+    borderRadius: 200,
     alignItems: 'center',
     justifyContent: 'center',
     borderWidth: 6,
@@ -201,48 +271,40 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
 
-  ballText: {
-    color: '#FFF',
-    fontSize: 60,
-    fontWeight: '900',
+  ballText: { fontSize: 60, fontWeight: '900', color: '#FFF' },
+
+  particles: {
+    fontSize: 20,
+    marginBottom: 4,
+    color: '#FFD966',
   },
 
-  /* ✨ Réponse mystique */
   answer: {
     color: '#FFF',
     fontSize: 19,
-    marginBottom: 20,
     textAlign: 'center',
+    marginBottom: 20,
     paddingHorizontal: 20,
   },
 
   btn: {
-    backgroundColor: '#FFD600',
-    paddingVertical: 12,
-    paddingHorizontal: 22,
-    borderRadius: 20,
+    backgroundColor: '#FF355E',
+    paddingVertical: 14,
+    paddingHorizontal: 24,
+    borderRadius: 40,
+    borderWidth: 3,
+    borderColor: '#FFD600',
     marginBottom: 20,
   },
-
-  btnText: {
-    color: '#111',
-    fontSize: 18,
-    fontWeight: '900',
-    textTransform: 'uppercase',
-  },
+  btnText: { fontSize: 18, fontWeight: '900', color: '#111', textTransform: 'uppercase' },
 
   backBtn: {
-    marginTop: 10,
-    borderColor: '#FF355E',
-    borderWidth: 2,
+    borderColor: '#FFD600',
+    borderWidth: 3,
     paddingVertical: 12,
-    paddingHorizontal: 20,
-    borderRadius: 16,
+    paddingHorizontal: 22,
+    borderRadius: 40,
+    backgroundColor: '#0AA5FF',
   },
-
-  backText: {
-    color: '#FF355E',
-    fontSize: 16,
-    fontWeight: '800',
-  },
+  backText: { color: '#111', fontSize: 16, fontWeight: '900', textTransform: 'uppercase' },
 });
