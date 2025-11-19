@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from 'react';
 import {
   View,
+  Image,
   Text,
   TouchableOpacity,
   StyleSheet,
@@ -15,6 +16,11 @@ import XPBar from '../components/XPBar';
 export default function ProfileScreen({ navigation }) {
   const [profile, setProfile] = useState<any>(null);
   const [loading, setLoading] = useState(true);
+
+  const logoFlip = require('../../assets/logos/flip-coin2_logo.png');
+  const logoMagic = require('../../assets/logos/magic-ball_logo.png');
+  const logoFortune = require('../../assets/logos/fortune2_logo.png');
+  const logoCasino = require('../../assets/logos/casino_logo.png');
 
   /* -------------------------------------------------------- */
   /*  🔵 CHARGER LA PROGRESSION JOUEUR ( /progress )          */
@@ -93,11 +99,12 @@ export default function ProfileScreen({ navigation }) {
   const unlockedMiniGames = profile.unlockedMiniGames || [];
 
   const MINI_GAMES = [
-    { name: 'Flip Coin', key: 'coin-flip', screen: 'KillerTimeCoinFlip' },
-    { name: 'Magic 8-Ball', key: 'magic-8ball', screen: 'Magic8Ball' },
-    { name: 'Fortune Cookie', key: 'fortune-cookie', screen: 'FortuneCookie' },
-    { name: 'Casino Trick Slot', key: 'casino-slot', screen: 'CasinoSlot' },
+    { name: 'Flip Coin', key: 'coin-flip', screen: 'KillerTimeCoinFlip', logo: logoFlip },
+    { name: 'Magic 8-Ball', key: 'magic-8ball', screen: 'Magic8Ball', logo: logoMagic },
+    { name: 'Fortune Cookie', key: 'fortune-cookie', screen: 'FortuneCookie', logo: logoFortune },
+    { name: 'Casino Trick Slot', key: 'casino-slot', screen: 'CasinoSlot', logo: logoCasino },
   ];
+
 
   const onPressMiniGame = (game) => {
     const isUnlocked = unlockedMiniGames.includes(game.key);
@@ -158,6 +165,7 @@ export default function ProfileScreen({ navigation }) {
               ]}
               onPress={() => onPressMiniGame(g)}
             >
+              <Image source={g.logo} style={styles.gameLogo} resizeMode="contain" />
               <Text style={styles.gameName}>{g.name}</Text>
 
               <Text style={styles.gameInfo}>
@@ -278,6 +286,13 @@ const styles = StyleSheet.create({
     marginTop: 4,
     fontSize: 13,
   },
+  gameLogo: {
+    width: 70,
+    height: 70,
+    alignSelf: 'center',
+    marginBottom: 8,
+  },
+
 
   /* BACK */
   backBtn: {
