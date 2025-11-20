@@ -11,11 +11,13 @@ import {
 } from 'react-native';
 import useAds from '../hooks/useAds';
 import { log } from '../utils/logger';
+import useModal from '../hooks/useModal';
 
 export default function TrickDetailScreen({ route, navigation }) {
   const trick = route.params.trick;
   const { showRewardedAndUnlock } = useAds();
   const userId = localStorage.getItem('userId');
+  const { showModal } = useModal();
 
   const onWatchAd = async () => {
     log('TrickDetailScreen.onWatchAd', trick.id || trick._id);
@@ -26,16 +28,33 @@ export default function TrickDetailScreen({ route, navigation }) {
       });
       log('ad reward resp', resp);
       if (resp.success) {
-        alert('Unlocked!');
-        navigation.goBack();
+        showModal({
+          type: 'success',
+          title: 'Trick débloqué 🎉',
+          message: 'Nice, ce trick est maintenant à toi !',
+          confirmText: 'Back to park',
+          onConfirm: () => navigation.goBack(),
+        });
       } else {
-        alert(resp.message || 'No reward');
+        // Ancien : alert(resp.message || 'No reward');
+        showModal({
+          type: 'error',
+          title: 'Pas de récompense',
+          message: resp.message || 'La vidéo n’a pas été validée.',
+          confirmText: 'OK',
+        });
       }
     } catch (e) {
       console.warn('Ad failed or was not watched', e);
-      alert('Ad failed or was not watched');
+      // Ancien : alert('Ad failed or was not watched');
+      showModal({
+        type: 'error',
+        title: 'Pub non validée',
+        message: 'La pub a échoué ou n’a pas été regardée jusqu’au bout.',
+      });
     }
   };
+
 
   if (!trick)
     return (

@@ -10,10 +10,12 @@ import {
 import api from '../api/api';
 import { getProfile } from '../services/authService';
 import { log } from '../utils/logger';
+import useModal from '../hooks/useModal';
 
 export default function MiniGameUnlockChoice({ route, navigation }) {
   const { selected } = route.params || {};
   const [loading, setLoading] = useState(false);
+  const { showModal } = useModal();
 
   const MINI_GAME_LABELS: Record<string, string> = {
     'coin-flip': 'Flip Coin',
@@ -54,7 +56,12 @@ export default function MiniGameUnlockChoice({ route, navigation }) {
       }
     } catch (err) {
       log("Unlock mini-game error", err);
-      alert("Impossible de débloquer ce mini-jeu.");
+      showModal({
+        type: 'error',
+        title: 'Oops…',
+        message: "Impossible de débloquer ce mini-jeu.",
+        confirmText: 'OK',
+      });
     } finally {
       setLoading(false);
     }

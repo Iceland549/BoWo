@@ -10,12 +10,14 @@ import {
 } from 'react-native';
 import useAuth from '../../hooks/useAuth';
 import { log } from '../../utils/logger';
+import useModal from '../../hooks/useModal';
 
 export default function LoginScreen({ navigation }) {
   const { login } = useAuth();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
+  const { showModal } = useModal();
 
   const onSubmit = async () => {
     if (loading) return;
@@ -27,7 +29,12 @@ export default function LoginScreen({ navigation }) {
       await login({ email, password });
     } catch (err) {
       log('login failed', err);
-      alert('Échec de connexion');
+      showModal({
+      type: 'error',
+      title: 'Connexion impossible',
+      message: "L'identification a échoué. Vérifie ton email ou ton mot de passe.",
+      confirmText: 'OK',
+      });
     } finally {
       setLoading(false);
     }

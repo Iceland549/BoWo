@@ -14,11 +14,13 @@ import {
 import api from '../api/api';
 import TrickCard from '../components/TrickCard';
 import { log } from '../utils/logger';
+import useModal from '../hooks/useModal';
 
 export default function HomeScreen({ navigation }) {
   const [tricks, setTricks] = useState([]);
   const [loading, setLoading] = useState(true);
   const { token, clearCredentials } = useAuthStore();
+  const { showModal } = useModal();
 
   useEffect(() => {
     (async () => {
@@ -29,12 +31,19 @@ export default function HomeScreen({ navigation }) {
         log('HomeScreen.tricks loaded', data.length);
       } catch (err) {
         log('HomeScreen.fetch error', err);
-        alert('Failed to load tricks');
+        showModal({
+          type: 'error',
+          title: 'Erreur',
+          message: 'Impossible de charger les tricks.',
+          confirmText: 'OK',
+        });
       } finally {
         setLoading(false);
       }
     })();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
 
   if (loading) {
     return (
