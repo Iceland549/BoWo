@@ -34,7 +34,18 @@ const RESPONSES = [
   "Le futur est flou, comme une session nocturne. 🌌🛹",
   "Go ! Le cosmos te dit “Bolts landing”. 🌠⚡️",
   "Un non… mais un non stylé. 😎❌",
+  "Réponse incertaine. 🔮",
+  "Oui, clairement. ✔️✨",
+  "Non, absolument pas. ❌🕳️",
+  "Les signes pointent vers oui. ➕🌟",
+  "Les signes pointent vers non. ➖🌑",
+  "Tu peux compter dessus. 👍🔮",
+  "Peu probable… ⚠️🌀",
+  "Mieux vaut attendre. ⏳🌫️",
+  "Sans aucun doute. 💯✨",
+  "Impossible à dire. ❓🕳️"
 ];
+
 
 export default function Magic8Ball({ navigation }) {
 
