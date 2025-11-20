@@ -15,10 +15,13 @@ import api from '../api/api';
 import TrickCard from '../components/TrickCard';
 import { log } from '../utils/logger';
 import useModal from '../hooks/useModal';
+import { getProfile } from '../services/authService';
 
 export default function HomeScreen({ navigation }) {
   const [tricks, setTricks] = useState([]);
   const [loading, setLoading] = useState(true);
+
+  const [progress, setProgress] = useState(null); // 🔥 ajout pour savoir ce qui est unlock
   const { token, clearCredentials } = useAuthStore();
   const { showModal } = useModal();
 
@@ -28,6 +31,11 @@ export default function HomeScreen({ navigation }) {
         log('HomeScreen.fetch tricks');
         const { data } = await api.get('/content/tricks');
         setTricks(data);
+
+        // 🎯 récupération du profil pour savoir quels tricks sont unlockés
+        const profile = await getProfile();
+        setProgress(profile);
+
         log('HomeScreen.tricks loaded', data.length);
       } catch (err) {
         log('HomeScreen.fetch error', err);
@@ -41,9 +49,8 @@ export default function HomeScreen({ navigation }) {
         setLoading(false);
       }
     })();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
 
   if (loading) {
     return (
@@ -86,13 +93,21 @@ export default function HomeScreen({ navigation }) {
           keyExtractor={(i) => i.id || i._id || i.name}
           showsVerticalScrollIndicator={false}
           contentContainerStyle={{ paddingBottom: 120 }}
-          renderItem={({ item }) => (
-            <TouchableOpacity
-              onPress={() => navigation.navigate('TrickDetail', { trick: item })}
-            >
-              <TrickCard trick={item} />
-            </TouchableOpacity>
-          )}
+          renderItem={({ item }) => {
+            const trickId = item._id || item.id;
+
+            // 🔥 extraction de l'état "débloqué" depuis profile.unlockedTricks
+            const isUnlocked =
+              progress?.unlockedTricks?.includes(trickId) === true;
+
+            return (
+              <TouchableOpacity
+                onPress={() => navigation.navigate('TrickDetail', { trick: item })}
+              >
+                <TrickCard trick={{ ...item, isUnlocked }} />
+              </TouchableOpacity>
+            );
+          }}
         />
       </ScreenWrapper>
     </SafeAreaView>
@@ -103,7 +118,7 @@ export default function HomeScreen({ navigation }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#111215', // même fond que TrickLearn Santa Cruz
+    backgroundColor: '#111215',
     paddingHorizontal: 12,
   },
 
@@ -146,7 +161,7 @@ const styles = StyleSheet.create({
     marginBottom: 12,
   },
   headerTitle: {
-    color: '#0AA5FF', // bleu Santa Cruz
+    color: '#0AA5FF',
     fontSize: 32,
     fontWeight: '900',
     letterSpacing: 1.5,
@@ -161,5 +176,4 @@ const styles = StyleSheet.create({
     fontWeight: '700',
     letterSpacing: 0.5,
   },
-
 });
