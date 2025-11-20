@@ -6,22 +6,28 @@ import {
   TextInput,
   TouchableOpacity,
   ActivityIndicator,
-  StyleSheet,
-  Alert,
+  StyleSheet
 } from 'react-native';
 import api from '../../api/api';
 import { log } from '../../utils/logger';
+import useModal from '../../hooks/useModal';
 
 export default function RegisterScreen({ navigation }) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
-
+  const { showModal } = useModal();
+  
   const onRegister = async () => {
     if (loading) return;
 
     if (!email || !password) {
-      Alert.alert('Erreur', 'Email et mot de passe requis.');
+      showModal({
+        type: 'error',
+        title: 'Champs manquants',
+        message: 'Email et mot de passe sont requis.',
+        confirmText: 'OK',
+      });
       return;
     }
 
@@ -32,15 +38,30 @@ export default function RegisterScreen({ navigation }) {
       const res = await api.post('/account/register', { email, password });
 
       if (res.data?.success) {
-        Alert.alert('Succès', 'Compte créé !');
-        navigation.navigate('Login');
+        showModal({
+          type: 'success',
+          title: 'Compte créé 🎉',
+          message: 'Ton compte a été créé avec succès !',
+          confirmText: 'Se connecter',
+          onConfirm: () => navigation.navigate('Login'),
+        });
       } else {
-        Alert.alert('Erreur', res.data?.message || 'Registration failed');
+        showModal({
+          type: 'error',
+          title: 'Erreur',
+          message: res.data?.message || 'Impossible de créer le compte.',
+          confirmText: 'OK',
+        });
       }
     } catch (err) {
       log('RegisterScreen error', err);
       const msg = err?.response?.data?.message || 'Registration failed';
-      Alert.alert('Erreur', msg);
+      showModal({
+        type: 'error',
+        title: 'Erreur réseau',
+        message: msg,
+        confirmText: 'OK',
+      });
     } finally {
       setLoading(false);
     }
