@@ -3,14 +3,15 @@ import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import api from '../api/api';
 import { log } from '../utils/logger';
 import ScreenWrapper from '../components/ScreenWrapper';
+import useModal from '../hooks/useModal';
 
 export default function QuizScreen({ route, navigation }) {
   const { trickId } = route.params;
   const [quiz, setQuiz] = useState(null);
   const [selected, setSelected] = useState(null);
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-const [result, setResult] = useState(null);
-
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const [result, setResult] = useState(null);
+  const { showModal } = useModal();
 
   useEffect(() => {
     (async () => {
@@ -21,9 +22,14 @@ const [result, setResult] = useState(null);
         log('QuizScreen quiz loaded', data);
       } catch (err) {
         log('QuizScreen error', err);
-        alert('Could not load quiz');
-      }
+        showModal({
+          type: 'error',
+          title: 'Erreur',
+          message: 'Impossible de charger le quiz.',
+          confirmText: 'OK',
+        });      }
     })();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [trickId]);
 
   const submit = async () => {
@@ -46,18 +52,33 @@ const [result, setResult] = useState(null);
 
       // 🟩 Bonne réponse
       if (data.success) {
-        alert('Correct! Trick unlocked 🎉');
-        navigation.replace('TrickLearn', { trickId });
+        showModal({
+          type: 'success',
+          title: 'Bonne réponse 🎉',
+          message: 'Trick débloqué !',
+          confirmText: 'Continuer',
+          onConfirm: () =>
+            navigation.replace('TrickLearn', { trickId }),
+        });
+        return;
       } 
       // 🟥 Mauvaise réponse (1ère ou 2ème tentative)
       else {
-        alert(data.message)
-      }
+        showModal({
+          type: 'warning',
+          title: 'Mauvaise réponse',
+          message: data.message || 'Réessaie !',
+          confirmText: 'OK',
+        });      }
 
     } catch (err) {
       log('QuizScreen.submit error', err);
-      alert('Validation error');
-    }
+      showModal({
+        type: 'error',
+        title: 'Erreur',
+        message: 'Impossible de valider ta réponse.',
+        confirmText: 'OK',
+      });    }
   };
 
   if (!quiz) return <Text>Loading...</Text>;

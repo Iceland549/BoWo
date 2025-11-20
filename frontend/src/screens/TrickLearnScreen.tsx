@@ -14,6 +14,7 @@ import { Video, ResizeMode } from 'expo-av';
 import api from '../api/api';
 import { log } from '../utils/logger';
 import { MEDIA_BASE_URL } from '../config/env';
+import useModal from '../hooks/useModal';
 
 type TrickLearn = {
   id: string;
@@ -49,6 +50,7 @@ export default function TrickLearnScreen({ route, navigation }: any) {
   const { trickId } = route.params;
   const [trick, setTrick] = useState<TrickLearn | null>(null);
   const [loading, setLoading] = useState(true);
+  const { showModal } = useModal();
 
   useEffect(() => {
     (async () => {
@@ -58,11 +60,17 @@ export default function TrickLearnScreen({ route, navigation }: any) {
         setTrick(data);
       } catch (err) {
         log('TrickLearnScreen.error', err);
-        alert('Impossible de charger ce trick.');
+        showModal({
+        type: 'error',
+        title: 'Erreur',
+        message: 'Impossible de charger ce trick.',
+        confirmText: 'OK',
+       });
       } finally {
         setLoading(false);
       }
     })();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [trickId]);
 
   if (loading) {
@@ -90,7 +98,7 @@ export default function TrickLearnScreen({ route, navigation }: any) {
 
   const mainImage =
     resolveMediaUrl(trick.images?.[0]) ??
-    'https://images.pexels.com/photos/1762825/pexels-photo-1762825.jpeg';
+    require('../../assets/logos/bowo2_logo.png');
 
   const proVideo = resolveMediaUrl(trick.proVideoUrl || undefined);
   const amateurVideo = resolveMediaUrl(trick.amateurVideoUrl || undefined);
