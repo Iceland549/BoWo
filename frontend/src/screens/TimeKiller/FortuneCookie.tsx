@@ -19,17 +19,38 @@ const wallpaper = require("../../../assets/fortune/fortune_wallpaper.png");
 const logoFortune = require("../../../assets/logos/fortune2_logo.png");
 
 const MESSAGES = [
-  "La glisse parlera pour toi aujourd’hui.",
-  "Une bonne session commence dans la tête.",
-  "Le prochain trick te choisit déjà.",
-  "La chance préfère ceux qui poussent fort.",
-  "Un détail deviendra ton style signature.",
-  "Ta créativité est ton meilleur allié.",
-  "Observe : un signe t’est destiné.",
-  "Tu vas surprendre quelqu’un bientôt.",
-  "Une idée lumineuse te suit déjà.",
-  "La magie est plus proche que tu ne le crois.",
+  "La chance sourit à celui qui avance sans peur.",
+  "Une petite action vaut mieux qu’un grand rêve immobile.",
+  "Le calme ouvre les portes que la force ne peut pas forcer.",
+  "Tu es plus proche du succès que tu ne le crois.",
+  "Ta créativité va faire des étincelles.",
+  "Un nouveau départ commence discrètement.",
+  "Ton intuition sait déjà.",
+  "Ton avenir dépend de ce que tu choisis maintenant.",
+  "La glisse révèle ce que les mots n’expliquent pas.",
+  "Chaque ride t'amène plus loin que tu ne l'imagines.",
+  "Ton équilibre intérieur trace ton équilibre sur la board.",
+  "Le vent t’offre un conseil : avance sans hésiter.",
+  "Ta board sait déjà ce que tu veux faire.",
+  "Un trick comprend toujours une part de magie.",
+  "Un obstacle est souvent une opportunité déguisée.",
+  "La patience est ton alliée invisible.",
+  "Une nouvelle trajectoire t’attend, garde les yeux ouverts.",
+  "L’énergie suit ceux qui osent pousser un peu plus loin.",
+  "Le flow vient quand l’esprit arrête de forcer.",
+  "Chaque petit pas te rapproche du style que tu veux créer.",
+  "Ton style inspire déjà plus que tu ne le penses.",
+  "Observe : le hasard te glisse un message.",
+  "Un bon ride commence avec un bon état d’esprit.",
+  "Ton moment parfait arrive, prépare-toi.",
+  "Une idée lumineuse ne tardera pas à te trouver.",
+  "Les réponses arrivent quand l’esprit se relâche.",
+  "Tu vas surprendre quelqu’un prochainement.",
+  "Un détail maîtrisé deviendra ta signature.",
+  "La constance est ton véritable super-pouvoir.",
+  "Un changement subtil t’amène vers quelque chose de grand."
 ];
+
 
 export default function FortuneCookie({ navigation }) {
   const [opened, setOpened] = useState(false);
