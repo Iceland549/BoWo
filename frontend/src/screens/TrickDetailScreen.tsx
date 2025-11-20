@@ -45,8 +45,8 @@ export default function TrickDetailScreen({ route, navigation }) {
     );
 
   return (
-    <ScreenWrapper>
-      <ScrollView contentContainerStyle={styles.container}>
+    <ScrollView style={{ backgroundColor: '#111215' }} contentContainerStyle={styles.container}>
+      <ScreenWrapper>
         {/* TITLE */}
         <Text style={styles.title}>{trick.name}</Text>
 
@@ -83,15 +83,14 @@ export default function TrickDetailScreen({ route, navigation }) {
         >
           <Text style={styles.backBtnText}>← Back to Park</Text>
         </TouchableOpacity>
-      </ScrollView>
-    </ScreenWrapper>
+      </ScreenWrapper>  
+    </ScrollView>
   );
 }
 
 /* 🎨 SANTA CRUZ POP PUNK STYLES */
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: '#111215',
     padding: 20,
     paddingBottom: 80,
   },
