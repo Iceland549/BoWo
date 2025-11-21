@@ -6,7 +6,7 @@ import {
   StyleSheet,
   ActivityIndicator,
 } from 'react-native';
-
+import useInterstitialNavigation from '../hooks/useInterstitialNavigation';
 import api from '../api/api';
 import { getProfile } from '../services/authService';
 import { log } from '../utils/logger';
@@ -16,6 +16,7 @@ export default function MiniGameUnlockChoice({ route, navigation }) {
   const { selected } = route.params || {};
   const [loading, setLoading] = useState(false);
   const { showModal } = useModal();
+  const navigateWithAd = useInterstitialNavigation();
 
   const MINI_GAME_LABELS: Record<string, string> = {
     'coin-flip': 'Flip Coin',
@@ -40,20 +41,22 @@ export default function MiniGameUnlockChoice({ route, navigation }) {
       await getProfile();
 
       // On navigue immédiatement vers le mini-jeu
-      switch (selected) {
-        case 'coin-flip':
-          navigation.replace('KillerTimeCoinFlip');
-          break;
-        case 'magic-8ball':
-          navigation.replace('Magic8Ball');
-          break;
-        case 'fortune-cookie':
-          navigation.replace('FortuneCookie');
-          break;
-        case 'casino-slot':
-          navigation.replace('CasinoTrickSlot');
-          break;
-      }
+      navigateWithAd(() => {
+        switch (selected) {
+          case 'coin-flip':
+            navigation.replace('KillerTimeCoinFlip');
+            break;
+          case 'magic-8ball':
+            navigation.replace('Magic8Ball');
+            break;
+          case 'fortune-cookie':
+            navigation.replace('FortuneCookie');
+            break;
+          case 'casino-slot':
+            navigation.replace('CasinoTrickSlot');
+            break;
+        }
+      });  
     } catch (err) {
       log("Unlock mini-game error", err);
       showModal({

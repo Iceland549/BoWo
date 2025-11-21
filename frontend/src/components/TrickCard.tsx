@@ -4,44 +4,65 @@ import {
   Text,
   Image,
   StyleSheet,
+  TouchableOpacity,
 } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
+import { useNavigation } from '@react-navigation/native';
+import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import type { RootStackParamList } from '@/navigation/types';
+import useInterstitialNavigation from '@/hooks/useInterstitialNavigation';
+
+type Nav = NativeStackNavigationProp<RootStackParamList>;
 
 export default function TrickCard({ trick }) {
+  const navigation = useNavigation<Nav>();
+  const navigateWithAd = useInterstitialNavigation();
+
   const fallbackImage = require('../../assets/images/home.jpg');
+  const finalImage = trick?.images?.[0]
+    ? { uri: trick.images[0] }
+    : fallbackImage;
 
-  const finalImage =
-    trick?.images?.[0]
-      ? { uri: trick.images[0] }
-      : fallbackImage;
+  const isUnlocked = trick?.isUnlocked;
+  const locked = !isUnlocked;
 
-  const locked = !trick?.isUnlocked; // ⬅️ clé rajoutée
+  const handlePress = () => {
+    if (isUnlocked) {
+      navigateWithAd(() =>
+        navigation.navigate('TrickLearn', { trickId: trick.id || trick._id })
+      );
+    } else {
+      navigation.navigate('TrickDetail', { trick });
+    }
+  };
 
   return (
-    <View style={[styles.card, locked && styles.cardLocked]}>
-      {/* IMAGE */}
-      <View style={styles.imageWrapper}>
-        <Image source={finalImage} style={styles.image} />
+    <TouchableOpacity onPress={handlePress} activeOpacity={0.8}>
+      <View style={[styles.card, locked && styles.cardLocked]}>
+        {/* IMAGE */}
+        <View style={styles.imageWrapper}>
+          <Image source={finalImage} style={styles.image} />
 
-        {/* 🔒 Overlay verrou */}
-        {locked && (
-          <View style={styles.lockOverlay}>
-            <Ionicons name="lock-closed" size={46} color="#FFD600" />
-          </View>
-        )}
+          {/* 🔒 Overlay verrou */}
+          {locked && (
+            <View style={styles.lockOverlay}>
+              <Ionicons name="lock-closed" size={46} color="#FFD600" />
+            </View>
+          )}
+        </View>
+
+        {/* NAME */}
+        <View style={styles.info}>
+          <Text style={[styles.title, locked && styles.titleLocked]}>
+            {trick.name}
+          </Text>
+
+          {trick?.difficulty && (
+            <Text style={styles.difficulty}>Difficulty: {trick.difficulty}</Text>
+          )}
+        </View>
       </View>
-
-      {/* NAME */}
-      <View style={styles.info}>
-        <Text style={[styles.title, locked && styles.titleLocked]}>
-          {trick.name}
-        </Text>
-
-        {trick?.difficulty && (
-          <Text style={styles.difficulty}>Difficulty: {trick.difficulty}</Text>
-        )}
-      </View>
-    </View>
+    </TouchableOpacity>
   );
 }
 
@@ -56,7 +77,7 @@ const styles = StyleSheet.create({
   },
 
   cardLocked: {
-    opacity: 0.45, // ⬅️ discret et élégant
+    opacity: 0.45,
   },
 
   imageWrapper: {
@@ -93,7 +114,7 @@ const styles = StyleSheet.create({
   },
 
   titleLocked: {
-    color: '#FFD600', // ⬅️ contraste pour tricks verrouillés
+    color: '#FFD600',
   },
 
   difficulty: {

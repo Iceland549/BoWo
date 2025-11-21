@@ -12,12 +12,14 @@ import {
 import useAds from '../hooks/useAds';
 import { log } from '../utils/logger';
 import useModal from '../hooks/useModal';
+import useInterstitialNavigation from '../hooks/useInterstitialNavigation';
 
 export default function TrickDetailScreen({ route, navigation }) {
   const trick = route.params.trick;
   const { showRewardedAndUnlock } = useAds();
   const userId = localStorage.getItem('userId');
   const { showModal } = useModal();
+  const navigateWithAd = useInterstitialNavigation();
 
   const onWatchAd = async () => {
     log('TrickDetailScreen.onWatchAd', trick.id || trick._id);
@@ -69,11 +71,6 @@ export default function TrickDetailScreen({ route, navigation }) {
         {/* TITLE */}
         <Text style={styles.title}>{trick.name}</Text>
 
-        {/* DESCRIPTION */}
-        {trick.description && (
-          <Text style={styles.description}>{trick.description}</Text>
-        )}
-
         {/* IMAGES */}
         {(trick.images || []).map((src, i) => (
           <Image key={i} style={styles.image} source={{ uri: src }} />
@@ -88,7 +85,9 @@ export default function TrickDetailScreen({ route, navigation }) {
           <TouchableOpacity
             style={styles.quizBtn}
             onPress={() =>
-              navigation.navigate('Quiz', { trickId: trick._id || trick.id })
+              navigateWithAd(() =>
+                navigation.navigate('Quiz', { trickId: trick._id || trick.id })
+              )   
             }
           >
             <Text style={styles.quizBtnText}>Open Quiz</Text>

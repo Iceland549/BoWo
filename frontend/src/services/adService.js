@@ -1,46 +1,90 @@
-// frontend/src/services/adService.js
+// // frontend/src/services/adService.js
+// import { info, log, warn } from '../utils/logger';
+
+// const AdService = {
+//   init: async () => {
+//     info('AdService.init (noop on platforms where not available)');
+//   },
+
+//   setTestIds: async () => {
+//     try {
+//       const { AdMobRewarded, AdMobInterstitial } = await import('expo-ads-admob');
+//       AdMobRewarded.setAdUnitID('ca-app-pub-3940256099942544/5224354917');
+//       AdMobInterstitial.setAdUnitID('ca-app-pub-3940256099942544/5224354917');
+//     } catch (e) {
+//       warn('AdService.setTestIds: expo-ads-admob not available', e);
+//     }
+//   },
+
+//   showRewarded: async ({ onEarn = () => {}, onFail = () => {} } = {}) => {
+//     try {
+//       const { AdMobRewarded } = await import('expo-ads-admob');
+//       log('AdService.showRewarded request');
+//       await AdMobRewarded.setAdUnitID('ca-app-pub-3940256099942544/5224354917');
+//       await AdMobRewarded.requestAdAsync();
+//       await AdMobRewarded.showAdAsync();
+
+//       const earnedHandler = () => {
+//         log('AdService: user earned reward');
+//         onEarn();
+//       };
+//       const failHandler = () => {
+//         warn('AdService: failed to load/show rewarded');
+//         onFail();
+//       };
+
+//       AdMobRewarded.addEventListener('rewardedVideoUserDidEarnReward', earnedHandler);
+//       AdMobRewarded.addEventListener('rewardedVideoDidFailToLoad', failHandler);
+//     } catch (err) {
+//       warn('AdService.showRewarded error (module missing or runtime)', err);
+//       onFail(err);
+//     }
+//   }
+// };
+
+// export { AdService };
+
 import { info, log, warn } from '../utils/logger';
+
+export const TEST_AD_UNITS = {
+  banner: 'ca-app-pub-3940256099942544/6300978111',
+  interstitial: 'ca-app-pub-3940256099942544/1033173712',
+  rewarded: 'ca-app-pub-3940256099942544/5224354917',
+};
 
 const AdService = {
   init: async () => {
-    info('AdService.init (noop on platforms where not available)');
+    info('AdService.init');
   },
 
-  setTestIds: async () => {
+  showInterstitial: async ({ onClose = () => {}, onFail = () => {} }) => {
     try {
-      const { AdMobRewarded, AdMobInterstitial } = await import('expo-ads-admob');
-      AdMobRewarded.setAdUnitID('ca-app-pub-3940256099942544/5224354917');
-      AdMobInterstitial.setAdUnitID('ca-app-pub-3940256099942544/5224354917');
-    } catch (e) {
-      warn('AdService.setTestIds: expo-ads-admob not available', e);
-    }
-  },
+      const { AdMobInterstitial } = await import('expo-ads-admob');
+      log('AdService.showInterstitial → loading');
 
-  showRewarded: async ({ onEarn = () => {}, onFail = () => {} } = {}) => {
-    try {
-      const { AdMobRewarded } = await import('expo-ads-admob');
-      log('AdService.showRewarded request');
-      await AdMobRewarded.setAdUnitID('ca-app-pub-3940256099942544/5224354917');
-      await AdMobRewarded.requestAdAsync();
-      await AdMobRewarded.showAdAsync();
+      await AdMobInterstitial.setAdUnitID(TEST_AD_UNITS.interstitial);
+      await AdMobInterstitial.requestAdAsync();
+      await AdMobInterstitial.showAdAsync();
 
-      const earnedHandler = () => {
-        log('AdService: user earned reward');
-        onEarn();
-      };
-      const failHandler = () => {
-        warn('AdService: failed to load/show rewarded');
-        onFail();
+      const closeHandler = () => {
+        log('AdService: interstitial closed');
+        AdMobInterstitial.removeAllListeners();
+        onClose();
       };
 
-      AdMobRewarded.addEventListener('rewardedVideoUserDidEarnReward', earnedHandler);
-      AdMobRewarded.addEventListener('rewardedVideoDidFailToLoad', failHandler);
+      const failHandler = (err) => {
+        warn('AdService: failed to load/show interstitial', err);
+        AdMobInterstitial.removeAllListeners();
+        onFail(err);
+      };
+
+      AdMobInterstitial.addEventListener('interstitialDidClose', closeHandler);
+      AdMobInterstitial.addEventListener('interstitialDidFailToLoad', failHandler);
     } catch (err) {
-      warn('AdService.showRewarded error (module missing or runtime)', err);
+      warn('AdService.showInterstitial error', err);
       onFail(err);
     }
-  }
+  },
 };
 
 export { AdService };
-

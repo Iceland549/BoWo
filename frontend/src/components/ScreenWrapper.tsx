@@ -1,6 +1,7 @@
 // frontend/src/components/ScreenWrapper.tsx
 import React from 'react';
 import { View, Image, StyleSheet, ScrollView } from 'react-native';
+import BannerAd from './BannerAd';
 
 // ✅ bon chemin vers le logo BoWo
 const bowoLogo = require('../../assets/images/bowo2_logo.png');
@@ -25,6 +26,7 @@ export default function ScreenWrapper({ children }: Props) {
             style={styles.logo}
             resizeMode="contain"
           />
+          <BannerAd />  
         </View>
       </ScrollView>
     </View>
