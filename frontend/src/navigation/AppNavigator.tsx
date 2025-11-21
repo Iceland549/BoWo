@@ -2,6 +2,7 @@ import React from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import { Ionicons } from '@expo/vector-icons';
+import { RootStackParamList } from './types';
 
 import HomeScreen from '../screens/HomeScreen';
 import TrickDetailScreen from '../screens/TrickDetailScreen';
@@ -17,10 +18,11 @@ import MiniGameUnlockChoice from '@/screens/MiniGameUnlockChoice';
 import FortuneCookie from '@/screens/TimeKiller/FortuneCookie';
 import CasinoTrickSlot from '@/screens/TimeKiller/CasinoTrickSlot';
 // Stack = navigation interne
-const Stack: any = createNativeStackNavigator();
+const Stack = createNativeStackNavigator<RootStackParamList>();
 
 // Top Tabs = navigation principale haute
 const TopTab: any = createMaterialTopTabNavigator();
+
 
 
 /* -------------------------------------------------------------------------- */
