@@ -43,13 +43,17 @@
 // };
 
 // export { AdService };
-
 import { info, log, warn } from '../utils/logger';
+import {
+  InterstitialAd,
+  TestIds,
+  AdEventType,
+} from 'react-native-google-mobile-ads';
 
 export const TEST_AD_UNITS = {
-  banner: 'ca-app-pub-3940256099942544/6300978111',
-  interstitial: 'ca-app-pub-3940256099942544/1033173712',
-  rewarded: 'ca-app-pub-3940256099942544/5224354917',
+  banner: TestIds.BANNER,
+  interstitial: TestIds.INTERSTITIAL,
+  rewarded: TestIds.REWARDED,
 };
 
 const AdService = {
@@ -59,27 +63,38 @@ const AdService = {
 
   showInterstitial: async ({ onClose = () => {}, onFail = () => {} }) => {
     try {
-      const { AdMobInterstitial } = await import('expo-ads-admob');
-      log('AdService.showInterstitial → loading');
+      const adUnitId = __DEV__ ? TestIds.INTERSTITIAL : TEST_AD_UNITS.interstitial;
 
-      await AdMobInterstitial.setAdUnitID(TEST_AD_UNITS.interstitial);
-      await AdMobInterstitial.requestAdAsync();
-      await AdMobInterstitial.showAdAsync();
+      const interstitial = InterstitialAd.createForAdRequest(adUnitId);
+      log('AdService: loading interstitial…');
 
-      const closeHandler = () => {
-        log('AdService: interstitial closed');
-        AdMobInterstitial.removeAllListeners();
-        onClose();
-      };
+      const unsubscribe = interstitial.addAdEventListener(AdEventType.LOADED, () => {
+        log('AdService: interstitial loaded');
+        interstitial.show();
+      });
 
-      const failHandler = (err) => {
-        warn('AdService: failed to load/show interstitial', err);
-        AdMobInterstitial.removeAllListeners();
-        onFail(err);
-      };
+      const unsubscribeClosed = interstitial.addAdEventListener(
+        AdEventType.CLOSED,
+        () => {
+          log('AdService: interstitial closed');
+          unsubscribe();
+          unsubscribeClosed();
+          onClose();
+        }
+      );
 
-      AdMobInterstitial.addEventListener('interstitialDidClose', closeHandler);
-      AdMobInterstitial.addEventListener('interstitialDidFailToLoad', failHandler);
+      const unsubscribeFail = interstitial.addAdEventListener(
+        AdEventType.ERROR,
+        (err) => {
+          warn('AdService: interstitial failed', err);
+          unsubscribe();
+          unsubscribeClosed();
+          unsubscribeFail();
+          onFail(err);
+        }
+      );
+
+      interstitial.load();
     } catch (err) {
       warn('AdService.showInterstitial error', err);
       onFail(err);

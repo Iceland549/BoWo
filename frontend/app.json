@@ -13,7 +13,7 @@
     "scheme": "frontend",
     "userInterfaceStyle": "automatic",
     "newArchEnabled": false,
-    "jsEngine": "jsc",
+    "jsEngine": "hermes",
     "ios": {
       "supportsTablet": true
     },
@@ -30,6 +30,13 @@
     },
     "plugins": [
       [
+        "react-native-google-mobile-ads",
+        {
+          "android_app_id": "ca-app-pub-3940256099942544~3347511713",
+          "ios_app_id": "ca-app-pub-3940256099942544~1458002511"
+        }
+      ],
+      [
         "expo-splash-screen",
         {
           "imageWidth": 400,
@@ -41,6 +48,7 @@
         }
       ]
     ],
+
     "experiments": {
       "reactCompiler": false
     }

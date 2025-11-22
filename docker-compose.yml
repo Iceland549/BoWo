@@ -55,6 +55,8 @@ services:
       - Mongo__Database=bowo-content-db
       - ContentServiceClientSecret=SuperSecretContent
       - Firebase__ProjectId=bowo-app-123
+      - UserProgress__DailyUnlockLimit=999
+      - UserProgress__MaxQuizAttempts=10
     depends_on:
       - mongo
     ports:

@@ -55,7 +55,7 @@ namespace ContentMicroservice.Extensions
             services.AddScoped<PurchaseValidationUseCase>();
 
             // ----------- PARAMÈTRES DE CONFIG -------------
-            int dailyLimit = configuration.GetValue<int>("UserProgress:DailyUnlockLimit", 1);
+            int dailyLimit = configuration.GetValue<int>("UserProgress:DailyUnlockLimit", 3);
             int maxAttempts = configuration.GetValue<int>("UserProgress:MaxQuizAttempts", 3);
 
             // ----------- UnlockTrickUseCase -------------

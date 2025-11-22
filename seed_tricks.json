@@ -2,47 +2,502 @@
   {
     "_id": "ollie",
     "name": "Ollie",
-    "level": "beginner",
-    "price": 0.0,
-    "description": "L�Ollie est le trick de base qui te permet de faire d�coller ta planche du sol sans les mains.",
+    "difficulty": "beginner",
+    "price": 0.49,
+    "description": "Le ollie est le trick de base qui permet de faire décoller la planche sans utiliser les mains.",
     "steps": [
-      "Positionne tes pieds : arri�re sur le tail, avant derri�re les vis.",
-      "Frappe le tail et glisse ton pied avant vers le nez.",
-      "Monte les genoux et garde les �paules droites.",
-      "Atterris souplement."
+      "Positionne ton pied arrière sur le tail et ton pied avant juste derrière les vis avant.",
+      "Plie bien les genoux puis frappe sèchement le tail vers le sol pour faire pop.",
+      "Glisse ton pied avant vers le nose pour aplatir la planche en l'air.",
+      "Garde les épaules au-dessus de la board et atterris avec les deux pieds sur les vis."
     ],
     "images": [
-      "http://localhost:5002/images/tricks/ollie_1.jpg",
-      "http://localhost:5002/images/tricks/ollie_2.jpg",
-      "http://localhost:5002/images/tricks/ollie_3.jpg"
+      "/static/tricks/ollie/ollie_1.jpg",
+      "/static/tricks/ollie/ollie_2.jpg",
+      "/static/tricks/ollie/ollie_3.jpg"
     ],
     "videos": {
-      "amateurUrl": "",
+      "amateurUrl": "/static/tricks/ollie/neiji_ollie-converted.mp4",
       "proUrl": ""
     },
-    "funFact": "L Ollie a ete invente par Alan 'Ollie' Gelfand dans une piscine vide en 1978 !"
-  }, 
+    "funFact": "Au Japon, le skate de rue n’a été autorisé qu’en 2017, et pourtant ils dominent déjà les compétitions U16.",
+    "proTip": "Concentre-toi sur le slide du pied avant vers le nose : c'est lui qui donne vraiment de la hauteur et de la stabilité à ton ollie.",
+    "commonMistake": "Beaucoup débutent en sautant sans vraiment frapper le tail ou sans glisser le pied avant."
+  },
   {
     "_id": "popshoveit",
     "name": "Pop Shove-it",
-    "level": "intermediate",
+    "difficulty": "beginner",
     "price": 0.49,
-    "description": "Le Pop Shove-it, c est l evolution directe de ton Ollie : la planche tourne � 180� sous tes pieds, un mouvement qui demande timing et engagement.",
+    "description": "Le pop shove-it fait tourner la planche de 180 degrés sous tes pieds sans la faire flipper.",
     "steps": [
-      "Place ton pied arri�re sur le tail, legerement decale vers le bord.",
-      "Frappe le tail vers le bas et legerement vers l arriere pour initier la rotation.",
-      "Garde ton corps centre et regarde la planche tourner sous toi.",
-      "Rattrape la planche avec tes pieds et atterris fl�chis pour amortir."
+      "Place ton pied arrière sur le tail, légèrement décalé vers le bord arrière côté talon.",
+      "Positionne ton pied avant vers le centre de la board pour garder le contrôle.",
+      "Frappe le tail vers le bas en poussant légèrement la board vers l'arrière pour lancer la rotation.",
+      "Laisse la planche tourner de 180 degrés sous toi, garde ton poids centré.",
+      "Rattrape la planche avec les pieds et atterris fléchi."
     ],
     "images": [
-      "http://localhost:5002/images/tricks/popshoveit_1.jpg",
-      "http://localhost:5002/images/tricks/popshoveit_2.jpg",
-      "http://localhost:5002/images/tricks/popshoveit_3.jpg"
+      "/static/tricks/popshoveit/popshoveit_1.jpg",
+      "/static/tricks/popshoveit/popshoveit_2.jpg",
+      "/static/tricks/popshoveit/popshoveit_3.jpg"
     ],
     "videos": {
-      "amateurUrl": "https://storage.googleapis.com/bowo-content/videos/popshoveit_amateur.mp4",
-      "proUrl": "https://storage.googleapis.com/bowo-content/videos/popshoveit_pro.mp4"
+      "amateurUrl": "/static/tricks/popshoveit/CRITERIUM%202019.mp4",
+      "proUrl": ""
     },
-    "funFact": "Fun fact: Jason Lee, connu pour son role dans 'My Name Is Earl' et 'Alvin et les Chipmunks', etait un skateur pro avant d etre acteur, il a popularise le kickflip apres Rodney Mullen !"
+    "funFact": "Le skatepark La Fuente à Mexico possède le seul slalom asymétrique de 120 mètres au monde.",
+    "proTip": "Pense à un petit mouvement de scoop avec le pied arrière.",
+    "commonMistake": "Beaucoup poussent trop fort vers l'arrière."
+  },
+  {
+    "_id": "kickflip",
+    "name": "Kickflip",
+    "difficulty": "intermediate",
+    "price": 0.49,
+    "description": "Le kickflip fait tourner la planche sur son axe longitudinal grâce à un flick du pied avant.",
+    "steps": [
+      "Place ton pied arrière sur le tail comme pour un ollie.",
+      "Poppe fort comme pour un ollie.",
+      "Glisse ton pied avant vers l'extérieur pour donner le flick.",
+      "Laisse la planche tourner et garde les yeux sur le grip.",
+      "Rattrape la board avec les deux pieds."
+    ],
+    "images": [
+      "/static/tricks/kickflip/kickflip_1.jpg",
+      "/static/tricks/kickflip/kickflip_2.jpg"
+    ],
+    "videos": {
+      "amateurUrl": "/static/tricks/kickflip/neiji_kickflip-converted.mp4",
+      "proUrl": ""
+    },
+    "funFact": "Momiji Nishiya est devenue championne olympique à 13 ans, l'une des plus jeunes médaillées de l’histoire.",
+    "proTip": "Visualise ton flick comme un petit coup sec.",
+    "commonMistake": "Flick trop fort ou trop tôt."
+  },
+  {
+    "_id": "heelflip",
+    "name": "Heelflip",
+    "difficulty": "intermediate",
+    "price": 0.49,
+    "description": "Le heelflip tourne dans l'autre sens du kickflip grâce au talon.",
+    "steps": [
+      "Place ton pied arrière sur le tail.",
+      "Positionne ton pied avant un peu plus centré.",
+      "Poppe fort, puis talonne vers l'extérieur.",
+      "Laisse tourner la board.",
+      "Rattrape-la et replaque."
+    ],
+    "images": [
+      "/static/tricks/kickflip/kickflip_1.jpg",
+      "/static/tricks/kickflip/kickflip_2.jpg"
+    ],
+    "videos": {
+      "amateurUrl": "/static/tricks/kickflip/neiji_kickflip.mp4",
+      "proUrl": ""
+    },
+    "funFact": "Le snake-run d’Albany en Australie fait 183 mètres, l’un des plus longs du monde.",
+    "proTip": "Lifte le genou avant.",
+    "commonMistake": "Talonner trop fort."
+  },
+  {
+    "_id": "fs_popshoveit",
+    "name": "Frontside Pop Shove-it",
+    "difficulty": "intermediate",
+    "price": 0.49,
+    "description": "Rotation de 180° frontside sous les pieds.",
+    "steps": [
+      "Place ton pied arrière près du bord côté orteils.",
+      "Positionne ton pied avant au centre.",
+      "Poppe en poussant vers l'avant.",
+      "Laisse tourner la board.",
+      "Replaque centré."
+    ],
+    "images": [
+      "/static/tricks/kickflip/kickflip_1.jpg",
+      "/static/tricks/kickflip/kickflip_2.jpg"
+    ],
+    "videos": {
+      "amateurUrl": "/static/tricks/kickflip/neiji_kickflip.mp4",
+      "proUrl": ""
+    },
+    "funFact": "À Tijuana, un bowl géant a été construit dans une ancienne usine de tequila.",
+    "proTip": "Garde les épaules calmes.",
+    "commonMistake": "Trop tourner le haut du corps."
+  },
+  {
+    "_id": "fs_180",
+    "name": "Frontside 180",
+    "difficulty": "beginner",
+    "price": 0.49,
+    "description": "Ollie + rotation frontside du corps.",
+    "steps": [
+      "Place tes pieds comme pour un ollie.",
+      "Prépare la rotation avec les épaules.",
+      "Poppe et tourne.",
+      "Replaque en switch.",
+      "Absorbe avec les genoux."
+    ],
+    "images": [
+      "/static/tricks/kickflip/kickflip_1.jpg",
+      "/static/tricks/kickflip/kickflip_2.jpg"
+    ],
+    "videos": {
+      "amateurUrl": "/static/tricks/kickflip/neiji_kickflip.mp4",
+      "proUrl": ""
+    },
+    "funFact": "Le premier half-pipe officiel aux États-Unis se trouvait dans le jardin d’un pasteur.",
+    "proTip": "Ouvre les épaules.",
+    "commonMistake": "Forcer uniquement avec les pieds."
+  },
+  {
+    "_id": "bs_180",
+    "name": "Backside 180",
+    "difficulty": "beginner",
+    "price": 0.49,
+    "description": "Rotation backside avec ollie.",
+    "steps": [
+      "Place tes pieds comme un ollie.",
+      "Prépare les épaules vers l'arrière.",
+      "Poppe et tourne.",
+      "Garde la board collée.",
+      "Replaque en switch."
+    ],
+    "images": [
+      "/static/tricks/kickflip/kickflip_1.jpg",
+      "/static/tricks/kickflip/kickflip_2.jpg"
+    ],
+    "videos": {
+      "amateurUrl": "/static/tricks/kickflip/neiji_kickflip.mp4",
+      "proUrl": ""
+    },
+    "funFact": "À Montréal, un skatepark est sous un viaduc pour permettre le skate même en plein hiver.",
+    "proTip": "Regarde derrière toi.",
+    "commonMistake": "Poppper puis tourner."
+  },
+  {
+    "_id": "nollie",
+    "name": "Nollie",
+    "difficulty": "intermediate",
+    "price": 0.49,
+    "description": "Ollie depuis le nose.",
+    "steps": [
+      "Place ton pied avant sur le nose.",
+      "Pied arrière au milieu.",
+      "Poppe avec le nose.",
+      "Slide vers le tail.",
+      "Replaque controlé."
+    ],
+    "images": [
+      "/static/tricks/kickflip/kickflip_1.jpg",
+      "/static/tricks/kickflip/kickflip_2.jpg"
+    ],
+    "videos": {
+      "amateurUrl": "/static/tricks/kickflip/neiji_kickflip.mp4",
+      "proUrl": ""
+    },
+    "funFact": "Le plus grand bowl d’Afrique se trouve à Kimberley, conçu pour des compétitions internationales.",
+    "proTip": "Poids légèrement en avant.",
+    "commonMistake": "Ne pas assez charger le pied avant."
+  },
+  {
+    "_id": "halfcab",
+    "name": "Halfcab",
+    "difficulty": "intermediate",
+    "price": 0.49,
+    "description": "Fakie backside 180.",
+    "steps": [
+      "Pars en fakie.",
+      "Prépare la rotation.",
+      "Poppe et tourne.",
+      "Reviens en regular.",
+      "Replaque bas."
+    ],
+    "images": [
+      "/static/tricks/kickflip/kickflip_1.jpg",
+      "/static/tricks/kickflip/kickflip_2.jpg"
+    ],
+    "videos": {
+      "amateurUrl": "/static/tricks/kickflip/neiji_kickflip.mp4",
+      "proUrl": ""
+    },
+    "funFact": "À Copenhague, certains rails ont été soudés clandestinement par les skaters avant d’être légalisés.",
+    "proTip": "Tourne les épaules en avance.",
+    "commonMistake": "Tourner après le pop."
+  },
+  {
+    "_id": "boardslide",
+    "name": "Boardslide",
+    "difficulty": "intermediate",
+    "price": 0.49,
+    "description": "Slide sur le dessous de la board.",
+    "steps": [
+      "Approche avec vitesse stable.",
+      "Petit ollie sur la barre.",
+      "Place la board perpendiculaire.",
+      "Garde les épaules alignées.",
+      "Sors en pivoting."
+    ],
+    "images": [
+      "/static/tricks/kickflip/kickflip_1.jpg",
+      "/static/tricks/kickflip/kickflip_2.jpg"
+    ],
+    "videos": {
+      "amateurUrl": "/static/tricks/kickflip/neiji_kickflip.mp4",
+      "proUrl": ""
+    },
+    "funFact": "En Espagne, un skatepark a été construit sur un ancien cirque, et sa forme ronde existe toujours.",
+    "proTip": "Fixe le rail du regard.",
+    "commonMistake": "Trop tourner les épaules."
+  },
+  {
+    "_id": "fifty_fifty",
+    "name": "50-50 Grind",
+    "difficulty": "intermediate",
+    "price": 0.49,
+    "description": "Grind sur les deux trucks.",
+    "steps": [
+      "Approche avec angle léger.",
+      "Poppe un ollie propre.",
+      "Place les deux trucks.",
+      "Garde les épaules alignées.",
+      "Sors droit ou pivot."
+    ],
+    "images": [
+      "/static/tricks/kickflip/kickflip_1.jpg",
+      "/static/tricks/kickflip/kickflip_2.jpg"
+    ],
+    "videos": {
+      "amateurUrl": "/static/tricks/kickflip/neiji_kickflip.mp4",
+      "proUrl": ""
+    },
+    "funFact": "Au Japon, les skaters s’entraînent la nuit dans les parkings de konbini ouverts 24/7.",
+    "proTip": "Regarde la fin du rail.",
+    "commonMistake": "Atterrir trop de côté."
+  },
+  {
+    "_id": "tre_flip",
+    "name": "360 Flip",
+    "difficulty": "advanced",
+    "price": 0.49,
+    "description": "Shove-it 360 + kickflip.",
+    "steps": [
+      "Place le pied arrière pour scoop.",
+      "Pied avant prêt à flick.",
+      "Poppe fort + scoop.",
+      "Flick léger.",
+      "Rattrape et replaque."
+    ],
+    "images": [
+      "/static/tricks/kickflip/kickflip_1.jpg",
+      "/static/tricks/kickflip/kickflip_2.jpg"
+    ],
+    "videos": {
+      "amateurUrl": "/static/tricks/kickflip/neiji_kickflip.mp4",
+      "proUrl": ""
+    },
+    "funFact": "Le premier skateboard motorisé de 1977 utilisait un mini moteur de tondeuse.",
+    "proTip": "Flick discret.",
+    "commonMistake": "Trop flicker."
+  },
+  {
+    "_id": "hardflip",
+    "name": "Hardflip",
+    "difficulty": "advanced",
+    "price": 0.49,
+    "description": "Front shove + kickflip compact.",
+    "steps": [
+      "Place ton pied arrière comme un front shove.",
+      "Positionne ton pied avant en biais.",
+      "Poppe puissamment.",
+      "Flick simultané.",
+      "Rattrape et replaque."
+    ],
+    "images": [
+      "/static/tricks/kickflip/kickflip_1.jpg",
+      "/static/tricks/kickflip/kickflip_2.jpg"
+    ],
+    "videos": {
+      "amateurUrl": "/static/tricks/kickflip/neiji_kickflip.mp4",
+      "proUrl": ""
+    },
+    "funFact": "En Chine existe un skatepark entièrement construit en marbre poli : incroyable mais glissant.",
+    "proTip": "Garde le mouvement compact.",
+    "commonMistake": "Front shove trop large."
+  },
+  {
+    "_id": "impossible",
+    "name": "Impossible",
+    "difficulty": "advanced",
+    "price": 0.49,
+    "description": "Rotation complète autour du pied arrière.",
+    "steps": [
+      "Pied arrière centré sur tail.",
+      "Pied avant stable.",
+      "Poppe fort et tire la rotation.",
+      "Garde-toi au-dessus.",
+      "Replaque stable."
+    ],
+    "images": [
+      "/static/tricks/kickflip/kickflip_1.jpg",
+      "/static/tricks/kickflip/kickflip_2.jpg"
+    ],
+    "videos": {
+      "amateurUrl": "/static/tricks/kickflip/neiji_kickflip.mp4",
+      "proUrl": ""
+    },
+    "funFact": "Rodney Mullen a inventé plus de 35 tricks, souvent seul dans un garage en Floride.",
+    "proTip": "Imagine un cercle avec ton pied arrière.",
+    "commonMistake": "Pop droit = impossible raté."
+  },
+  {
+    "_id": "varial_kickflip",
+    "name": "Varial Kickflip",
+    "difficulty": "advanced",
+    "price": 0.49,
+    "description": "Shove-it + kickflip modéré.",
+    "steps": [
+      "Place ton pied arrière prêt à shove.",
+      "Pied avant comme un kickflip.",
+      "Poppe + mini shove.",
+      "Flick léger.",
+      "Replaque centré."
+    ],
+    "images": [
+      "/static/tricks/kickflip/kickflip_1.jpg",
+      "/static/tricks/kickflip/kickflip_2.jpg"
+    ],
+    "videos": {
+      "amateurUrl": "/static/tricks/kickflip/neiji_kickflip.mp4",
+      "proUrl": ""
+    },
+    "funFact": "Au Chili, une méga-rampe donne directement sur la vue de l’océan Pacifique.",
+    "proTip": "Kickflip + mini shove.",
+    "commonMistake": "Shove trop fort."
+  },
+  {
+    "_id": "crook_grind",
+    "name": "Crook Grind",
+    "difficulty": "advanced",
+    "price": 0.49,
+    "description": "Grind technique sur truck avant.",
+    "steps": [
+      "Approche avec angle léger.",
+      "Ollie précis vers le nose.",
+      "Verrouille le truck avant.",
+      "Garde la pression avant.",
+      "Sors en poussant."
+    ],
+    "images": [
+      "/static/tricks/kickflip/kickflip_1.jpg",
+      "/static/tricks/kickflip/kickflip_2.jpg"
+    ],
+    "videos": {
+      "amateurUrl": "/static/tricks/kickflip/neiji_kickflip.mp4",
+      "proUrl": ""
+    },
+    "funFact": "Le DogShit Spot de Berlin tient son nom car il était construit sur un terrain réservé aux chiens.",
+    "proTip": "Pense à planter le nose.",
+    "commonMistake": "Trop de poids arrière."
+  },
+  {
+    "_id": "nose_slide",
+    "name": "Nose Slide",
+    "difficulty": "intermediate",
+    "price": 0.49,
+    "description": "Slide sur le nose.",
+    "steps": [
+      "Approche à angle.",
+      "Poppe + tourne les épaules.",
+      "Pose le nose.",
+      "Garde ton poids légèrement avant.",
+      "Sors en pivot."
+    ],
+    "images": [
+      "/static/tricks/kickflip/kickflip_1.jpg",
+      "/static/tricks/kickflip/kickflip_2.jpg"
+    ],
+    "videos": {
+      "amateurUrl": "/static/tricks/kickflip/neiji_kickflip.mp4",
+      "proUrl": ""
+    },
+    "funFact": "Un skater islandais a fait un ollie par-dessus un geyser en 2020.",
+    "proTip": "Regarde la sortie du ledge.",
+    "commonMistake": "Trop se pencher en arrière."
+  },
+  {
+    "_id": "tail_slide",
+    "name": "Tail Slide",
+    "difficulty": "intermediate",
+    "price": 0.49,
+    "description": "Slide en posant le tail.",
+    "steps": [
+      "Approche avec angle.",
+      "Poppe et aligne le tail.",
+      "Pose le tail.",
+      "Contrôle la stabilité.",
+      "Sors naturellement."
+    ],
+    "images": [
+      "/static/tricks/kickflip/kickflip_1.jpg",
+      "/static/tricks/kickflip/kickflip_2.jpg"
+    ],
+    "videos": {
+      "amateurUrl": "/static/tricks/kickflip/neiji_kickflip.mp4",
+      "proUrl": ""
+    },
+    "funFact": "Le premier contest féminin européen n’a eu lieu qu’en 1998.",
+    "proTip": "Pied avant guide.",
+    "commonMistake": "Trop de poids avant."
+  },
+  {
+    "_id": "five_o",
+    "name": "Five-O Grind",
+    "difficulty": "advanced",
+    "price": 0.49,
+    "description": "Grind sur le truck arrière uniquement.",
+    "steps": [
+      "Approche comme un 50-50.",
+      "Poppe plus vertical.",
+      "Verrouille le truck arrière.",
+      "Lève légèrement le nose.",
+      "Sors proprement."
+    ],
+    "images": [
+      "/static/tricks/kickflip/kickflip_1.jpg",
+      "/static/tricks/kickflip/kickflip_2.jpg"
+    ],
+    "videos": {
+      "amateurUrl": "/static/tricks/kickflip/neiji_kickflip.mp4",
+      "proUrl": ""
+    },
+    "funFact": "À Dubaï, un skatepark se trouve au pied d’une piste de ski intérieure.",
+    "proTip": "Contrôle du pied arrière.",
+    "commonMistake": "Écraser le nose."
+  },
+  {
+    "_id": "fakie_bs_180",
+    "name": "Fakie Backside 180",
+    "difficulty": "intermediate",
+    "price": 0.49,
+    "description": "Rotation en fakie backside.",
+    "steps": [
+      "Avance en fakie.",
+      "Prépare une rotation légère.",
+      "Poppe et laisse tourner.",
+      "Garde les hanches alignées.",
+      "Replaque forward."
+    ],
+    "images": [
+      "/static/tricks/kickflip/kickflip_1.jpg",
+      "/static/tricks/kickflip/kickflip_2.jpg"
+    ],
+    "videos": {
+      "amateurUrl": "/static/tricks/kickflip/neiji_kickflip.mp4",
+      "proUrl": ""
+    },
+    "funFact": "Un flatbar géant de 12m au Canada a été construit à partir de l’idée d’un enfant de 12 ans.",
+    "proTip": "Épaules relax.",
+    "commonMistake": "Forcer avec les pieds."
   }
 ]

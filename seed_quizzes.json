@@ -1,15 +1,300 @@
 [
   {
+    "_id": "quiz_ollie",
+    "trickId": "ollie",
+    "question": "Quel est le rôle principal du pied avant dans un ollie bien exécuté ?",
+    "answers": [
+      "Glisser vers le nose pour aplatir la planche en l'air",
+      "Frapper le tail pour faire pop",
+      "Rester complètement immobile pendant tout le trick",
+      "Appuyer fortement sur le bord arrière de la board",
+      "Freiner la board dès qu'elle quitte le sol"
+      ],
+    "correctAnswerIndex": 0,
+    "difficulty":"easy"
+  },
+  {
     "_id": "quiz_popshoveit",
     "trickId": "popshoveit",
-    "question": "Qu est-ce qu un Pop Shove-it ?",
+    "question": "Comment se déplace la planche dans un pop shove-it de base ?",
     "answers": [
-      "Une rotation de la planche 180 sur l�axe horizontal (comme un flip)",
-      "Un saut sans rotation",
-      "Une rotation de la planche 180 sur l�axe vertical (sous les pieds)",
-      "Une figure ou le corps et la planche tournent ensemble"
+      "Elle fait un flip complet puis revient sous tes pieds",
+      "Elle se lève droit sans aucune rotation",
+      "Elle tourne de 180 degrés sous tes pieds sans flipper",
+      "Elle tourne seulement autour du nose sans quitter le sol",
+      "Elle part en avant sans rotation ni pop"
     ],
     "correctAnswerIndex": 2,
     "difficulty": "easy"
+  },
+
+  {
+    "_id": "quiz_kickflip",
+    "trickId": "kickflip",
+    "question": "Qu'est-ce qui déclenche réellement la rotation de la planche dans un kickflip ?",
+    "answers": [
+      "Tourner les épaules très fort en l'air",
+      "Le mouvement de flick du pied avant vers l'extérieur",
+      "Tirer la board vers l'arrière avec le pied arrière",
+      "Aller très vite en ligne droite avant de sauter",
+      "Appuyer fortement sur le nose avant de popper"
+    ],
+    "correctAnswerIndex": 1,
+    "difficulty": "medium"
+  },
+
+  {
+    "_id": "quiz_heelflip",
+    "trickId": "heelflip",
+    "question": "Où doit frapper principalement le pied avant pour déclencher un bon heelflip ?",
+    "answers": [
+      "Avec la pointe du pied au centre exact de la board",
+      "Avec la voûte plantaire juste au milieu du grip",
+      "Avec le talon vers le coin avant extérieur de la board",
+      "Avec le talon proche du tail pour plus de puissance",
+      "Avec les orteils juste au-dessus des vis arrière"
+    ],
+    "correctAnswerIndex": 2,
+    "difficulty": "medium"
+  },
+
+  {
+    "_id": "quiz_fs_popshoveit",
+    "trickId": "fs_popshoveit",
+    "question": "Dans un frontside pop shove-it, comment tourne la planche par rapport au skateur ?",
+    "answers": [
+      "Elle tourne de 180 degrés vers l'arrière (backside) sous les pieds",
+      "Elle effectue un flip complet sans mouvement de rotation latérale",
+      "Elle reste collée au sol et glisse seulement vers l'avant",
+      "Elle tourne de 180 degrés vers l'avant (frontside) sous les pieds",
+      "Elle fait un tour complet de 360 degrés à chaque fois"
+    ],
+    "correctAnswerIndex": 3,
+    "difficulty": "medium"
+  },
+
+  {
+    "_id": "quiz_fs_180",
+    "trickId": "fs_180",
+    "question": "Qu'est-ce qui t'aide le plus à lancer correctement un frontside 180 ?",
+    "answers": [
+      "Appuyer très fort sur le nose avant de sauter",
+      "Utiliser la rotation des épaules pour guider la board",
+      "Tourner uniquement le bas du corps sans bouger les épaules",
+      "Prendre beaucoup de vitesse avant de popper",
+      "Frapper le tail vers l'arrière au lieu de vers le bas"
+    ],
+    "correctAnswerIndex": 1,
+    "difficulty": "easy"
+  },
+
+  {
+    "_id": "quiz_bs_180",
+    "trickId": "bs_180",
+    "question": "Pourquoi les épaules sont si importantes dans un backside 180 ?",
+    "answers": [
+      "Parce qu'elles permettent de donner plus de hauteur",
+      "Parce qu'elles servent à faire tourner la board comme un shove-it",
+      "Parce qu'elles empêchent la board de tourner trop vite",
+      "Parce qu'elles augmentent la vitesse de glisse",
+      "Parce qu'elles entraînent la rotation du corps et de la planche"
+    ],
+    "correctAnswerIndex": 4,
+    "difficulty": "easy"
+  },
+
+  {
+    "_id": "quiz_nollie",
+    "trickId": "nollie",
+    "question": "Quel élément déclenche réellement le pop dans un nollie ?",
+    "answers": [
+      "Le pied avant qui frappe le nose vers le bas",
+      "Le pied arrière qui tire la board en arrière",
+      "Un mouvement d'épaules exagéré",
+      "Le fait d'être en switch avant de popper",
+      "Le slide du pied arrière dès le début du saut"
+    ],
+    "correctAnswerIndex": 0,
+    "difficulty": "medium"
+  },
+
+  {
+    "_id": "quiz_halfcab",
+    "trickId": "halfcab",
+    "question": "Quel est le mouvement clé pour réussir un halfcab propre ?",
+    "answers": [
+      "Popper sans bouger le haut du corps",
+      "Tourner uniquement la board comme un shove-it",
+      "Sauter très haut sans rotation du corps",
+      "Lancer la rotation avec les épaules avant de popper",
+      "Regarder ses pieds tout le long du trick"
+    ],
+    "correctAnswerIndex": 3,
+    "difficulty": "medium"
+  },
+
+  {
+    "_id": "quiz_boardslide",
+    "trickId": "boardslide",
+    "question": "Qu'est-ce qui assure la stabilité pendant un boardslide ?",
+    "answers": [
+      "Appuyer fortement sur le nose",
+      "Garder les épaules alignées avec la barre",
+      "Tourner tout le corps à 90° dès le pop",
+      "Sauter le plus haut possible pour atterrir lourd",
+      "Regarder uniquement ses pieds durant tout le slide"
+    ],
+    "correctAnswerIndex": 1,
+    "difficulty": "medium"
+  },
+
+  {
+    "_id": "quiz_fifty_fifty",
+    "trickId": "fifty_fifty",
+    "question": "Quel détail aide le plus à rester stable pendant un 50-50 ?",
+    "answers": [
+      "Garder tes épaules parallèles au rail",
+      "Regarder tes pieds pendant tout le grind",
+      "Pencher ton poids vers l’arrière",
+      "Popper le plus haut possible avant de poser les trucks",
+      "Tourner tes épaules perpendiculaires à la barre"
+    ],
+    "correctAnswerIndex": 0,
+    "difficulty": "medium"
+  },
+
+  {
+    "_id": "quiz_tre_flip",
+    "trickId": "tre_flip",
+    "question": "Quel mouvement déclenche réellement la rotation complète d’un tre flip ?",
+    "answers": [
+      "Un flick très large avec le pied avant",
+      "Une rotation exagérée des épaules",
+      "Un scoop arrière puissant du pied arrière",
+      "Sauter très haut avant de flicker",
+      "Pencher le poids sur le nose juste avant le pop"
+    ],
+    "correctAnswerIndex": 2,
+    "difficulty": "hard"
+  },
+
+  {
+    "_id": "quiz_hardflip",
+    "trickId": "hardflip",
+    "question": "Comment obtenir ce mouvement vertical typique d’un hardflip ?",
+    "answers": [
+      "En poussant la board uniquement vers l’avant",
+      "En sautant sans rotation du bas du corps",
+      "En frappant le tail vers le côté comme un tre flip",
+      "En gardant les épaules complètement statiques",
+      "En combinant un front shove compact avec un flick rapide"
+    ],
+    "correctAnswerIndex": 4,
+    "difficulty": "hard"
+  },
+
+  {
+    "_id": "quiz_impossible",
+    "trickId": "impossible",
+    "question": "Qu'est-ce qui permet à la board de tourner autour du pied arrière dans un impossible ?",
+    "answers": [
+      "Un flick rapide du pied avant",
+      "Le scoop circulaire du pied arrière",
+      "Un transfert de poids vers l’avant",
+      "Un pop très haut sans rotation",
+      "Une rotation des épaules pendant le saut"
+    ],
+    "correctAnswerIndex": 1,
+    "difficulty": "hard"
+  },
+
+  {
+    "_id": "quiz_varial_kickflip",
+    "trickId": "varial_kickflip",
+    "question": "Quel est l’équilibre idéal entre shove et flip dans un varial kickflip ?",
+    "answers": [
+      "Un petit shove + un flick net",
+      "Un shove très large + un petit flick",
+      "Un flick extrêmement puissant sans shove",
+      "Un saut très haut sans flicker",
+      "Une rotation complète du corps avec la board"
+    ],
+    "correctAnswerIndex": 0,
+    "difficulty": "medium"
+  },
+
+  {
+    "_id": "quiz_crook_grind",
+    "trickId": "crook_grind",
+    "question": "Quel point clé te permet de garder un crook bien verrouillé ?",
+    "answers": [
+      "Regarder directement le sol sous tes pieds",
+      "Sauter très haut avant de toucher le ledge",
+      "Garder les bras collés au corps",
+      "Mettre un peu plus de poids sur le nose",
+      "Frapper le tail encore plus fort au pop"
+    ],
+    "correctAnswerIndex": 3,
+    "difficulty": "hard"
+  },
+
+  {
+    "_id": "quiz_nose_slide",
+    "trickId": "nose_slide",
+    "question": "Qu’est-ce qui aide le plus à maintenir un nose slide stable ?",
+    "answers": [
+      "Faire un pop exagérément haut",
+      "Regarder tes pieds pendant tout le slide",
+      "Mettre un léger poids vers l’avant",
+      "Garder les épaules totalement fixes",
+      "Pousser fort le tail pendant la glisse"
+    ],
+    "correctAnswerIndex": 2,
+    "difficulty": "medium"
+  },
+
+  {
+    "_id": "quiz_tail_slide",
+    "trickId": "tail_slide",
+    "question": "Quelle sensation indique que ton tail slide est bien centré ?",
+    "answers": [
+      "La board tourne toute seule en backside",
+      "Tu sens le tail glisser droit sans forcer",
+      "Ton pied avant porte presque tout le poids",
+      "La board frotte surtout côté nose",
+      "Tu entends ton truck arrière gratter le ledge"
+    ],
+    "correctAnswerIndex": 1,
+    "difficulty": "medium"
+  },
+
+  {
+    "_id": "quiz_five_o",
+    "trickId": "five_o",
+    "question": "Comment maintenir un Five-O propre et contrôlé ?",
+    "answers": [
+      "En abaissant fortement le nose",
+      "En gardant les pieds très écartés",
+      "En poussant la board vers le côté",
+      "En tirant tes épaules vers l’avant",
+      "En gardant le nose légèrement relevé"
+    ],
+    "correctAnswerIndex": 4,
+    "difficulty": "hard"
+  },
+
+  {
+    "_id": "quiz_fakie_bs_180",
+    "trickId": "fakie_bs_180",
+    "question": "Quel détail rend un fakie backside 180 vraiment fluide ?",
+    "answers": [
+      "Flicker comme un kickflip",
+      "Regarder derrière soi avant de popper",
+      "Laisser les épaules initier la rotation",
+      "Pousser le tail très vers l’avant",
+      "Sauter sans rotation puis tourner en l’air"
+    ],
+    "correctAnswerIndex": 2,
+    "difficulty": "medium"
   }
 ]

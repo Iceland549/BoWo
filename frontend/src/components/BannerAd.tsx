@@ -16,22 +16,19 @@
 //     </View>
 //   );
 // }
-
 import React from 'react';
 import { View, StyleSheet } from 'react-native';
-import { AdMobBanner } from 'expo-ads-admob';
+import { BannerAd, BannerAdSize, TestIds } from 'react-native-google-mobile-ads';
 import { TEST_AD_UNITS } from '../services/adService';
 import { warn } from '../utils/logger';
 
-export default function BannerAd() {
+export default function BannerAdComponent() {
   return (
     <View style={styles.container}>
-      <AdMobBanner
-        adUnitID={TEST_AD_UNITS.banner}
-        servePersonalizedAds
-        onDidFailToReceiveAdWithError={(e) =>
-          warn('BannerAd error', e)
-        }
+      <BannerAd
+        unitId={__DEV__ ? TestIds.BANNER : TEST_AD_UNITS.banner}
+        size={BannerAdSize.BANNER}
+        onAdFailedToLoad={(e) => warn('BannerAd error', e)}
       />
     </View>
   );
