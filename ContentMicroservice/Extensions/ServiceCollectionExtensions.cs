@@ -1,7 +1,6 @@
 ﻿using AutoMapper;
 using ContentMicroservice.Application.Interfaces;
 using ContentMicroservice.Application.UseCases.Content;
-using ContentMicroservice.Application.UseCases.Progress;
 using ContentMicroservice.Application.UseCases.Quiz;
 using ContentMicroservice.Application.UseCases.TrickProgress;
 using ContentMicroservice.Application.UseCases.UserProgress;

@@ -77,23 +77,23 @@ namespace ContentMicroservice.Presentation.Controllers
         /// <summary>
         /// Upload user video (multipart/form-data)
         /// </summary>
-        [HttpPost("videos/upload")]
-        //[Authorize] // enable when you want only logged users to upload
-        [RequestSizeLimit(200_000_000)] // ~200MB limit example
-        public async Task<IActionResult> UploadVideo([FromForm] IFormFile file, [FromForm] string? uploaderId, CancellationToken ct = default)
-        {
-            if (file == null || file.Length == 0) return BadRequest("File is required");
+        //[HttpPost("videos/upload")]
+        ////[Authorize] // enable when you want only logged users to upload
+        //[RequestSizeLimit(200_000_000)] // ~200MB limit example
+        //public async Task<IActionResult> UploadVideo([FromForm] IFormFile file, [FromForm] string? uploaderId, CancellationToken ct = default)
+        //{
+        //    if (file == null || file.Length == 0) return BadRequest("File is required");
 
-            using var stream = file.OpenReadStream();
-            var filename = file.FileName;
+        //    using var stream = file.OpenReadStream();
+        //    var filename = file.FileName;
 
-            var actualUploader = User?.Identity?.IsAuthenticated == true
-                ? User.FindFirst("sub")?.Value ?? uploaderId ?? "anonymous"
-                : uploaderId ?? "anonymous";
+        //    var actualUploader = User?.Identity?.IsAuthenticated == true
+        //        ? User.FindFirst("sub")?.Value ?? uploaderId ?? "anonymous"
+        //        : uploaderId ?? "anonymous";
 
-            var videoDto = await _uploadUseCase.ExecuteAsync(stream, filename, actualUploader, ct);
-            return CreatedAtAction(nameof(GetTrickById), new { id = videoDto.Id }, videoDto);
-        }
+        //    var videoDto = await _uploadUseCase.ExecuteAsync(stream, filename, actualUploader, ct);
+        //    return CreatedAtAction(nameof(GetTrickById), new { id = videoDto.Id }, videoDto);
+        //}
 
         // Request DTOs
         public class ImportYoutubeRequest

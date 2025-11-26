@@ -1,13 +1,14 @@
 using ContentMicroservice.Extensions;
 using ContentMicroservice.Infrastructure.Config;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.Extensions.FileProviders;
+using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using MongoDB.Bson.Serialization.Conventions;
 using MongoDB.Driver;
-using System.Text;
-using Microsoft.Extensions.FileProviders;
 using System.IO;
+using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -30,6 +31,18 @@ builder.Services.AddSingleton<IMongoClient>(sp =>
     }
     return new MongoClient(cfg.ConnectionString);
 });
+
+builder.Services.AddSingleton<IMongoDatabase>(sp =>
+{
+    var cfg = sp.GetRequiredService<IOptions<MongoDbConfig>>().Value;
+    var client = sp.GetRequiredService<IMongoClient>();
+
+    if (string.IsNullOrWhiteSpace(cfg.Database))
+        throw new InvalidOperationException("MongoDB database name missing");
+
+    return client.GetDatabase(cfg.Database);
+});
+
 
 builder.Services.AddResponseCaching();
 

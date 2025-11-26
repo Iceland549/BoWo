@@ -1,5 +1,4 @@
-﻿using ContentMicroservice.Application.UseCases.Progress;
-using ContentMicroservice.Application.UseCases.TrickProgress;
+﻿using ContentMicroservice.Application.UseCases.TrickProgress;
 using ContentMicroservice.Application.UseCases.UserProgress;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;

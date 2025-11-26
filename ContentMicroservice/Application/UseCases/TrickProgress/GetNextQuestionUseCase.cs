@@ -4,7 +4,7 @@ using ContentMicroservice.Application.Interfaces;
 using ContentMicroservice.Application.Questions;
 using ContentMicroservice.Infrastructure.Persistence.Entities;
 
-namespace ContentMicroservice.Application.UseCases.Progress
+namespace ContentMicroservice.Application.UseCases.TrickProgress
 {
     public class GetNextQuestionResult
     {
