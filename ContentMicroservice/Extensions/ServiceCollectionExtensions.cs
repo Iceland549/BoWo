@@ -1,12 +1,15 @@
 ﻿using AutoMapper;
 using ContentMicroservice.Application.Interfaces;
 using ContentMicroservice.Application.UseCases.Content;
+using ContentMicroservice.Application.UseCases.Progress;
 using ContentMicroservice.Application.UseCases.Quiz;
+using ContentMicroservice.Application.UseCases.TrickProgress;
 using ContentMicroservice.Application.UseCases.UserProgress;
 using ContentMicroservice.Infrastructure.Clients;
 using ContentMicroservice.Infrastructure.Config;
 using ContentMicroservice.Infrastructure.Persistence;
 using ContentMicroservice.Infrastructure.Persistence.Repositories;
+using ContentMicroservice.Infrastructure.QuestionBank;   // ← IMPORTANT !
 using Microsoft.Extensions.Options;
 using MongoDB.Driver;
 
@@ -29,8 +32,15 @@ namespace ContentMicroservice.Extensions
             services.AddScoped<IUserProgressRepository, MongoUserProgressRepository>();
             services.AddScoped<IQuizRepository, MongoQuizRepository>();
 
+            // ⚠️ AJOUT DU REPOSITORY DUOLINGO (nouveau)
+            services.AddScoped<IUserTrickProgressRepository, UserTrickProgressRepository>();
+
             // Firebase (stub)
             services.AddSingleton<IFirebaseClient, FirebaseClient>();
+
+            // ⚠️ AJOUT DU QUESTION BANK SERVICE (nouveau)
+            services.Configure<QuestionBankOptions>(configuration.GetSection("QuestionBank"));
+            services.AddSingleton<IQuestionBank, QuestionBankService>();
 
             // Content UseCases
             services.AddScoped<GetTrickUseCase>();
@@ -40,6 +50,10 @@ namespace ContentMicroservice.Extensions
             // XP UseCase
             services.AddScoped<AddXPUseCase>();
 
+            // TrickProgress UseCases
+            services.AddScoped<GetNextQuestionUseCase>();
+            services.AddScoped<SubmitQuestionAnswerUseCase>();
+
             // UserProgress UseCases
             services.AddScoped<GetUserProgressUseCase>();
             services.AddScoped<UnlockTrickUseCase>();
@@ -48,8 +62,7 @@ namespace ContentMicroservice.Extensions
             services.AddScoped<RecordQuizAttemptUseCase>();
             services.AddScoped<UnlockMiniGameUseCase>();
 
-
-            // Use cases - Quiz 
+            // Quiz Use cases   
             services.AddScoped<ValidateQuizUseCase>();
             services.AddScoped<RewardAdCompleteUseCase>();
             services.AddScoped<PurchaseValidationUseCase>();
