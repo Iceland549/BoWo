@@ -1,0 +1,2023 @@
+[
+  {
+    "trick": "ollie",
+    "questions": [
+      {
+        "level": 1,
+        "type": "mcq",
+        "question": "À quoi sert principalement le ollie en skate ?",
+        "options": [
+          "À faire décoller la planche sans les mains",
+          "À freiner rapidement en descente",
+          "À tourner la board sur place sans bouger",
+          "À changer la position des pieds en roulant"
+        ],
+        "answer": "À faire décoller la planche sans les mains"
+      },
+      {
+        "level": 2,
+        "type": "mcq",
+        "question": "Quelle est la position de base des pieds pour un ollie débutant ?",
+        "options": [
+          "Pied arrière sur le tail, pied avant juste derrière les vis avant",
+          "Pied avant sur le tail, pied arrière sur le nose",
+          "Les deux pieds collés au centre de la board",
+          "Un pied sur la board, un pied sur le sol"
+        ],
+        "answer": "Pied arrière sur le tail, pied avant juste derrière les vis avant"
+      },
+      {
+        "level": 3,
+        "type": "mcq",
+        "question": "Quel mouvement déclenche vraiment le pop du ollie ?",
+        "options": [
+          "Frapper sèchement le tail vers le sol",
+          "Lever les bras très haut",
+          "Tirer la board vers soi avec le pied avant",
+          "Regarder ses pieds pendant tout le saut"
+        ],
+        "answer": "Frapper sèchement le tail vers le sol"
+      },
+      {
+        "level": 4,
+        "type": "mcq",
+        "question": "Que doit faire ton pied avant après le pop dans un ollie ?",
+        "options": [
+          "Glisser vers le nose pour aplatir la planche",
+          "Rester complètement immobile au centre",
+          "Descendre directement vers le sol",
+          "Pousser la board vers l’arrière"
+        ],
+        "answer": "Glisser vers le nose pour aplatir la planche"
+      },
+      {
+        "level": 5,
+        "type": "mcq",
+        "question": "Quel est le meilleur endroit pour atterrir après un ollie ?",
+        "options": [
+          "Sur les vis ou juste au-dessus des trucks",
+          "Tout au bout du tail",
+          "Complètement au centre de la board",
+          "Sur le nose uniquement"
+        ],
+        "answer": "Sur les vis ou juste au-dessus des trucks"
+      },
+      {
+        "level": 6,
+        "type": "mcq",
+        "question": "Si ta board ne monte pas beaucoup, quel détail est le plus souvent en cause ?",
+        "options": [
+          "Le slide du pied avant est trop faible",
+          "Tu regardes trop loin devant",
+          "Tes épaules tournent légèrement",
+          "Tu roules trop vite"
+        ],
+        "answer": "Le slide du pied avant est trop faible"
+      },
+      {
+        "level": 7,
+        "type": "mcq",
+        "question": "Comment doivent se placer tes genoux pendant le ollie pour gagner du style et du contrôle ?",
+        "options": [
+          "Fortement fléchis pendant le saut et l’atterrissage",
+          "Complètement tendus pendant tout le trick",
+          "Un genou tendu, un genou fléchi",
+          "Toujours collés l’un à l’autre"
+        ],
+        "answer": "Fortement fléchis pendant le saut et l’atterrissage"
+      },
+      {
+        "level": 8,
+        "type": "mcq",
+        "question": "Tu veux rendre ton ollie plus propre en gap ou en set : quel conseil est le plus utile ?",
+        "options": [
+          "Rester bien au-dessus de la board et penser d’abord à la stabilité",
+          "Popper le plus tôt possible sans regarder la réception",
+          "Frapper le tail deux fois pour gagner en hauteur",
+          "Regarder uniquement le nose pendant tout le vol"
+        ],
+        "answer": "Rester bien au-dessus de la board et penser d’abord à la stabilité"
+      }
+    ]
+  },
+  {
+    "trick": "popshoveit",
+    "questions": [
+      {
+        "level": 1,
+        "type": "mcq",
+        "question": "Que fait la planche dans un pop shove-it de base ?",
+        "options": [
+          "Elle tourne de 180° sous tes pieds sans flipper",
+          "Elle fait un flip complet sans tourner",
+          "Elle reste collée au sol et glisse juste en avant",
+          "Elle tourne seulement autour du nose"
+        ],
+        "answer": "Elle tourne de 180° sous tes pieds sans flipper"
+      },
+      {
+        "level": 2,
+        "type": "mcq",
+        "question": "Où se place ton pied arrière pour lancer un bon pop shove-it ?",
+        "options": [
+          "Sur le tail, légèrement décalé vers le bord côté talon",
+          "Au milieu exact de la board",
+          "Juste derrière les vis avant",
+          "Sur le nose, très avancé"
+        ],
+        "answer": "Sur le tail, légèrement décalé vers le bord côté talon"
+      },
+      {
+        "level": 3,
+        "type": "mcq",
+        "question": "Quel mouvement clé fait tourner la board dans un pop shove-it ?",
+        "options": [
+          "Un petit scoop du pied arrière vers l’arrière",
+          "Un gros mouvement des épaules",
+          "Un flick du pied avant vers l’extérieur",
+          "Un appui fort sur le nose"
+        ],
+        "answer": "Un petit scoop du pied arrière vers l’arrière"
+      },
+      {
+        "level": 4,
+        "type": "mcq",
+        "question": "Pendant la rotation du pop shove-it, ton poids doit rester…",
+        "options": [
+          "Centré au-dessus de la board",
+          "Complètement sur le pied avant",
+          "Complètement sur le pied arrière",
+          "Plutôt en dehors de la board"
+        ],
+        "answer": "Centré au-dessus de la board"
+      },
+      {
+        "level": 5,
+        "type": "mcq",
+        "question": "Si ta board part trop loin devant ou derrière, quel est souvent le problème ?",
+        "options": [
+          "Tu scoopes trop fort ou trop loin",
+          "Tu fléchis trop les genoux",
+          "Tu vas trop lentement",
+          "Tu regardes trop loin devant"
+        ],
+        "answer": "Tu scoopes trop fort ou trop loin"
+      },
+      {
+        "level": 6,
+        "type": "mcq",
+        "question": "Pour que la board reste bien sous toi dans un pop shove-it, quel conseil est le plus utile ?",
+        "options": [
+          "Sauter vertical et rester compact",
+          "Sauter vers l’avant en courant",
+          "Tourner les épaules avec la board",
+          "Regarder le sol tout le long"
+        ],
+        "answer": "Sauter vertical et rester compact"
+      },
+      {
+        "level": 7,
+        "type": "mcq",
+        "question": "Pour gagner en style sur ton pop shove-it, tu peux…",
+        "options": [
+          "Garder le corps presque fixe et laisser bosser la board",
+          "Tourner tout le haut du corps avec la planche",
+          "Mettre les pieds très loin des vis",
+          "Regarder uniquement tes roues arrière"
+        ],
+        "answer": "Garder le corps presque fixe et laisser bosser la board"
+      },
+      {
+        "level": 8,
+        "type": "mcq",
+        "question": "Tu veux rentrer un pop shove-it propre en curb ou en set : quoi prioriser ?",
+        "options": [
+          "La stabilité de la réception plus que la vitesse",
+          "La vitesse maximum avant le pop",
+          "Un scoop énorme quitte à perdre la board",
+          "Regarder seulement l’obstacle, jamais la board"
+        ],
+        "answer": "La stabilité de la réception plus que la vitesse"
+      }
+    ]
+  },
+  {
+    "trick": "kickflip",
+    "questions": [
+      {
+        "level": 1,
+        "type": "mcq",
+        "question": "Qu’est-ce qui fait vraiment flipper la board dans un kickflip ?",
+        "options": [
+          "Le flick du pied avant vers l’extérieur",
+          "Le pop encore plus fort du pied arrière",
+          "Un gros mouvement des épaules",
+          "Le fait de rouler vite"
+        ],
+        "answer": "Le flick du pied avant vers l’extérieur"
+      },
+      {
+        "level": 2,
+        "type": "mcq",
+        "question": "Où se place ton pied avant pour un kickflip de base ?",
+        "options": [
+          "Légèrement en diagonale, derrière les vis avant",
+          "En plein centre de la board, bien droit",
+          "Complètement sur le nose",
+          "Collé au pied arrière"
+        ],
+        "answer": "Légèrement en diagonale, derrière les vis avant"
+      },
+      {
+        "level": 3,
+        "type": "mcq",
+        "question": "Comment doit être ton pop dans un kickflip ?",
+        "options": [
+          "Comme un ollie bien propre, avant de flicker",
+          "Très faible pour laisser la board flipper seule",
+          "Vers l’avant plutôt que vers le bas",
+          "Sans sauter, juste en frappant le tail"
+        ],
+        "answer": "Comme un ollie bien propre, avant de flicker"
+      },
+      {
+        "level": 4,
+        "type": "mcq",
+        "question": "Dans un bon kickflip, où regardes-tu pendant que la board tourne ?",
+        "options": [
+          "Le grip, pour repérer le moment du catch",
+          "Uniquement le sol sous la board",
+          "L’obstacle au loin",
+          "Tes roues arrière"
+        ],
+        "answer": "Le grip, pour repérer le moment du catch"
+      },
+      {
+        "level": 5,
+        "type": "mcq",
+        "question": "Si ta board sur-rotate et part trop loin, que dois-tu généralement ajuster ?",
+        "options": [
+          "Rendre ton flick plus petit et plus précis",
+          "Popper encore plus fort",
+          "Tourner tes épaules plus vite",
+          "Rouler beaucoup plus lentement"
+        ],
+        "answer": "Rendre ton flick plus petit et plus précis"
+      },
+      {
+        "level": 6,
+        "type": "mcq",
+        "question": "Pour éviter les kickflips où tu ne rattrapes qu’un pied, quel conseil est le plus important ?",
+        "options": [
+          "Rester bien au-dessus de la board pendant tout le trick",
+          "Sauter vers l’avant pour suivre la planche",
+          "Baisser la tête pendant la rotation",
+          "Bloquer totalement les épaules"
+        ],
+        "answer": "Rester bien au-dessus de la board pendant tout le trick"
+      },
+      {
+        "level": 7,
+        "type": "mcq",
+        "question": "Comment améliorer la constance de tes kickflips ?",
+        "options": [
+          "Garder exactement le même set-up de pieds à chaque essai",
+          "Changer de position de pieds à chaque tentative",
+          "Regarder ailleurs pour ne pas stresser",
+          "Popper parfois avec le nose pour varier"
+        ],
+        "answer": "Garder exactement le même set-up de pieds à chaque essai"
+      },
+      {
+        "level": 8,
+        "type": "mcq",
+        "question": "Tu veux claquer des kickflips propres en gap : quelle priorité ?",
+        "options": [
+          "Garder le flick contrôlé et penser d’abord à la réception",
+          "Flicker beaucoup plus fort que d’habitude",
+          "Tourner les épaules en backside avec la board",
+          "Ne plus regarder le grip, uniquement la marche"
+        ],
+        "answer": "Garder le flick contrôlé et penser d’abord à la réception"
+      }
+    ]
+  },
+  {
+    "trick": "heelflip",
+    "questions": [
+      {
+        "level": 1,
+        "type": "mcq",
+        "question": "Quelle est la différence principale entre un kickflip et un heelflip ?",
+        "options": [
+          "Le heelflip se flick avec le talon",
+          "Le heelflip ne demande pas de pop",
+          "Le heelflip se fait uniquement en fakie",
+          "Le heelflip tourne la board à 360°"
+        ],
+        "answer": "Le heelflip se flick avec le talon"
+      },
+      {
+        "level": 2,
+        "type": "mcq",
+        "question": "Comment placer ton pied avant pour un heelflip de base ?",
+        "options": [
+          "Proche des vis avant, avec les orteils légèrement dépassés",
+          "Complètement au centre de la board",
+          "Juste au-dessus du truck arrière",
+          "Collé au pied arrière sur le tail"
+        ],
+        "answer": "Proche des vis avant, avec les orteils légèrement dépassés"
+      },
+      {
+        "level": 3,
+        "type": "mcq",
+        "question": "Quel mouvement fait flipper la planche en heelflip ?",
+        "options": [
+          "Un coup de talon vers l’extérieur",
+          "Un slide du pied avant vers le nose",
+          "Un scoop du pied arrière en backside",
+          "Un simple transfert de poids vers l’avant"
+        ],
+        "answer": "Un coup de talon vers l’extérieur"
+      },
+      {
+        "level": 4,
+        "type": "mcq",
+        "question": "Pour garder la board bien sous toi en heelflip, tu dois…",
+        "options": [
+          "Sauter verticalement, pas vers l’avant",
+          "Sauter très loin devant",
+          "Tourner les épaules en backside",
+          "Regarder uniquement l’obstacle"
+        ],
+        "answer": "Sauter verticalement, pas vers l’avant"
+      },
+      {
+        "level": 5,
+        "type": "mcq",
+        "question": "Si tes heelflips partent derrière toi, quel réglage est souvent nécessaire ?",
+        "options": [
+          "Flicker moins fort et plus vers le haut",
+          "Popper plus doucement",
+          "Mettre ton pied avant plus en arrière",
+          "Rouler beaucoup plus vite"
+        ],
+        "answer": "Flicker moins fort et plus vers le haut"
+      },
+      {
+        "level": 6,
+        "type": "mcq",
+        "question": "Quelle sensation recherche-t-on dans un bon heelflip ?",
+        "options": [
+          "Un flip propre sans que la board se barre en diagonale",
+          "Un flip violent qui part loin devant",
+          "Une rotation incontrôlable mais très rapide",
+          "Une board qui reste presque à plat au sol"
+        ],
+        "answer": "Un flip propre sans que la board se barre en diagonale"
+      },
+      {
+        "level": 7,
+        "type": "mcq",
+        "question": "Pour rendre ton heelflip plus stylé, tu peux…",
+        "options": [
+          "Rester bien compact, genoux montés, catch propre",
+          "Lancer les bras très haut",
+          "Tourner la tête à l’opposé du spot",
+          "Regarder tes roues arrière tout le long"
+        ],
+        "answer": "Rester bien compact, genoux montés, catch propre"
+      },
+      {
+        "level": 8,
+        "type": "mcq",
+        "question": "Tu veux rentrer des heelflips en gap : quoi prioriser ?",
+        "options": [
+          "Un pop fort, un talon précis et une réception stable",
+          "Un flick monstrueux quitte à perdre la board",
+          "La vitesse plutôt que le contrôle",
+          "Tourner les épaules en frontside pendant le flip"
+        ],
+        "answer": "Un pop fort, un talon précis et une réception stable"
+      }
+    ]
+  },
+  {
+    "trick": "fs_popshoveit",
+    "questions": [
+      {
+        "level": 1,
+        "type": "mcq",
+        "question": "Dans un frontside pop shove-it, comment tourne la board ?",
+        "options": [
+          "Elle tourne de 180° vers l’avant sous tes pieds",
+          "Elle tourne de 180° vers l’arrière sous tes pieds",
+          "Elle ne tourne pas, elle glisse tout droit",
+          "Elle fait un flip complet sans rotation latérale"
+        ],
+        "answer": "Elle tourne de 180° vers l’avant sous tes pieds"
+      },
+      {
+        "level": 2,
+        "type": "mcq",
+        "question": "Où met-tu ton pied arrière pour un bon frontside pop shove-it ?",
+        "options": [
+          "Dans le pocket du tail côté orteils",
+          "En plein centre du tail",
+          "Sur le nose",
+          "Juste derrière les vis avant"
+        ],
+        "answer": "Dans le pocket du tail côté orteils"
+      },
+      {
+        "level": 3,
+        "type": "mcq",
+        "question": "Quel mouvement donne la rotation frontside à la board ?",
+        "options": [
+          "Un scoop vers l’avant avec le pied arrière",
+          "Un gros mouvement des épaules en backside",
+          "Un flick du pied avant",
+          "Un transfert de poids vers le tail sans pop"
+        ],
+        "answer": "Un scoop vers l’avant avec le pied arrière"
+      },
+      {
+        "level": 4,
+        "type": "mcq",
+        "question": "Comment doivent être tes épaules pendant un bon frontside pop shove-it ?",
+        "options": [
+          "Relativement calmes, corps presque face à la direction de roulage",
+          "Fortement tournées en backside",
+          "Totalement de profil à la board",
+          "Toujours penchées vers l’arrière"
+        ],
+        "answer": "Relativement calmes, corps presque face à la direction de roulage"
+      },
+      {
+        "level": 5,
+        "type": "mcq",
+        "question": "Si la board part trop loin sur le côté en frontside pop shove-it, que dois-tu corriger ?",
+        "options": [
+          "Réduire l’amplitude du scoop",
+          "Popper plus fort",
+          "Mettre les deux pieds au centre",
+          "Regarder tes roues arrière uniquement"
+        ],
+        "answer": "Réduire l’amplitude du scoop"
+      },
+      {
+        "level": 6,
+        "type": "mcq",
+        "question": "Pour que la board reste bien sous toi, tu dois…",
+        "options": [
+          "Sauter verticalement et rester compact",
+          "Sauter en diagonale vers l’avant",
+          "Sauter en arrière en même temps que la board",
+          "Garder un pied au sol"
+        ],
+        "answer": "Sauter verticalement et rester compact"
+      },
+      {
+        "level": 7,
+        "type": "mcq",
+        "question": "Qu’est-ce qui rend un frontside pop shove-it vraiment clean ?",
+        "options": [
+          "Une board qui tourne serrée et une réception centrée",
+          "Une board qui part très loin puis revient",
+          "Un scoop énorme sans réception stable",
+          "Un bruit de pop très faible"
+        ],
+        "answer": "Une board qui tourne serrée et une réception centrée"
+      },
+      {
+        "level": 8,
+        "type": "mcq",
+        "question": "Pour poser un frontside pop shove-it sur un spot street, tu dois surtout…",
+        "options": [
+          "Gérer ta vitesse et préparer ta réception",
+          "Sauter le plus haut possible sans penser au spot",
+          "Frapper le tail deux fois",
+          "Tourner tes épaules en backside"
+        ],
+        "answer": "Gérer ta vitesse et préparer ta réception"
+      }
+    ]
+  },
+  {
+    "trick": "fs_180",
+    "questions": [
+      {
+        "level": 1,
+        "type": "mcq",
+        "question": "Que combine un frontside 180 de base ?",
+        "options": [
+          "Un ollie et une rotation du corps vers l’avant",
+          "Un shove-it et un flip",
+          "Un manual puis un ollie",
+          "Un simple pivot au sol"
+        ],
+        "answer": "Un ollie et une rotation du corps vers l’avant"
+      },
+      {
+        "level": 2,
+        "type": "mcq",
+        "question": "Quel élément lance vraiment la rotation d’un frontside 180 ?",
+        "options": [
+          "La rotation des épaules vers l’avant",
+          "Le flick du pied avant",
+          "Un gros scoop du pied arrière",
+          "La vitesse seulement"
+        ],
+        "answer": "La rotation des épaules vers l’avant"
+      },
+      {
+        "level": 3,
+        "type": "mcq",
+        "question": "Comment doivent se placer tes pieds pour un frontside 180 ?",
+        "options": [
+          "Comme pour un ollie classique",
+          "Comme pour un kickflip",
+          "Très larges, un pied sur le nose et un sur le tail",
+          "Collés ensemble au milieu"
+        ],
+        "answer": "Comme pour un ollie classique"
+      },
+      {
+        "level": 4,
+        "type": "mcq",
+        "question": "Pendant la rotation, ton regard doit…",
+        "options": [
+          "Suivre la direction où tu veux atterrir",
+          "Rester fixé sur tes pieds",
+          "Regarder en arrière",
+          "Regarder le sol juste devant la board"
+        ],
+        "answer": "Suivre la direction où tu veux atterrir"
+      },
+      {
+        "level": 5,
+        "type": "mcq",
+        "question": "Si tu n’arrives pas à tourner tout le 180°, quelle correction est la plus utile ?",
+        "options": [
+          "Pré-rotations des épaules plus marquées",
+          "Rouler plus lentement",
+          "Mettre tes pieds plus au centre",
+          "Ne plus fléchir les genoux"
+        ],
+        "answer": "Pré-rotations des épaules plus marquées"
+      },
+      {
+        "level": 6,
+        "type": "mcq",
+        "question": "Pourquoi atterrir légèrement en switch après un frontside 180 est normal ?",
+        "options": [
+          "Parce que tu as tourné ton corps entier de 180°",
+          "Parce que tu as changé de pied avant pendant le saut",
+          "Parce que la board a fait un shove-it caché",
+          "Parce que tu dois toujours replaquer fakie"
+        ],
+        "answer": "Parce que tu as tourné ton corps entier de 180°"
+      },
+      {
+        "level": 7,
+        "type": "mcq",
+        "question": "Pour style ton frontside 180, tu peux…",
+        "options": [
+          "Rentrer le trick plus lentement, bien contrôlé et fléchi",
+          "Tourner au dernier moment juste avant de toucher le sol",
+          "Sauter le plus haut possible sans rotation nette",
+          "Regarder uniquement derrière toi"
+        ],
+        "answer": "Rentrer le trick plus lentement, bien contrôlé et fléchi"
+      },
+      {
+        "level": 8,
+        "type": "mcq",
+        "question": "Tu veux placer un frontside 180 en set : quoi prioriser ?",
+        "options": [
+          "Le timing du pop + rotation des épaules + réception stable",
+          "La rotation très rapide et peu de pop",
+          "La vitesse maximum avant l’escalier",
+          "Un pivot au sol au lieu de sauter"
+        ],
+        "answer": "Le timing du pop + rotation des épaules + réception stable"
+      }
+    ]
+  },
+  {
+    "trick": "bs_180",
+    "questions": [
+      {
+        "level": 1,
+        "type": "mcq",
+        "question": "Dans un backside 180, comment tournes-tu par rapport à la board ?",
+        "options": [
+          "Tu tournes dos à la direction de départ",
+          "Tu tournes face à la direction de départ",
+          "Tu ne tournes que les pieds",
+          "Tu ne tournes que la board"
+        ],
+        "answer": "Tu tournes dos à la direction de départ"
+      },
+      {
+        "level": 2,
+        "type": "mcq",
+        "question": "Que font tes épaules pour lancer un backside 180 ?",
+        "options": [
+          "Elles s’ouvrent vers l’arrière avant le pop",
+          "Elles restent complètement fixes",
+          "Elles tournent vers l’avant comme un frontside",
+          "Elles se penchent vers le nose"
+        ],
+        "answer": "Elles s’ouvrent vers l’arrière avant le pop"
+      },
+      {
+        "level": 3,
+        "type": "mcq",
+        "question": "Comment doivent se placer tes pieds pour un backside 180 ?",
+        "options": [
+          "Comme pour un ollie classique",
+          "Comme pour un shove-it",
+          "Comme pour un kickflip",
+          "Très serrés au centre de la board"
+        ],
+        "answer": "Comme pour un ollie classique"
+      },
+      {
+        "level": 4,
+        "type": "mcq",
+        "question": "Si tu bloques à mi-rotation en backside 180, que peux-tu ajuster ?",
+        "options": [
+          "Lancer les épaules plus franchement avant de popper",
+          "Popper moins fort",
+          "Mettre les pieds plus écartés",
+          "Regarder tes roues arrière"
+        ],
+        "answer": "Lancer les épaules plus franchement avant de popper"
+      },
+      {
+        "level": 5,
+        "type": "mcq",
+        "question": "Où doit aller ton regard pendant un backside 180 ?",
+        "options": [
+          "Vers la zone où tu veux replaquer",
+          "Fixé sur le sol juste devant toi",
+          "Sur ta roue arrière uniquement",
+          "Sur le ciel"
+        ],
+        "answer": "Vers la zone où tu veux replaquer"
+      },
+      {
+        "level": 6,
+        "type": "mcq",
+        "question": "Pour éviter les backside 180 où la board se décroche, tu dois…",
+        "options": [
+          "Rester compact et garder les pieds collés à la board",
+          "Sauter très loin de la planche",
+          "Mettre tout le poids sur le nose",
+          "Toujours tourner après l’atterrissage"
+        ],
+        "answer": "Rester compact et garder les pieds collés à la board"
+      },
+      {
+        "level": 7,
+        "type": "mcq",
+        "question": "Qu’est-ce qui donne un backside 180 vraiment stylé ?",
+        "options": [
+          "Une rotation fluide, épaules et board synchronisées",
+          "Une rotation très saccadée",
+          "Un pivot à moitié au sol",
+          "Une réception à moitié sur le tail"
+        ],
+        "answer": "Une rotation fluide, épaules et board synchronisées"
+      },
+      {
+        "level": 8,
+        "type": "mcq",
+        "question": "Pour rentrer un backside 180 en 3 marches, tu dois surtout…",
+        "options": [
+          "Gérer ton pop et ta rotation sans paniquer sur la hauteur",
+          "Frapper le tail le plus tôt possible",
+          "Regarder uniquement les marches pendant tout le trick",
+          "Tourner après avoir atterri"
+        ],
+        "answer": "Gérer ton pop et ta rotation sans paniquer sur la hauteur"
+      }
+    ]
+  },
+  {
+    "trick": "nollie",
+    "questions": [
+      {
+        "level": 1,
+        "type": "mcq",
+        "question": "Qu’est-ce qui différencie un nollie d’un ollie classique ?",
+        "options": [
+          "Le pop se fait avec le nose",
+          "Le nollie se fait sans rouler",
+          "Le nollie se fait toujours en fakie",
+          "Le nollie ne demande pas de saut"
+        ],
+        "answer": "Le pop se fait avec le nose"
+      },
+      {
+        "level": 2,
+        "type": "mcq",
+        "question": "Où sont tes pieds dans un nollie de base ?",
+        "options": [
+          "Pied avant sur le nose, pied arrière vers le centre",
+          "Pied arrière sur le nose, pied avant sur le tail",
+          "Les deux pieds sur le tail",
+          "Les deux pieds au milieu"
+        ],
+        "answer": "Pied avant sur le nose, pied arrière vers le centre"
+      },
+      {
+        "level": 3,
+        "type": "mcq",
+        "question": "Quel mouvement déclenche le pop du nollie ?",
+        "options": [
+          "Appuyer vers le bas avec le nose",
+          "Frapper le tail comme un ollie",
+          "Flicker avec le pied arrière",
+          "Tourner les épaules"
+        ],
+        "answer": "Appuyer vers le bas avec le nose"
+      },
+      {
+        "level": 4,
+        "type": "mcq",
+        "question": "Pourquoi le nollie peut sembler bizarre au début ?",
+        "options": [
+          "Parce que tu inverses ton pied de pop habituel",
+          "Parce que tu roules en switch",
+          "Parce que la board devient plus lourde",
+          "Parce que tu dois flipper la board"
+        ],
+        "answer": "Parce que tu inverses ton pied de pop habituel"
+      },
+      {
+        "level": 5,
+        "type": "mcq",
+        "question": "Pour garder la board bien sous toi en nollie, tu dois…",
+        "options": [
+          "Rester très centré au-dessus du nose",
+          "Te pencher fortement vers l’arrière",
+          "Rester très droit sans fléchir",
+          "Regarder seulement tes roues arrière"
+        ],
+        "answer": "Rester très centré au-dessus du nose"
+      },
+      {
+        "level": 6,
+        "type": "mcq",
+        "question": "Si ta board ne monte pas en nollie, tu dois surtout…",
+        "options": [
+          "Fléchir plus et popper le nose plus fort",
+          "Rouler beaucoup plus vite",
+          "Mettre les pieds plus serrés",
+          "Regarder le ciel pendant le pop"
+        ],
+        "answer": "Fléchir plus et popper le nose plus fort"
+      },
+      {
+        "level": 7,
+        "type": "mcq",
+        "question": "Quel est un bon objectif une fois ton nollie maîtrisé au flat ?",
+        "options": [
+          "Le passer en curb ou en petit gap",
+          "Arrêter de le faire",
+          "Ne plus faire d’ollie du tout",
+          "Ne l’utiliser qu’en descente"
+        ],
+        "answer": "Le passer en curb ou en petit gap"
+      },
+      {
+        "level": 8,
+        "type": "mcq",
+        "question": "Pour un nollie vraiment stylé en street, tu dois surtout…",
+        "options": [
+          "Le rendre aussi naturel que ton ollie normal",
+          "Mettre un flick énorme",
+          "Tourner tes épaules en backside avec",
+          "Regarder uniquement l’obstacle"
+        ],
+        "answer": "Le rendre aussi naturel que ton ollie normal"
+      }
+    ]
+  },
+  {
+    "trick": "halfcab",
+    "questions": [
+      {
+        "level": 1,
+        "type": "mcq",
+        "question": "Qu’est-ce qu’un halfcab en skate ?",
+        "options": [
+          "Un fakie backside 180",
+          "Un frontside 180 en switch",
+          "Un simple ollie en fakie",
+          "Un shove-it sans rotation du corps"
+        ],
+        "answer": "Un fakie backside 180"
+      },
+      {
+        "level": 2,
+        "type": "mcq",
+        "question": "Dans un halfcab, tu démarres…",
+        "options": [
+          "En fakie",
+          "En switch",
+          "En nose manual",
+          "À l’arrêt"
+        ],
+        "answer": "En fakie"
+      },
+      {
+        "level": 3,
+        "type": "mcq",
+        "question": "Quel mouvement lance la rotation d’un halfcab ?",
+        "options": [
+          "Les épaules qui se tournent avant le pop",
+          "Un flick du pied avant",
+          "Un scoop du pied arrière",
+          "Un simple pivot au sol"
+        ],
+        "answer": "Les épaules qui se tournent avant le pop"
+      },
+      {
+        "level": 4,
+        "type": "mcq",
+        "question": "Si ton halfcab ne tourne pas assez, que peux-tu corriger ?",
+        "options": [
+          "Pré-rotation plus marquée des épaules",
+          "Pop plus faible",
+          "Pieds plus au centre",
+          "Regarder le sol juste devant toi"
+        ],
+        "answer": "Pré-rotation plus marquée des épaules"
+      },
+      {
+        "level": 5,
+        "type": "mcq",
+        "question": "Pourquoi les halfcabs sont très utiles en street ?",
+        "options": [
+          "Ils te permettent de changer de stance fluide en roulant",
+          "Ils servent surtout à freiner",
+          "Ils remplacent tous les autres tricks",
+          "Ils sont obligatoirement plus hauts que les ollies"
+        ],
+        "answer": "Ils te permettent de changer de stance fluide en roulant"
+      },
+      {
+        "level": 6,
+        "type": "mcq",
+        "question": "Pour rendre ton halfcab plus smooth, tu dois…",
+        "options": [
+          "Garder une vitesse stable et une rotation fluide",
+          "Rouler très lentement",
+          "Freiner pendant le pop",
+          "Regarder seulement tes pieds"
+        ],
+        "answer": "Garder une vitesse stable et une rotation fluide"
+      },
+      {
+        "level": 7,
+        "type": "mcq",
+        "question": "Une bonne progression après un halfcab flat est…",
+        "options": [
+          "Le halfcab down un curb ou une petite marche",
+          "Arrêter complètement les tricks en fakie",
+          "Ne faire que des shuvits",
+          "Ne skater que des bowls"
+        ],
+        "answer": "Le halfcab down un curb ou une petite marche"
+      },
+      {
+        "level": 8,
+        "type": "mcq",
+        "question": "Pour un halfcab vraiment propre, quelle sensation cherches-tu ?",
+        "options": [
+          "Rotation contrôlée, atterrissage fluide dans la nouvelle direction",
+          "Un pivot au sol très long",
+          "Un pop minuscule sans vraiment tourner",
+          "Une rotation brusque et déséquilibrée"
+        ],
+        "answer": "Rotation contrôlée, atterrissage fluide dans la nouvelle direction"
+      }
+    ]
+  },
+  {
+    "trick": "boardslide",
+    "questions": [
+      {
+        "level": 1,
+        "type": "mcq",
+        "question": "Sur quelle partie de la planche glisses-tu dans un boardslide ?",
+        "options": [
+          "Le centre de la board (le dessous)",
+          "Uniquement le nose",
+          "Uniquement le tail",
+          "Uniquement les trucks"
+        ],
+        "answer": "Le centre de la board (le dessous)"
+      },
+      {
+        "level": 2,
+        "type": "mcq",
+        "question": "Comment approches-tu généralement un rail pour boardslide ?",
+        "options": [
+          "Avec un léger angle et vitesse contrôlée",
+          "Totalement perpendiculaire et très vite",
+          "Strictement parallèle sans angle",
+          "En marche arrière uniquement"
+        ],
+        "answer": "Avec un léger angle et vitesse contrôlée"
+      },
+      {
+        "level": 3,
+        "type": "mcq",
+        "question": "Quel trick te permet souvent de monter sur le rail en boardslide ?",
+        "options": [
+          "Un ollie bien contrôlé",
+          "Un manual",
+          "Un simple shove-it",
+          "Un nollie uniquement"
+        ],
+        "answer": "Un ollie bien contrôlé"
+      },
+      {
+        "level": 4,
+        "type": "mcq",
+        "question": "Pendant le boardslide, comment doivent être tes épaules pour rester stable ?",
+        "options": [
+          "Alignées avec le rail ou légèrement ouvertes",
+          "Totalement tournées dos au rail",
+          "Complètement de profil à la direction",
+          "Penchées vers le sol"
+        ],
+        "answer": "Alignées avec le rail ou légèrement ouvertes"
+      },
+      {
+        "level": 5,
+        "type": "mcq",
+        "question": "Si tu décroches souvent en boardslide, que peux-tu corriger ?",
+        "options": [
+          "Garder ton poids bien centré au-dessus du rail",
+          "Mettre tout le poids sur le nose",
+          "Mettre tout le poids sur le tail",
+          "Regarder uniquement tes roues"
+        ],
+        "answer": "Garder ton poids bien centré au-dessus du rail"
+      },
+      {
+        "level": 6,
+        "type": "mcq",
+        "question": "Pour préparer une bonne sortie de boardslide, tu dois…",
+        "options": [
+          "Légèrement relever le nose ou le tail pour décrocher propre",
+          "Freiner fort en fin de rail",
+          "Tourner seulement la tête",
+          "Sautez sans pop, juste en glissant"
+        ],
+        "answer": "Légèrement relever le nose ou le tail pour décrocher propre"
+      },
+      {
+        "level": 7,
+        "type": "mcq",
+        "question": "Quelle sensation indique que ton boardslide est bien contrôlé ?",
+        "options": [
+          "Tu glisses fluide, sans gros coups de corps ni tressautements",
+          "Tu sens la board vibrer tout du long",
+          "Tu touches le rail avec les trucks",
+          "Tu dois corriger ton équilibre à chaque seconde"
+        ],
+        "answer": "Tu glisses fluide, sans gros coups de corps ni tressautements"
+      },
+      {
+        "level": 8,
+        "type": "mcq",
+        "question": "Pour un boardslide stylé sur un vrai spot street, tu dois surtout…",
+        "options": [
+          "Choisir une vitesse stable, garder tes épaules clean et une sortie contrôlée",
+          "Aller le plus vite possible sans regarder le rail",
+          "Te pencher fortement en arrière",
+          "Regarder uniquement tes roues avant"
+        ],
+        "answer": "Choisir une vitesse stable, garder tes épaules clean et une sortie contrôlée"
+      }
+    ]
+  },
+  {
+    "trick": "fifty_fifty",
+    "questions": [
+      {
+        "level": 1,
+        "type": "mcq",
+        "question": "Dans un 50-50 grind, que font tes trucks ?",
+        "options": [
+          "Les deux trucks grindent en même temps sur l’arête",
+          "Seul le truck avant grind",
+          "Seul le truck arrière grind",
+          "Les trucks ne touchent pas, seul le bois grind"
+        ],
+        "answer": "Les deux trucks grindent en même temps sur l’arête"
+      },
+      {
+        "level": 2,
+        "type": "mcq",
+        "question": "Comment approches-tu un ledge pour un 50-50 ?",
+        "options": [
+          "Avec un léger angle, pas totalement parallèle",
+          "Totalement perpendiculaire",
+          "Uniquement en marche arrière",
+          "À l’arrêt, sans vitesse"
+        ],
+        "answer": "Avec un léger angle, pas totalement parallèle"
+      },
+      {
+        "level": 3,
+        "type": "mcq",
+        "question": "Quel trick utilises-tu généralement pour monter en 50-50 ?",
+        "options": [
+          "Un ollie bien cadré",
+          "Un nollie uniquement",
+          "Un shove-it direct sur le ledge",
+          "Un simple manuel"
+        ],
+        "answer": "Un ollie bien cadré"
+      },
+      {
+        "level": 4,
+        "type": "mcq",
+        "question": "Pour rester stable en 50-50, tes épaules doivent être…",
+        "options": [
+          "Parallèles au ledge ou rail",
+          "Complètement tournées vers l’arrière",
+          "Fortement penchées vers l’avant",
+          "De profil, face au vide"
+        ],
+        "answer": "Parallèles au ledge ou rail"
+      },
+      {
+        "level": 5,
+        "type": "mcq",
+        "question": "Si tu décroches vers l’intérieur du ledge en 50-50, ton poids est probablement…",
+        "options": [
+          "Trop vers l’intérieur, au lieu d’être centré",
+          "Trop vers l’extérieur",
+          "Trop sur le nose",
+          "Trop sur le tail"
+        ],
+        "answer": "Trop vers l’intérieur, au lieu d’être centré"
+      },
+      {
+        "level": 6,
+        "type": "mcq",
+        "question": "Pour préparer ta sortie de 50-50, tu peux…",
+        "options": [
+          "Légèrement lever le nose ou tourner les épaules pour décrocher",
+          "Freiner fort sur l’arête",
+          "Sauter sans pop au milieu du ledge",
+          "Ramener un pied au sol pendant le grind"
+        ],
+        "answer": "Légèrement lever le nose ou tourner les épaules pour décrocher"
+      },
+      {
+        "level": 7,
+        "type": "mcq",
+        "question": "Quelle sensation montre que ton 50-50 est bien maîtrisé ?",
+        "options": [
+          "Glisse fluide, poids stable, aucune panique même si ça dure",
+          "Glisse très saccadée avec beaucoup de coups",
+          "Board qui tape sans vraiment avancer",
+          "Obligé de sauter pour ne pas tomber"
+        ],
+        "answer": "Glisse fluide, poids stable, aucune panique même si ça dure"
+      },
+      {
+        "level": 8,
+        "type": "mcq",
+        "question": "Sur un vrai spot street, ton meilleur allié pour un 50-50 propre est…",
+        "options": [
+          "Un bon choix de vitesse et un engagement décidé",
+          "Le hasard total",
+          "Le fait d’aller toujours au ralenti",
+          "Un pop très faible pour ne presque pas monter"
+        ],
+        "answer": "Un bon choix de vitesse et un engagement décidé"
+      }
+    ]
+  },
+  {
+    "trick": "tre_flip",
+    "questions": [
+      {
+        "level": 1,
+        "type": "mcq",
+        "question": "Un tre flip combine…",
+        "options": [
+          "Un 360 shove-it + un kickflip",
+          "Un kickflip + un heelflip",
+          "Un pop shove-it + un nollie",
+          "Un simple 360 shove-it sans flip"
+        ],
+        "answer": "Un 360 shove-it + un kickflip"
+      },
+      {
+        "level": 2,
+        "type": "mcq",
+        "question": "Quel pied donne la plus grosse partie de la rotation dans un tre flip ?",
+        "options": [
+          "Le pied arrière avec un scoop puissant",
+          "Le pied avant avec un gros flick",
+          "Les deux pieds en même temps",
+          "Aucun pied, c’est juste la vitesse"
+        ],
+        "answer": "Le pied arrière avec un scoop puissant"
+      },
+      {
+        "level": 3,
+        "type": "mcq",
+        "question": "Où places-tu ton pied arrière pour un tre flip ?",
+        "options": [
+          "Sur le tail, orteils légèrement dépassés pour bien scooper",
+          "En plein centre de la board",
+          "Sur le nose",
+          "Collé au pied avant"
+        ],
+        "answer": "Sur le tail, orteils légèrement dépassés pour bien scooper"
+      },
+      {
+        "level": 4,
+        "type": "mcq",
+        "question": "Le flick du pied avant dans un tre flip est plutôt…",
+        "options": [
+          "Petit et contrôlé, juste assez pour flipper",
+          "Énorme, plus fort que pour un kickflip",
+          "Absent, seul le scoop compte",
+          "Vers le tail, pas vers l’extérieur"
+        ],
+        "answer": "Petit et contrôlé, juste assez pour flipper"
+      },
+      {
+        "level": 5,
+        "type": "mcq",
+        "question": "Si ta board fait trop de 360 shove et pas assez de flip, tu dois…",
+        "options": [
+          "Ajouter un peu plus de flick du pied avant",
+          "Réduire la puissance du scoop",
+          "Rouler plus vite",
+          "Mettre tes pieds plus serrés"
+        ],
+        "answer": "Ajouter un peu plus de flick du pied avant"
+      },
+      {
+        "level": 6,
+        "type": "mcq",
+        "question": "Quel est l’erreur classique qui fait partir la board trop loin en tre flip ?",
+        "options": [
+          "Scoop beaucoup trop violent et corps pas assez au-dessus",
+          "Pas assez de pop",
+          "Trop de flick du pied avant",
+          "Rouler trop doucement"
+        ],
+        "answer": "Scoop beaucoup trop violent et corps pas assez au-dessus"
+      },
+      {
+        "level": 7,
+        "type": "mcq",
+        "question": "Quand ton tre flip commence à être consistant, tu cherches surtout…",
+        "options": [
+          "Le catch bien au-dessus de la board et une réception clean",
+          "Juste à le poser une fois par session",
+          "À l’envoyer le plus loin possible",
+          "À le tourner le plus vite possible sans le rattraper"
+        ],
+        "answer": "Le catch bien au-dessus de la board et une réception clean"
+      },
+      {
+        "level": 8,
+        "type": "mcq",
+        "question": "Pour un tre flip niveau street part en gap ou en set, la priorité est…",
+        "options": [
+          "Gardez le scoop puissant mais contrôlé, et pensez d’abord à la réception",
+          "Mettre 100 % de puissance dans le scoop sans regarder",
+          "Flicker le plus fort possible",
+          "Ne pas fléchir les genoux"
+        ],
+        "answer": "Gardez le scoop puissant mais contrôlé, et pensez d’abord à la réception"
+      }
+    ]
+  },
+  {
+    "trick": "hardflip",
+    "questions": [
+      {
+        "level": 1,
+        "type": "mcq",
+        "question": "Un hardflip ressemble à…",
+        "options": [
+          "Un frontside shove-it combiné à un kickflip",
+          "Un simple kickflip plus haut",
+          "Un heelflip en fakie",
+          "Un 360 flip ralenti"
+        ],
+        "answer": "Un frontside shove-it combiné à un kickflip"
+      },
+      {
+        "level": 2,
+        "type": "mcq",
+        "question": "Où places-tu ton pied arrière pour un hardflip ?",
+        "options": [
+          "Dans le pocket du tail côté orteils, comme un front shove",
+          "Au milieu du tail",
+          "En plein centre de la board",
+          "Sur le nose"
+        ],
+        "answer": "Dans le pocket du tail côté orteils, comme un front shove"
+      },
+      {
+        "level": 3,
+        "type": "mcq",
+        "question": "Le pied avant dans un hardflip travaille plutôt comme…",
+        "options": [
+          "Un kickflip compact",
+          "Un heelflip",
+          "Un simple ollie sans flick",
+          "Un nollie"
+        ],
+        "answer": "Un kickflip compact"
+      },
+      {
+        "level": 4,
+        "type": "mcq",
+        "question": "Si la board part trop en front shove sans flipper, tu dois…",
+        "options": [
+          "Ajouter un peu de flick avec le pied avant",
+          "Réduire la puissance du front shove",
+          "Popper beaucoup plus fort",
+          "Aller plus vite"
+        ],
+        "answer": "Ajouter un peu de flick avec le pied avant"
+      },
+      {
+        "level": 5,
+        "type": "mcq",
+        "question": "Un bon hardflip a souvent cette sensation :",
+        "options": [
+          "La board qui passe serrée sous toi, presque entre les jambes",
+          "La board qui part très loin devant",
+          "Une rotation lente et très large",
+          "Un flip à peine visible"
+        ],
+        "answer": "La board qui passe serrée sous toi, presque entre les jambes"
+      },
+      {
+        "level": 6,
+        "type": "mcq",
+        "question": "Si tu ne rattrapes jamais la board en hardflip, c’est souvent parce que…",
+        "options": [
+          "Tu ne restes pas assez au-dessus de la planche",
+          "Tu vas trop lentement",
+          "Tu flippes trop fort",
+          "Tu regardes trop le spot"
+        ],
+        "answer": "Tu ne restes pas assez au-dessus de la planche"
+      },
+      {
+        "level": 7,
+        "type": "mcq",
+        "question": "Quel est un bon objectif une fois ton hardflip flat posé régulièrement ?",
+        "options": [
+          "Essayer hardflip en curb ou petit gap",
+          "Arrêter définitivement le trick",
+          "Ne faire que ça en line",
+          "Le poser uniquement à l’arrêt"
+        ],
+        "answer": "Essayer hardflip en curb ou petit gap"
+      },
+      {
+        "level": 8,
+        "type": "mcq",
+        "question": "Pour un hardflip propre en street, tu dois surtout…",
+        "options": [
+          "Limiter le chaos et garder un mouvement compact et contrôlé",
+          "Forcer la board à partir très loin",
+          "Faire un énorme front shove sans flip",
+          "Lancer un flip ultra violent sans penser à la rotation"
+        ],
+        "answer": "Limiter le chaos et garder un mouvement compact et contrôlé"
+      }
+    ]
+  },
+  {
+    "trick": "impossible",
+    "questions": [
+      {
+        "level": 1,
+        "type": "mcq",
+        "question": "Dans un impossible, la board…",
+        "options": [
+          "S’enroule autour de ton pied arrière",
+          "Fait un kickflip simple",
+          "Fait un heelflip",
+          "Tourne juste comme un shove-it"
+        ],
+        "answer": "S’enroule autour de ton pied arrière"
+      },
+      {
+        "level": 2,
+        "type": "mcq",
+        "question": "Où places-tu ton pied arrière pour un impossible ?",
+        "options": [
+          "Centré sur le tail, solide",
+          "Sur le nose",
+          "Très loin au centre",
+          "Juste derrière les vis avant"
+        ],
+        "answer": "Centré sur le tail, solide"
+      },
+      {
+        "level": 3,
+        "type": "mcq",
+        "question": "Quel mouvement lance la rotation particulière de l’impossible ?",
+        "options": [
+          "Un scoop circulaire vers l’arrière et vers le haut",
+          "Un flick du pied avant",
+          "Un simple pop vertical",
+          "Une rotation des épaules"
+        ],
+        "answer": "Un scoop circulaire vers l’arrière et vers le haut"
+      },
+      {
+        "level": 4,
+        "type": "mcq",
+        "question": "Pour que la board s’enroule correctement, tu dois…",
+        "options": [
+          "Garder les jambes relevées et le poids au-dessus",
+          "Appuyer fort sur le nose",
+          "Tourner tes épaules en backside",
+          "Regarder seulement tes roues arrière"
+        ],
+        "answer": "Garder les jambes relevées et le poids au-dessus"
+      },
+      {
+        "level": 5,
+        "type": "mcq",
+        "question": "Si la board ne fait qu’un shove-it au lieu d’un impossible, tu dois…",
+        "options": [
+          "Donner un scoop plus circulaire et plus compact",
+          "Popper moins fort",
+          "Mettre tes pieds plus serrés",
+          "Rouler plus lentement"
+        ],
+        "answer": "Donner un scoop plus circulaire et plus compact"
+      },
+      {
+        "level": 6,
+        "type": "mcq",
+        "question": "Quelle sensation montre que tu commences à comprendre l’impossible ?",
+        "options": [
+          "Tu sens la board wrap autour de ton pied arrière",
+          "Tu entends juste le tail taper",
+          "La board part loin devant",
+          "Le trick ressemble à un flip normal"
+        ],
+        "answer": "Tu sens la board wrap autour de ton pied arrière"
+      },
+      {
+        "level": 7,
+        "type": "mcq",
+        "question": "Quel est un bon objectif après avoir posé des impossibles flat ?",
+        "options": [
+          "Tester en curb ou en petit gap",
+          "Arrêter de les faire",
+          "Ne faire que ça en line",
+          "Les poser uniquement à l’arrêt"
+        ],
+        "answer": "Tester en curb ou en petit gap"
+      },
+      {
+        "level": 8,
+        "type": "mcq",
+        "question": "Pour un impossible vraiment stylé, tu dois viser…",
+        "options": [
+          "Un wrap propre, board serrée sous toi, catch solide",
+          "La plus grosse distance possible",
+          "Une rotation lente et bancale",
+          "Un trick moitié shove-it, moitié flip"
+        ],
+        "answer": "Un wrap propre, board serrée sous toi, catch solide"
+      }
+    ]
+  },
+  {
+    "trick": "varial_kickflip",
+    "questions": [
+      {
+        "level": 1,
+        "type": "mcq",
+        "question": "Qu’est-ce qu’un varial kickflip ?",
+        "options": [
+          "Un pop shove-it + un kickflip",
+          "Un heelflip + un shove-it",
+          "Un simple kickflip plus lent",
+          "Un 360 shove-it sans flip"
+        ],
+        "answer": "Un pop shove-it + un kickflip"
+      },
+      {
+        "level": 2,
+        "type": "mcq",
+        "question": "Quel équilibre cherches-tu entre shove et flip dans un varial kickflip ?",
+        "options": [
+          "Un petit shove + un flick net",
+          "Un shove énorme + un tout petit flick",
+          "Uniquement du flip sans shove",
+          "Uniquement du shove sans flip"
+        ],
+        "answer": "Un petit shove + un flick net"
+      },
+      {
+        "level": 3,
+        "type": "mcq",
+        "question": "Si ton varial part en simple shove sans flipper, que dois-tu faire ?",
+        "options": [
+          "Augmenter légèrement le flick du pied avant",
+          "Réduire complètement le shove",
+          "Rouler beaucoup plus vite",
+          "Regarder seulement le sol"
+        ],
+        "answer": "Augmenter légèrement le flick du pied avant"
+      },
+      {
+        "level": 4,
+        "type": "mcq",
+        "question": "Si ton varial kickflip sur-flippe trop, que peux-tu corriger ?",
+        "options": [
+          "Rendre le flick plus court et plus précis",
+          "Scoop beaucoup plus fort",
+          "Mettre les pieds au centre",
+          "Lancer les épaules plus fort"
+        ],
+        "answer": "Rendre le flick plus court et plus précis"
+      },
+      {
+        "level": 5,
+        "type": "mcq",
+        "question": "Pour que la board reste sous toi, tu dois…",
+        "options": [
+          "Sauter verticalement et rester compact",
+          "Sauter vers l’avant comme un fou",
+          "Mettre tout ton poids sur le nose",
+          "Regarder uniquement tes roues arrière"
+        ],
+        "answer": "Sauter verticalement et rester compact"
+      },
+      {
+        "level": 6,
+        "type": "mcq",
+        "question": "Quand ton varial kickflip commence à être consistant, tu cherches…",
+        "options": [
+          "Un catch net, board bien resserrée sous toi",
+          "Juste à le poser une fois",
+          "Le faire tourner le plus vite possible",
+          "Qu’il parte le plus loin possible"
+        ],
+        "answer": "Un catch net, board bien resserrée sous toi"
+      },
+      {
+        "level": 7,
+        "type": "mcq",
+        "question": "Un bon objectif après le varial kickflip flat est…",
+        "options": [
+          "Le rentrer en curb ou en petit gap",
+          "L’abandonner complètement",
+          "Ne faire plus que ça en line",
+          "Le faire uniquement à l’arrêt"
+        ],
+        "answer": "Le rentrer en curb ou en petit gap"
+      },
+      {
+        "level": 8,
+        "type": "mcq",
+        "question": "Pour un varial kickflip stylé en street, la priorité est…",
+        "options": [
+          "Contrôle du shove + flip, réception clean plus que la hauteur",
+          "Puissance maximale et board qui vole loin",
+          "Flip énorme même si ça décroche",
+          "Ne jamais fléchir les genoux"
+        ],
+        "answer": "Contrôle du shove + flip, réception clean plus que la hauteur"
+      }
+    ]
+  },
+  {
+    "trick": "crook_grind",
+    "questions": [
+      {
+        "level": 1,
+        "type": "mcq",
+        "question": "Dans un crooked grind (crook), quel truck est bloqué sur le ledge ?",
+        "options": [
+          "Le truck avant, légèrement de travers",
+          "Le truck arrière seulement",
+          "Les deux trucks comme un 50-50",
+          "Aucun truck, seulement le bois"
+        ],
+        "answer": "Le truck avant, légèrement de travers"
+      },
+      {
+        "level": 2,
+        "type": "mcq",
+        "question": "Que fais-tu avec ton poids dans un crook pour le verrouiller ?",
+        "options": [
+          "Tu mets un peu plus de poids sur le pied avant",
+          "Tu mets tout le poids sur le pied arrière",
+          "Tu restes complètement centré",
+          "Tu passes tout le poids sur le nose après la sortie"
+        ],
+        "answer": "Tu mets un peu plus de poids sur le pied avant"
+      },
+      {
+        "level": 3,
+        "type": "mcq",
+        "question": "Comment montes-tu généralement en crook sur un ledge ?",
+        "options": [
+          "Ollie en visant le truck avant sur l’arête",
+          "Nollie direct sur le ledge",
+          "Manual puis ollie",
+          "Simple pivot au sol"
+        ],
+        "answer": "Ollie en visant le truck avant sur l’arête"
+      },
+      {
+        "level": 4,
+        "type": "mcq",
+        "question": "Si ton crook décroche tout de suite, tu dois souvent…",
+        "options": [
+          "Mettre un peu plus de poids sur le pied avant",
+          "Mettre plus de poids sur l’arrière",
+          "Aller plus lentement",
+          "Regarder uniquement le nose"
+        ],
+        "answer": "Mettre un peu plus de poids sur le pied avant"
+      },
+      {
+        "level": 5,
+        "type": "mcq",
+        "question": "Pendant un crook, comment doivent être tes épaules ?",
+        "options": [
+          "Globalement alignées avec le ledge",
+          "Totalement tournées vers l’extérieur",
+          "Complètement de profil au vide",
+          "Toujours face à ta board"
+        ],
+        "answer": "Globalement alignées avec le ledge"
+      },
+      {
+        "level": 6,
+        "type": "mcq",
+        "question": "Pour sortir d’un crook, tu peux…",
+        "options": [
+          "Alléger le poids sur le pied avant et déverrouiller le truck",
+          "Freiner fort avec le tail",
+          "Sauter sans pop en plein milieu",
+          "Tourner les épaules sans bouger les pieds"
+        ],
+        "answer": "Alléger le poids sur le pied avant et déverrouiller le truck"
+      },
+      {
+        "level": 7,
+        "type": "mcq",
+        "question": "Quelle sensation indique un crook bien maîtrisé ?",
+        "options": [
+          "Truck avant solidement accroché, glisse contrôlée",
+          "Board qui gratte le ledge sans avancer",
+          "Décrochage constant",
+          "Glisse uniquement sur le bois, pas sur le truck"
+        ],
+        "answer": "Truck avant solidement accroché, glisse contrôlée"
+      },
+      {
+        "level": 8,
+        "type": "mcq",
+        "question": "Pour un crook stylé sur un vrai spot, tu dois gérer…",
+        "options": [
+          "L’entrée précise, le poids sur l’avant et une sortie propre",
+          "Une vitesse énorme et aucune maîtrise",
+          "Un grind très court et sec",
+          "Une approche totalement perpendiculaire sans contrôle"
+        ],
+        "answer": "L’entrée précise, le poids sur l’avant et une sortie propre"
+      }
+    ]
+  },
+  {
+    "trick": "nose_slide",
+    "questions": [
+      {
+        "level": 1,
+        "type": "mcq",
+        "question": "Dans un nose slide, quelle partie de la board glisse sur l’arête ?",
+        "options": [
+          "Le nose",
+          "Le tail",
+          "Le truck avant",
+          "Le truck arrière"
+        ],
+        "answer": "Le nose"
+      },
+      {
+        "level": 2,
+        "type": "mcq",
+        "question": "Comment approches-tu un ledge pour un nose slide ?",
+        "options": [
+          "Presque parallèle à l’obstacle avec un ollie vers le nose",
+          "Totalement perpendiculaire",
+          "Uniquement en marche arrière",
+          "À l’arrêt en posant directement le nose"
+        ],
+        "answer": "Presque parallèle à l’obstacle avec un ollie vers le nose"
+      },
+      {
+        "level": 3,
+        "type": "mcq",
+        "question": "Où dois-tu transférer ton poids pendant le nose slide ?",
+        "options": [
+          "Légèrement vers l’avant, sur le nose",
+          "Complètement vers l’arrière",
+          "Uniquement sur le centre de la board",
+          "Sur le côté opposé au ledge"
+        ],
+        "answer": "Légèrement vers l’avant, sur le nose"
+      },
+      {
+        "level": 4,
+        "type": "mcq",
+        "question": "Si tu décroches directement en nose slide, que peux-tu corriger ?",
+        "options": [
+          "Mettre un peu plus de poids sur l’avant",
+          "Mettre plus de poids sur l’arrière",
+          "Réduire toute la vitesse",
+          "Regarder uniquement tes roues"
+        ],
+        "answer": "Mettre un peu plus de poids sur l’avant"
+      },
+      {
+        "level": 5,
+        "type": "mcq",
+        "question": "Pendant la glisse, ton corps doit rester…",
+        "options": [
+          "Relativement centré au-dessus de la board",
+          "Très penché vers l’intérieur du ledge",
+          "Très penché vers l’extérieur",
+          "Complètement en arrière du nose"
+        ],
+        "answer": "Relativement centré au-dessus de la board"
+      },
+      {
+        "level": 6,
+        "type": "mcq",
+        "question": "Pour sortir d’un nose slide, tu fais souvent…",
+        "options": [
+          "Un léger lift du nose ou un petit pop pour décrocher",
+          "Un freinage sec sur le ledge",
+          "Un simple pivot au sol",
+          "Un shove-it obligatoire"
+        ],
+        "answer": "Un léger lift du nose ou un petit pop pour décrocher"
+      },
+      {
+        "level": 7,
+        "type": "mcq",
+        "question": "Un nose slide bien contrôlé donne la sensation…",
+        "options": [
+          "De glisser en avant avec le nose verrouillé mais fluide",
+          "De tomber en avant",
+          "D’être arraché vers l’intérieur du ledge",
+          "Que la board ne bouge presque pas"
+        ],
+        "answer": "De glisser en avant avec le nose verrouillé mais fluide"
+      },
+      {
+        "level": 8,
+        "type": "mcq",
+        "question": "Sur un vrai spot, la clé d’un nose slide propre est…",
+        "options": [
+          "La précision de l’ollie + le transfert de poids vers l’avant + la sortie contrôlée",
+          "La vitesse maximale sans contrôle",
+          "Un nose posé au hasard puis pivot",
+          "Une glisse très courte et stoppée net"
+        ],
+        "answer": "La précision de l’ollie + le transfert de poids vers l’avant + la sortie contrôlée"
+      }
+    ]
+  },
+  {
+    "trick": "tail_slide",
+    "questions": [
+      {
+        "level": 1,
+        "type": "mcq",
+        "question": "Dans un tailslide, quelle partie de la planche glisse sur le ledge ?",
+        "options": [
+          "Le tail",
+          "Le nose",
+          "Le truck avant",
+          "Les deux trucks"
+        ],
+        "answer": "Le tail"
+      },
+      {
+        "level": 2,
+        "type": "mcq",
+        "question": "Comment entres-tu généralement en tailslide ?",
+        "options": [
+          "Ollie avec une légère rotation pour poser le tail sur l’arête",
+          "Simplement en roulant dessus",
+          "En manual puis en pivotant",
+          "En nollie sans rotation"
+        ],
+        "answer": "Ollie avec une légère rotation pour poser le tail sur l’arête"
+      },
+      {
+        "level": 3,
+        "type": "mcq",
+        "question": "Où mets-tu ton poids pendant un tailslide ?",
+        "options": [
+          "Plutôt vers l’arrière, sur le tail",
+          "Complètement sur le nose",
+          "Strictement au centre",
+          "Sur le côté opposé au ledge"
+        ],
+        "answer": "Plutôt vers l’arrière, sur le tail"
+      },
+      {
+        "level": 4,
+        "type": "mcq",
+        "question": "Si tu décroches tout de suite du tailslide, tu dois souvent…",
+        "options": [
+          "Transférer un peu plus de poids sur l’arrière",
+          "Alléger le tail",
+          "Mettre plus de poids sur le nose",
+          "Aller beaucoup plus lentement"
+        ],
+        "answer": "Transférer un peu plus de poids sur l’arrière"
+      },
+      {
+        "level": 5,
+        "type": "mcq",
+        "question": "Pendant la glisse, comment gardes-tu l’équilibre en tailslide ?",
+        "options": [
+          "Épaules stables, genoux fléchis, regard vers la sortie",
+          "Épaules qui tournent en permanence",
+          "Genoux tendus et regard vers le sol",
+          "En te penchant très fort vers l’intérieur du ledge"
+        ],
+        "answer": "Épaules stables, genoux fléchis, regard vers la sortie"
+      },
+      {
+        "level": 6,
+        "type": "mcq",
+        "question": "Pour sortir d’un tailslide, tu peux…",
+        "options": [
+          "Légèrement soulever le tail ou faire un petit pop pour décrocher",
+          "Freiner sur l’arête",
+          "Laisser tomber la board sans rien faire",
+          "Jeter la board sur le côté"
+        ],
+        "answer": "Légèrement soulever le tail ou faire un petit pop pour décrocher"
+      },
+      {
+        "level": 7,
+        "type": "mcq",
+        "question": "Un tailslide bien posé donne la sensation…",
+        "options": [
+          "De glisser en étant verrouillé sur le tail mais toujours en contrôle",
+          "D’être tiré vers l’avant sans contrôle",
+          "De tomber en arrière",
+          "De ne presque pas bouger sur le ledge"
+        ],
+        "answer": "De glisser en étant verrouillé sur le tail mais toujours en contrôle"
+      },
+      {
+        "level": 8,
+        "type": "mcq",
+        "question": "Sur un vrai spot, un tailslide propre demande avant tout…",
+        "options": [
+          "Une entrée précise, un bon transfert de poids et une sortie maîtrisée",
+          "Un grind très court et brutal",
+          "Une vitesse énorme sans se soucier de la réception",
+          "De ne pas vraiment slider, juste toucher l’arête"
+        ],
+        "answer": "Une entrée précise, un bon transfert de poids et une sortie maîtrisée"
+      }
+    ]
+  },
+  {
+    "trick": "five_o",
+    "questions": [
+      {
+        "level": 1,
+        "type": "mcq",
+        "question": "Dans un Five-O, quel truck grind sur le ledge ou rail ?",
+        "options": [
+          "Le truck arrière",
+          "Le truck avant",
+          "Les deux trucks",
+          "Aucun truck, seulement le bois"
+        ],
+        "answer": "Le truck arrière"
+      },
+      {
+        "level": 2,
+        "type": "mcq",
+        "question": "Par rapport au 50-50, le Five-O demande…",
+        "options": [
+          "Plus de poids sur l’arrière",
+          "Plus de poids sur l’avant",
+          "Autant de poids sur les deux trucks",
+          "De rouler en fakie"
+        ],
+        "answer": "Plus de poids sur l’arrière"
+      },
+      {
+        "level": 3,
+        "type": "mcq",
+        "question": "Pour rentrer en Five-O, tu dois généralement…",
+        "options": [
+          "Ollie et viser ton truck arrière sur l’arête",
+          "Monter en manual puis sauter",
+          "Faire un shove-it direct sur le ledge",
+          "Poser la board sans ollie"
+        ],
+        "answer": "Ollie et viser ton truck arrière sur l’arête"
+      },
+      {
+        "level": 4,
+        "type": "mcq",
+        "question": "Pendant le grind, ton nose doit être…",
+        "options": [
+          "Légèrement relevé",
+          "Fortement penché vers le bas",
+          "Exactement à plat",
+          "Plus bas que le tail"
+        ],
+        "answer": "Légèrement relevé"
+      },
+      {
+        "level": 5,
+        "type": "mcq",
+        "question": "Si tu touches l’arête avec les deux trucks au lieu d’un Five-O propre, tu as…",
+        "options": [
+          "Trop réparti ton poids vers l’avant",
+          "Trop mis de poids sur l’arrière",
+          "Pas assez de vitesse",
+          "Trop de vitesse"
+        ],
+        "answer": "Trop réparti ton poids vers l’avant"
+      },
+      {
+        "level": 6,
+        "type": "mcq",
+        "question": "Pour sortir proprement d’un Five-O, tu peux…",
+        "options": [
+          "Replacer le nose et décrocher en douceur",
+          "Freiner fort sur l’arête",
+          "Lâcher la board sans la contrôler",
+          "Tourner juste la tête"
+        ],
+        "answer": "Replacer le nose et décrocher en douceur"
+      },
+      {
+        "level": 7,
+        "type": "mcq",
+        "question": "Un Five-O contrôlé donne la sensation…",
+        "options": [
+          "De glisser sur le truck arrière avec le nose léger",
+          "De tomber en avant",
+          "De bloquer et vibrer sur place",
+          "De ne pas sentir le ledge du tout"
+        ],
+        "answer": "De glisser sur le truck arrière avec le nose léger"
+      },
+      {
+        "level": 8,
+        "type": "mcq",
+        "question": "Sur un vrai spot, un Five-O propre demande…",
+        "options": [
+          "Une entrée précise, le bon angle et un contrôle du poids sur l’arrière",
+          "Le maximum de vitesse possible",
+          "Un grind très court et stoppé net",
+          "Le moins de pop possible"
+        ],
+        "answer": "Une entrée précise, le bon angle et un contrôle du poids sur l’arrière"
+      }
+    ]
+  },
+  {
+    "trick": "fakie_bs_180",
+    "questions": [
+      {
+        "level": 1,
+        "type": "mcq",
+        "question": "Dans un fakie backside 180, tu pars…",
+        "options": [
+          "En fakie et tu tournes en backside",
+          "En regular et tu tournes en frontside",
+          "En switch et tu tournes en frontside",
+          "À l’arrêt et tu pivotes uniquement"
+        ],
+        "answer": "En fakie et tu tournes en backside"
+      },
+      {
+        "level": 2,
+        "type": "mcq",
+        "question": "Pourquoi le fakie backside 180 peut paraître plus naturel que le backside 180 normal pour certains ?",
+        "options": [
+          "Parce que la rotation suit plus facilement le mouvement des épaules",
+          "Parce que tu ne dois pas sauter",
+          "Parce que la board ne tourne pas vraiment",
+          "Parce que tu ne dois pas fléchir les genoux"
+        ],
+        "answer": "Parce que la rotation suit plus facilement le mouvement des épaules"
+      },
+      {
+        "level": 3,
+        "type": "mcq",
+        "question": "Quel mouvement lance la rotation en fakie backside 180 ?",
+        "options": [
+          "Les épaules qui tournent avant le pop",
+          "Un gros flick du pied avant",
+          "Un scoop du pied arrière comme un shove-it",
+          "Le simple fait de rouler très vite"
+        ],
+        "answer": "Les épaules qui tournent avant le pop"
+      },
+      {
+        "level": 4,
+        "type": "mcq",
+        "question": "Si tu ne complètes pas le 180°, que dois-tu souvent ajuster ?",
+        "options": [
+          "La pré-rotation et le timing épaules + pop",
+          "Mettre les pieds plus serrés",
+          "Rouler plus doucement",
+          "Ne plus fléchir les genoux"
+        ],
+        "answer": "La pré-rotation et le timing épaules + pop"
+      },
+      {
+        "level": 5,
+        "type": "mcq",
+        "question": "Où dois-tu regarder pendant un bon fakie backside 180 ?",
+        "options": [
+          "Vers la zone où tu veux atterrir après la rotation",
+          "Sur tes pieds uniquement",
+          "Sur le sol juste devant toi",
+          "En l’air, sans regarder le spot"
+        ],
+        "answer": "Vers la zone où tu veux atterrir après la rotation"
+      },
+      {
+        "level": 6,
+        "type": "mcq",
+        "question": "Pour rester au-dessus de la board en fakie backside 180, tu dois…",
+        "options": [
+          "Sauter compact et rester centré",
+          "Sauter très loin devant",
+          "Mettre tout ton poids sur le nose",
+          "Tourner seulement après avoir touché le sol"
+        ],
+        "answer": "Sauter compact et rester centré"
+      },
+      {
+        "level": 7,
+        "type": "mcq",
+        "question": "Quand ton fakie backside 180 devient constant, tu peux…",
+        "options": [
+          "Le tenter en curb ou en petit set",
+          "L’abandonner",
+          "Ne faire que ça en line",
+          "Le garder uniquement pour le flat"
+        ],
+        "answer": "Le tenter en curb ou en petit set"
+      },
+      {
+        "level": 8,
+        "type": "mcq",
+        "question": "Un fakie backside 180 stylé donne la sensation…",
+        "options": [
+          "D’une rotation fluide, contrôle du corps et réception relax dans la nouvelle direction",
+          "D’un gros pivot au sol",
+          "D’un trick saccadé et forcé",
+          "D’une board qui se barre loin de toi"
+        ],
+        "answer": "D’une rotation fluide, contrôle du corps et réception relax dans la nouvelle direction"
+      }
+    ]
+  }
+]
+
