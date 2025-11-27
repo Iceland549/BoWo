@@ -3,7 +3,7 @@ export type RootStackParamList = {
   Main: undefined;
 
   // Trick flow
-  TrickDetail: { trick: any };          // Écran détaillé
+  TrickDetail: { trick: string };          // Écran détaillé
   TrickLearn: { trickId: string };      // TrickLearn par ID
   Quiz: { trickId: string };            // Quiz lié à un trick
 
