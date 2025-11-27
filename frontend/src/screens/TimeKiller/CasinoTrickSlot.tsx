@@ -13,6 +13,11 @@ import {
 
 import ScreenWrapper from "../../components/ScreenWrapper";
 
+// === DUOLINGO-LIKE SYSTEM ===
+import { useProgress } from "../../context/ProgressContext";
+import { useQuestion } from "../../hooks/useQuestion";
+import { useModalContext } from "../../context/ModalContext";
+
 // LOGOS + IMAGES
 const casinoLogo = require("../../../assets/logos/casino_logo.png");
 const slotImg = require("../../../assets/casino/casino_slot.png");
@@ -42,26 +47,32 @@ const TRICKS = [
   "Fakie Backside 180",
 ];
 
-
 export default function CasinoTrickSlot({ navigation }) {
   const [current, setCurrent] = useState("—");
   const [isRolling, setIsRolling] = useState(false);
 
+  // 🔥 PROGRESSION + MODALES
+  const { progress } = useProgress();
+  const { openQuestionModal, showLevelUp } = useModalContext();
+
+  // ✅ Hook question : on lui passe toujours `current` comme trickId
+  // (quand current vaut "—", on NE l’utilise pas dans askQuestionForCurrent)
+  const { loadQuestion, submit } = useQuestion(current || "");
+
   // 🔥 ANIMATION DU ROULEAU
   const rollY = useRef(new Animated.Value(0)).current;
 
-  // ANIMATION DE L’APPARITION DU TRICK FINAL
+  // ANIMATION DU TRICK FINAL
   const trickOpacity = useRef(new Animated.Value(0)).current;
   const trickScale = useRef(new Animated.Value(0.8)).current;
 
-  // LISTE MULTIPLIÉE (pour simuler un long rouleau)
+  // LISTE MULTIPLIÉE
   const FULL_LIST = [...TRICKS, ...TRICKS, ...TRICKS];
-  const ITEM_HEIGHT = 54; // hauteur par élément
+  const ITEM_HEIGHT = 54;
 
   const spinReel = (finalIndex: number) => {
     rollY.setValue(0);
-
-    const randomSpins = 18 * ITEM_HEIGHT; // nombre de tours rapides avant ralentissement
+    const randomSpins = 18 * ITEM_HEIGHT;
     const finalOffset = finalIndex * ITEM_HEIGHT;
 
     Animated.timing(rollY, {
@@ -78,7 +89,6 @@ export default function CasinoTrickSlot({ navigation }) {
     if (isRolling) return;
 
     setIsRolling(true);
-
     trickOpacity.setValue(0);
     trickScale.setValue(0.7);
 
@@ -108,6 +118,38 @@ export default function CasinoTrickSlot({ navigation }) {
     }, 2200);
   };
 
+  // -------------------------------------------------------------
+  // DUOLINGO-LIKE : QUESTION POUR LE TRICK COURANT
+  // -------------------------------------------------------------
+  const askQuestionForCurrent = async () => {
+    // si aucun trick affiché → rien
+    if (!current || current === "—") return;
+
+    // progression actuelle (clé = current)
+    const prog = progress[current] ?? { level: 0, totalXp: 0 };
+
+    // ⚠️ loadQuestion NE PREND PAS D’ARGUMENT
+    const q = await loadQuestion();
+    if (!q?.question) return;
+
+    openQuestionModal({
+      trickId: current,
+      question: q.question,
+      onAnswer: async (selected: string) => {
+        // ⚠️ submit(level, answer) → 2 arguments
+        const result = await submit(q.question.level, selected);
+
+        if (result.correct && result.newLevel > prog.level) {
+          showLevelUp({
+            trickId: current,
+            newLevel: result.newLevel,
+            xpGained: result.xpGained,
+          });
+        }
+      },
+    });
+  };
+
   return (
     <ImageBackground
       source={casinoWallpaper}
@@ -124,7 +166,11 @@ export default function CasinoTrickSlot({ navigation }) {
 
             {/* 🎰 SLOT MACHINE */}
             <View style={styles.slotWrapper}>
-              <Image source={slotImg} style={[styles.slotImg, { backgroundColor: "transparent" }]} resizeMode="contain" />
+              <Image
+                source={slotImg}
+                style={[styles.slotImg, { backgroundColor: "transparent" }]}
+                resizeMode="contain"
+              />
 
               {/* ROULEAU ANIMÉ */}
               <View style={styles.reelMask}>
@@ -150,6 +196,16 @@ export default function CasinoTrickSlot({ navigation }) {
               >
                 {current}
               </Animated.Text>
+
+              {/* === BULLE QUESTION DUOLINGO-LIKE === */}
+              {current !== "—" && (
+                <TouchableOpacity
+                  style={styles.questionBubble}
+                  onPress={askQuestionForCurrent}
+                >
+                  <Text style={styles.questionBubbleText}>?</Text>
+                </TouchableOpacity>
+              )}
             </View>
 
             {/* BOUTON */}
@@ -212,8 +268,7 @@ const styles = StyleSheet.create({
     width: "100%",
     alignItems: "center",
     marginBottom: 20,
-    backgroundColor: "transparent", // ⬅️ ajout important
-
+    backgroundColor: "transparent",
   },
 
   slotImg: {
@@ -256,6 +311,33 @@ const styles = StyleSheet.create({
     color: "#FFD600",
     textShadowColor: "#000",
     textShadowRadius: 10,
+  },
+
+  /* BULLE QUESTION */
+  questionBubble: {
+    position: "absolute",
+    top: 88,
+    right: 40,
+    width: 42,
+    height: 42,
+    borderRadius: 999,
+    backgroundColor: "#FF355E",
+    borderWidth: 3,
+    borderColor: "#FFD600",
+    alignItems: "center",
+    justifyContent: "center",
+    shadowColor: "#000",
+    shadowOpacity: 0.4,
+    shadowOffset: { width: 0, height: 2 },
+    shadowRadius: 6,
+    elevation: 5,
+  },
+  questionBubbleText: {
+    color: "#111",
+    fontSize: 22,
+    fontWeight: "900",
+    textShadowColor: "#FFD600",
+    textShadowRadius: 4,
   },
 
   /* BUTTON */
