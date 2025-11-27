@@ -37,9 +37,9 @@ function MainTabs() {
         ({
           headerShown: false,
           tabBarStyle: {
-            backgroundColor: '#0B1120',
+            backgroundColor: '#3a1a6b',
             borderTopWidth: 1,
-            borderTopColor: '#1F2937',
+            borderTopColor: '#FFD600',
             elevation: 6,
           },
           tabBarActiveTintColor: '#0AA5FF',

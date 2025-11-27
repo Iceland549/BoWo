@@ -187,7 +187,7 @@ export default function ProfileScreen({ navigation }) {
           style={styles.backBtn}
           onPress={() => navigation.navigate('Home')}
         >
-          <Text style={styles.backText}>← Back to Profile</Text>
+          <Text style={styles.backText}>← Back to Home</Text>
         </TouchableOpacity>
       </ScreenWrapper>
     </View>
@@ -199,7 +199,7 @@ export default function ProfileScreen({ navigation }) {
 /* -------------------------------------------------------- */
 
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: '#111215', padding: 20 },
+  container: { flex: 1, backgroundColor: '#3a1a6b', padding: 20 },
 
   title: {
     fontSize: 32,

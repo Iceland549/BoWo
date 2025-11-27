@@ -36,11 +36,11 @@ export default function ScreenWrapper({ children }: Props) {
 const styles = StyleSheet.create({
   root: {
     flex: 1,
-    backgroundColor: 'transparent',
+    backgroundColor: '#3a1a6b',
   },
   scroll: {
     flexGrow: 1,
-    paddingHorizontal: 20,
+    paddingHorizontal: 10,
     paddingBottom: 24,
   },
   body: {

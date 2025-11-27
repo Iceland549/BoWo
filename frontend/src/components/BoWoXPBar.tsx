@@ -41,7 +41,7 @@ const styles = StyleSheet.create({
   barBackground: {
     height: 10,
     borderRadius: 999,
-    backgroundColor: "#222",
+    backgroundColor: "rgba(255, 214, 0, 0.25)",
     overflow: "hidden",
   },
   barFill: {
