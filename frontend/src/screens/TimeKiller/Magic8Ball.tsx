@@ -1,5 +1,4 @@
 import React, { useRef, useState } from 'react';
-import ScreenWrapper from '../../components/ScreenWrapper';
 import {
   View,
   Text,
@@ -46,14 +45,13 @@ const RESPONSES = [
   "Impossible à dire. ❓🕳️"
 ];
 
-
 export default function Magic8Ball({ navigation }) {
 
+  // ✨ Animations
   const rotationAnim = useRef(new Animated.Value(0)).current;
   const shakeAnim = useRef(new Animated.Value(0)).current;
   const auraOpacity = useRef(new Animated.Value(0)).current;
 
-  // ✨ Animations texte
   const answerOpacity = useRef(new Animated.Value(0)).current;
   const answerScale = useRef(new Animated.Value(0.7)).current;
   const answerFloat = useRef(new Animated.Value(0)).current;
@@ -98,11 +96,10 @@ export default function Magic8Ball({ navigation }) {
         useNativeDriver: true,
       })
     ]).start(() => {
+
       setAnswer(randomAnswer);
 
       Animated.parallel([
-
-        // 🟣 Fade-in + scale
         Animated.timing(answerOpacity, {
           toValue: 1,
           duration: 700,
@@ -114,8 +111,6 @@ export default function Magic8Ball({ navigation }) {
           easing: Easing.out(Easing.exp),
           useNativeDriver: true,
         }),
-
-        // 🌬️ Flottement subtil
         Animated.loop(
           Animated.sequence([
             Animated.timing(answerFloat, {
@@ -132,8 +127,6 @@ export default function Magic8Ball({ navigation }) {
             })
           ])
         ),
-
-        // ✨ Particules dorées
         Animated.sequence([
           Animated.timing(particlesOpacity, {
             toValue: 1,
@@ -173,85 +166,96 @@ export default function Magic8Ball({ navigation }) {
 
   return (
     <View style={styles.pageContainer}>
-      <ScreenWrapper>
-        <ScrollView contentContainerStyle={styles.scroll} showsVerticalScrollIndicator={false}>
-          <View style={styles.inner}>
+      <ScrollView
+        contentContainerStyle={styles.scroll}
+        showsVerticalScrollIndicator={false}
+      >
+        <View style={styles.inner}>
 
-            <Image source={logoMagic} style={styles.gameLogo} resizeMode="contain" />
+          <Image source={logoMagic} style={styles.gameLogo} resizeMode="contain" />
 
-            <Text style={styles.title}>Magic 8-Ball</Text>
+          <Text style={styles.title}>Magic 8-Ball</Text>
 
-            <Animated.View style={[styles.aura, { opacity: auraOpacity }]} />
+          <Animated.View style={[styles.aura, { opacity: auraOpacity }]} />
 
-            <Animated.View
-              style={[
-                styles.ball,
-                { transform: [{ rotate: spin }, { translateX: shakeX }] }
-              ]}
-            >
-              <Text style={styles.ballText}>8</Text>
-            </Animated.View>
+          <Animated.View
+            style={[
+              styles.ball,
+              { transform: [{ rotate: spin }, { translateX: shakeX }] }
+            ]}
+          >
+            <Text style={styles.ballText}>8</Text>
+          </Animated.View>
 
-            {/* ✨ Réponse animée */}
-            {answer !== "" && (
-              <View style={{ alignItems: "center", minHeight: 80 }}>
-                
-                {/* Particules */}
-                <Animated.Text
-                  style={[
-                    styles.particles,
-                    {
-                      opacity: particlesOpacity,
-                      transform: [{ translateY: particlesY }],
-                    }
-                  ]}
-                >
-                  ✧ ✦ ✧
-                </Animated.Text>
+          {answer !== "" && (
+            <View style={{ alignItems: "center", minHeight: 80 }}>
 
-                {/* Texte */}
-                <Animated.Text
-                  style={[
-                    styles.answer,
-                    {
-                      opacity: answerOpacity,
-                      transform: [
-                        { scale: answerScale },
-                        { translateY: answerFloat },
-                      ]
-                    }
-                  ]}
-                >
-                  {answer}
-                </Animated.Text>
-              </View>
-            )}
+              <Animated.Text
+                style={[
+                  styles.particles,
+                  {
+                    opacity: particlesOpacity,
+                    transform: [{ translateY: particlesY }],
+                  }
+                ]}
+              >
+                ✧ ✦ ✧
+              </Animated.Text>
 
-            <TouchableOpacity style={styles.btn} onPress={shake}>
-              <Text style={styles.btnText}>ASK YOUR DESTINY</Text>
-            </TouchableOpacity>
+              <Animated.Text
+                style={[
+                  styles.answer,
+                  {
+                    opacity: answerOpacity,
+                    transform: [
+                      { scale: answerScale },
+                      { translateY: answerFloat },
+                    ]
+                  }
+                ]}
+              >
+                {answer}
+              </Animated.Text>
 
-            <TouchableOpacity style={styles.backBtn} onPress={() => navigation.goBack()}>
-              <Text style={styles.backText}>BACK TO ROOTS</Text>
-            </TouchableOpacity>
-          </View>
-        </ScrollView>
-      </ScreenWrapper>
+            </View>
+          )}
+
+          <TouchableOpacity style={styles.btn} onPress={shake}>
+            <Text style={styles.btnText}>ASK YOUR DESTINY</Text>
+          </TouchableOpacity>
+
+          <TouchableOpacity style={styles.backBtn} onPress={() => navigation.goBack()}>
+            <Text style={styles.backText}>BACK TO ROOTS</Text>
+          </TouchableOpacity>
+
+        </View>
+      </ScrollView>
     </View>
   );
 }
 
+// 🎨 Styles
 const styles = StyleSheet.create({
   pageContainer: {
     flex: 1,
-    backgroundColor: '#000',   // 🔥 noir total
+    backgroundColor: '#000', // Full black background
     paddingTop: 10,
   },
+  scroll: {
+    flexGrow: 1,
+    paddingVertical: 30,
+    paddingBottom: 100,
+  },
+  inner: {
+    alignItems: 'center',
+    paddingHorizontal: 20,
+  },
 
-  scroll: { flexGrow: 1, paddingVertical: 30, paddingBottom: 100 },
-  inner: { alignItems: 'center', paddingHorizontal: 20 },
-
-  gameLogo: { width: 380, height: 230, marginBottom: 10 },
+  gameLogo: {
+    width: 380,
+    height: 230,
+    marginBottom: 10,
+  },
 
   title: {
     fontSize: 28,
@@ -286,7 +290,11 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
 
-  ballText: { fontSize: 60, fontWeight: '900', color: '#FFF' },
+  ballText: {
+    fontSize: 60,
+    fontWeight: '900',
+    color: '#FFF',
+  },
 
   particles: {
     fontSize: 20,
@@ -311,7 +319,12 @@ const styles = StyleSheet.create({
     borderColor: '#FFD600',
     marginBottom: 20,
   },
-  btnText: { fontSize: 18, fontWeight: '900', color: '#111', textTransform: 'uppercase' },
+  btnText: {
+    fontSize: 18,
+    fontWeight: '900',
+    color: '#111',
+    textTransform: 'uppercase',
+  },
 
   backBtn: {
     borderColor: '#FFD600',
@@ -321,5 +334,10 @@ const styles = StyleSheet.create({
     borderRadius: 40,
     backgroundColor: '#0AA5FF',
   },
-  backText: { color: '#111', fontSize: 16, fontWeight: '900', textTransform: 'uppercase' },
+  backText: {
+    color: '#111',
+    fontSize: 16,
+    fontWeight: '900',
+    textTransform: 'uppercase',
+  },
 });

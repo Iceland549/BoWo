@@ -11,8 +11,6 @@ import {
   ScrollView,
 } from "react-native";
 
-import ScreenWrapper from "../../components/ScreenWrapper";
-
 // === DUOLINGO-LIKE SYSTEM ===
 import { useProgress } from "../../context/ProgressContext";
 import { useQuestion } from "../../hooks/useQuestion";
@@ -23,65 +21,67 @@ const casinoLogo = require("../../../assets/logos/casino_logo.png");
 const slotImg = require("../../../assets/casino/casino_slot.png");
 const casinoWallpaper = require("../../../assets/casino/casino_wallpaper.png");
 
-// LISTE DES 20 TRICKS
+/*  
+=========================================
+ TRICKS SYNCHRONISÉS BACKEND (✔ GOOD IDs)
+=========================================
+*/
 const TRICKS = [
-  "Ollie",
-  "Pop Shove-it",
-  "Kickflip",
-  "Heelflip",
-  "Frontside Pop Shove-it",
-  "Frontside 180",
-  "Backside 180",
-  "Nollie",
-  "Halfcab",
-  "Boardslide",
-  "50-50 Grind",
-  "360 Flip",
-  "Hardflip",
-  "Impossible",
-  "Varial Kickflip",
-  "Crook Grind",
-  "Nose Slide",
-  "Tail Slide",
-  "Five-O Grind",
-  "Fakie Backside 180",
+  { id: "ollie", label: "Ollie" },
+  { id: "popshoveit", label: "Pop Shove-it" },
+  { id: "kickflip", label: "Kickflip" },
+  { id: "heelflip", label: "Heelflip" },
+  { id: "fs_popshoveit", label: "Frontside Pop Shove-it" },
+  { id: "fs_180", label: "Frontside 180" },
+  { id: "bs_180", label: "Backside 180" },
+  { id: "nollie", label: "Nollie" },
+  { id: "halfcab", label: "Halfcab" },
+  { id: "boardslide", label: "Boardslide" },
+  { id: "fifty_fifty", label: "50-50 Grind" },
+  { id: "tre_flip", label: "360 Flip" },
+  { id: "hardflip", label: "Hardflip" },
+  { id: "impossible", label: "Impossible" },
+  { id: "varial_kickflip", label: "Varial Kickflip" },
+  { id: "crook_grind", label: "Crook Grind" },
+  { id: "nose_slide", label: "Nose Slide" },
+  { id: "tail_slide", label: "Tail Slide" },
+  { id: "five_o", label: "Five-O Grind" },
+  { id: "fakie_bs_180", label: "Fakie Backside 180" },
 ];
 
 export default function CasinoTrickSlot({ navigation }) {
-  const [current, setCurrent] = useState("—");
+  // Back-end ID (ex: "nose_slide")
+  const [currentId, setCurrentId] = useState("");
+  // Label affiché (ex: "Nose Slide")
+  const [currentLabel, setCurrentLabel] = useState("—");
   const [isRolling, setIsRolling] = useState(false);
 
-  // 🔥 PROGRESSION + MODALES
+  // PROGRESSION + MODALES
   const { progress } = useProgress();
   const { openQuestionModal, showLevelUp } = useModalContext();
 
-  // ✅ Hook question : on lui passe toujours `current` comme trickId
-  // (quand current vaut "—", on NE l’utilise pas dans askQuestionForCurrent)
-  const { loadQuestion, submit } = useQuestion(current || "");
+  // Hook question
+  const { loadQuestion, submit } = useQuestion(currentId);
 
-  // 🔥 ANIMATION DU ROULEAU
+  // Animations
   const rollY = useRef(new Animated.Value(0)).current;
-
-  // ANIMATION DU TRICK FINAL
   const trickOpacity = useRef(new Animated.Value(0)).current;
   const trickScale = useRef(new Animated.Value(0.8)).current;
 
-  // LISTE MULTIPLIÉE
+  // List ×3 pour faire un vrai roulement
   const FULL_LIST = [...TRICKS, ...TRICKS, ...TRICKS];
   const ITEM_HEIGHT = 54;
 
   const spinReel = (finalIndex: number) => {
     rollY.setValue(0);
-    const randomSpins = 18 * ITEM_HEIGHT;
-    const finalOffset = finalIndex * ITEM_HEIGHT;
 
     Animated.timing(rollY, {
-      toValue: -(randomSpins + finalOffset),
+      toValue: -(18 * ITEM_HEIGHT + finalIndex * ITEM_HEIGHT),
       duration: 2300,
       easing: Easing.out(Easing.cubic),
       useNativeDriver: true,
     }).start(() => {
-      rollY.setValue(-finalOffset);
+      rollY.setValue(-finalIndex * ITEM_HEIGHT); // reset pile dessus
     });
   };
 
@@ -92,13 +92,15 @@ export default function CasinoTrickSlot({ navigation }) {
     trickOpacity.setValue(0);
     trickScale.setValue(0.7);
 
+    // Choix aléatoire
     const finalIndex = Math.floor(Math.random() * TRICKS.length);
     const final = TRICKS[finalIndex];
 
     spinReel(finalIndex);
 
     setTimeout(() => {
-      setCurrent(final);
+      setCurrentId(final.id); // backend ID
+      setCurrentLabel(final.label); // UI label
 
       Animated.parallel([
         Animated.timing(trickOpacity, {
@@ -118,30 +120,24 @@ export default function CasinoTrickSlot({ navigation }) {
     }, 2200);
   };
 
-  // -------------------------------------------------------------
-  // DUOLINGO-LIKE : QUESTION POUR LE TRICK COURANT
-  // -------------------------------------------------------------
+  // DUOLINGO-LIKE QUESTION
   const askQuestionForCurrent = async () => {
-    // si aucun trick affiché → rien
-    if (!current || current === "—") return;
+    if (!currentId) return;
 
-    // progression actuelle (clé = current)
-    const prog = progress[current] ?? { level: 0, totalXp: 0 };
+    const prog = progress[currentId] ?? { level: 0, totalXp: 0 };
 
-    // ⚠️ loadQuestion NE PREND PAS D’ARGUMENT
     const q = await loadQuestion();
     if (!q?.question) return;
 
     openQuestionModal({
-      trickId: current,
+      trickId: currentId,
       question: q.question,
-      onAnswer: async (selected: string) => {
-        // ⚠️ submit(level, answer) → 2 arguments
+      onAnswer: async (selected) => {
         const result = await submit(q.question.level, selected);
 
         if (result.correct && result.newLevel > prog.level) {
           showLevelUp({
-            trickId: current,
+            trickId: currentId,
             newLevel: result.newLevel,
             xpGained: result.xpGained,
           });
@@ -157,113 +153,96 @@ export default function CasinoTrickSlot({ navigation }) {
       resizeMode="repeat"
       imageStyle={{ opacity: 0.25 }}
     >
-      <ScreenWrapper>
-        <ScrollView contentContainerStyle={styles.scroll}>
-          <View style={styles.container}>
+      <ScrollView contentContainerStyle={styles.scroll}>
+        <View style={styles.container}>
 
-            {/* 🔥 LOGO CASINO EN HAUT */}
-            <Image source={casinoLogo} style={styles.casinoLogo} resizeMode="contain" />
+          {/* LOGO */}
+          <Image source={casinoLogo} style={styles.casinoLogo} resizeMode="contain" />
 
-            {/* 🎰 SLOT MACHINE */}
-            <View style={styles.slotWrapper}>
-              <Image
-                source={slotImg}
-                style={[styles.slotImg, { backgroundColor: "transparent" }]}
-                resizeMode="contain"
-              />
+          {/* MACHINE À SOUS */}
+          <View style={styles.slotWrapper}>
+            <Image
+              source={slotImg}
+              style={styles.slotImg}
+              resizeMode="contain"
+            />
 
-              {/* ROULEAU ANIMÉ */}
-              <View style={styles.reelMask}>
-                <Animated.View
-                  style={{
-                    transform: [{ translateY: rollY }],
-                  }}
-                >
-                  {FULL_LIST.map((name, idx) => (
-                    <View key={idx} style={styles.reelItem}>
-                      <Text style={styles.reelText}>{name}</Text>
-                    </View>
-                  ))}
-                </Animated.View>
-              </View>
-
-              {/* TEXTE FINAL PAR-DESSUS */}
-              <Animated.Text
-                style={[
-                  styles.trickName,
-                  { opacity: trickOpacity, transform: [{ scale: trickScale }] },
-                ]}
-              >
-                {current}
-              </Animated.Text>
-
-              {/* === BULLE QUESTION DUOLINGO-LIKE === */}
-              {current !== "—" && (
-                <TouchableOpacity
-                  style={styles.questionBubble}
-                  onPress={askQuestionForCurrent}
-                >
-                  <Text style={styles.questionBubbleText}>?</Text>
-                </TouchableOpacity>
-              )}
+            <View style={styles.reelMask}>
+              <Animated.View style={{ transform: [{ translateY: rollY }] }}>
+                {FULL_LIST.map((t, idx) => (
+                  <View key={idx} style={styles.reelItem}>
+                    <Text style={styles.reelText}>{t.label}</Text>
+                  </View>
+                ))}
+              </Animated.View>
             </View>
 
-            {/* BOUTON */}
-            <TouchableOpacity style={styles.spinBtn} onPress={roll} disabled={isRolling}>
-              <Text style={styles.spinText}>
-                {isRolling ? "..." : "LANCE LA MANIVELLE"}
-              </Text>
-            </TouchableOpacity>
-
-            {/* RÈGLES */}
-            <View style={styles.rulesBox}>
-              <Text style={styles.rulesText}>
-                Avec ton pote, faites le trick affiché.{"\n"}
-                Celui qui rate prend une lettre.{"\n"}
-                Premier à  S-K-A-T-E → PERD !
-              </Text>
-            </View>
-
-            {/* RETOUR */}
-            <TouchableOpacity
-              style={styles.backBtn}
-              onPress={() => navigation.goBack()}
+            <Animated.Text
+              style={[
+                styles.trickName,
+                { opacity: trickOpacity, transform: [{ scale: trickScale }] },
+              ]}
             >
-              <Text style={styles.backText}>BACK TO ROOTS</Text>
-            </TouchableOpacity>
+              {currentLabel}
+            </Animated.Text>
+
+            {currentId !== "" && (
+              <TouchableOpacity
+                style={styles.questionBubble}
+                onPress={askQuestionForCurrent}
+              >
+                <Text style={styles.questionBubbleText}>?</Text>
+              </TouchableOpacity>
+            )}
           </View>
-        </ScrollView>
-      </ScreenWrapper>
+
+          {/* BOUTON */}
+          <TouchableOpacity style={styles.spinBtn} onPress={roll} disabled={isRolling}>
+            <Text style={styles.spinText}>{isRolling ? "..." : "LANCE LA MANIVELLE"}</Text>
+          </TouchableOpacity>
+
+          {/* RÈGLES */}
+          <View style={styles.rulesBox}>
+            <Text style={styles.rulesText}>
+              Avec ton pote, faites le trick affiché.{"\n"}
+              Celui qui rate prend une lettre.{"\n"}
+              Premier à S-K-A-T-E → PERD !
+            </Text>
+          </View>
+
+          {/* RETOUR */}
+          <TouchableOpacity style={styles.backBtn} onPress={() => navigation.goBack()}>
+            <Text style={styles.backText}>BACK TO ROOTS</Text>
+          </TouchableOpacity>
+
+        </View>
+      </ScrollView>
     </ImageBackground>
   );
 }
 
-// STYLES
+// ==================== STYLES ====================
 const styles = StyleSheet.create({
   bg: {
     flex: 1,
     backgroundColor: "#000",
   },
-
   scroll: {
     flexGrow: 1,
     paddingTop: 40,
     paddingBottom: 120,
   },
-
   container: {
     alignItems: "center",
     paddingHorizontal: 20,
   },
 
-  /* LOGO */
   casinoLogo: {
     width: 350,
     height: 180,
     marginBottom: 20,
   },
 
-  /* SLOT */
   slotWrapper: {
     width: "100%",
     alignItems: "center",
@@ -276,15 +255,14 @@ const styles = StyleSheet.create({
     height: 330,
   },
 
-  /* ZONE DU ROULEAU ANIMÉ */
   reelMask: {
     position: "absolute",
     top: 138,
     width: 310,
     height: 54,
     overflow: "hidden",
-    justifyContent: "center",
     alignItems: "center",
+    justifyContent: "center",
   },
 
   reelItem: {
@@ -292,7 +270,6 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
   },
-
   reelText: {
     fontSize: 26,
     fontWeight: "900",
@@ -313,10 +290,9 @@ const styles = StyleSheet.create({
     textShadowRadius: 10,
   },
 
-  /* BULLE QUESTION */
   questionBubble: {
     position: "absolute",
-    top: 88,
+    top: 90,
     right: 40,
     width: 42,
     height: 42,
@@ -326,21 +302,13 @@ const styles = StyleSheet.create({
     borderColor: "#FFD600",
     alignItems: "center",
     justifyContent: "center",
-    shadowColor: "#000",
-    shadowOpacity: 0.4,
-    shadowOffset: { width: 0, height: 2 },
-    shadowRadius: 6,
-    elevation: 5,
   },
   questionBubbleText: {
     color: "#111",
     fontSize: 22,
     fontWeight: "900",
-    textShadowColor: "#FFD600",
-    textShadowRadius: 4,
   },
 
-  /* BUTTON */
   spinBtn: {
     backgroundColor: "#FF355E",
     paddingVertical: 16,
@@ -355,10 +323,8 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: "900",
     letterSpacing: 1,
-    textTransform: "uppercase",
   },
 
-  /* RULES */
   rulesBox: {
     marginTop: 30,
     backgroundColor: "#1A1A1Acc",
@@ -372,8 +338,6 @@ const styles = StyleSheet.create({
     color: "#FFD600",
     fontWeight: "700",
     textAlign: "center",
-    lineHeight: 22,
-    fontSize: 15,
   },
 
   backBtn: {
@@ -389,6 +353,5 @@ const styles = StyleSheet.create({
     color: "#111",
     fontWeight: "900",
     fontSize: 16,
-    textTransform: "uppercase",
   },
 });

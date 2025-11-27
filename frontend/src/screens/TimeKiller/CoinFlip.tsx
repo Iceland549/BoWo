@@ -1,5 +1,4 @@
 import React, { useRef, useState } from 'react';
-import ScreenWrapper from '../../components/ScreenWrapper';
 import {
   View,
   Text,
@@ -38,7 +37,6 @@ export default function KillerTimeCoinFlip({ navigation }) {
     spinAnim.setValue(0);
 
     const duration = 5000 + Math.random() * 5000;
-
     const interval = setInterval(() => {
       setDisplayImage(prev => (prev === astronaut ? skull : astronaut));
     }, 80);
@@ -69,71 +67,59 @@ export default function KillerTimeCoinFlip({ navigation }) {
       source={flipBG}
       style={styles.pageContainer}
       resizeMode="repeat"
-      imageStyle={{ opacity: 0.20 }}   // 🔥 filtre léger Santa Cruz style
+      imageStyle={{ opacity: 0.20 }}
     >
-      <ScreenWrapper>
-        <ScrollView
-          contentContainerStyle={styles.scroll}
-          showsVerticalScrollIndicator={false}
-        >
-          <View style={styles.container}>
+      <ScrollView
+        contentContainerStyle={styles.scroll}
+        showsVerticalScrollIndicator={false}
+      >
+        <View style={styles.container}>
 
-            {/* ───── LOGO ───── */}
-            <Image source={logoFlip} style={styles.gameLogo} resizeMode="contain" />
+          <Image source={logoFlip} style={styles.gameLogo} resizeMode="contain" />
 
-            {/* ───── QUOTE ───── */}
-            <Text style={styles.quote}>
-              “Pile tu perds... Face je gagne.”
+          <Text style={styles.quote}>“Pile tu perds... Face je gagne.”</Text>
+
+          <Animated.Image
+            source={displayImage}
+            style={[styles.coinImage, { transform: [{ rotateY }] }]}
+          />
+
+          <TouchableOpacity
+            style={[styles.flipBtn, isFlipping && { opacity: 0.5 }]}
+            onPress={flipCoin}
+            disabled={isFlipping}
+          >
+            <Text style={styles.flipText}>
+              {isFlipping ? '...' : 'Lancer la pièce'}
             </Text>
+          </TouchableOpacity>
 
-            {/* ───── COIN ───── */}
-            <Animated.Image
-              source={displayImage}
-              style={[
-                styles.coinImage,
-                { transform: [{ rotateY }] }
-              ]}
-            />
+          {face && (
+            <Text style={styles.result}>
+              👉 {face === 'FACE' ? 'FACE 🎉' : 'PILE 😈'}
+            </Text>
+          )}
 
-            {/* ───── LANCER ───── */}
-            <TouchableOpacity
-              style={[styles.flipBtn, isFlipping && { opacity: 0.5 }]}
-              onPress={flipCoin}
-              disabled={isFlipping}
-            >
-              <Text style={styles.flipText}>
-                {isFlipping ? '...' : 'Lancer la pièce'}
-              </Text>
-            </TouchableOpacity>
+          <TouchableOpacity
+            style={styles.backBtn}
+            onPress={() => navigation.navigate('Main', { screen: 'Profile' })}
+          >
+            <Text style={styles.backText}>Back to Roots</Text>
+          </TouchableOpacity>
 
-            {/* ───── RÉSULTAT ───── */}
-            {face && (
-              <Text style={styles.result}>
-                👉 {face === 'FACE' ? 'FACE 🎉' : 'PILE 😈'}
-              </Text>
-            )}
-
-            {/* ───── BACK ───── */}
-            <TouchableOpacity
-              style={styles.backBtn}
-              onPress={() => navigation.navigate('Main', { screen: 'Profile' })}
-            >
-              <Text style={styles.backText}>Back to Roots</Text>
-            </TouchableOpacity>
-
-          </View>
-        </ScrollView>
-      </ScreenWrapper>  
+        </View>
+      </ScrollView>
     </ImageBackground>
   );
 }
+
 
 /* ==================== STYLES ==================== */
 
 const styles = StyleSheet.create({
   pageContainer: {
     flex: 1,
-    backgroundColor: '#111215',
+    backgroundColor: '#111215', // Valeur fallback si l’image ne charge pas
   },
 
   scroll: {

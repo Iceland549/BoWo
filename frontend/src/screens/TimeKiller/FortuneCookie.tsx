@@ -1,7 +1,6 @@
 // frontend/src/screens/TimeKiller/FortuneCookie.tsx
 
 import React, { useRef, useState } from "react";
-import ScreenWrapper from "../../components/ScreenWrapper"; 
 import {
   View,
   Text,
@@ -51,12 +50,11 @@ const MESSAGES = [
   "Un changement subtil t’amène vers quelque chose de grand."
 ];
 
-
 export default function FortuneCookie({ navigation }) {
   const [opened, setOpened] = useState(false);
   const [message, setMessage] = useState<string>("");
 
-  /* ANIMATIONS — tout en useNativeDriver: true */
+  /* ===================== ANIMATIONS ===================== */
   const paperOpacity = useRef(new Animated.Value(0)).current;
   const paperScaleX = useRef(new Animated.Value(0.1)).current;
   const paperScaleY = useRef(new Animated.Value(0.8)).current;
@@ -78,7 +76,7 @@ export default function FortuneCookie({ navigation }) {
     setMessage(msg);
     setOpened(true);
 
-    /* Reset */
+    /* Reset animations */
     paperOpacity.setValue(0);
     paperScaleX.setValue(0.1);
     paperScaleY.setValue(0.8);
@@ -95,9 +93,7 @@ export default function FortuneCookie({ navigation }) {
     dustOpacity.setValue(0);
     dustY.setValue(0);
 
-    /* ───────────────────────────── */
-    /* 1) FLASH DIVIN                */
-    /* ───────────────────────────── */
+    /* Flash */
     const flash = Animated.sequence([
       Animated.timing(flashOpacity, {
         toValue: 1,
@@ -111,10 +107,8 @@ export default function FortuneCookie({ navigation }) {
       }),
     ]);
 
-    /* ───────────────────────────── */
-    /* 2) BANNIÈRE QUI SE DÉROULE   */
-    /* ───────────────────────────── */
-    const paper = Animated.parallel([
+    /* Banner expand */
+    const bannerAnim = Animated.parallel([
       Animated.timing(paperOpacity, {
         toValue: 1,
         duration: 600,
@@ -135,9 +129,7 @@ export default function FortuneCookie({ navigation }) {
       }),
     ]);
 
-    /* ───────────────────────────── */
-    /* 3) MESSAGE + PARTICULES      */
-    /* ───────────────────────────── */
+    /* Text + particle effects */
     const text = Animated.parallel([
       Animated.timing(textOpacity, {
         toValue: 1,
@@ -167,7 +159,7 @@ export default function FortuneCookie({ navigation }) {
       }),
     ]);
 
-    /* LOOPS : flottement & particules */
+    /* Floating animation */
     const floatLoop = Animated.loop(
       Animated.sequence([
         Animated.timing(floatAnim, {
@@ -185,6 +177,7 @@ export default function FortuneCookie({ navigation }) {
       ])
     );
 
+    /* Dust float */
     const dustLoop = Animated.loop(
       Animated.sequence([
         Animated.timing(dustY, {
@@ -200,9 +193,8 @@ export default function FortuneCookie({ navigation }) {
       ])
     );
 
-    /* LANCEMENT GLOBAL */
     flash.start(() => {
-      paper.start(() => {
+      bannerAnim.start(() => {
         text.start(() => {
           floatLoop.start();
           dustLoop.start();
@@ -211,122 +203,109 @@ export default function FortuneCookie({ navigation }) {
     });
   };
 
-  /* FLOAT interpolation */
   const floatY = floatAnim.interpolate({
     inputRange: [0, 1],
     outputRange: [0, -6],
   });
 
+  /* =====================================
+   *   NO SCREENWRAPPER — FULLSCREEN BG
+   * ===================================== */
   return (
     <ImageBackground
       source={wallpaper}
       resizeMode="repeat"
       imageStyle={{ opacity: 0.32 }}
-      style={styles.bg}
+      style={styles.bg}   // full container
     >
-      <ScreenWrapper>
-        <ScrollView contentContainerStyle={styles.scroll}>
-          <View style={styles.container}>
+      <ScrollView contentContainerStyle={styles.scroll} showsVerticalScrollIndicator={false}>
+        <View style={styles.container}>
 
-            {/* ▶ LOGO EN HAUT */}
-            <Image source={logoFortune} style={styles.gameLogo} resizeMode="contain" />
+          <Image source={logoFortune} style={styles.gameLogo} resizeMode="contain" />
 
-            {/* ▶ PARCHEMIN */}
-            {opened && (
+          {opened && (
+            <Animated.View
+              style={[
+                styles.bannerWrapper,
+                {
+                  opacity: paperOpacity,
+                  transform: [
+                    { scaleX: paperScaleX },
+                    { scaleY: paperScaleY },
+                  ],
+                },
+              ]}
+            >
+              <Image source={banner} style={styles.bannerImage} />
+
               <Animated.View
                 style={[
-                  styles.bannerWrapper,
+                  styles.halo,
                   {
-                    opacity: paperOpacity,
-                    transform: [
-                      { scaleX: paperScaleX },
-                      { scaleY: paperScaleY },
-                    ],
+                    opacity: haloOpacity,
+                    transform: [{ scale: haloScale }],
                   },
                 ]}
-              >
-                <Image source={banner} style={styles.bannerImage} />
+              />
 
-                {/* HALO DERRIÈRE LE MESSAGE */}
-                <Animated.View
+              <View style={styles.bannerContent}>
+                <Animated.Text style={[styles.sparkles, { opacity: sparkleOpacity }]}>
+                  ✨ ✨ ✨
+                </Animated.Text>
+
+                <Animated.Text
                   style={[
-                    styles.halo,
-                    {
-                      opacity: haloOpacity,
-                      transform: [{ scale: haloScale }],
-                    },
+                    styles.messageText,
+                    { opacity: textOpacity, transform: [{ translateY: floatY }] },
                   ]}
-                />
+                >
+                  {message}
+                </Animated.Text>
 
-                {/* CONTENU DU MESSAGE */}
-                <View style={styles.bannerContent}>
+                <Animated.Text
+                  style={[
+                    styles.dust,
+                    { opacity: dustOpacity, transform: [{ translateY: dustY }] },
+                  ]}
+                >
+                  ✧ ✦ ✧ ✦ ✧
+                </Animated.Text>
+              </View>
+            </Animated.View>
+          )}
 
-                  <Animated.Text
-                    style={[
-                      styles.sparkles,
-                      { opacity: sparkleOpacity },
-                    ]}
-                  >
-                    ✨ ✨ ✨
-                  </Animated.Text>
-
-                  <Animated.Text
-                    style={[
-                      styles.messageText,
-                      {
-                        opacity: textOpacity,
-                        transform: [{ translateY: floatY }],
-                      },
-                    ]}
-                  >
-                    {message}
-                  </Animated.Text>
-
-                  <Animated.Text
-                    style={[
-                      styles.dust,
-                      {
-                        opacity: dustOpacity,
-                        transform: [{ translateY: dustY }],
-                      },
-                    ]}
-                  >
-                    ✧ ✦ ✧ ✦ ✧
-                  </Animated.Text>
-
-                </View>
-              </Animated.View>
-            )}
-
-            {/* Bouton initial */}
-            {!opened && (
-              <TouchableOpacity style={styles.mainBtn} onPress={openCookie}>
-                <Text style={styles.mainBtnText}>Ouvrir le Cookie</Text>
-              </TouchableOpacity>
-            )}
-
-            {/* Encore une fortune */}
-            {opened && (
-              <TouchableOpacity style={styles.mainBtn} onPress={openCookie}>
-                <Text style={styles.mainBtnText}>Encore une Fortune</Text>
-              </TouchableOpacity>
-            )}
-
-            <TouchableOpacity
-              style={styles.backBtn}
-              onPress={() => navigation.navigate('Main', { screen: 'Profile' })}
-            >
-              <Text style={styles.backText}>BACK TO ROOTS</Text>
+          {!opened && (
+            <TouchableOpacity style={styles.mainBtn} onPress={openCookie}>
+              <Text style={styles.mainBtnText}>Ouvrir le Cookie</Text>
             </TouchableOpacity>
-          </View>
-        </ScrollView>
-      </ScreenWrapper>  
+          )}
+
+          {opened && (
+            <TouchableOpacity style={styles.mainBtn} onPress={openCookie}>
+              <Text style={styles.mainBtnText}>Encore une Fortune</Text>
+            </TouchableOpacity>
+          )}
+
+          <TouchableOpacity
+            style={styles.backBtn}
+            onPress={() => navigation.navigate("Main", { screen: "Profile" })}
+          >
+            <Text style={styles.backText}>BACK TO ROOTS</Text>
+          </TouchableOpacity>
+
+        </View>
+      </ScrollView>
     </ImageBackground>
   );
 }
 
+
+/* ===================== STYLES ===================== */
 const styles = StyleSheet.create({
-  bg: { flex: 1, backgroundColor: "#1A1110" },
+  bg: {
+    flex: 1,
+    backgroundColor: "#1A1110",  // couleur d'origine conservée
+  },
 
   scroll: {
     flexGrow: 1,
@@ -339,14 +318,12 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
   },
 
-  /* LOGO */
   gameLogo: {
     width: 370,
     height: 230,
     marginBottom: 10,
   },
 
-  /* PARCHEMIN */
   bannerWrapper: {
     marginBottom: 25,
   },
@@ -358,16 +335,14 @@ const styles = StyleSheet.create({
 
   bannerContent: {
     position: "absolute",
-    top: 90,     
-    height: 140,  
+    top: 90,
+    height: 140,
     left: 0,
     right: 0,
-
     justifyContent: "center",
     alignItems: "center",
   },
 
-  /* HALO animé */
   halo: {
     position: "absolute",
     top: 105,
@@ -387,7 +362,7 @@ const styles = StyleSheet.create({
   },
 
   messageText: {
-    width: 230,           
+    width: 230,
     textAlign: "center",
     fontSize: 20,
     lineHeight: 26,
