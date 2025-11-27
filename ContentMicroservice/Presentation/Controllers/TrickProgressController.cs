@@ -3,32 +3,31 @@ using ContentMicroservice.Application.UseCases.UserProgress;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
-using System.Threading.Tasks;
 
-namespace ContentMicroservice.Api.Controllers
+namespace ContentMicroservice.Presentation.Controllers
 {
     [ApiController]
-    [Route("api/progress")]
-    [Authorize] // JWT obligatoire
+    [Route("progress")]   
+    [Authorize]
     public class TrickProgressController : ControllerBase
     {
         private readonly GetNextQuestionUseCase _getNextQuestion;
         private readonly SubmitQuestionAnswerUseCase _submitAnswer;
         private readonly AddXPUseCase _addXP;
+        private readonly ILogger<TrickProgressController> _logger;
 
         public TrickProgressController(
             GetNextQuestionUseCase getNextQuestion,
             SubmitQuestionAnswerUseCase submitAnswer,
-            AddXPUseCase addXP)
+            AddXPUseCase addXP,
+            ILogger<TrickProgressController> logger)
         {
             _getNextQuestion = getNextQuestion;
             _submitAnswer = submitAnswer;
             _addXP = addXP;
+            _logger = logger;
         }
 
-        /// <summary>
-        /// Récupère l’ID utilisateur depuis le JWT (Claim: sub ou NameIdentifier)
-        /// </summary>
         private string GetUserId()
         {
             var userId =
@@ -36,21 +35,51 @@ namespace ContentMicroservice.Api.Controllers
                 User.FindFirst("sub")?.Value;
 
             if (string.IsNullOrEmpty(userId))
-                throw new System.InvalidOperationException("User id not found in token.");
+                throw new InvalidOperationException("User id not found in token.");
 
             return userId;
         }
 
-        /// <summary>
-        /// GET /api/progress/{trickId}/next
-        /// Renvoie la prochaine question Duolingo-like pour ce trick.
-        /// </summary>
+        // ------------------------------------------------------------------
+        // GET /progress/{trickId}/next
+        // ------------------------------------------------------------------
         [HttpGet("{trickId}/next")]
         public async Task<IActionResult> GetNextQuestion(string trickId)
         {
             var userId = GetUserId();
-            var result = await _getNextQuestion.ExecuteAsync(userId, trickId);
-            return Ok(result);
+
+            _logger.LogInformation(
+                "[GET NEXT] User={User} → GET /progress/{Trick}/next",
+                userId, trickId);
+
+            try
+            {
+                var result = await _getNextQuestion.ExecuteAsync(userId, trickId);
+
+                _logger.LogInformation(
+                    "[GET NEXT] Question found for trick={Trick}. Level={Level} Type={Type}",
+                    trickId,
+                    result?.CurrentLevel,
+                    result?.Question?.Type);
+
+                return Ok(result);
+            }
+            catch (KeyNotFoundException ex)
+            {
+                _logger.LogWarning(
+                    "[GET NEXT] Trick NOT FOUND in QuestionBank → {Trick}. Message={Msg}",
+                    trickId,
+                    ex.Message);
+
+                return NotFound(new { error = $"No questions defined for trick '{trickId}'" });
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(
+                    ex, "[GET NEXT] Unexpected error for trick {Trick}", trickId);
+
+                return StatusCode(500, "Internal error");
+            }
         }
 
         public class SubmitAnswerBody
@@ -59,33 +88,60 @@ namespace ContentMicroservice.Api.Controllers
             public string UserAnswer { get; set; } = default!;
         }
 
-        /// <summary>
-        /// POST /api/progress/{trickId}/answer
-        /// Vérifie la réponse, augmente le niveau, donne des XP si correct.
-        /// </summary>
+        // ------------------------------------------------------------------
+        // POST /progress/{trickId}/answer
+        // ------------------------------------------------------------------
         [HttpPost("{trickId}/answer")]
-        public async Task<IActionResult> SubmitAnswer(
-            string trickId,
+        public async Task<IActionResult> SubmitAnswer(string trickId,
             [FromBody] SubmitAnswerBody body)
         {
             var userId = GetUserId();
 
-            var result = await _submitAnswer.ExecuteAsync(
-                userId,
-                trickId,
-                new SubmitAnswerRequest
-                {
-                    Level = body.Level,
-                    UserAnswer = body.UserAnswer
-                });
+            _logger.LogInformation(
+                "[ANSWER] User={User} trick={Trick} level={Level} answer={Answer}",
+                userId, trickId, body.Level, body.UserAnswer);
 
-            // ★ NOUVEAU — XP intégré selon result.XpGained
-            if (result.Correct && result.XpGained > 0)
+            try
             {
-                await _addXP.ExecuteAsync(userId, result.XpGained);
-            }
+                var result = await _submitAnswer.ExecuteAsync(
+                    userId,
+                    trickId,
+                    new SubmitAnswerRequest
+                    {
+                        Level = body.Level,
+                        UserAnswer = body.UserAnswer
+                    });
 
-            return Ok(result);
+                _logger.LogInformation(
+                    "[ANSWER] Result → Correct={Correct} XPGained={XP}",
+                    result.Correct,
+                    result.XpGained);
+
+                if (result.Correct && result.XpGained > 0)
+                {
+                    await _addXP.ExecuteAsync(userId, result.XpGained);
+                    _logger.LogInformation(
+                        "[ANSWER] XP applied → +{XP} for user {User}",
+                        result.XpGained, userId);
+                }
+
+                return Ok(result);
+            }
+            catch (KeyNotFoundException ex)
+            {
+                _logger.LogWarning(
+                    "[ANSWER] Trick NOT FOUND in QuestionBank → {Trick}. Msg={Msg}",
+                    trickId, ex.Message);
+
+                return NotFound(new { error = $"No questions defined for trick '{trickId}'" });
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(
+                    ex, "[ANSWER] Unexpected error trick={Trick}", trickId);
+
+                return StatusCode(500, "Internal error");
+            }
         }
     }
 }

@@ -15,7 +15,7 @@ namespace ContentMicroservice.Infrastructure.QuestionBank
         /// <summary>
         /// Chemin vers le fichier questions.json (relatif à la racine de l'application).
         /// </summary>
-        public string JsonPath { get; set; } = "Data/questions.json";
+        public string JsonPath { get; set; } = "seeds/questions.json";
     }
 
     public class QuestionBankService : IQuestionBank
