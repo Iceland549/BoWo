@@ -9,10 +9,17 @@ import {
   ScrollView,
   ActivityIndicator,
 } from 'react-native';
+
 import useAds from '../hooks/useAds';
 import { log } from '../utils/logger';
 import useModal from '../hooks/useModal';
 import useInterstitialNavigation from '../hooks/useInterstitialNavigation';
+
+// === AJOUTS DUOLINGO-LIKE ===
+import { useProgress } from "../context/ProgressContext";
+import { useQuestion } from "../hooks/useQuestion";
+import { useModalContext } from "../context/ModalContext";
+import BoWoXPBar from "../components/BoWoXPBar";
 
 export default function TrickDetailScreen({ route, navigation }) {
   const trick = route.params.trick;
@@ -20,6 +27,13 @@ export default function TrickDetailScreen({ route, navigation }) {
   const userId = localStorage.getItem('userId');
   const { showModal } = useModal();
   const navigateWithAd = useInterstitialNavigation();
+
+  // === PROGRESSION / QUESTIONS ===
+  const { progress } = useProgress();
+  const { openQuestionModal, showLevelUp } = useModalContext();
+  const { loadQuestion, submit } = useQuestion(trick._id || trick.id);
+
+  const current = progress[trick._id || trick.id] ?? { level: 0, totalXp: 0 };
 
   const onWatchAd = async () => {
     log('TrickDetailScreen.onWatchAd', trick.id || trick._id);
@@ -38,7 +52,6 @@ export default function TrickDetailScreen({ route, navigation }) {
           onConfirm: () => navigation.goBack(),
         });
       } else {
-        // Ancien : alert(resp.message || 'No reward');
         showModal({
           type: 'error',
           title: 'Pas de récompense',
@@ -48,7 +61,6 @@ export default function TrickDetailScreen({ route, navigation }) {
       }
     } catch (e) {
       console.warn('Ad failed or was not watched', e);
-      // Ancien : alert('Ad failed or was not watched');
       showModal({
         type: 'error',
         title: 'Pub non validée',
@@ -57,6 +69,29 @@ export default function TrickDetailScreen({ route, navigation }) {
     }
   };
 
+  // ---------------------------------------------------------
+  // QUESTION : DUOLINGO-LIKE
+  // ---------------------------------------------------------
+  const askQuestion = async () => {
+    const res = await loadQuestion();
+    if (!res?.question) return;
+
+    openQuestionModal({
+      trickId: trick._id || trick.id,
+      question: res.question,
+      onAnswer: async (selected) => {
+        const result = await submit(res.question.level, selected);
+
+        if (result.correct && result.newLevel > current.level) {
+          showLevelUp({
+            trickId: trick._id || trick.id,
+            newLevel: result.newLevel,
+            xpGained: result.xpGained,
+          });
+        }
+      },
+    });
+  };
 
   if (!trick)
     return (
@@ -66,10 +101,19 @@ export default function TrickDetailScreen({ route, navigation }) {
     );
 
   return (
-    <ScrollView style={{ backgroundColor: '#111215' }} contentContainerStyle={styles.container}>
+    <ScrollView
+      style={{ backgroundColor: '#111215' }}
+      contentContainerStyle={styles.container}
+    >
       <ScreenWrapper>
+
         {/* TITLE */}
         <Text style={styles.title}>{trick.name}</Text>
+
+        {/* XP BAR */}
+        <View style={{ marginTop: 8, marginBottom: 20 }}>
+          <BoWoXPBar currentXp={current.totalXp} nextLevelXp={100} />
+        </View>
 
         {/* IMAGES */}
         {(trick.images || []).map((src, i) => (
@@ -78,19 +122,47 @@ export default function TrickDetailScreen({ route, navigation }) {
 
         {/* BUTTONS */}
         <View style={styles.buttonsWrap}>
+          {/* UNLOCK BUTTON */}
           <TouchableOpacity style={styles.adBtn} onPress={onWatchAd}>
             <Text style={styles.adBtnText}>Pay Only 0.49e to Unlock</Text>
           </TouchableOpacity>
 
+          {/* OPEN QUIZ */}
           <TouchableOpacity
             style={styles.quizBtn}
             onPress={() =>
               navigateWithAd(() =>
                 navigation.navigate('Quiz', { trickId: trick._id || trick.id })
-              )   
+              )
             }
           >
             <Text style={styles.quizBtnText}>Open Quiz</Text>
+          </TouchableOpacity>
+
+          {/* DUOLINGO-LIKE QUESTION */}
+          <TouchableOpacity
+            style={{
+              backgroundColor: "#22C55E",
+              paddingVertical: 14,
+              borderRadius: 18,
+              marginBottom: 14,
+              borderWidth: 2,
+              borderColor: "#15803D",
+            }}
+            onPress={askQuestion}
+          >
+            <Text
+              style={{
+                fontWeight: "900",
+                color: "#111215",
+                fontSize: 16,
+                textAlign: "center",
+                textTransform: "uppercase",
+                letterSpacing: 1,
+              }}
+            >
+              Répondre à une question
+            </Text>
           </TouchableOpacity>
         </View>
 
@@ -101,10 +173,12 @@ export default function TrickDetailScreen({ route, navigation }) {
         >
           <Text style={styles.backBtnText}>← Back to Park</Text>
         </TouchableOpacity>
-      </ScreenWrapper>  
+
+      </ScreenWrapper>
     </ScrollView>
   );
 }
+
 
 /* 🎨 SANTA CRUZ POP PUNK STYLES */
 const styles = StyleSheet.create({
@@ -131,15 +205,6 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     textShadowColor: '#FF355E',
     textShadowRadius: 6,
-  },
-
-  /* DESCRIPTION */
-  description: {
-    color: '#EDEDF5',
-    fontSize: 15,
-    lineHeight: 22,
-    marginBottom: 20,
-    textAlign: 'center',
   },
 
   /* IMAGE */
