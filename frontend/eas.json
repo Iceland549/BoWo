@@ -1,0 +1,39 @@
+{
+  "cli": {
+    "version": ">= 5.0.0"
+  },
+  "build": {
+    "development": {
+      "developmentClient": true,
+      "distribution": "internal",
+      "android": {
+        "buildType": "apk"
+      },
+      "env": {
+        "GOOGLE_MOBILE_ADS_APP_ID": "TEST"
+      }
+    },
+
+    "preview": {
+      "distribution": "internal",
+      "android": {
+        "buildType": "apk"
+      },
+      "env": {
+        "GOOGLE_MOBILE_ADS_APP_ID": "ca-app-pub-XXXXXXXXXXXXXX~XXXXXXXXXX"
+      }
+    },
+
+    "production": {
+      "android": {
+        "buildType": "app-bundle"
+      },
+      "env": {
+        "GOOGLE_MOBILE_ADS_APP_ID": "ca-app-pub-XXXXXXXXXXXXXX~XXXXXXXXXX"
+      }
+    }
+  },
+  "submit": {
+    "production": {}
+  }
+}
