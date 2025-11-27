@@ -96,6 +96,24 @@
       }
     },
 
+    // 🔥 NOUVELLE ROUTE pour Duolingo-like : /api/progress/{trickId}/next
+    {
+      "DownstreamPathTemplate": "/progress/{everything}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "content",
+          "Port": 5002
+        }
+      ],
+      "UpstreamPathTemplate": "/api/progress/{everything}",
+      "UpstreamHttpMethod": [ "GET", "POST" ],
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer",
+        "AllowedScopes": []
+      }
+    },
+
     {
       "DownstreamPathTemplate": "/progress/unlock-mini-game",
       "DownstreamScheme": "http",
