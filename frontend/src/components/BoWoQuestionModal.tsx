@@ -1,15 +1,19 @@
-import React from "react";
+import { useState } from "react";
 import { Modal, View, Text, TouchableOpacity, StyleSheet } from "react-native";
 import { QuestionDefinition } from "../api/trickProgressService";
-
+import { useGlobalProgress } from "../context/GlobalProgressContext";
 interface Props {
   visible: boolean;
   question: QuestionDefinition;
-  onAnswer: (option: string) => Promise<void>;
+  onAnswer: (option: string) => Promise<boolean>;
   onClose: () => void;
 }
 
 export default function BoWoQuestionModal({ visible, question, onAnswer, onClose }: Props) {
+  const { refreshProgress } = useGlobalProgress();
+  const [result, setResult] = useState<"correct" | "incorrect" | null>(null);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
   if (!question) return null;
 
   return (
@@ -19,15 +23,47 @@ export default function BoWoQuestionModal({ visible, question, onAnswer, onClose
           <Text style={styles.title}>Question niveau {question.level}</Text>
           <Text style={styles.message}>{question.question}</Text>
 
+          {result === "correct" && (
+            <Text style={{ color: "lime", fontSize: 20, marginBottom: 8, textAlign: "center" }}>
+              ✔ Bonne réponse !
+            </Text>
+          )}
+
+          {result === "incorrect" && (
+            <Text style={{ color: "red", fontSize: 20, marginBottom: 8, textAlign: "center" }}>
+              ✘ Mauvaise réponse
+            </Text>
+          )}
+
+
           {question.options.map((opt) => (
             <TouchableOpacity
               key={opt}
               style={styles.option}
-              onPress={() => onAnswer(opt)}
+              onPress={async () => {
+                if (isSubmitting) return;
+                setIsSubmitting(true);
+
+                const wasCorrect = await onAnswer(opt);
+
+                setResult(wasCorrect ? "correct" : "incorrect");
+                await refreshProgress();
+
+                setIsSubmitting(false);
+              }}
             >
               <Text style={styles.optionText}>{opt}</Text>
             </TouchableOpacity>
           ))}
+
+          {result !== null && (
+            <TouchableOpacity
+              style={[styles.option, { marginTop: 10, backgroundColor: "#333" }]}
+              onPress={onClose}
+            >
+              <Text style={styles.optionText}>Fermer</Text>
+            </TouchableOpacity>
+          )}
 
           <TouchableOpacity style={styles.closeBtn} onPress={onClose}>
             <Text style={styles.closeText}>Plus tard</Text>

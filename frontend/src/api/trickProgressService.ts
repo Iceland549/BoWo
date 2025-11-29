@@ -18,6 +18,18 @@ export interface SubmitAnswerResponse {
   correct: boolean;
   newLevel: number;
   xpGained: number;
+  globalProgress: {
+    xp: number;
+    level: number;
+    completionPercent: number;
+    unlockedTricks: string[];
+    unlockedMiniGames: string[];
+    totalUnlocked: number;
+    totalTricksAvailable: number;
+    tricksUnlockedToday: number;
+    lastUnlockDateUtc: string;
+    userId: string;
+  };
 }
 
 class TrickProgressService {

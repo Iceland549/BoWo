@@ -4,6 +4,7 @@ import TrickProgressService, {
   NextQuestionResponse,
   SubmitAnswerResponse,
 } from "../api/trickProgressService";
+import { useGlobalProgress } from "./GlobalProgressContext";
 
 interface TrickProgress {
   level: number;
@@ -26,8 +27,14 @@ interface ProgressContextValue {
 
 const ProgressContext = createContext<ProgressContextValue | null>(null);
 
+// 🔥 CONFIG EXACTE POUR TON UI
+const LOCAL_MAX_LEVEL = 8;
+const LOCAL_MAX_XP = 80;
+const LOCAL_XP_PER_LEVEL = LOCAL_MAX_XP / LOCAL_MAX_LEVEL; // = 10
+
 export const ProgressProvider = ({ children }: { children: React.ReactNode }) => {
   const [progress, setProgress] = useState<ProgressState>({});
+  const global = useGlobalProgress();
 
   const fetchQuestion = async (trickId: string) => {
     console.log("[CTX] fetchQuestion → trickId =", trickId);
@@ -40,55 +47,40 @@ export const ProgressProvider = ({ children }: { children: React.ReactNode }) =>
         ...prev,
         [trickId]: {
           level: res.currentLevel,
-          totalXp: prev[trickId]?.totalXp ?? 0,
+          totalXp: res.currentLevel * LOCAL_XP_PER_LEVEL, // 🔥 FIX 10 XP/level
         },
       }));
 
       return res;
     } catch (err: any) {
-      console.log(
-        "[CTX] fetchQuestion ERROR →",
-        err?.response?.status,
-        err?.message
-      );
+      console.log("[CTX] fetchQuestion ERROR →", err);
       throw err;
     }
   };
 
-  const answerQuestion = async (trickId: string, level: number, userAnswer: string) => {
-    console.log(
-      "[CTX] answerQuestion →",
-      "trickId =", trickId,
-      "level =", level,
-      "answer =", userAnswer
-    );
+  const answerQuestion = async (trickId, level, userAnswer) => {
+    console.log("[CTX] answerQuestion →", trickId, level, userAnswer);
 
     try {
       const res = await TrickProgressService.submitAnswer(trickId, level, userAnswer);
       console.log("[CTX] answerQuestion SUCCESS →", res);
 
-      setProgress((prev) => {
-        const before = prev[trickId] ?? { level: 0, totalXp: 0 };
-        return {
-          ...prev,
-          [trickId]: {
-            level: res.newLevel,
-            totalXp: before.totalXp + res.xpGained,
-          },
-        };
-      });
+      await global.refreshProgress();
+
+      setProgress((prev) => ({
+        ...prev,
+        [trickId]: {
+          level: res.newLevel,
+          totalXp: res.newLevel * LOCAL_XP_PER_LEVEL, // 🔥 FIX cohérence UI
+        },
+      }));
 
       return res;
-    } catch (err: any) {
-      console.log(
-        "[CTX] answerQuestion ERROR →",
-        err?.response?.status,
-        err?.message
-      );
+    } catch (err) {
+      console.log("[CTX] answerQuestion ERROR →", err);
       throw err;
     }
   };
-
 
   return (
     <ProgressContext.Provider value={{ progress, fetchQuestion, answerQuestion }}>
