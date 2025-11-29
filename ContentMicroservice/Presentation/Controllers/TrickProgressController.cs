@@ -113,17 +113,9 @@ namespace ContentMicroservice.Presentation.Controllers
                     });
 
                 _logger.LogInformation(
-                    "[ANSWER] Result → Correct={Correct} XPGained={XP}",
+                    "[ANSWER] Result → Correct={Correct} XPGained={XP} NewLevel={Level}",
                     result.Correct,
-                    result.XpGained);
-
-                if (result.Correct && result.XpGained > 0)
-                {
-                    await _addXP.ExecuteAsync(userId, result.XpGained);
-                    _logger.LogInformation(
-                        "[ANSWER] XP applied → +{XP} for user {User}",
-                        result.XpGained, userId);
-                }
+                    result.XpGained, result.NewLevel);
 
                 return Ok(result);
             }

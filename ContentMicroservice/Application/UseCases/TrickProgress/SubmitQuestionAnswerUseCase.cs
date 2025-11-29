@@ -4,6 +4,8 @@ using System.Threading.Tasks;
 using ContentMicroservice.Application.Interfaces;
 using ContentMicroservice.Application.Questions;
 using ContentMicroservice.Infrastructure.Persistence.Entities;
+using ContentMicroservice.Application.UseCases.UserProgress;   // <-- pour AddXPUseCase & GetUserProgressUseCase
+using ContentMicroservice.Application.DTOs;                    // <-- pour UserProgressDto
 
 namespace ContentMicroservice.Application.UseCases.TrickProgress
 {
@@ -13,11 +15,12 @@ namespace ContentMicroservice.Application.UseCases.TrickProgress
         public string UserAnswer { get; set; } = default!;
     }
 
-    public class SubmitAnswerResult
+    public class SubmitQuestionAnswerResponse
     {
         public bool Correct { get; set; }
         public int NewLevel { get; set; }
         public int XpGained { get; set; }
+        public UserProgressDto GlobalProgress { get; set; } = default!;
     }
 
     public class SubmitQuestionAnswerUseCase
@@ -25,15 +28,23 @@ namespace ContentMicroservice.Application.UseCases.TrickProgress
         private readonly IUserTrickProgressRepository _progressRepo;
         private readonly IQuestionBank _questionBank;
 
+        private readonly AddXPUseCase _addXPUseCase;                 // <-- ajouté
+        private readonly GetUserProgressUseCase _getProgressUseCase; // <-- ajouté
+
         public SubmitQuestionAnswerUseCase(
             IUserTrickProgressRepository progressRepo,
-            IQuestionBank questionBank)
+            IQuestionBank questionBank,
+            AddXPUseCase addXPUseCase,                  // <-- injecté
+            GetUserProgressUseCase getProgressUseCase   // <-- injecté
+        )
         {
             _progressRepo = progressRepo;
             _questionBank = questionBank;
+            _addXPUseCase = addXPUseCase;
+            _getProgressUseCase = getProgressUseCase;
         }
 
-        public async Task<SubmitAnswerResult> ExecuteAsync(
+        public async Task<SubmitQuestionAnswerResponse> ExecuteAsync(
             string userId,
             string trickId,
             SubmitAnswerRequest request)
@@ -41,18 +52,20 @@ namespace ContentMicroservice.Application.UseCases.TrickProgress
             if (request.Level < 1 || request.Level > 8)
                 throw new ArgumentOutOfRangeException(nameof(request.Level), "Level must be between 1 and 8.");
 
+            // Récupération de la question
             var set = _questionBank.GetQuestionsForTrick(trickId);
-
             var question = set.Questions.FirstOrDefault(q => q.Level == request.Level);
+
             if (question == null)
                 throw new InvalidOperationException($"No question found for trick={trickId}, level={request.Level}.");
 
-            // Comparaison simple, case-insensitive, trim
+            // Comparaison simple
             var correct = string.Equals(
                 question.Answer?.Trim(),
                 request.UserAnswer?.Trim(),
                 StringComparison.OrdinalIgnoreCase);
 
+            // Récupération progression locale
             var progress = await _progressRepo.GetAsync(userId, trickId);
             if (progress == null)
             {
@@ -65,35 +78,45 @@ namespace ContentMicroservice.Application.UseCases.TrickProgress
                 await _progressRepo.CreateAsync(progress);
             }
 
-            var newLevel = progress.Level;
+            int newLevel = progress.Level;
+            int XpGained = 0;
 
-            int xpGained = 0;
             if (correct)
             {
-                // On ne baisse jamais le level, on l'augmente jusqu'à 8 max.
                 if (request.Level == progress.Level + 1 && progress.Level < 8)
                 {
                     newLevel = progress.Level + 1;
 
-                    // Règle XP simple : 1-4:10XP, 5-7:15XP, 8:25XP
-                    xpGained = request.Level switch
-                    {
-                        <= 4 => 10,
-                        <= 7 => 15,
-                        _ => 25
-                    };
+                    // XP local conservé (utile pour UI locale)
+                    XpGained = 20;
                 }
             }
 
+            // Mise à jour progression locale
             progress.Level = newLevel;
             progress.LastQuestionAt = DateTime.UtcNow;
             await _progressRepo.UpdateAsync(progress);
 
-            return new SubmitAnswerResult
+            // ---------------------------
+            // 🔥 NOUVEAU : XP GLOBAL
+            // ---------------------------
+            if (correct)
+            {
+                await _addXPUseCase.ExecuteAsync(userId, 20); // <-- +20 XP global
+            }
+
+            // ---------------------------
+            // 🔥 NOUVEAU : récupérer UserProgressDto
+            // ---------------------------
+            var globalProgress = await _getProgressUseCase.ExecuteAsync(userId);
+
+            // Retour unifié
+            return new SubmitQuestionAnswerResponse
             {
                 Correct = correct,
                 NewLevel = newLevel,
-                XpGained = xpGained
+                XpGained = XpGained,
+                GlobalProgress = globalProgress
             };
         }
     }
