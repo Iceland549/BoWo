@@ -10,11 +10,13 @@ import {
   ImageBackground,
   ScrollView,
 } from "react-native";
+import { useGlobalProgress } from "../../context/GlobalProgressContext";
 
 // === DUOLINGO-LIKE SYSTEM ===
 import { useProgress } from "../../context/ProgressContext";
 import { useQuestion } from "../../hooks/useQuestion";
 import { useModalContext } from "../../context/ModalContext";
+
 
 // LOGOS + IMAGES
 const casinoLogo = require("../../../assets/logos/casino_logo.png");
@@ -58,6 +60,7 @@ export default function CasinoTrickSlot({ navigation }) {
 
   // PROGRESSION + MODALES
   const { progress } = useProgress();
+  const { refreshProgress } = useGlobalProgress();
   const { openQuestionModal, showLevelUp } = useModalContext();
 
   // Hook question
@@ -134,7 +137,8 @@ export default function CasinoTrickSlot({ navigation }) {
       question: q.question,
       onAnswer: async (selected) => {
         const result = await submit(q.question.level, selected);
-
+        await refreshProgress();  // 🔥 synchronise la XP global
+        // e
         if (result.correct && result.newLevel > prog.level) {
           showLevelUp({
             trickId: currentId,
@@ -142,6 +146,7 @@ export default function CasinoTrickSlot({ navigation }) {
             xpGained: result.xpGained,
           });
         }
+        return result.correct;
       },
     });
   };

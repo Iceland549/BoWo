@@ -11,7 +11,7 @@ import {
   ActivityIndicator,
 } from "react-native";
 import { Video, ResizeMode } from "expo-av";
-
+import { useGlobalProgress } from "../context/GlobalProgressContext";
 import ScreenWrapper from "../components/ScreenWrapper";
 import api from "../api/api";
 import { log } from "../utils/logger";
@@ -104,6 +104,7 @@ export default function TrickLearnScreen({ route, navigation }: any) {
 
   // === PROGRESSION / QUESTIONS (Duolingo-like) ===
   const { progress } = useProgress();
+  const { refreshProgress } = useGlobalProgress();
   const { openQuestionModal, showLevelUp } = useModalContext();
   const { loadQuestion, submit } = useQuestion(trickId);
 
@@ -152,6 +153,8 @@ export default function TrickLearnScreen({ route, navigation }: any) {
       question: res.question,
       onAnswer: async (selected: string) => {
         const result = await submit(res.question.level, selected);
+        await refreshProgress();  // 🔥 synchronise la XP globale
+
 
         if (result.correct && result.newLevel > current.level) {
           showLevelUp({
@@ -160,6 +163,7 @@ export default function TrickLearnScreen({ route, navigation }: any) {
             xpGained: result.xpGained,
           });
         }
+        return result.correct;
       },
     });
   };

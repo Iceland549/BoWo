@@ -14,7 +14,7 @@ export interface ModalOptions {
   type?: ModalType;
   confirmText?: string;
   cancelText?: string;
-  onConfirm?: () => void | Promise<void>;
+  onConfirm?: () => void | Promise<boolean>;
   onCancel?: () => void;
 }
 
@@ -24,7 +24,7 @@ export interface ModalOptions {
 export interface QuestionModalPayload {
   trickId: string;
   question: QuestionDefinition;
-  onAnswer: (answer: string) => Promise<void>;
+  onAnswer: (answer: string) => Promise<boolean>;
 }
 
 // -----------------------------------------------
@@ -132,11 +132,6 @@ export function ModalProvider({ children }: { children: ReactNode }) {
         onClose={hideModal}
       />
 
-      {/* ⚠ IMPORTANT ⚠
-         BoWoQuestionModal et LevelUpScreen NE SONT PAS rendus ici.
-         Ils seront rendus dans AppShell/AppNavigator pour être superposés
-         au-dessus de toute l'application.
-      */}
     </ModalContext.Provider>
   );
 }

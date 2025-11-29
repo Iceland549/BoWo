@@ -9,7 +9,7 @@ import {
   ScrollView,
   ActivityIndicator,
 } from 'react-native';
-
+import { useGlobalProgress } from "../context/GlobalProgressContext";
 import useAds from '../hooks/useAds';
 import { log } from '../utils/logger';
 import useModal from '../hooks/useModal';
@@ -27,6 +27,7 @@ export default function TrickDetailScreen({ route, navigation }) {
   const userId = localStorage.getItem('userId');
   const { showModal } = useModal();
   const navigateWithAd = useInterstitialNavigation();
+  const { refreshProgress } = useGlobalProgress();
 
   // === PROGRESSION / QUESTIONS ===
   const { progress } = useProgress();
@@ -81,6 +82,7 @@ export default function TrickDetailScreen({ route, navigation }) {
       question: res.question,
       onAnswer: async (selected) => {
         const result = await submit(res.question.level, selected);
+        await refreshProgress();  // 🔥 synchronise la XP globale
 
         if (result.correct && result.newLevel > current.level) {
           showLevelUp({
@@ -89,6 +91,7 @@ export default function TrickDetailScreen({ route, navigation }) {
             xpGained: result.xpGained,
           });
         }
+        return result.correct;
       },
     });
   };

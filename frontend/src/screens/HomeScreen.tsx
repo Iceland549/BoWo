@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useAuthStore } from '../store/authStore';
 import ScreenWrapper from '../components/ScreenWrapper';
+import { useGlobalProgress } from "../context/GlobalProgressContext";
 
 import {
   View,
@@ -37,6 +38,8 @@ const TrickRow = ({
 }) => {
   const trickId = item._id || item.id;
 
+  const { refreshProgress } = useGlobalProgress();
+
   // trick débloqué ?
   const isUnlocked =
     profile?.unlockedTricks?.includes(trickId) === true;
@@ -62,6 +65,7 @@ const TrickRow = ({
         question: q.question,
         onAnswer: async (selected) => {
           const result = await submit(q.question.level, selected);
+          await refreshProgress();  // 🔥 synchronise la XP globale
           if (result.correct && result.newLevel > prog.level) {
             showLevelUp({
               trickId,
@@ -69,6 +73,7 @@ const TrickRow = ({
               xpGained: result.xpGained,
             });
           }
+          return result.correct;
         },
       });
       return;
@@ -243,7 +248,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 12,
     borderRadius: 12,
     borderWidth: 2,
-    borderColor: '#FF355E',
+    borderColor: '#DFFF00 ',
   },
 
   /* LOADING */
@@ -270,7 +275,7 @@ const styles = StyleSheet.create({
     fontWeight: '900',
     letterSpacing: 1.5,
     textTransform: 'uppercase',
-    textShadowColor: '#FF355E',
+    textShadowColor: '#DFFF00 ',
     textShadowRadius: 6,
   },
   headerSubtitle: {
@@ -288,10 +293,10 @@ const styles = StyleSheet.create({
     paddingVertical: 12,
     borderRadius: 16,
     borderWidth: 2,
-    borderColor: "#FF355E",
+    borderColor: "#DFFF00 ",
   },
   continueBtnText: {
-    color: "#fff",
+    color: "#FFD600",
     fontSize: 14,
     fontWeight: "900",
     textAlign: "center",
