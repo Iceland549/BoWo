@@ -4,7 +4,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { API_BASE_URL } from '../config/env';
 import { log } from '../utils/logger';
 import { refresh as refreshSession } from '../services/authService';
-import { navigate } from '../navigation/RootNavigation';
+import { useAuthStore } from '../store/authStore'; // 👈 AJOUT
 
 const api = axios.create({
   baseURL: `${API_BASE_URL}/api`,
@@ -39,85 +39,91 @@ function onRefreshed(newToken) {
 //  RESPONSE INTERCEPTOR : gère 401 + refresh
 // ------------------------------------------------------
 api.interceptors.response.use(
-  (res) => res,
-  async (err) => {
-    const original = err.config;
-    const status = err?.response?.status || 0;
-    const url = original?.url || '';
+  (response) => response,
+  async (error) => {
+    const originalRequest = error.config || {};
+    const status = error?.response?.status || 0;
+    const url = originalRequest?.url || '';
 
-    // 1) Si le 401 vient déjà de /auth/refresh → pas de boucle infinie
-    if (status === 401 && url.includes('/auth/refresh')) {
-      log('API error 401 on /auth/refresh → force logout');
+    // 🔹 Si ce n'est PAS un 401, on laisse passer l'erreur
+    if (status !== 401 || originalRequest._retry) {
+      return Promise.reject(error);
+    }
+
+    // 🔹 On ne tente pas de refresh sur les routes d’auth elles-mêmes
+    if (
+      url.includes('/auth/login') ||
+      url.includes('/auth/refresh') ||
+      url.includes('/auth/logout')
+    ) {
+      return Promise.reject(error);
+    }
+
+    originalRequest._retry = true;
+
+    if (isRefreshing) {
+      // 🔁 si un refresh est déjà en cours, on met la requête en attente
+      return new Promise((resolve, reject) => {
+        pending.push((token) => {
+          if (!token) {
+            reject(error);
+            return;
+          }
+          originalRequest.headers.Authorization = `Bearer ${token}`;
+          resolve(api(originalRequest));
+        });
+      });
+    }
+
+    isRefreshing = true;
+
+    try {
+      // 🔄 appelle /auth/refresh (via authService.refresh)
+      await refreshSession();
+
+      // 👉 ATTENTION : authService.refresh a déjà appelé saveSession()
+      // donc le nouveau token est dans global.authToken ou AsyncStorage
+      const newToken =
+        global?.authToken || (await AsyncStorage.getItem('accessToken'));
+
+      if (!newToken) {
+        throw new Error('No token after refresh');
+      }
+
+      // 🔔 réveille les requêtes en attente
+      onRefreshed(newToken);
+
+      // 🧠 rejoue la requête originale avec le nouveau token
+      originalRequest.headers.Authorization = `Bearer ${newToken}`;
+      return api(originalRequest);
+    } catch (refreshErr) {
+      log('Refresh session failed → forcing logout', refreshErr);
+
+      // 🔻 On vide proprement le store + le stockage
       try {
+        const { clearCredentials } = useAuthStore.getState();
+        await clearCredentials();
+      } catch (_e) {
+        // fallback au cas où
         await AsyncStorage.multiRemove([
           'accessToken',
           'refreshToken',
           'userId',
           'expiresAt',
         ]);
-      } catch (e) {
-        log('storage clear error after refresh 401', e);
-      }
-      global.authToken = null;
-      navigate('Login');
-      throw err;
-    }
-
-    // 2) Autres 401 : on tente UN refresh
-    if (status === 401 && !original._retry) {
-      original._retry = true;
-
-      // Si un refresh est déjà en cours → on s'abonne
-      if (isRefreshing) {
-        return new Promise((resolve) => {
-          pending.push((token) => {
-            original.headers.Authorization = `Bearer ${token}`;
-            resolve(api(original));
-          });
-        });
-      }
-
-      isRefreshing = true;
-      try {
-        const data = await refreshSession(); // utilise maintenant un axios "nu"
-        const newToken =
-          data?.accessToken ||
-          data?.AccessToken ||
-          data?.access_token ||
-          null;
-
-        if (!newToken) {
-          throw new Error('No token after refresh');
-        }
-
-        onRefreshed(newToken);
-        original.headers.Authorization = `Bearer ${newToken}`;
-        return api(original);
-      } catch (e) {
-        // Refresh KO : on nettoie la session et on renvoie vers Login
-        log('Refresh session failed → logout', e);
-        try {
-          await AsyncStorage.multiRemove([
-            'accessToken',
-            'refreshToken',
-            'userId',
-            'expiresAt',
-          ]);
-        } catch (cleanErr) {
-          log('storage clear error after refresh fail', cleanErr);
-        }
         global.authToken = null;
-        navigate('Login');
-        throw err;
-      } finally {
-        isRefreshing = false;
       }
-    }
 
-    // 3) Autres erreurs
-    log('API error', status, err?.message);
-    throw err;
+      // ❌ IMPORTANT : plus de navigate('Login') ici
+      // AppNavigator basculera tout seul sur AuthNavigator car le token du store = null
+
+      return Promise.reject(refreshErr);
+    } finally {
+      isRefreshing = false;
+      pending = [];
+    }
   }
 );
+
 
 export default api;
