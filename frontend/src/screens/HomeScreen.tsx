@@ -12,6 +12,7 @@ import {
   StyleSheet,
   ActivityIndicator,
 } from 'react-native';
+
 import api from '../api/api';
 import TrickCard from '../components/TrickCard';
 import { log } from '../utils/logger';
@@ -24,10 +25,9 @@ import { useQuestion } from "../hooks/useQuestion";
 import { useModalContext } from "../context/ModalContext";
 import BoWoXPBar from "../components/BoWoXPBar";
 
-/**
- * ✅ Composant pour UNE ligne de trick dans la liste
- * (on peut y utiliser des Hooks sans violer les règles)
- */
+/* -------------------------------------------
+ * TRICK ROW COMPONENT
+ * ------------------------------------------- */
 const TrickRow = ({
   item,
   profile,
@@ -37,27 +37,21 @@ const TrickRow = ({
   showLevelUp,
 }) => {
   const trickId = item._id || item.id;
-
   const { refreshProgress } = useGlobalProgress();
 
-  // trick débloqué ?
   const isUnlocked =
     profile?.unlockedTricks?.includes(trickId) === true;
 
-  // progression Duolingo-like
   const prog = progressByTrick[trickId] ?? { level: 0, totalXp: 0 };
 
-  // Hook spécifique à ce trick
   const { loadQuestion, submit } = useQuestion(trickId);
 
   const continueOrAsk = async () => {
     if (!isUnlocked) {
-      // pas débloqué → TrickDetail (pub/paiement)
-      navigation.navigate("TrickDetail", { trick: item });
+      navigation.navigate('TrickDetail', { trick: item });
       return;
     }
 
-    // Trick débloqué → d’abord une question si dispo
     const q = await loadQuestion();
     if (q?.question) {
       openQuestionModal({
@@ -65,7 +59,9 @@ const TrickRow = ({
         question: q.question,
         onAnswer: async (selected) => {
           const result = await submit(q.question.level, selected);
-          await refreshProgress();  // 🔥 synchronise la XP globale
+
+          await refreshProgress(); // 🔥 synchro XP globale
+
           if (result.correct && result.newLevel > prog.level) {
             showLevelUp({
               trickId,
@@ -73,21 +69,21 @@ const TrickRow = ({
               xpGained: result.xpGained,
             });
           }
+
           return result.correct;
         },
       });
       return;
     }
 
-    // sinon → TrickLearnScreen
-    navigation.navigate("TrickLearn", { trickId });
+    navigation.navigate('TrickLearn', { trickId });
   };
 
   return (
     <View style={{ marginBottom: 20 }}>
       <TouchableOpacity
         onPress={() =>
-          navigation.navigate("TrickDetail", { trick: item })
+          navigation.navigate('TrickDetail', { trick: item })
         }
       >
         <TrickCard trick={{ ...item, isUnlocked }} />
@@ -106,7 +102,7 @@ const TrickRow = ({
         >
           <Text style={styles.continueBtnText}>
             {prog.level >= 8
-              ? "Mastered 🔥"
+              ? 'Mastered 🔥'
               : `Continuer (Lvl ${prog.level}/8)`}
           </Text>
         </TouchableOpacity>
@@ -115,23 +111,25 @@ const TrickRow = ({
   );
 };
 
+/* -------------------------------------------
+ * HOME SCREEN
+ * ------------------------------------------- */
 export default function HomeScreen({ navigation }) {
   const [tricks, setTricks] = useState([]);
   const [loading, setLoading] = useState(true);
-
-  // 🔥 profil utilisateur (unlockedTricks)
   const [profile, setProfile] = useState(null);
 
   const { token, clearCredentials } = useAuthStore();
   const { showModal } = useModal();
 
-  // === PROGRESSION / QUESTION SYSTEM (global) ===
-  const { progress: progressByTrick } = useProgress();
+  // 🔥 Progression locale par trick
+  const { progress: progressByTrick, fetchQuestion } = useProgress();
+
   const { openQuestionModal, showLevelUp } = useModalContext();
 
-  // -----------------------------------------------------------
-  // FETCH tricks + profil user
-  // -----------------------------------------------------------
+  /* -------------------------------------------
+   * FIRST LOAD — tricks + profile
+   * ------------------------------------------- */
   useEffect(() => {
     (async () => {
       try {
@@ -158,9 +156,57 @@ export default function HomeScreen({ navigation }) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  // -----------------------------------------------------------
-  // LOADING STATE
-  // -----------------------------------------------------------
+  /* -------------------------------------------
+   * REFRESH PROFILE WHEN RETURNING ON HOME
+   * (pas de refreshProgress ici → pas de boucle)
+   * ------------------------------------------- */
+  useEffect(() => {
+    const unsubscribe = navigation.addListener('focus', async () => {
+      log('[HomeScreen] focus -> refresh profile');
+      try {
+        const p = await getProfile();
+        setProfile(p);
+      } catch (err) {
+        log('HomeScreen.focus getProfile error', err);
+      }
+    });
+
+    return unsubscribe;
+  }, [navigation]);
+
+  /* -------------------------------------------
+   * PREFETCH PROGRESS FOR UNLOCKED TRICKS
+   * (remplit ProgressContext → XPBar correcte)
+   * ------------------------------------------- */
+  useEffect(() => {
+    if (!profile?.unlockedTricks?.length) return;
+
+    let cancelled = false;
+
+    (async () => {
+      for (const trickId of profile.unlockedTricks) {
+        if (cancelled) return;
+
+        // déjà en cache → on saute
+        if (progressByTrick[trickId]) continue;
+
+        try {
+          log('[HomeScreen] prefetch progress for', trickId);
+          await fetchQuestion(trickId);
+        } catch (err) {
+          log('HomeScreen.prefetchProgress error', { trickId, err });
+        }
+      }
+    })();
+
+    return () => {
+      cancelled = true;
+    };
+  }, [profile, progressByTrick, fetchQuestion]);
+
+  /* -------------------------------------------
+   * LOADING STATE
+   * ------------------------------------------- */
   if (loading) {
     return (
       <SafeAreaView style={styles.loadingScreen}>
@@ -170,13 +216,12 @@ export default function HomeScreen({ navigation }) {
     );
   }
 
-  // -----------------------------------------------------------
-  // MAIN RENDER
-  // -----------------------------------------------------------
+  /* -------------------------------------------
+   * MAIN UI
+   * ------------------------------------------- */
   return (
     <SafeAreaView style={styles.container}>
       <ScreenWrapper>
-
         {/* HEADER */}
         <View style={styles.header}>
           <Text style={styles.headerTitle}>🔥 TRICKS</Text>
@@ -186,14 +231,14 @@ export default function HomeScreen({ navigation }) {
         {/* LOGIN / LOGOUT */}
         <View style={styles.topButtons}>
           {!token ? (
-            <TouchableOpacity onPress={() => navigation.navigate("Login")}>
+            <TouchableOpacity onPress={() => navigation.navigate('Login')}>
               <Text style={styles.topBtnText}>Login</Text>
             </TouchableOpacity>
           ) : (
             <TouchableOpacity
               onPress={() => {
                 clearCredentials();
-                navigation.replace("Login");
+                navigation.replace('Login');
               }}
             >
               <Text style={styles.topBtnText}>Logout</Text>
@@ -223,7 +268,9 @@ export default function HomeScreen({ navigation }) {
   );
 }
 
-/* 🎨 SANTA CRUZ STYLES */
+/* -------------------------------------------
+ * STYLES
+ * ------------------------------------------- */
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -239,6 +286,7 @@ const styles = StyleSheet.create({
     gap: 10,
     zIndex: 99,
   },
+
   topBtnText: {
     color: '#FFD600',
     fontWeight: '900',
@@ -251,24 +299,24 @@ const styles = StyleSheet.create({
     borderColor: '#DFFF00 ',
   },
 
-  /* LOADING */
   loadingScreen: {
     flex: 1,
-    backgroundColor: '#111215',
+    backgroundColor: '#FFD600',
     justifyContent: 'center',
     alignItems: 'center',
   },
+
   loadingText: {
     marginTop: 10,
     color: '#FFD600',
     fontWeight: '700',
   },
 
-  /* HEADER */
   header: {
     marginTop: 12,
     marginBottom: 12,
   },
+
   headerTitle: {
     color: '#0AA5FF',
     fontSize: 32,
@@ -278,6 +326,7 @@ const styles = StyleSheet.create({
     textShadowColor: '#DFFF00 ',
     textShadowRadius: 6,
   },
+
   headerSubtitle: {
     color: '#FFD600',
     fontSize: 14,
@@ -286,21 +335,21 @@ const styles = StyleSheet.create({
     letterSpacing: 0.5,
   },
 
-  /* BOUTON CONTINUER */
   continueBtn: {
     marginTop: 8,
-    backgroundColor: "#0AA5FF",
+    backgroundColor: '#0AA5FF',
     paddingVertical: 12,
     borderRadius: 16,
     borderWidth: 2,
-    borderColor: "#DFFF00 ",
+    borderColor: '#FFD600 ',
   },
+
   continueBtnText: {
-    color: "#FFD600",
+    color: '#FFD600',
     fontSize: 14,
-    fontWeight: "900",
-    textAlign: "center",
-    textTransform: "uppercase",
+    fontWeight: '900',
+    textAlign: 'center',
+    textTransform: 'uppercase',
     letterSpacing: 1,
   },
 });
