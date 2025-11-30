@@ -4,13 +4,16 @@
     "name": "Ollie",
     "difficulty": "beginner",
     "price": 0.49,
-    "description": "Le ollie est le trick de base qui permet de faire décoller la planche sans utiliser les mains.",
+    "description": "Le ollie est le trick de base qui fait décoller la planche sans les mains.",
     "steps": [
-      "Positionne ton pied arrière sur le tail et ton pied avant juste derrière les vis avant.",
-      "Plie bien les genoux puis frappe sèchement le tail vers le sol pour faire pop.",
-      "Glisse ton pied avant vers le nose pour aplatir la planche en l'air.",
-      "Garde les épaules au-dessus de la board et atterris avec les deux pieds sur les vis."
+      "Place-toi avec une position stable : pied arrière bien centré sur le tail, pied avant légèrement derrière les vis avant, épaules parallèles à la board et regard vers l’avant.",
+      "Plie bien les genoux pour charger le pop, garde ton poids au centre et utilise les bras uniquement pour l’équilibre.",
+      "Claque le tail fort et sec avec le pied arrière tout en sautant verticalement afin que la board monte avec toi.",
+      "Frotte ton pied avant du milieu du grip vers le nose pour tirer la board vers l’avant et commencer à la niveler.",
+      "Quand le pied avant arrive vers les vis, la board devient horizontale : garde les genoux serrés et contrôle ton équilibre.",
+      "Laisse la board redescendre, vise les vis pour atterrir, absorbe l’impact avec les genoux et continue à rouler proprement."
     ],
+
     "images": [
       "/static/tricks/ollie/ollie_1.jpg",
       "/static/tricks/ollie/ollie_2.jpg",
@@ -21,8 +24,12 @@
       "proUrl": ""
     },
     "funFact": "Au Japon, le skate de rue n’a été autorisé qu’en 2017, et pourtant ils dominent déjà les compétitions U16.",
-    "proTip": "Concentre-toi sur le slide du pied avant vers le nose : c'est lui qui donne vraiment de la hauteur et de la stabilité à ton ollie.",
-    "commonMistake": "Beaucoup débutent en sautant sans vraiment frapper le tail ou sans glisser le pied avant."
+    "proTip": [
+      "Concentre-toi sur le slide du pied avant vers le nose : c'est lui qui donne vraiment de la hauteur et de la stabilité à ton ollie."
+    ],
+    "commonMistake": [
+      "Beaucoup débutent en sautant sans vraiment frapper le tail ou sans glisser le pied avant."
+    ]
   },
   {
     "_id": "popshoveit",
@@ -31,11 +38,11 @@
     "price": 0.49,
     "description": "Le pop shove-it fait tourner la planche de 180 degrés sous tes pieds sans la faire flipper.",
     "steps": [
-      "Place ton pied arrière sur le tail, légèrement décalé vers le bord arrière côté talon.",
-      "Positionne ton pied avant vers le centre de la board pour garder le contrôle.",
-      "Frappe le tail vers le bas en poussant légèrement la board vers l'arrière pour lancer la rotation.",
-      "Laisse la planche tourner de 180 degrés sous toi, garde ton poids centré.",
-      "Rattrape la planche avec les pieds et atterris fléchi."
+      "Place ton pied arrière sur le tail avec les orteils juste au bord, le talon dépassant légèrement ; place ton pied avant juste derrière les vis avant, comme pour un ollie.",
+      "Plie les genoux, garde le centre de gravité centré, épaules alignées.",
+      "Avec le pied arrière, claque fort le tail et effectue un mouvement 'scoop' vers l’arrière + côté ; le pied avant accompagne légèrement.",
+      "Au même moment, saute — lève les jambes pour laisser la board tourner de 180° sous toi.",
+      "Pendant la rotation, regarde la board, puis replaques les pieds directement au-dessus des trucks (vis), genoux fléchis pour amortir."
     ],
     "images": [
       "/static/tricks/popshoveit/popshoveit_1.jpg",
@@ -47,8 +54,18 @@
       "proUrl": ""
     },
     "funFact": "Le skatepark La Fuente à Mexico possède le seul slalom asymétrique de 120 mètres au monde.",
-    "proTip": "Pense à un petit mouvement de scoop avec le pied arrière.",
-    "commonMistake": "Beaucoup poussent trop fort vers l'arrière."
+    "proTip": [
+      "Travaille le scoop + pop à l’arrêt pour maitriser la rotation avant d’ajouter le saut.",
+      "Sur surface lisse, en ligne droite, c’est plus simple pour t’entraîner.",
+      "Vise un atterrissage propre sur les vis avant de prendre de la vitesse.",
+      "Concentre-toi sur le timing : pop + scoop + saut doivent être synchronisés."
+    ],
+    "commonMistake": [
+      "Pied arrière trop centré → rotation faible ou planche instable.",
+      "Se pencher en avant/arrière → la board peut filer trop loin ou atterrir mal.",
+      "Sauter trop tôt ou trop haut → difficile à replaquer.",
+      "Regarder le sol au lieu de la board → tu rates la replaque."
+    ]
   },
   {
     "_id": "kickflip",
@@ -57,11 +74,13 @@
     "price": 0.49,
     "description": "Le kickflip fait tourner la planche sur son axe longitudinal grâce à un flick du pied avant.",
     "steps": [
-      "Place ton pied arrière sur le tail comme pour un ollie.",
-      "Poppe fort comme pour un ollie.",
-      "Glisse ton pied avant vers l'extérieur pour donner le flick.",
-      "Laisse la planche tourner et garde les yeux sur le grip.",
-      "Rattrape la board avec les deux pieds."
+      "Place ton pied arrière sur le tail et ton pied avant entre le milieu du deck et les vis avant, légèrement en diagonale vers l’avant pour préparer le flick.",
+      "Prépare-toi comme pour un ollie : genoux pliés, épaules alignées, poids centré, puis déclenche un pop franc et vertical.",
+      "Au moment du pop, commence ton saut vers le haut et fais glisser ton pied avant comme pour un ollie jusqu’au nose.",
+      "Quand ton pied atteint le coin avant de la board, effectue un flick rapide et précis vers l’avant-exterieur pour lancer la rotation.",
+      "Laisse la board tourner sous toi en gardant les genoux relevés ; surveille le retour du grip pour préparer la réception.",
+      "Catch la board d’abord avec ton pied avant dès que le grip revient visible, puis place ton pied arrière pour stabiliser.",
+      "Redescends avec la board et plie les genoux pour absorber l’impact en gardant les épaules alignées."
     ],
     "images": [
       "/static/tricks/kickflip/kickflip_1.jpg",
@@ -72,8 +91,18 @@
       "proUrl": ""
     },
     "funFact": "Momiji Nishiya est devenue championne olympique à 13 ans, l'une des plus jeunes médaillées de l’histoire.",
-    "proTip": "Visualise ton flick comme un petit coup sec.",
-    "commonMistake": "Flick trop fort ou trop tôt."
+    "proTip": [
+      "Travaille ton flick à vide pour sentir le bon angle avant de mélanger pop et saut.",
+      "Commence en statique puis avance lentement quand tu maitrises le mouvement.",
+      "Regarde la board pendant la rotation pour anticiper le catch.",
+      "Flick rapide mais léger : trop fort et la board s’en va loin."
+    ],
+    "commonMistake": [
+      "Flick trop horizontal ou trop fort qui fait partir la board.",
+      "Pencher le buste en arrière pendant le pop.",
+      "Catch trop tôt alors que la board n’est pas revenue à plat.",
+      "Pop insuffisant qui ne laisse pas le temps à la board de tourner."
+    ]
   },
   {
     "_id": "heelflip",
@@ -82,11 +111,11 @@
     "price": 0.49,
     "description": "Le heelflip tourne dans l'autre sens du kickflip grâce au talon.",
     "steps": [
-      "Place ton pied arrière sur le tail.",
-      "Positionne ton pied avant un peu plus centré.",
-      "Poppe fort, puis talonne vers l'extérieur.",
-      "Laisse tourner la board.",
-      "Rattrape-la et replaque."
+      "Place ton pied arrière bien calé au centre du tail et ton pied avant légèrement en diagonale, un peu devant les vis avant avec le talon qui dépasse côté heel. Reste fléchi et centré au-dessus des trucks.",
+      "Poppe comme pour un ollie puissant : claque fort le tail et laisse la board monter sous toi pendant que ton pied avant glisse vers le nose.",
+      "Arrivé vers les vis avant, effectue un flick en diagonale vers l’avant-extérieur avec le talon pour lancer la rotation du heelflip. Le mouvement est rapide mais contrôlé.",
+      "Laisse la board tourner sous toi en restant centré. Observe le grip revenir vers le haut pour anticiper la fin de rotation.",
+      "Quand le grip revient, attrape la board avec ton pied avant au-dessus des vis, puis repose le pied arrière. Plie les genoux pour absorber l’impact et continue à rouler proprement."
     ],
     "images": [
       "/static/tricks/kickflip/kickflip_1.jpg",
@@ -97,8 +126,12 @@
       "proUrl": ""
     },
     "funFact": "Le snake-run d’Albany en Australie fait 183 mètres, l’un des plus longs du monde.",
-    "proTip": "Lifte le genou avant.",
-    "commonMistake": "Talonner trop fort."
+    "proTip": [
+      "Commence avec un léger mouvement : un peu de vitesse stabilise énormément le heelflip et aide à catch le grip proprement."
+    ],
+    "commonMistake": [
+      "Talonner trop fort ou trop droit : ça envoie la board loin devant toi ou crée un double heelflip incontrôlable."
+    ]
   },
   {
     "_id": "fs_popshoveit",
@@ -107,11 +140,12 @@
     "price": 0.49,
     "description": "Rotation de 180° frontside sous les pieds.",
     "steps": [
-      "Place ton pied arrière près du bord côté orteils.",
-      "Positionne ton pied avant au centre.",
-      "Poppe en poussant vers l'avant.",
-      "Laisse tourner la board.",
-      "Replaque centré."
+      "Place ton pied arrière légèrement vers le côté toe sur le tail, et ton pied avant juste derrière les vis avant ; garde les épaules parallèles et le poids centré.",
+      "Plie les genoux et fais une légère rotation des épaules vers l’avant pour amorcer la direction frontside.",
+      "Poppe fort le tail en poussant la board vers l’avant avec ton pied arrière pour lancer la rotation frontside ; le pied avant reste léger et stabilise.",
+      "Saute verticalement pendant que la board tourne sous toi ; garde les genoux relevés et reste centré au-dessus du deck.",
+      "Attrape la board avec ton pied avant dès que le grip revient vers le haut, puis pose le pied arrière pour stabiliser.",
+      "Replaque sur les vis, plie les genoux pour amortir, et continue à rouler droit."
     ],
     "images": [
       "/static/tricks/kickflip/kickflip_1.jpg",
@@ -122,8 +156,18 @@
       "proUrl": ""
     },
     "funFact": "À Tijuana, un bowl géant a été construit dans une ancienne usine de tequila.",
-    "proTip": "Garde les épaules calmes.",
-    "commonMistake": "Trop tourner le haut du corps."
+    "proTip": [
+      "Travaille d’abord le mini-scoop frontside en statique pour sentir l’angle du pop.",
+      "Garde le pied avant léger pour ne pas bloquer la rotation.",
+      "Garde le buste stable : trop tourner te fait faire un 180 complet.",
+      "Saute droit au-dessus de la board, pas en arrière."
+    ],
+    "commonMistake": [
+      "Board qui part trop loin devant à cause d’un scoop trop fort.",
+      "Rotation incomplète par manque de pop ou épaules trop fermées.",
+      "Replaquage instable si tu catches la board trop tard.",
+      "Le rider tourne avec la board à cause d’un buste trop engagé."
+    ]
   },
   {
     "_id": "fs_180",
@@ -132,11 +176,12 @@
     "price": 0.49,
     "description": "Ollie + rotation frontside du corps.",
     "steps": [
-      "Place tes pieds comme pour un ollie.",
-      "Prépare la rotation avec les épaules.",
-      "Poppe et tourne.",
-      "Replaque en switch.",
-      "Absorbe avec les genoux."
+      "Place ton pied arrière sur le tail et ton pied avant derrière les vis, épaules légèrement ouvertes vers l’avant pour préparer la rotation.",
+      "Plie les genoux et amorce une petite rotation du buste vers le frontside tout en gardant la board stable.",
+      "Poppe fort comme pour un ollie tout en poursuivant la rotation des épaules, ce qui entraîne naturellement la board avec toi.",
+      "Saute en tirant légèrement tes hanches dans la direction frontside pour que ton corps et la board tournent ensemble.",
+      "Laisse la board tourner sous toi en gardant les genoux rapprochés et les pieds au-dessus des vis.",
+      "Replaque en alignant tes pieds au-dessus des trucks, absorbe l’impact en fléchissant les genoux et continue à rouler droit."
     ],
     "images": [
       "/static/tricks/kickflip/kickflip_1.jpg",
@@ -147,8 +192,19 @@
       "proUrl": ""
     },
     "funFact": "Le premier half-pipe officiel aux États-Unis se trouvait dans le jardin d’un pasteur.",
-    "proTip": "Ouvre les épaules.",
-    "commonMistake": "Forcer uniquement avec les pieds."
+    "proTip": [
+      "Tourne d’abord les épaules, la board suivra naturellement.",
+      "Une légère vitesse rend la rotation plus fluide.",
+      "Regarde par-dessus ton épaule frontside pour guider le trick.",
+      "Garde la board sous toi en maintenant les genoux serrés."
+    ],
+    "commonMistake": [
+      "Board qui pivote au sol faute de pop suffisant.",
+      "Le rider tourne mais pas la board car le pop et la rotation ne sont pas synchronisés.",
+      "Rotation excessive du buste qui dépasse les 180°.",
+      "Replaquer au milieu du deck, entraînant une perte d’équilibre.",
+      "Manquer la rotation à cause d’une amorce trop faible des épaules."
+    ]
   },
   {
     "_id": "bs_180",
@@ -157,11 +213,12 @@
     "price": 0.49,
     "description": "Rotation backside avec ollie.",
     "steps": [
-      "Place tes pieds comme un ollie.",
-      "Prépare les épaules vers l'arrière.",
-      "Poppe et tourne.",
-      "Garde la board collée.",
-      "Replaque en switch."
+      "Place ton pied arrière sur le tail et ton pied avant derrière les vis avant, avec les épaules légèrement orientées vers le backside.",
+      "Plie les genoux et amorce une légère pré-rotation du buste vers le backside pour préparer la rotation.",
+      "Poppe fort comme pour un ollie tout en laissant tes épaules continuer leur rotation, ce qui entraîne la board avec toi.",
+      "Saute en tirant légèrement tes hanches dans la direction backside pour que ton corps et la board tournent ensemble.",
+      "Laisse la board tourner sous toi en gardant les pieds au-dessus des vis et le buste centré.",
+      "Replaque au-dessus des trucks, absorbe l’impact en fléchissant les genoux et continue à rouler dans la nouvelle direction."
     ],
     "images": [
       "/static/tricks/kickflip/kickflip_1.jpg",
@@ -172,8 +229,19 @@
       "proUrl": ""
     },
     "funFact": "À Montréal, un skatepark est sous un viaduc pour permettre le skate même en plein hiver.",
-    "proTip": "Regarde derrière toi.",
-    "commonMistake": "Poppper puis tourner."
+    "proTip": [
+      "Engage les épaules avant le pop pour faciliter la rotation.",
+      "Garde une légère vitesse pour rendre la rotation plus fluide.",
+      "Regarde par-dessus ton épaule backside pour guider ton corps.",
+      "Pense ollie + rotation du buste, pas shove-it."
+    ],
+    "commonMistake": [
+      "Board qui ne tourne pas faute de pré-rotation des épaules.",
+      "Trop tourner le buste et dépasser les 180°.",
+      "Pop insuffisant qui fait pivoter la board au sol.",
+      "Replaquer au milieu du deck, entraînant une perte d’équilibre.",
+      "Confondre avec un backside shove-it et essayer de tourner la board avec les pieds."
+    ]
   },
   {
     "_id": "nollie",
@@ -182,11 +250,11 @@
     "price": 0.49,
     "description": "Ollie depuis le nose.",
     "steps": [
-      "Place ton pied avant sur le nose.",
-      "Pied arrière au milieu.",
-      "Poppe avec le nose.",
-      "Slide vers le tail.",
-      "Replaque controlé."
+      "Place ton pied avant bien sur le nose de la planche, pied arrière au milieu, genoux fléchis, buste aligné.",
+      "Appuie fort sur le nose avec le pied avant puis saute verticalement, comme un ollie inversé.",
+      "Laisse la planche monter sous toi, garde l’équilibre, genoux fléchis, contrôle le jump.",
+      "Surveille la planche au sommet du saut, prépare l’atterrissage en fléchissant les jambes.",
+      "Pose les pieds sur les trucks, amortis l’impact, puis roule droit pour stabiliser."
     ],
     "images": [
       "/static/tricks/kickflip/kickflip_1.jpg",
@@ -197,8 +265,19 @@
       "proUrl": ""
     },
     "funFact": "Le plus grand bowl d’Afrique se trouve à Kimberley, conçu pour des compétitions internationales.",
-    "proTip": "Poids légèrement en avant.",
-    "commonMistake": "Ne pas assez charger le pied avant."
+    "proTip": [
+      "Apprends d’abord le pop sur place avant de tenter en roulant.",
+      "Fléchis bien les genoux pour garder l’équilibre et amortir.",
+      "Garde la planche sous toi — ne saute pas en pensant à l’atterrissage.",
+      "Commence lentement, augmente la vitesse progressivement."
+    ],
+    "commonMistake": [
+      "Pied avant mal placé → le nose ne pop pas.",
+      "Pop trop faible → la board lève mal ou pas du tout.",
+      "Perdre l’équilibre en l’air → réception instable.",
+      "Regarder ailleurs que la planche → rater le catch.",
+      "Ne pas fléchir les jambes → atterrissage dur / instable."
+    ]
   },
   {
     "_id": "halfcab",
@@ -207,11 +286,12 @@
     "price": 0.49,
     "description": "Fakie backside 180.",
     "steps": [
-      "Pars en fakie.",
-      "Prépare la rotation.",
-      "Poppe et tourne.",
-      "Reviens en regular.",
-      "Replaque bas."
+      "Roule en fakie à vitesse moyenne, pied fort sur le tail et pied avant vers le centre de la board, genoux fléchis et épaules détendues.",
+      "Commence à tourner la tête puis les épaules en backside, comme si tu voulais déjà regarder l’endroit où tu vas replaquer en regular.",
+      "Fléchis un peu plus, poppe un ollie en fakie : tape le tail avec le pied arrière et fais glisser le pied avant pour garder la board collée pendant que ton corps part en rotation backside.",
+      "Laisse la rotation du haut du corps entraîner la board dans le 180° en gardant les hanches au-dessus de la planche et les pieds alignés au-dessus des trucks.",
+      "À la fin du 180°, nivelle la board bien à plat et vise les vis des trucks avec tes pieds pour replaquer stable.",
+      "Replaque en regular, genoux fléchis pour absorber l’impact, garde ton poids centré et continue de rouler proprement pour valider le Halfcab."
     ],
     "images": [
       "/static/tricks/kickflip/kickflip_1.jpg",
@@ -222,8 +302,20 @@
       "proUrl": ""
     },
     "funFact": "À Copenhague, certains rails ont été soudés clandestinement par les skaters avant d’être légalisés.",
-    "proTip": "Tourne les épaules en avance.",
-    "commonMistake": "Tourner après le pop."
+    "proTip": [
+      "Maîtrise d’abord le fakie, l’ollie et le backside 180 avant de travailler le Halfcab.",
+      "Pense toujours : tête → épaules → hanches → board, dans cet ordre, pour lancer la rotation.",
+      "Commence avec des pops petits et contrôlés, la hauteur viendra plus tard.",
+      "Fixe un point au sol là où tu veux replaquer, ça aide à finir le 180 proprement.",
+      "Travaille la sensation de rotation en fakie sans board ou en pivot au sol avant de tout combiner avec un vrai pop."
+    ],
+    "commonMistake": [
+      "Ne pas tourner la tête ni les épaules : le corps bloque à mi-rotation et tu ne complètes pas le 180.",
+      "Popper raide sans fléchir assez : tu n’as pas le temps pour tourner et replacer la board.",
+      "Laisser la board partir loin devant ou derrière toi au lieu de garder les hanches au-dessus.",
+      "Replaquer sur le centre de la board plutôt que sur les trucks, ce qui provoque un wheelbite ou une glissade.",
+      "Se pencher trop en avant ou en arrière à la réception au lieu de rester compact et centré."
+    ]
   },
   {
     "_id": "boardslide",
@@ -232,11 +324,11 @@
     "price": 0.49,
     "description": "Slide sur le dessous de la board.",
     "steps": [
-      "Approche avec vitesse stable.",
-      "Petit ollie sur la barre.",
-      "Place la board perpendiculaire.",
-      "Garde les épaules alignées.",
-      "Sors en pivoting."
+      "Roule à vitesse modérée en approchant la barre avec un angle léger de 10 à 20°, pieds placés comme pour un ollie stable.",
+      "À environ 20 cm de la barre, poppe un petit ollie et amorce un pivot pour placer la board perpendiculaire.",
+      "Pose le centre de ta board sur la barre en gardant les épaules alignées et les genoux légèrement fléchis.",
+      "Laisse la board glisser en gardant ton poids centré et tes épaules perpendiculaires à la barre, regard vers la fin du rail.",
+      "À la fin de la barre, effectue un petit pivot pour réaligner la board et reviens rouler proprement."
     ],
     "images": [
       "/static/tricks/kickflip/kickflip_1.jpg",
@@ -247,8 +339,19 @@
       "proUrl": ""
     },
     "funFact": "En Espagne, un skatepark a été construit sur un ancien cirque, et sa forme ronde existe toujours.",
-    "proTip": "Fixe le rail du regard.",
-    "commonMistake": "Trop tourner les épaules."
+    "proTip": [
+      "Commence sur un curb bas pour apprendre avant de passer aux barres rondes.",
+      "Vise toujours le centre du deck pour une glisse stable.",
+      "Garde les épaules bien perpendiculaires à la barre pour éviter les twists.",
+      "Fixe ton regard sur la fin du rail, jamais sur tes pieds."
+    ],
+    "commonMistake": [
+      "Approcher trop lentement et perdre la glisse au milieu.",
+      "Ne pas pivoter assez et poser la board trop parallèlement à la barre.",
+      "Mettre trop de poids sur les talons et décrocher en arrière.",
+      "Pencher vers les orteils et voir la board tourner hors du rail.",
+      "Pop trop haut, rendant difficile la précision du placement sur la barre."
+    ]
   },
   {
     "_id": "fifty_fifty",
@@ -257,11 +360,11 @@
     "price": 0.49,
     "description": "Grind sur les deux trucks.",
     "steps": [
-      "Approche avec angle léger.",
-      "Poppe un ollie propre.",
-      "Place les deux trucks.",
-      "Garde les épaules alignées.",
-      "Sors droit ou pivot."
+      "Approche le curb ou le rail à vitesse modérée, presque parallèle, avec un angle léger de 5 à 10°, pieds placés comme pour un ollie stable.",
+      "Poppe un ollie droit à 20–30 cm du rail afin de monter au-dessus et aligner la board dans l’axe du grind.",
+      "En l’air, nivelle la board et pose les deux trucks simultanément sur la surface en gardant les épaules parfaitement alignées avec le rail.",
+      "Maintiens la glisse en gardant ton poids centré, les genoux fléchis et ton regard fixé sur la fin du rail.",
+      "À la sortie, laisse les trucks descendre naturellement ou fais un petit ollie pour revenir proprement sur le sol et continue à rouler droit."
     ],
     "images": [
       "/static/tricks/kickflip/kickflip_1.jpg",
@@ -272,8 +375,19 @@
       "proUrl": ""
     },
     "funFact": "Au Japon, les skaters s’entraînent la nuit dans les parkings de konbini ouverts 24/7.",
-    "proTip": "Regarde la fin du rail.",
-    "commonMistake": "Atterrir trop de côté."
+    "proTip": [
+      "Commence sur un curb large et bas avant de tenter les barres rondes.",
+      "Garde les épaules dans l’axe du rail pour stabiliser la ligne du grind.",
+      "Un peu plus de vitesse rend la glisse plus fluide et évite de coller.",
+      "Ne regarde jamais tes pieds : vise toujours la fin du rail."
+    ],
+    "commonMistake": [
+      "Approcher trop lentement et perdre la glisse au milieu.",
+      "Pop trop faible qui fait accrocher le truck au bord du curb.",
+      "Arriver trop en diagonale et glisser hors du rail.",
+      "Mettre trop de poids sur le nose ou sur le tail au lieu de rester centré.",
+      "Regarder les pieds plutôt que la fin du rail, ce qui déséquilibre le grind."
+    ]
   },
   {
     "_id": "tre_flip",
@@ -282,11 +396,12 @@
     "price": 0.49,
     "description": "Shove-it 360 + kickflip.",
     "steps": [
-      "Place le pied arrière pour scoop.",
-      "Pied avant prêt à flick.",
-      "Poppe fort + scoop.",
-      "Flick léger.",
-      "Rattrape et replaque."
+      "Place ton pied arrière sur le tail, orteils légèrement sur le bord, et ton pied avant un peu en arrière de la position Kickflip, légèrement tourné.",
+      "Fléchis les genoux, charge ton poids arrière, puis pop + scoope fort le tail pour lancer la rotation horizontale.",
+      "Juste après le scoop, flicke le pied avant en diagonale comme un Kickflip : la board doit à la fois flipper et faire un 360° horizontal.",
+      "Laisse la planche tourner sous tes pieds, jambes fléchies, genoux hauts, sans tenter de la recalquer trop tôt.",
+      "Quand la board a fini sa rotation, attrape-la au-dessus des vis (trucks) avec ton front foot, puis ramène le pied arrière.",
+      "Replaque les deux pieds, genoux fléchis, poids centré, puis continues de rouler proprement."
     ],
     "images": [
       "/static/tricks/kickflip/kickflip_1.jpg",
@@ -297,8 +412,19 @@
       "proUrl": ""
     },
     "funFact": "Le premier skateboard motorisé de 1977 utilisait un mini moteur de tondeuse.",
-    "proTip": "Flick discret.",
-    "commonMistake": "Trop flicker."
+    "proTip": [
+      "Assure-toi de maîtriser le Kickflip et le 360 Pop Shove-It avant de tenter un 360 Flip.",
+      "Pratique d’abord le scoop + flick sans atterrissage pour bien sentir la rotation.",
+      "Commence en roulant lentement plutôt qu’à partir d’un stand-still pour plus de fluidité.",
+      "Garde les épaules parallèles à ta trajectoire et le regard loin devant pour stabiliser la board."
+    ],
+    "commonMistake": [
+      "Pop trop faible, la board ne tourne pas assez → replaquage raté.",
+      "Flick trop tard → seulement un shove-it, pas de flip.",
+      "Ne pas assez scooper → rotation horizontale incomplète.",
+      "Rattraper la board trop tôt → flip incomplet, chute assurée.",
+      "Atterrissage mal centré (poids sur le nose ou tail) → perte d’équilibre ou slide stoppé."
+    ]
   },
   {
     "_id": "hardflip",
@@ -307,11 +433,12 @@
     "price": 0.49,
     "description": "Front shove + kickflip compact.",
     "steps": [
-      "Place ton pied arrière comme un front shove.",
-      "Positionne ton pied avant en biais.",
-      "Poppe puissamment.",
-      "Flick simultané.",
-      "Rattrape et replaque."
+      "Place ton pied arrière sur le tail légèrement vers le côté toe pour préparer un mini scoop frontside, et ton pied avant entre le milieu du deck et les vis avant en position diagonale pour le flick.",
+      "Fléchis les genoux et ouvre légèrement les épaules vers le frontside pour amorcer la rotation sans la lancer complètement.",
+      "Poppe fort vers le bas puis effectue un petit scoop frontside avec le pied arrière pour lancer la rotation horizontale.",
+      "Fais glisser ton pied avant et flick en diagonale vers l’avant-exterieur, de manière verticale et rapide, afin de lancer le flip.",
+      "Laisse la board monter sous toi en trajectoire verticale et surveille le retour du grip pour catcher avec le pied avant.",
+      "Replaque en gardant le poids centré, absorbe avec les genoux et continue à rouler proprement."
     ],
     "images": [
       "/static/tricks/kickflip/kickflip_1.jpg",
@@ -322,8 +449,19 @@
       "proUrl": ""
     },
     "funFact": "En Chine existe un skatepark entièrement construit en marbre poli : incroyable mais glissant.",
-    "proTip": "Garde le mouvement compact.",
-    "commonMistake": "Front shove trop large."
+    "proTip": [
+      "Travaille d'abord le frontside shove-it et le kickflip séparément.",
+      "Fais un flick court et précis plutôt que puissant.",
+      "Garde les genoux serrés pour que la board reste sous toi.",
+      "Le scoop doit être léger et vers l’avant pour éviter que la board parte trop loin."
+    ],
+    "commonMistake": [
+      "Flick trop puissant qui fait partir la board loin en diagonale.",
+      "Scoop trop latéral qui transforme le trick en frontside shove-it mal contrôlé.",
+      "Corps trop ouvert qui fait partir le mouvement en frontside 180 flip.",
+      "Genoux trop écartés qui empêchent la board de monter verticalement.",
+      "Pop insuffisant qui rend le catch impossible."
+    ]
   },
   {
     "_id": "impossible",
@@ -332,11 +470,13 @@
     "price": 0.49,
     "description": "Rotation complète autour du pied arrière.",
     "steps": [
-      "Pied arrière centré sur tail.",
-      "Pied avant stable.",
-      "Poppe fort et tire la rotation.",
-      "Garde-toi au-dessus.",
-      "Replaque stable."
+      "Place-toi à vitesse lente avec un stance proche du kickflip : pied avant entre les vis avant et le centre de la board, pied arrière bien dans le pocket du tail avec les orteils qui dépassent légèrement et la pression sur le ballon du pied.",
+      "Compresse en pliant les genoux comme pour un ollie, mais en pensant déjà au mouvement de wrap : poids légèrement plus sur le pied arrière, épaules parallèles au board et pied avant léger, prêt à monter pour laisser la board tourner.",
+      "Au lieu de popper simplement vers le bas, effectue un scoop en arc avec le pied arrière : pousse le tail vers l’arrière et vers l’intérieur tout en levant ton talon pour que la semelle reste collée au grip et que la board commence à s’enrouler verticalement autour de ton pied.",
+      "Laisse ton pied avant monter avec ton corps sans chercher à flipper la board : garde-le au-dessus du deck pour ne pas bloquer la rotation, pendant que le pied arrière contrôle tout le wrap, comme si tu dessinais un cercle vertical complet avec ton pied.",
+      "Quand la board a presque terminé son 360° autour du pied arrière, ramène ce pied vers les vis du tail et prépare le pied avant à se poser sur les vis avant, en gardant ton buste au-dessus du centre de la board pour pouvoir la catcher proprement.",
+      "Pose les deux pieds sur les bolts, genoux bien fléchis pour amortir, épaules alignées avec la board et laisse-toi rouler droit quelques mètres pour stabiliser la sortie avant de préparer la prochaine tentative.",
+      "Si la board fait juste un pop shove-it ou part de travers, corrige l’angle de ton scoop : vise une rotation vraiment verticale autour du pied arrière, lève davantage ton pied avant pour laisser de la place, et travaille le wrap d’abord à l’arrêt (front foot au sol), puis en roulant, avant de tout combiner en l’air."
     ],
     "images": [
       "/static/tricks/kickflip/kickflip_1.jpg",
@@ -347,8 +487,18 @@
       "proUrl": ""
     },
     "funFact": "Rodney Mullen a inventé plus de 35 tricks, souvent seul dans un garage en Floride.",
-    "proTip": "Imagine un cercle avec ton pied arrière.",
-    "commonMistake": "Pop droit = impossible raté."
+    "proTip": [
+      "Travaille le mouvement de wrap en statique avec le pied avant au sol pour que ton pied arrière s’habitue à coller la board pendant toute la rotation.",
+      "Ne force pas un gros pop : vise plutôt un scoop propre et contrôlé, la board doit tourner autour de ton pied plus qu’elle ne monte très haut.",
+      "Filme-toi de côté : tu dois voir la board faire un vrai cercle vertical autour de ton pied arrière, pas juste un shove-it rapide et plat."
+    ],
+    "commonMistake": [
+      "Le scoop part trop horizontal, ce qui transforme l’impossible en simple shove-it.",
+      "Le pied avant reste trop bas et bloque complètement le wrap vertical.",
+      "Le pied arrière ne reste pas collé au grip pendant la rotation : la board s’échappe.",
+      "Pop trop vertical : la board monte mais ne s’enroule pas autour du pied arrière.",
+      "Buste trop en arrière : la board part loin devant et impossible de la rattraper."
+    ]
   },
   {
     "_id": "varial_kickflip",
@@ -357,11 +507,12 @@
     "price": 0.49,
     "description": "Shove-it + kickflip modéré.",
     "steps": [
-      "Place ton pied arrière prêt à shove.",
-      "Pied avant comme un kickflip.",
-      "Poppe + mini shove.",
-      "Flick léger.",
-      "Replaque centré."
+      "Place ton pied arrière au bord du tail pour pouvoir effectuer un scoop backside, et ton pied avant entre le milieu de la board et les vis avant en diagonale pour préparer le flick.",
+      "Poppe fort en initiant un backside shove-it avec le pied arrière tout en gardant le pied avant léger pour ne pas bloquer la rotation.",
+      "Lorsque la board commence à tourner, effectue un flick diagonal avec le pied avant comme pour un kickflip afin de lancer le flip.",
+      "Saute verticalement et garde les genoux levés pour laisser la board compléter son backside 180 et son flip sous toi.",
+      "Observe le grip revenir vers le haut et attrape la board avec ton pied avant pour stabiliser la fin de la rotation.",
+      "Replaque au-dessus des trucks en absorbant l’impact avec les genoux et continue à rouler droit pour valider le trick."
     ],
     "images": [
       "/static/tricks/kickflip/kickflip_1.jpg",
@@ -372,8 +523,21 @@
       "proUrl": ""
     },
     "funFact": "Au Chili, une méga-rampe donne directement sur la vue de l’océan Pacifique.",
-    "proTip": "Kickflip + mini shove.",
-    "commonMistake": "Shove trop fort."
+    "proTip": [
+      "Diminue la puissance de ton scoop pour éviter que la board parte en 360 flip.",
+      "Le flick doit être précis et contrôlé, pas trop fort.",
+      "Reste centré au-dessus de la board, ne te penche pas en arrière.",
+      "Regarde la board pendant toute la rotation pour anticiper le catch.",
+      "Travaille d’abord le combo shove-it + flick sur place avant de le faire en roulant."
+    ],
+    "commonMistake": [
+      "Tourner le corps au lieu de rester droit, ce qui transforme le trick en backside flip raté.",
+      "Scoop trop fort qui lance la board en 360 flip.",
+      "Flick trop puissant qui entraîne un double flip incontrôlé.",
+      "Board qui part loin devant à cause d’un buste trop en arrière.",
+      "Catch trop tardif entraînant une réception instable.",
+      "Saut vers l’avant au lieu de monter verticalement."
+    ]
   },
   {
     "_id": "crook_grind",
@@ -382,11 +546,11 @@
     "price": 0.49,
     "description": "Grind technique sur truck avant.",
     "steps": [
-      "Approche avec angle léger.",
-      "Ollie précis vers le nose.",
-      "Verrouille le truck avant.",
-      "Garde la pression avant.",
-      "Sors en poussant."
+      "Approche le rail presque parallèle avec un angle léger de 10 à 15°, à vitesse modérée et stable.",
+      "Poppe un ollie propre à environ 20 à 30 cm du rail et engage la board légèrement de travers pour viser uniquement le truck avant.",
+      "Pose le truck avant sur le rail en verrouillant la board en diagonale, poids majoritairement sur l’avant mais sans écraser le nose.",
+      "Maintiens la glisse en gardant ton poids centré et les épaules alignées avec le rail, genoux fléchis et regard fixé sur la fin du rail.",
+      "À la sortie, relâche la pression sur l’avant pour descendre naturellement ou fais un petit pop pour réaligner la board et replaquer sur les vis."
     ],
     "images": [
       "/static/tricks/kickflip/kickflip_1.jpg",
@@ -397,8 +561,21 @@
       "proUrl": ""
     },
     "funFact": "Le DogShit Spot de Berlin tient son nom car il était construit sur un terrain réservé aux chiens.",
-    "proTip": "Pense à planter le nose.",
-    "commonMistake": "Trop de poids arrière."
+    "proTip": [
+      "Travaille d’abord sur un curb large pour apprendre à verrouiller le truck avant.",
+      "Le crook se fait grâce à la position diagonale du truck avant, pas en arrivant parallèle.",
+      "Garde ton centre de gravité bas pour plus de stabilité.",
+      "Si tu bloques le nose, recule légèrement ton poids.",
+      "Si tu décroches, augmente un peu l’angle d’entrée."
+    ],
+    "commonMistake": [
+      "Arriver trop parallèle et finir en 50-50 involontaire.",
+      "Vise la board au lieu du truck avant, provoquant des accrochages.",
+      "Mettre trop de poids sur le nose et bloquer la glisse.",
+      "Board pas assez en diagonale, le truck n’accroche pas.",
+      "Regarder ses pieds au lieu de la fin du rail.",
+      "Approcher trop lentement et perdre la glisse au milieu."
+    ]
   },
   {
     "_id": "nose_slide",
@@ -407,11 +584,12 @@
     "price": 0.49,
     "description": "Slide sur le nose.",
     "steps": [
-      "Approche à angle.",
-      "Poppe + tourne les épaules.",
-      "Pose le nose.",
-      "Garde ton poids légèrement avant.",
-      "Sors en pivot."
+      "Approche le ledge en diagonale avec une vitesse moyenne, suffisamment rapide pour glisser mais assez lente pour garder le contrôle.",
+      "Place ton pied avant juste derrière les vis du nose et garde un centre de gravité bas, épaules parallèles au ledge.",
+      "Fais un petit ollie compact et transfère ton poids vers l'avant pour amener le nose contre le rebord.",
+      "Verrouille ton nose en pressant ton pied avant et garde tes épaules alignées avec le ledge pour stabiliser la glisse.",
+      "Maintiens environ 60–70% de ton poids sur l’avant pour que la board glisse régulièrement sans décrocher.",
+      "Relâche progressivement la pression sur le nose à la sortie du ledge afin que l’arrière retombe naturellement et roule proprement en réception."
     ],
     "images": [
       "/static/tricks/kickflip/kickflip_1.jpg",
@@ -422,8 +600,18 @@
       "proUrl": ""
     },
     "funFact": "Un skater islandais a fait un ollie par-dessus un geyser en 2020.",
-    "proTip": "Regarde la sortie du ledge.",
-    "commonMistake": "Trop se pencher en arrière."
+    "proTip": [
+      "Mets de la wax sur le nose et sur le ledge pour un slide fluide.",
+      "Garde tes épaules parfaitement parallèles au ledge pour stabiliser ton slide.",
+      "Regarde toujours vers la fin du ledge pour guider la longueur du slide.",
+      "Entraîne-toi sur un curb bas pour apprendre le transfert de poids sans risque."
+    ],
+    "commonMistake": [
+      "Trop de poids sur l'arrière : la board sort du ledge et ne glisse pas.",
+      "Trop de poids sur l'avant : le nose bloque directement.",
+      "Ollie trop haut ou trop violent : tu perds la précision de l’entrée.",
+      "Regarder ses pieds : tu perds l’équilibre et la glisse devient instable."
+    ]
   },
   {
     "_id": "tail_slide",
@@ -432,11 +620,11 @@
     "price": 0.49,
     "description": "Slide en posant le tail.",
     "steps": [
-      "Approche avec angle.",
-      "Poppe et aligne le tail.",
-      "Pose le tail.",
-      "Contrôle la stabilité.",
-      "Sors naturellement."
+      "Approche le ledge à vitesse modérée avec un angle d'environ 20 à 30°, pieds placés comme pour un ollie stable.",
+      "À 30–40 cm du ledge, poppe un ollie assez haut pour monter au-dessus de l’arête et guider la board vers le point de contact.",
+      "En l’air, effectue une légère rotation frontside pour amener la board perpendiculaire et poser précisément le tail sur l’arête.",
+      "Pendant la glisse, garde environ 70% du poids sur le pied arrière, les épaules perpendiculaires au ledge et ton regard sur la fin du curb.",
+      "À la sortie, laisse la board tomber naturellement ou effectue un petit pop-out pour sortir proprement avant de repartir en roulant."
     ],
     "images": [
       "/static/tricks/kickflip/kickflip_1.jpg",
@@ -447,8 +635,19 @@
       "proUrl": ""
     },
     "funFact": "Le premier contest féminin européen n’a eu lieu qu’en 1998.",
-    "proTip": "Pied avant guide.",
-    "commonMistake": "Trop de poids avant."
+    "proTip": [
+      "Commence sur un curb large et bas avant d’essayer des ledges plus fins.",
+      "Travaille ton ollie haut : c’est la clé pour vraiment poser le tail.",
+      "Regarde la fin du ledge plutôt que ton tail pour garder l’équilibre.",
+      "Garde les épaules stables et bien perpendiculaires à la ligne du slide."
+    ],
+    "commonMistake": [
+      "Pop trop faible qui ne permet pas de monter sur le ledge.",
+      "Mettre trop de poids à l’avant et faire tomber la board trop tôt.",
+      "Approcher trop perpendiculairement et rater la pose du tail.",
+      "Regarder le tail au lieu de regarder la sortie, ce qui déséquilibre le slide.",
+      "Rotation trop forte qui transforme involontairement le trick en boardslide."
+    ]
   },
   {
     "_id": "five_o",
@@ -457,11 +656,11 @@
     "price": 0.49,
     "description": "Grind sur le truck arrière uniquement.",
     "steps": [
-      "Approche comme un 50-50.",
-      "Poppe plus vertical.",
-      "Verrouille le truck arrière.",
-      "Lève légèrement le nose.",
-      "Sors proprement."
+      "Approche le curb à vitesse modérée, presque parallèle, avec un angle léger de 5 à 10°, pieds placés comme pour un ollie stable.",
+      "À 20–30 cm du curb, poppe un ollie droit en commençant à transférer légèrement ton poids vers l’arrière.",
+      "Pose le truck arrière sur l’arrête en guidant la board avec le pied avant, épaules bien alignées avec la longueur du curb.",
+      "Maintiens la glisse en gardant 70–80% du poids sur le pied arrière, le nose légèrement relevé et ton regard fixé vers la fin du curb.",
+      "À la sortie, laisse les roues retomber naturellement ou fais un mini ollie out pour revenir proprement sur le sol."
     ],
     "images": [
       "/static/tricks/kickflip/kickflip_1.jpg",
@@ -472,8 +671,19 @@
       "proUrl": ""
     },
     "funFact": "À Dubaï, un skatepark se trouve au pied d’une piste de ski intérieure.",
-    "proTip": "Contrôle du pied arrière.",
-    "commonMistake": "Écraser le nose."
+    "proTip": [
+      "Travaille d’abord le manual avant de tenter le Five-O.",
+      "Regarde toujours la fin du curb, pas le centre ni tes pieds.",
+      "Une vitesse légèrement plus élevée rend le grind plus stable.",
+      "Garde tes épaules parallèles au curb pour éviter les déséquilibres."
+    ],
+    "commonMistake": [
+      "Trop de poids à l’avant, ce qui fait planter le nose.",
+      "Trop pencher en arrière et décrocher du curb.",
+      "Arriver en diagonale au lieu de parallèle.",
+      "Pop trop bas qui fait accrocher le truck sur l’arrête.",
+      "Regarder ses pieds, ce qui déséquilibre instantanément le grind."
+    ]
   },
   {
     "_id": "fakie_bs_180",
@@ -482,11 +692,11 @@
     "price": 0.49,
     "description": "Rotation en fakie backside.",
     "steps": [
-      "Avance en fakie.",
-      "Prépare une rotation légère.",
-      "Poppe et laisse tourner.",
-      "Garde les hanches alignées.",
-      "Replaque forward."
+      "Roule en fakie avec une position solide, poids centré, et commence à regarder au-dessus de ton épaule backside pour préparer la rotation.",
+      "Ouvre légèrement les épaules côté backside pour créer une pré-rotation fluide sans forcer sur les hanches.",
+      "Poppe en fakie comme pour un ollie, en engageant immédiatement la rotation du torse dans le sens backside dès que la board quitte le sol.",
+      "En l’air, laisse les épaules entraîner les hanches et la board, garde les genoux rapprochés et ton regard tourné dans la direction de la rotation.",
+      "Replaque en switch en voyant ta zone d'atterrissage, amortis avec les genoux et garde les épaules alignées avec la board pour rouler proprement."
     ],
     "images": [
       "/static/tricks/kickflip/kickflip_1.jpg",
@@ -497,7 +707,31 @@
       "proUrl": ""
     },
     "funFact": "Un flatbar géant de 12m au Canada a été construit à partir de l’idée d’un enfant de 12 ans.",
-    "proTip": "Épaules relax.",
-    "commonMistake": "Forcer avec les pieds."
+    "proTip": [
+      "Pense 90° d’épaules + 90° de pop pour un 180 parfait.",
+      "Travaille le fakie ollie et le backside revert avant de tenter le trick complet.",
+      "Une vitesse fluide rend la rotation plus naturelle.",
+      "Regarde derrière ton épaule pour guider le mouvement.",
+      "Garde ton pop droit pour éviter les rotations bancales."
+    ],
+    "commonMistake": [
+      "Tenter de tourner uniquement avec les pieds.",
+      "Ouvrir les épaules trop tôt, ce qui casse la rotation.",
+      "Pop trop faible provoquant un 180 incomplet.",
+      "Replaquer en torsion et perdre l’équilibre en switch.",
+      "Regarder le sol au lieu de regarder dans la direction de la rotation."
+    ]
   }
 ]
+
+
+
+
+
+
+
+
+
+
+
+
