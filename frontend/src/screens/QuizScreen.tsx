@@ -1,37 +1,100 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  StyleSheet,
+  Animated,
+  Easing,
+} from 'react-native';
+
 import api from '../api/api';
 import { log } from '../utils/logger';
 import ScreenWrapper from '../components/ScreenWrapper';
 import useModal from '../hooks/useModal';
 import { useGlobalProgress } from "../context/GlobalProgressContext";
 
+/* ----------------------------------------------------------
+ * 🔥 ULTRA BOWO SANTA CRUZ — ANIMATIONS
+ * ---------------------------------------------------------- */
+
+const usePulse = () => {
+  const scale = new Animated.Value(1);
+
+  const pulse = () => {
+    Animated.sequence([
+      Animated.timing(scale, {
+        toValue: 2.05,
+        duration: 210,
+        easing: Easing.ease,
+        useNativeDriver: true,
+      }),
+      Animated.timing(scale, {
+        toValue: 1,
+        duration: 210,
+        easing: Easing.ease,
+        useNativeDriver: true,
+      }),
+    ]).start();
+  };
+
+  return { scale, pulse };
+};
+
+const useFlames = () => {
+  const opacity = new Animated.Value(0);
+
+  const ignite = () => {
+    Animated.sequence([
+      Animated.timing(opacity, {
+        toValue: 1,
+        duration: 450,
+        useNativeDriver: true,
+      }),
+      Animated.timing(opacity, {
+        toValue: 0.2,
+        duration: 800,
+        useNativeDriver: true,
+      }),
+    ]).start();
+  };
+
+  return { opacity, ignite };
+};
+
+/* ----------------------------------------------------------
+ * 🔥 QUIZSCREEN — VERSION ULTRA BOWO
+ * ---------------------------------------------------------- */
 export default function QuizScreen({ route, navigation }) {
   const { trickId } = route.params;
-  const [quiz, setQuiz] = useState(null);
 
+  const [quiz, setQuiz] = useState(null);
   const [shuffledAnswers, setShuffledAnswers] = useState([]);
   const [selected, setSelected] = useState(null);
-  const { refreshProgress } = useGlobalProgress();
 
+  const { refreshProgress } = useGlobalProgress();
   const { showModal } = useModal();
 
-  // 🔀 Fonction de mélange
+  const { scale: pulsateScale, pulse: triggerPulse } = usePulse();
+  const { opacity: flamesOpacity, ignite } = useFlames();
+
   const shuffle = (arr) =>
     arr
       .map((a) => ({ sort: Math.random(), value: a }))
       .sort((a, b) => a.sort - b.sort)
       .map((a) => a.value);
 
+  /* ----------------------------------------------------------
+   * LOAD QUIZ
+   * ---------------------------------------------------------- */
   useEffect(() => {
     (async () => {
       try {
         log('QuizScreen loading quiz for', trickId);
-        const { data } = await api.get(`/quiz/${trickId}`);
 
+        const { data } = await api.get(`/quiz/${trickId}`);
         setQuiz(data);
 
-        // 🔀 préparation des réponses randomisées :
         const answers = data.answers.map((text, index) => ({
           text,
           originalIndex: index,
@@ -39,9 +102,8 @@ export default function QuizScreen({ route, navigation }) {
 
         setShuffledAnswers(shuffle(answers));
 
-        log('QuizScreen quiz loaded', data);
       } catch (err) {
-        log('QuizScreen error', err);
+        log("QuizScreen.loadQuiz error", err);
         showModal({
           type: 'error',
           title: 'Erreur',
@@ -50,84 +112,123 @@ export default function QuizScreen({ route, navigation }) {
         });
       }
     })();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [trickId]);
 
+  /* ----------------------------------------------------------
+   * SUBMIT
+   * ---------------------------------------------------------- */
   const submit = async () => {
     try {
+      if (!selected) return;
+
       const { data } = await api.post('/quiz/validate', {
         trickId,
-        // 🟡 Envoi de l’index original (non randomisé)
         answerIndex: selected.originalIndex,
       });
 
-      // 🟥 Max attempts → Redirection Fun Fact
       if (data.maxAttemptsReached) {
         navigation.replace('FunFact', {
-          funFact: data.funFact || 'Aucun fun fact disponible.',
+          funFact: data.funFact || '',
           trickId,
         });
         return;
       }
 
-      // 🟩 Bonne réponse
       if (data.success) {
         showModal({
           type: 'success',
-          title: 'Bonne réponse 🎉',
+          title: 'Bonne réponse 🔥',
           message: 'Trick débloqué !',
           confirmText: 'Continuer',
           onConfirm: async () => {
             await refreshProgress();
             navigation.replace('TrickLearn', { trickId });
             return true;
-          }
+          },
         });
         return;
       }
 
-      // 🟥 Mauvaise réponse
       showModal({
         type: 'warning',
         title: 'Mauvaise réponse',
-        message: data.message || 'Réessaie !',
+        message: 'Réessaie !',
         confirmText: 'OK',
       });
 
     } catch (err) {
-      log('QuizScreen.submit error', err);
+      log("QuizScreen.loadQuiz error", err);
       showModal({
         type: 'error',
         title: 'Erreur',
-        message: 'Impossible de valider ta réponse.',
+        message: 'Impossible de valider.',
         confirmText: 'OK',
       });
     }
   };
 
-  if (!quiz) return <Text>Loading...</Text>;
+  if (!quiz)
+    return (
+      <View style={{ flex: 1, backgroundColor: '#3a1a6b' }}>
+        <Text style={{ color: 'white', textAlign: 'center', marginTop: 50 }}>
+          Loading…
+        </Text>
+      </View>
+    );
 
+  /* ----------------------------------------------------------
+   * RENDER
+   * ---------------------------------------------------------- */
   return (
-    <View style={styles.container}>
+    <View style={styles.screen}>
       <ScreenWrapper>
 
+        <Text style={styles.questionTitle}>🔥 Quiz Time ! 🔥</Text>
         <Text style={styles.question}>{quiz.question}</Text>
 
-        {/* 🔀 Affichage des réponses randomisées */}
-        {shuffledAnswers.map((ans, i) => (
-          <TouchableOpacity
-            key={i}
-            onPress={() => setSelected(ans)}
-            style={[styles.answer, selected === ans && styles.answerSelected]}
-          >
-            <Text style={styles.answerText}>{ans.text}</Text>
-          </TouchableOpacity>
-        ))}
+        {shuffledAnswers.map((ans, i) => {
+          const isActive = selected === ans;
+
+          return (
+            <TouchableOpacity
+              key={i}
+              onPress={() => {
+                setSelected(ans);
+                triggerPulse();
+                ignite();
+              }}
+              activeOpacity={0.85}
+            >
+              <Animated.View
+                style={[
+                  styles.answerBox,
+                  isActive && styles.answerActive,
+                  isActive && { transform: [{ scale: pulsateScale }] }
+                ]}
+              >
+                <Text style={styles.answerText}>{ans.text}</Text>
+
+                {/* 🔥 Flames effect */}
+                {isActive && (
+                  <Animated.Text
+                    style={[styles.flames, { opacity: flamesOpacity }]}
+                  >
+                    🔥🔥🔥
+                  </Animated.Text>
+                )}
+              </Animated.View>
+            </TouchableOpacity>
+          );
+        })}
 
         <TouchableOpacity
-          disabled={selected === null}
+          style={[
+            styles.submitBtn,
+            !selected && { opacity: 0.3 },
+          ]}
+          disabled={!selected}
           onPress={submit}
-          style={[styles.submitBtn, selected === null && styles.submitDisabled]}
         >
           <Text style={styles.submitText}>Valider</Text>
         </TouchableOpacity>
@@ -138,75 +239,113 @@ export default function QuizScreen({ route, navigation }) {
         >
           <Text style={styles.backBtnText}>← Retour au park</Text>
         </TouchableOpacity>
+
       </ScreenWrapper>
     </View>
   );
 }
 
-/* 🎨 STYLE */
+/* ----------------------------------------------------------
+ * 🎨 ULTRA BOWO SANTA CRUZ STYLE
+ * ---------------------------------------------------------- */
 const styles = StyleSheet.create({
-  container: {
+  screen: {
     flex: 1,
-    backgroundColor: '#111215',
-    padding: 16,
+    backgroundColor: '#3a1a6b',
+  },
+
+  questionTitle: {
+    fontSize: 28,
+    textAlign: 'center',
+    color: '#FFD600',
+    fontWeight: '900',
+    textShadowColor: '#FF355E',
+    textShadowRadius: 8,
+    marginBottom: 6,
   },
 
   question: {
-    fontSize: 20,
+    fontSize: 18,
     color: '#0AA5FF',
-    marginBottom: 20,
-    fontWeight: '800',
     textAlign: 'center',
+    fontWeight: '700',
+    marginBottom: 24,
   },
 
-  answer: {
-    backgroundColor: '#1A1B20',
-    padding: 14,
-    borderRadius: 10,
-    marginVertical: 8,
-    borderWidth: 1,
-    borderColor: '#333',
+  answerBox: {
+    backgroundColor: '#111827',
+    paddingVertical: 18,
+    paddingHorizontal: 20,
+    borderRadius: 18,
+    borderWidth: 3,
+    borderColor: '#0AA5FF',
+    marginVertical: 10,
+    shadowColor: '#0AA5FF',
+    shadowOpacity: 0.4,
+    shadowRadius: 10,
+    elevation: 6,
   },
 
-  answerSelected: {
+  answerActive: {
+    backgroundColor: '#1F2937',
     borderColor: '#FFD600',
-    backgroundColor: '#23252D',
+    shadowColor: '#FFD600',
+    shadowOpacity: 0.6,
+    shadowRadius: 12,
+    elevation: 10,
   },
 
   answerText: {
-    color: 'white',
+    color: '#F9FAFB',
+    fontSize: 17,
+    fontWeight: '900',
     textAlign: 'center',
-    fontSize: 15,
+    letterSpacing: 0.5,
+  },
+
+  flames: {
+    textAlign: 'center',
+    marginTop: 6,
+    fontSize: 16,
   },
 
   submitBtn: {
     backgroundColor: '#FFD600',
-    padding: 14,
-    borderRadius: 12,
-    marginTop: 20,
-  },
+    paddingVertical: 16,
+    borderRadius: 20,
+    marginTop: 28,
 
-  submitDisabled: {
-    opacity: 0.4,
+    shadowColor: '#FFD600',
+    shadowOpacity: 0.5,
+    shadowRadius: 10,
+    elevation: 6,
   },
 
   submitText: {
-    fontWeight: '900',
     textAlign: 'center',
+    fontWeight: '900',
+    fontSize: 15,
     textTransform: 'uppercase',
   },
 
   backBtn: {
-    marginTop: 20,
-    paddingVertical: 10,
-    borderRadius: 12,
+    marginTop: 26,
+    paddingVertical: 12,
+    borderRadius: 16,
     borderColor: '#FF355E',
     borderWidth: 2,
+    backgroundColor: '#1A1B20',
+
+    shadowColor: '#FF355E',
+    shadowOpacity: 0.35,
+    shadowRadius: 8,
+    elevation: 6,
   },
 
   backBtnText: {
-    color: '#FF355E',
     textAlign: 'center',
-    fontWeight: '700',
+    color: '#FF355E',
+    fontWeight: '900',
+    fontSize: 14,
   },
 });

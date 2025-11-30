@@ -35,8 +35,8 @@ type TrickLearn = {
   images: string[];
   amateurVideoUrl?: string | null;
   proVideoUrl?: string | null;
-  proTip?: string;
-  commonMistake?: string;
+  proTip?: string[];
+  commonMistake?: string[];
 };
 
 type TrickVideoCardProps = {
@@ -63,6 +63,7 @@ const resolveMediaUrl = (raw?: string | null): string | null => {
   // défaut → concat
   return `${MEDIA_BASE_URL}/${raw}`;
 };
+
 
 // ---------------------------------------------------------
 // Components internes
@@ -203,7 +204,7 @@ export default function TrickLearnScreen({ route, navigation }: any) {
   // ---------------------------------------------------------
   const mainImage =
     (trick.images?.[0] ? resolveMediaUrl(trick.images[0]) : null) ??
-    require("../../assets/logos/bowo2_logo.png");
+    require("../../assets/logos/bowo3_logo.png");
 
   const proVideo = resolveMediaUrl(trick.proVideoUrl || undefined);
   const amateurVideo = resolveMediaUrl(trick.amateurVideoUrl || undefined);
@@ -236,7 +237,7 @@ export default function TrickLearnScreen({ route, navigation }: any) {
         {/* ------------------------------------------------- */}
         {/* XP BAR (PROGRESSION TRICK) */}
         {/* ------------------------------------------------- */}
-        <View style={{ marginHorizontal: 16, marginBottom: 12 }}>
+        <View style={{ marginBottom: 12 }}>
           <BoWoXPBar currentXp={current.totalXp} nextLevelXp={80} />
         </View>
 
@@ -297,7 +298,7 @@ export default function TrickLearnScreen({ route, navigation }: any) {
         {/* STEPS */}
         {/* ------------------------------------------------- */}
         {trick.steps?.length > 0 && (
-          <View style={styles.section}>
+          <View style={styles.stepsBox}>
             <Text style={styles.sectionTitle}>Step-by-step 🔥</Text>
 
             {trick.steps.map((s, i) => {
@@ -316,24 +317,34 @@ export default function TrickLearnScreen({ route, navigation }: any) {
           </View>
         )}
 
-        {/* ------------------------------------------------- */}
-        {/* PRO TIP */}
-        {/* ------------------------------------------------- */}
-        {trick.proTip && (
-          <View style={[styles.section, styles.proTip]}>
-            <Text style={styles.sectionTitle}>💡 Pro Tip</Text>
-            <Text style={styles.proTipText}>{trick.proTip}</Text>
+        {/* 🔥 PRO TIP */}
+        {trick.proTip?.length > 0 && (
+          <View style={styles.tipBox}>
+            <Text style={styles.tipTitle}>🔥 PRO TIP</Text>
+
+              {Array.isArray(trick.proTip) &&
+                trick.proTip.map((line, idx) => (
+              <View key={idx} style={styles.bulletRow}>
+                <Text style={styles.bullet}>•</Text>
+                <Text style={styles.bulletText}>{line}</Text>
+              </View>
+            ))}
           </View>
         )}
 
-        {/* ------------------------------------------------- */}
-        {/* COMMON MISTAKE */}
-        {/* ------------------------------------------------- */}
-        {trick.commonMistake && (
-          <View style={[styles.section, styles.mistake]}>
-            <Text style={styles.sectionTitle}>⚠️ Erreurs fréquentes</Text>
-            <Text style={styles.mistakeText}>{trick.commonMistake}</Text>
-          </View>
+        {/* ⚠️ COMMON MISTAKE */}
+        {trick.commonMistake?.length > 0 && (
+          <View style={styles.mistakeBox}>
+            <Text style={styles.mistakeTitle}>⚠️ ERREUR COURANTE</Text>
+
+              {Array.isArray(trick.commonMistake) &&
+                trick.commonMistake.map((line, idx) => (
+              <View key={idx} style={styles.bulletRow}>
+                <Text style={[styles.bullet, { color: '#FF355E' }]}>•</Text>
+                <Text style={styles.bulletText}>{line}</Text>
+              </View>
+            ))}
+          </View> 
         )}
 
         {/* ------------------------------------------------- */}
@@ -341,7 +352,7 @@ export default function TrickLearnScreen({ route, navigation }: any) {
         {/* ------------------------------------------------- */}
         <TouchableOpacity
           style={{
-            marginHorizontal: 16,
+            // marginHorizontal: 16,
             marginTop: 10,
             marginBottom: 4,
             backgroundColor: "#0AA5FF",
@@ -419,7 +430,7 @@ const styles = StyleSheet.create({
 
   // SECTION
   section: {
-    marginHorizontal: 16,
+    // marginHorizontal: 16,
     marginVertical: 8,
     padding: 14,
     borderRadius: 18,
@@ -428,7 +439,7 @@ const styles = StyleSheet.create({
     borderColor: "#1F2937",
   },
   sectionTitle: {
-    color: "#0AA5FF",
+    color: "#FFD600",
     fontSize: 16,
     fontWeight: "800",
     textTransform: "uppercase",
@@ -439,6 +450,23 @@ const styles = StyleSheet.create({
     fontSize: 14,
     lineHeight: 20,
   },
+
+  //STEPSBOX
+  stepsBox: {
+    // marginHorizontal: 16,
+    marginVertical: 8,
+    padding: 16,
+    borderRadius: 20,
+    backgroundColor: "#111827",
+    borderWidth: 2,
+    borderColor: "#FFD600",
+    shadowColor: "#FFD600",
+    shadowOffset: { width: 0, height: 0 },
+    shadowOpacity: 0.35,
+    shadowRadius: 8,
+    elevation: 5,
+ },
+
 
   // VIDEOS
   videoCard: {
@@ -522,23 +550,61 @@ const styles = StyleSheet.create({
     lineHeight: 20,
   },
 
-  // PRO TIP
-  proTip: {
-    backgroundColor: "#022C22",
-    borderColor: "#22C55E",
+  /* --- PRO TIP BOX --- */
+  tipBox: {
+    backgroundColor: '#1A1B20',
+    borderWidth: 2,
+    borderColor: '#0AA5FF',
+    borderRadius: 14,
+    padding: 14,
+    marginTop: 22,
+    // marginHorizontal: 16
   },
-  proTipText: {
-    color: "#BBF7D0",
+  tipTitle: {
+    color: '#0AA5FF',
+    fontWeight: '900',
+    fontSize: 16,
+    marginBottom: 8,
+    textTransform: 'uppercase',
+    letterSpacing: 1,
+  },
+  bulletRow: {
+    flexDirection: 'row',
+    alignItems: 'flex-start',
+  },
+  bullet: {
+    color: '#0AA5FF',
+    fontSize: 22,
+    marginRight: 8,
+    marginTop: -3,
+  },
+  bulletText: {
+    flex: 1,
+    color: '#EDECF8',
+    fontSize: 15,
+    lineHeight: 22,
+    fontWeight: '600',
   },
 
-  // MISTAKES
-  mistake: {
-    backgroundColor: "#450A0A",
-    borderColor: "#F97373",
+  /* --- COMMON MISTAKE BOX --- */
+  mistakeBox: {
+    backgroundColor: '#1A1B20',
+    borderWidth: 2,
+    borderColor: '#FF355E',
+    borderRadius: 14,
+    padding: 14,
+    marginTop: 18,
+    // marginHorizontal: 16
   },
-  mistakeText: {
-    color: "#FECACA",
+  mistakeTitle: {
+    color: '#FF355E',
+    fontWeight: '900',
+    fontSize: 16,
+    marginBottom: 8,
+    textTransform: 'uppercase',
+    letterSpacing: 1,
   },
+
 
   // LOADING
   loadingContainer: {
@@ -557,7 +623,7 @@ const styles = StyleSheet.create({
   // BACK BUTTON
   backBtn: {
     marginTop: 16,
-    marginHorizontal: 16,
+    // marginHorizontal: 16,
     marginBottom: 24,
     borderRadius: 999,
     paddingVertical: 12,

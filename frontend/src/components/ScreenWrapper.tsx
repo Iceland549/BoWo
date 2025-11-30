@@ -4,7 +4,7 @@ import { View, Image, StyleSheet, ScrollView } from 'react-native';
 import BannerAd from './BannerAd';
 
 // ✅ bon chemin vers le logo BoWo
-const bowoLogo = require('../../assets/images/bowo2_logo.png');
+const bowoLogo = require('../../assets/logos/bowo3_logo.png');
 
 type Props = {
   children: React.ReactNode;
@@ -62,12 +62,6 @@ const styles = StyleSheet.create({
     // contour jaune "sticker"
     borderWidth: 5,
     borderColor: '#FEE54A',
-
-    // glow néon
-    shadowColor: '#FFEA00',
-    shadowOpacity: 1,
-    shadowRadius: 30,
-    shadowOffset: { width: 0, height: 0 },
 
     // Android
     elevation: 40,

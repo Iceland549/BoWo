@@ -188,6 +188,8 @@ const styles = StyleSheet.create({
   container: {
     padding: 20,
     paddingBottom: 80,
+        backgroundColor: '#3a1a6b',
+
   },
 
   loadingScreen: {
