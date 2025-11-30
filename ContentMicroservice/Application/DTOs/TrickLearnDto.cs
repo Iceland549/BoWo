@@ -9,7 +9,8 @@
         public IList<string> Images { get; set; } = new List<string>();
         public string? AmateurVideoUrl { get; set; }
         public string? ProVideoUrl { get; set; }
-        public string ProTip { get; set; } = "";
-        public string CommonMistake { get; set; } = "";
+        public List<string> ProTip { get; set; } = new();
+        public List<string> CommonMistake { get; set; } = new();
+
     }
 }
