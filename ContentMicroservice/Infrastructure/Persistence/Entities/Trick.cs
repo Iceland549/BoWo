@@ -21,10 +21,10 @@ namespace ContentMicroservice.Infrastructure.Persistence.Entities
         public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
 
         [BsonElement("proTip")]
-        public string ProTip { get; set; } = "";
+        public List<string> ProTip { get; set; } = new();
 
         [BsonElement("commonMistake")]
-        public string CommonMistake { get; set; } = "";
+        public List<string> CommonMistake { get; set; } = new();
     }
 
     public class TrickVideos
