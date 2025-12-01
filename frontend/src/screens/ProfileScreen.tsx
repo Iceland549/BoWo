@@ -9,7 +9,7 @@ import {
   StyleSheet,
   ActivityIndicator,
 } from 'react-native';
-
+import { useModalContext } from '@/context/ModalContext';
 import { getProfile } from '../services/authService';
 import { log } from '../utils/logger';
 import XPBar from '../components/XPBar';
@@ -17,7 +17,7 @@ import XPBar from '../components/XPBar';
 export default function ProfileScreen({ navigation }) {
   const [profile, setProfile] = useState<any>(null);
   const [loading, setLoading] = useState(true);
-
+  const { showModal } = useModalContext();
   const logoFlip = require('../../assets/logos/flip-coin2_logo.png');
   const logoMagic = require('../../assets/logos/magic-ball_logo.png');
   const logoFortune = require('../../assets/logos/fortune2_logo.png');
@@ -107,18 +107,45 @@ export default function ProfileScreen({ navigation }) {
   ];
 
 
+  // const onPressMiniGame = (game) => {
+  //   const isUnlocked = unlockedMiniGames.includes(game.key);
+
+  //   if (!isUnlocked && canUnlockMiniGames) {
+  //     navigation.navigate('MiniGameUnlockChoice', { selected: game.key });
+  //     return;
+  //   }
+
+  //   if (isUnlocked) {
+  //     navigation.navigate(game.screen);
+  //   }
+  // };
+
+  // ⬇️ REMPLACE TON ANCIEN par CE NOUVEAU
   const onPressMiniGame = (game) => {
     const isUnlocked = unlockedMiniGames.includes(game.key);
 
-    if (!isUnlocked && canUnlockMiniGames) {
-      navigation.navigate('MiniGameUnlockChoice', { selected: game.key });
+    // 1️⃣ Déjà débloqué → on lance le mini-jeu
+    if (isUnlocked) {
+      navigation.navigate(game.screen);
       return;
     }
 
-    if (isUnlocked) {
-      navigation.navigate(game.screen);
+    // 2️⃣ Pas encore 2 tricks → modale BoWo explicative
+    if (!canUnlockMiniGames) {
+      showModal({
+        title: "Mini-jeu verrouillé",
+        message: "Débloque 2 tricks pour jouer à ce mini-jeu !",
+        type: "warning",
+        confirmText: "OK",
+      });
+      return;
     }
+
+    // 3️⃣ 2 tricks ou plus → choix de déblocage
+    navigation.navigate("MiniGameUnlockChoice", { selected: game.key });
   };
+
+
 
   /* -------------------------------------------------------- */
   /*  🎨 RENDER                                                */
@@ -173,7 +200,7 @@ export default function ProfileScreen({ navigation }) {
                 <Text style={styles.gameInfo}>
                   {isUnlocked
                     ? 'Débloqué ✔'
-                    : canUnlockMiniGames
+                    : !canUnlockMiniGames
                     ? 'Débloqué après 2 tricks !'
                     : 'Choisis ce mini-jeu à débloquer'}
                 </Text>
