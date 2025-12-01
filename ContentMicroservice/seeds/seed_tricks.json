@@ -15,9 +15,11 @@
     ],
 
     "images": [
-      "/static/tricks/ollie/ollie_1.jpg",
-      "/static/tricks/ollie/ollie_2.jpg",
-      "/static/tricks/ollie/ollie_3.jpg"
+      "/static/tricks/ollie/neiji_ollie_1.png",
+      "/static/tricks/ollie/neiji_ollie_2.png",
+      "/static/tricks/ollie/neiji_ollie_3.png",
+      "/static/tricks/ollie/neiji_ollie_4.png",
+      "/static/tricks/ollie/neiji_ollie_5.png"
     ],
     "videos": {
       "amateurUrl": "/static/tricks/ollie/neiji_ollie-converted.mp4",
@@ -25,10 +27,12 @@
     },
     "funFact": "Au Japon, le skate de rue n’a été autorisé qu’en 2017, et pourtant ils dominent déjà les compétitions U16.",
     "proTip": [
-      "Concentre-toi sur le slide du pied avant vers le nose : c'est lui qui donne vraiment de la hauteur et de la stabilité à ton ollie."
+      "Concentre-toi sur le slide du pied avant vers le nose : c'est lui qui donne vraiment de la hauteur et de la stabilité à ton ollie.",
+      "Frappe le tail franchement, puis fais glisser ton pied avant droit vers le nose : c’est ce slide qui met la board à l’horizontale en l’air et garantit un ollie propre et contrôlé."
     ],
     "commonMistake": [
-      "Beaucoup débutent en sautant sans vraiment frapper le tail ou sans glisser le pied avant."
+      "Beaucoup débutent en sautant sans vraiment frapper le tail ou sans glisser le pied avant.",
+      "Beaucoup sautent trop tôt : soit ils ne poppent pas vraiment le tail, soit ils ne glissent pas assez le pied avant — résultat : ollie tout plat, pas d’amplitude et réception bancale."
     ]
   },
   {
