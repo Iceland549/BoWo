@@ -105,7 +105,7 @@ export default function TrickDetailScreen({ route, navigation }) {
 
   return (
     <ScrollView
-      style={{ backgroundColor: '#111215' }}
+      style={{ backgroundColor: '#3a1a6b' }}
       contentContainerStyle={styles.container}
     >
       <ScreenWrapper>
@@ -142,10 +142,10 @@ export default function TrickDetailScreen({ route, navigation }) {
             <Text style={styles.quizBtnText}>Open Quiz</Text>
           </TouchableOpacity>
 
-          {/* DUOLINGO-LIKE QUESTION */}
+          {/* QUESTION */}
           <TouchableOpacity
             style={{
-              backgroundColor: "#22C55E",
+              backgroundColor: "#FFD600",
               paddingVertical: 14,
               borderRadius: 18,
               marginBottom: 14,
@@ -225,7 +225,7 @@ const styles = StyleSheet.create({
   /* BUTTON AREA */
   buttonsWrap: {
     marginTop: 20,
-    marginBottom: 20,
+    marginBottom: 18,
   },
 
   /* WATCH AD BUTTON */
@@ -233,7 +233,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#FF355E',
     paddingVertical: 14,
     borderRadius: 18,
-    marginBottom: 12,
+    marginBottom: 14,
     borderWidth: 2,
     borderColor: '#FFD600',
   },
@@ -251,6 +251,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#0AA5FF',
     paddingVertical: 14,
     borderRadius: 18,
+    marginBottom: 14,
     borderWidth: 2,
     borderColor: '#FF355E',
   },
