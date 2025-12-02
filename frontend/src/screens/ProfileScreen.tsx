@@ -1,6 +1,8 @@
 // frontend/src/screens/ProfileScreen.tsx
 import React, { useEffect, useState } from 'react';
 import ScreenWrapper from '../components/ScreenWrapper';
+// import { useIsFocused } from "@react-navigation/native";
+
 import {
   View,
   Image,
@@ -57,7 +59,10 @@ export default function ProfileScreen({ navigation }) {
   /* -------------------------------------------------------- */
   const xp = profile?.xp ?? 0;
   const level = profile?.level ?? 0;
-  const totalUnlocked = profile?.totalUnlocked ?? 0;
+  const totalUnlocked =   
+    profile?.totalUnlocked ??
+    profile?.unlockedTricks?.length ??
+    0;
   const totalTricksAvailable = profile?.totalTricksAvailable ?? 0;
   const completionPercent = profile?.completionPercent ?? 0;
 
@@ -106,6 +111,20 @@ export default function ProfileScreen({ navigation }) {
     { name: 'Casino Trick Slot', key: 'casino-slot', screen: 'CasinoTrickSlot', logo: logoCasino },
   ];
 
+//   const isFocused = useIsFocused();
+//   useEffect(() => {    
+//   if (!isFocused) return;
+
+//   (async () => {
+//     try {
+//       const data = await getProfile();
+//       setProfile(data);
+//       log("Profile refreshed OK", data);
+//     } catch (err) {
+//       log("ProfileScreen refresh error", err);
+//     }
+//   })();
+// }, [isFocused]);
 
   // const onPressMiniGame = (game) => {
   //   const isUnlocked = unlockedMiniGames.includes(game.key);
@@ -215,6 +234,12 @@ export default function ProfileScreen({ navigation }) {
           onPress={() => navigation.navigate('Home')}
         >
           <Text style={styles.backText}>← Back to Home</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          onPress={() => navigation.navigate("LegalMenu")}
+          style={styles.legalBtn}
+        >
+          <Text style={styles.legalText}>Informations légales</Text>
         </TouchableOpacity>
       </ScreenWrapper>
     </View>
@@ -351,5 +376,21 @@ const styles = StyleSheet.create({
     marginTop: 10,
     color: '#FFD600',
     fontSize: 14,
+  },
+
+  /* LEGAL BUTTON */
+  legalBtn: {
+    marginTop: 6,
+    marginBottom: 20,
+    paddingVertical: 10,
+    alignSelf: "center",
+  },
+
+  legalText: {
+    color: "#0AA5FF",
+    textAlign: "center",
+    fontSize: 14,
+    textDecorationLine: "underline",
+    fontWeight: "800",
   },
 });
