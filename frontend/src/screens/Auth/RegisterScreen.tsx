@@ -99,6 +99,23 @@ export default function RegisterScreen({ navigation }) {
           )}
         </TouchableOpacity>
 
+          <Text style={styles.legalText}>
+            En créant un compte, vous acceptez nos{" "}
+            <Text
+              style={styles.legalLink}
+              onPress={() => navigation.navigate("Terms")}
+            >
+              CGU
+            </Text>{" "}
+            et notre{" "}
+            <Text
+              style={styles.legalLink}
+              onPress={() => navigation.navigate("Privacy")}
+            >
+              Politique de Confidentialité
+            </Text>.
+          </Text>
+
         <TouchableOpacity onPress={() => navigation.navigate('Login')}>
           <Text style={styles.link}>Retour à la connexion</Text>
         </TouchableOpacity>
@@ -164,5 +181,19 @@ const styles = StyleSheet.create({
     marginTop: 18,
     fontSize: 14,
     textDecorationLine: 'underline',
+  },
+
+  legalText: {
+    color: "#FFD600",
+    textAlign: "center",
+    marginTop: 16,
+    fontSize: 13,
+    lineHeight: 18,
+  },
+
+  legalLink: {
+    color: "#0AA5FF",
+    textDecorationLine: "underline",
+    fontWeight: "900",
   },
 });
