@@ -20,6 +20,10 @@ import Magic8Ball from '@/screens/TimeKiller/Magic8Ball';
 import MiniGameUnlockChoice from '@/screens/MiniGameUnlockChoice';
 import FortuneCookie from '@/screens/TimeKiller/FortuneCookie';
 import CasinoTrickSlot from '@/screens/TimeKiller/CasinoTrickSlot';
+import LegalMenuScreen from '@/legal/LegalMenuScreen';
+import TermsOfUseScreen from '@/legal/TermsScreen';
+import PrivacyPolicyScreen from '@/legal/PrivacyScreen';
+import DeleteAccountScreen from '@/legal/DeleteAccountScreen';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
@@ -102,6 +106,11 @@ export default function AppNavigator() {
       <Stack.Screen name="Magic8Ball" component={Magic8Ball} />
       <Stack.Screen name="FortuneCookie" component={FortuneCookie} />
       <Stack.Screen name="CasinoTrickSlot" component={CasinoTrickSlot} />
+      {/* // Legal screens */}
+      <Stack.Screen name="LegalMenu" component={LegalMenuScreen} />
+      <Stack.Screen name="Terms" component={TermsOfUseScreen} />
+      <Stack.Screen name="Privacy" component={PrivacyPolicyScreen} />
+      <Stack.Screen name="DeleteAccount" component={DeleteAccountScreen} />
     </Stack.Navigator>
   );
 }
