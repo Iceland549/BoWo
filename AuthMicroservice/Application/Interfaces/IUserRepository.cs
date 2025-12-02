@@ -36,5 +36,12 @@ namespace AuthMicroservice.Application.Interfaces
         /// Gets the user by their unique ID.
         /// </summary>
         Task<User?> GetByIdAsync(string userId);
+
+        /// <summary>
+        /// Deletes a user by its ID.
+        /// </summary>
+        Task DeleteAsync(string userId, CancellationToken ct = default);
+
+
     }
 }
