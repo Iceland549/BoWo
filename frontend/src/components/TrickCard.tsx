@@ -108,14 +108,15 @@ const styles = StyleSheet.create({
   },
 
   title: {
-    fontSize: 20,
-    fontWeight: '900',
-    textTransform: 'uppercase',
+    fontFamily: "Bangers",
+    fontSize: 26,
     color: '#0AA5FF',
     letterSpacing: 1,
     textShadowColor: '#FF355E',
-    textShadowRadius: 4,
+    textShadowRadius: 2,
+    textTransform: 'none',      
   },
+
 
   titleLocked: {
     color: '#FFD600',

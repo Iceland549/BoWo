@@ -1,14 +1,15 @@
 import { NavigationContainer } from '@react-navigation/native';
 import React from 'react';
 import { LogBox } from 'react-native';
+import { useFonts } from "expo-font";   // 👈 AJOUT ICI
 import { navigationRef } from './src/navigation/RootNavigation';
 import { ModalProvider } from '@/context/ModalContext';
 import { ProgressProvider } from '@/context/ProgressContext';
 import { GlobalProgressProvider } from '@/context/GlobalProgressContext';
 import AppShell from './src/navigation/AppShell';
-// ✅ TypeScript-safe mock pour éviter l'erreur "localStorage doesn't exist"
-declare const globalThis: any; // Permet d'accéder à l'objet global (standard JS)
 
+// Mock localStorage pour éviter les erreurs
+declare const globalThis: any;
 if (typeof globalThis.localStorage === 'undefined') {
   globalThis.localStorage = {
     getItem: () => null,
@@ -17,16 +18,28 @@ if (typeof globalThis.localStorage === 'undefined') {
   };
 }
 
-
 LogBox.ignoreAllLogs(true);
 
 export default function App() {
+
+  // 1️⃣ CHARGEMENT DE LA POLICE
+  const [loaded] = useFonts({
+    Bangers: require("./assets/fonts/Bangers-Regular.ttf"),
+    Anton: require("./assets/fonts/Anton-Regular.ttf"),
+    FugazOne: require("./assets/fonts/FugazOne-Regular.ttf"),
+  });
+
+  // 2️⃣ ON NE REND PAS L'APP TANT QUE LA POLICE N'EST PAS CHARGÉE
+  if (!loaded) return null;
+
+  // 3️⃣ TON APP NORMALE
   console.log('✅ App.tsx running with navigation');
+
   return (
     <NavigationContainer
       ref={navigationRef}
       onReady={() => {
-        console.log('✅ App.tsx running with navigation');
+        console.log('✅ Navigation ready');
       }}
     >
       <ModalProvider>
@@ -34,7 +47,7 @@ export default function App() {
           <ProgressProvider>
             <AppShell />
           </ProgressProvider>  
-        </GlobalProgressProvider> {/* 👈 AJOUT */}
+        </GlobalProgressProvider>
       </ModalProvider>
     </NavigationContainer>
   );

@@ -206,7 +206,7 @@ export default function ProfileScreen({ navigation }) {
           style={styles.backBtn}
           onPress={() => navigation.navigate('Home')}
         >
-          <Text style={styles.backText}>← Back to Home</Text>
+          <Text style={styles.backBtnText}> Back to Park</Text>
         </TouchableOpacity>
 
         <TouchableOpacity
@@ -229,16 +229,20 @@ const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: '#3a1a6b', padding: 20 },
 
   title: {
-    fontSize: 32,
+    fontFamily: "Bangers",     // ← Police skate stylée
+    fontSize: 40,              // ← Taille idéale pour un titre principal
     color: '#0AA5FF',
-    fontWeight: '900',
     textAlign: 'center',
-    letterSpacing: 2,
+    letterSpacing: 1,
     marginBottom: 30,
-    textTransform: 'uppercase',
+
+    // Effet Santa Cruz léger
     textShadowColor: '#FF355E',
-    textShadowRadius: 6,
+    textShadowRadius: 4,
+
+    textTransform: 'none',     // ← Enlève la mise en MAJUSCULE
   },
+
 
   card: {
     backgroundColor: '#1A1B20',
@@ -323,22 +327,28 @@ const styles = StyleSheet.create({
   },
 
 
-  /* BACK */
+  // BACK BUTTON
   backBtn: {
-    marginTop: 10,
-    marginBottom: 10,
-    borderColor: '#FF355E',
-    borderWidth: 2,
+    marginTop: 16,
+    marginBottom: 24,
+    borderRadius: 999,
     paddingVertical: 12,
-    borderRadius: 16,
-    alignSelf: 'center',
-    width: '70%',
+    alignItems: "center",
+    borderWidth: 2,
+    borderColor: "#FFD600",     // jaune neon
+    backgroundColor: "#020617",
   },
-  backText: {
-    color: '#FF355E',
-    fontSize: 15,
-    fontWeight: '800',
-    textAlign: 'center',
+
+  backBtnText: {
+    fontFamily: "Bangers",
+    fontSize: 26,
+    color: "#FFFFFF",
+    letterSpacing: 1,
+
+    // Outline jaune discret pour lisibilité maximale
+    textShadowColor: "#FFD600",
+    textShadowOffset: { width: 1, height: 1 },
+    textShadowRadius: 1,
   },
 
   loadingWrap: {

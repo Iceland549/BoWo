@@ -118,9 +118,10 @@ export default function TrickLearnScreen({ route, navigation }: any) {
   useEffect(() => {
     (async () => {
       try {
-        console.log("[UI] TrickLearnScreen.fetch", trickId);   // ← AJOUT IMPORTANT
+        console.log("[UI] TrickLearnScreen.fetch", trickId);   
         log("TrickLearnScreen.fetch", trickId);
         const { data } = await api.get(`/content/tricks/${trickId}/learn`);
+        console.log("🔍 TRICK FROM API →", JSON.stringify(data, null, 2));
         setTrick(data);
       } catch (err) {
         log("TrickLearnScreen.error", err);
@@ -350,21 +351,8 @@ export default function TrickLearnScreen({ route, navigation }: any) {
         {/* ------------------------------------------------- */}
         {/* DUOLINGO-LIKE : Répondre à une question */}
         {/* ------------------------------------------------- */}
-        <TouchableOpacity
-          style={{
-            // marginHorizontal: 16,
-            marginTop: 10,
-            marginBottom: 4,
-            backgroundColor: "#0AA5FF",
-            paddingVertical: 14,
-            borderRadius: 14,
-            alignItems: "center",
-          }}
-          onPress={askQuestion}
-        >
-          <Text style={{ color: "#fff", fontSize: 15, fontWeight: "700" }}>
-            Répondre à une question
-          </Text>
+        <TouchableOpacity style={styles.answerBtn} onPress={askQuestion}>
+          <Text style={styles.answerBtnText}>Répondre à une question</Text>
         </TouchableOpacity>
 
         {/* ------------------------------------------------- */}
@@ -374,7 +362,7 @@ export default function TrickLearnScreen({ route, navigation }: any) {
           style={styles.backBtn}
           onPress={() => navigation.navigate("Main", { screen: "Home" })}
         >
-          <Text style={styles.backBtnText}>← Back to Park</Text>
+          <Text style={styles.backBtnText}>Back to Park</Text>
         </TouchableOpacity>
       </ScreenWrapper>
     </ScrollView>
@@ -620,22 +608,51 @@ const styles = StyleSheet.create({
     fontSize: 14,
   },
 
+  // BOUTON RÉPONDRE À UNE QUESTION
+  answerBtn: {
+    marginTop: 10,
+    marginBottom: 4,
+    backgroundColor: "#0AA5FF",
+    paddingVertical: 14,
+    borderRadius: 14,
+    alignItems: "center",
+    borderWidth: 2,
+    borderColor: "#FFD600", // outline jaune Santa Cruz
+  },
+
+  answerBtnText: {
+    fontFamily: "Bangers",
+    color: "#FFFFFF",
+    fontSize: 24,
+    letterSpacing: 1,
+    textShadowColor: "#FFD600",
+    textShadowOffset: { width: 1, height: 1 },
+    textShadowRadius: 1,       // très léger → NET
+  },   
+
   // BACK BUTTON
   backBtn: {
     marginTop: 16,
-    // marginHorizontal: 16,
     marginBottom: 24,
     borderRadius: 999,
     paddingVertical: 12,
     alignItems: "center",
-    borderWidth: 1,
-    borderColor: "#3B82F6",
+    borderWidth: 2,
+    borderColor: "#FFD600",     // jaune neon
     backgroundColor: "#020617",
   },
+
   backBtnText: {
-    color: "#E5E7EB",
-    fontSize: 14,
-    fontWeight: "600",
+    fontFamily: "Bangers",
+    fontSize: 26,
+    color: "#FFFFFF",
+    letterSpacing: 1,
+
+    // Outline jaune discret pour lisibilité maximale
+    textShadowColor: "#FFD600",
+    textShadowOffset: { width: 1, height: 1 },
+    textShadowRadius: 1,
   },
+
 });
 

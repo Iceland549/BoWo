@@ -154,18 +154,8 @@ export default function TrickDetailScreen({ route, navigation }) {
             }}
             onPress={askQuestion}
           >
-            <Text
-              style={{
-                fontWeight: "900",
-                color: "#111215",
-                fontSize: 16,
-                textAlign: "center",
-                textTransform: "uppercase",
-                letterSpacing: 1,
-              }}
-            >
-              Répondre à une question
-            </Text>
+          <Text style={styles.questionBtnText}>Répondre à une question</Text>
+
           </TouchableOpacity>
         </View>
 
@@ -174,7 +164,7 @@ export default function TrickDetailScreen({ route, navigation }) {
           style={styles.backBtn}
           onPress={() => navigation.navigate('Main', { screen: 'Home' })}
         >
-          <Text style={styles.backBtnText}>← Back to Park</Text>
+          <Text style={styles.backBtnText}>Back to Park</Text>
         </TouchableOpacity>
 
       </ScreenWrapper>
@@ -238,13 +228,14 @@ const styles = StyleSheet.create({
     borderColor: '#FFD600',
   },
   adBtnText: {
-    fontWeight: '900',
-    color: '#111215',
-    fontSize: 16,
-    textAlign: 'center',
-    textTransform: 'uppercase',
+    fontFamily: "FugazOne",
+    color: "#111215",
+    fontSize: 22,
+    textAlign: "center",
+    textTransform: "uppercase",
     letterSpacing: 1,
   },
+
 
   /* OPEN QUIZ BUTTON */
   quizBtn: {
@@ -256,27 +247,44 @@ const styles = StyleSheet.create({
     borderColor: '#FF355E',
   },
   quizBtnText: {
-    fontWeight: '900',
-    color: 'white',
-    fontSize: 16,
-    textAlign: 'center',
-    textTransform: 'uppercase',
+    fontFamily: "FugazOne",
+    color: "#FFFFFF",
+    fontSize: 22,
+    textAlign: "center",
+    textTransform: "uppercase",
     letterSpacing: 1,
   },
 
-  /* BACK BUTTON */
-  backBtn: {
-    marginTop: 30,
-    alignSelf: 'center',
-    backgroundColor: '#0AA5FF',
-    paddingVertical: 12,
-    paddingHorizontal: 24,
-    borderRadius: 50,
+  questionBtnText: {
+    fontFamily: "FugazOne",
+    fontSize: 22,
+    color: "#111215",
+    textAlign: "center",
+    textTransform: "uppercase",
+    letterSpacing: 1,
   },
+
+  // BACK BUTTON
+  backBtn: {
+    marginTop: 16,
+    marginBottom: 24,
+    borderRadius: 999,
+    paddingVertical: 12,
+    alignItems: "center",
+    borderWidth: 2,
+    borderColor: "#FFD600",     // jaune neon
+    backgroundColor: "#020617",
+  },
+
   backBtnText: {
-    fontWeight: '900',
-    color: '#fff',
-    textTransform: 'uppercase',
-    letterSpacing: 0.5,
+    fontFamily: "Bangers",
+    fontSize: 26,
+    color: "#FFFFFF",
+    letterSpacing: 1,
+
+    // Outline jaune discret pour lisibilité maximale
+    textShadowColor: "#FFD600",
+    textShadowOffset: { width: 1, height: 1 },
+    textShadowRadius: 1,
   },
 });

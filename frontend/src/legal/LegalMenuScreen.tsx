@@ -51,14 +51,16 @@ const styles = StyleSheet.create({
     padding: 20,
   },
   title: {
+    fontFamily: "Bangers",
     color: "#0AA5FF",
-    fontSize: 32,
-    fontWeight: "900",
+    fontSize: 36,
     textAlign: "center",
     textShadowColor: "#FF355E",
-    textShadowRadius: 6,
+    textShadowRadius: 4,
     marginBottom: 25,
-  },
+    letterSpacing: 1,
+    },
+
   card: {
     backgroundColor: "#1A1B20",
     borderWidth: 2,
@@ -67,11 +69,13 @@ const styles = StyleSheet.create({
     padding: 20,
     marginBottom: 20,
   },
-  cardTitle: {
-    color: "#FFD600",
-    fontSize: 20,
-    fontWeight: "900",
-  },
+ cardTitle: {
+   fontFamily: "Bangers",
+   color: "#FFD600",
+   fontSize: 24,
+   letterSpacing: 1,
+ },
+
   cardDesc: {
     color: "#EDECF8",
     marginTop: 6,

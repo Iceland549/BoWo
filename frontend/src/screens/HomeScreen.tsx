@@ -318,14 +318,16 @@ const styles = StyleSheet.create({
   },
 
   headerTitle: {
+    fontFamily: "Bangers",       
     color: '#0AA5FF',
-    fontSize: 32,
-    fontWeight: '900',
-    letterSpacing: 1.5,
-    textTransform: 'uppercase',
-    textShadowColor: '#DFFF00 ',
-    textShadowRadius: 6,
+    fontSize: 40,
+    letterSpacing: 1,
+    textShadowColor: '#FFD600', 
+    textShadowRadius: 3,
+    textAlign: 'left',
+    textTransform: 'none',    
   },
+
 
   headerSubtitle: {
     color: '#FFD600',

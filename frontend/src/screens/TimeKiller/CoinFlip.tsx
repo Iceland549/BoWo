@@ -140,13 +140,19 @@ const styles = StyleSheet.create({
   },
 
   quote: {
-    color: '#FFD600',
-    fontSize: 22,
-    fontWeight: '900',
-    textAlign: 'center',
+    fontFamily: "Bangers",
+    color: "#FFD600",
+    fontSize: 26,
+    textAlign: "center",
     marginBottom: 30,
     paddingHorizontal: 10,
+    
+    // Outline jaune léger
+    textShadowColor: "#FF355EAA",
+    textShadowOffset: { width: 1, height: 1 },
+    textShadowRadius: 2,
   },
+
 
   coinImage: {
     width: 180,
@@ -168,11 +174,11 @@ const styles = StyleSheet.create({
   },
 
   flipText: {
-    color: '#111',
-    fontSize: 18,
-    fontWeight: '900',
-    letterSpacing: 1,
-    textTransform: 'uppercase',
+    fontFamily: "Bangers",
+    fontSize: 20,
+    color: "#111",
+    textTransform: "uppercase",
+    letterSpacing: 1.2,
   },
 
   result: {
@@ -196,10 +202,10 @@ const styles = StyleSheet.create({
   },
 
   backText: {
-    color: '#111',
-    fontWeight: '900',
-    fontSize: 16,
-    textTransform: 'uppercase',
-    letterSpacing: 1,
+    fontFamily: "Bangers",
+    fontSize: 20,
+    color: "#111",
+    textTransform: "uppercase",
+    letterSpacing: 1.2,
   },
 });
