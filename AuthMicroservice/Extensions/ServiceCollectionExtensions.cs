@@ -40,6 +40,7 @@ namespace AuthMicroservice.Extensions
             services.AddScoped<GenerateResetPasswordUseCase>();
             services.AddScoped<ResetPasswordUseCase>();
             services.AddScoped<GenerateServiceTokenUseCase>();
+            services.AddScoped<DeleteAccountUseCase>();
 
             // AutoMapper
             services.AddAutoMapper(typeof(AutoMapperProfile));

@@ -12,12 +12,14 @@ namespace AuthMicroservice.Presentation.Controllers
         private readonly RegisterUserUseCase _register;
         private readonly ILogger<AccountController> _logger;
         private readonly GetProfileUseCase _profile;
+        private readonly DeleteAccountUseCase _deleteAccount;
 
-        public AccountController(RegisterUserUseCase register, GetProfileUseCase profile, ILogger<AccountController> logger)
+        public AccountController(RegisterUserUseCase register, GetProfileUseCase profile,  ILogger<AccountController> logger, DeleteAccountUseCase deleteAccount)
         {
             _register = register;
             _profile = profile;
             _logger = logger;
+            _deleteAccount = deleteAccount;
         }
 
         [HttpPost("register")]
@@ -43,6 +45,23 @@ namespace AuthMicroservice.Presentation.Controllers
                 return StatusCode(500, ApiResponse.Fail("Internal server error"));
             }
         }
+
+        [HttpDelete("account")]
+        [Authorize]
+        public async Task<IActionResult> DeleteAccount(CancellationToken ct)
+        {
+            var userId = User.FindFirst("sub")?.Value;
+            if (userId == null)
+                return Unauthorized();
+
+            var success = await _deleteAccount.ExecuteAsync(userId, ct);
+
+            if (!success)
+                return NotFound(new { message = "User not found" });
+
+            return Ok(new { success = true });
+        }
+
 
         [HttpGet("me")]
         [Authorize]

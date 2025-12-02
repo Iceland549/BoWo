@@ -61,6 +61,28 @@ namespace AuthMicroservice.Infrastructure.Persistence
             return isValid;
         }
 
+        public async Task DeleteAsync(string userId, CancellationToken ct = default)
+        {
+            var user = await _ctx.Users.FindAsync(new object[] { userId }, ct);
+
+            if (user == null)
+                return;
+
+            // Supprime les roles liés
+            var roles = _ctx.UserRoles.Where(r => r.UserId == userId);
+            _ctx.UserRoles.RemoveRange(roles);
+
+            // Supprime refresh tokens éventuels
+            var tokens = _ctx.RefreshTokens.Where(t => t.UserId == userId);
+            _ctx.RefreshTokens.RemoveRange(tokens);
+
+            // Supprime l’utilisateur
+            _ctx.Users.Remove(user);
+
+            await _ctx.SaveChangesAsync(ct);
+        }
+
+
         public async Task AddRoleAsync(string userId, string role)
         {
             _ctx.UserRoles.Add(new UserRole { UserId = userId, RoleId = role });
