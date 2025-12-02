@@ -46,8 +46,8 @@ function MainTabs() {
             borderTopColor: '#FFD600',
             elevation: 6,
           },
-          tabBarActiveTintColor: '#0AA5FF',
-          tabBarInactiveTintColor: '#FFD600',
+          tabBarActiveTintColor: '#FFD600',
+          tabBarInactiveTintColor: '#0AA5FF',
           tabBarLabelStyle: {
             fontSize: 12,
             fontWeight: '900',
