@@ -20,4 +20,10 @@ export type RootStackParamList = {
   // Réel screens
   Home: undefined;                      // Dans TopTab
   Profile: undefined;                   // Dans TopTab
+
+  // Leagl screens
+  LegalMenu: undefined;
+  Terms: undefined;
+  Privacy: undefined;
+  DeleteAccount: undefined;
 };
