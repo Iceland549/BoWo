@@ -1,8 +1,6 @@
 // frontend/src/screens/ProfileScreen.tsx
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import ScreenWrapper from '../components/ScreenWrapper';
-// import { useIsFocused } from "@react-navigation/native";
-
 import {
   View,
   Image,
@@ -11,6 +9,8 @@ import {
   StyleSheet,
   ActivityIndicator,
 } from 'react-native';
+
+import { useIsFocused } from '@react-navigation/native';
 import { useModalContext } from '@/context/ModalContext';
 import { getProfile } from '../services/authService';
 import { log } from '../utils/logger';
@@ -20,30 +20,47 @@ export default function ProfileScreen({ navigation }) {
   const [profile, setProfile] = useState<any>(null);
   const [loading, setLoading] = useState(true);
   const { showModal } = useModalContext();
+  const isFocused = useIsFocused();
+
   const logoFlip = require('../../assets/logos/flip-coin2_logo.png');
   const logoMagic = require('../../assets/logos/magic-ball_logo.png');
   const logoFortune = require('../../assets/logos/fortune2_logo.png');
   const logoCasino = require('../../assets/logos/casino_logo.png');
 
   /* -------------------------------------------------------- */
-  /*  🔵 CHARGER LA PROGRESSION JOUEUR ( /progress )          */
+  /*   🔵 FONCTION DE CHARGEMENT DU PROFIL                    */
   /* -------------------------------------------------------- */
-  useEffect(() => {
-    (async () => {
-      try {
-        const data = await getProfile();
-        setProfile(data);
-        log('Profile (progress) loaded', data);
-      } catch (err) {
-        log('ProfileScreen error', err);
-      } finally {
-        setLoading(false);
-      }
-    })();
+  const loadProfile = useCallback(async () => {
+    try {
+      const data = await getProfile();
+      setProfile(data);
+      log('Profile refreshed OK', data);
+    } catch (err) {
+      log('ProfileScreen error', err);
+    } finally {
+      setLoading(false);
+    }
   }, []);
 
   /* -------------------------------------------------------- */
-  /*  🔄 LOADING                                               */
+  /*   🔵 CHARGER UNE PREMIÈRE FOIS AU MONTAGE                */
+  /* -------------------------------------------------------- */
+  useEffect(() => {
+    loadProfile();
+  }, [loadProfile]);
+
+  /* -------------------------------------------------------- */
+  /*   🔵 REFRESH QUAND L’ÉCRAN REVIENT EN FOCUS             */
+  /* -------------------------------------------------------- */
+  useEffect(() => {
+    if (isFocused) {
+      // ⚠️ ici on NE remet PAS loading à true pour éviter le flash
+      loadProfile();
+    }
+  }, [isFocused, loadProfile]);
+
+  /* -------------------------------------------------------- */
+  /*   🔄 LOADING                                             */
   /* -------------------------------------------------------- */
   if (loading || !profile) {
     return (
@@ -59,7 +76,7 @@ export default function ProfileScreen({ navigation }) {
   /* -------------------------------------------------------- */
   const xp = profile?.xp ?? 0;
   const level = profile?.level ?? 0;
-  const totalUnlocked =   
+  const totalUnlocked =
     profile?.totalUnlocked ??
     profile?.unlockedTricks?.length ??
     0;
@@ -69,9 +86,6 @@ export default function ProfileScreen({ navigation }) {
   const nextLevelXP = (level + 1) * 500;
   const xpPercent = Math.min((xp / nextLevelXP) * 100, 100);
 
-  /* -------------------------------------------------------- */
-  /*  🏆 LEVEL TITLE                                           */
-  /* -------------------------------------------------------- */
   const getLevelTitle = () => {
     if (level >= 5) return 'Skate Legend 👑';
     if (level === 4) return 'Urban Shredder ⚡';
@@ -83,9 +97,6 @@ export default function ProfileScreen({ navigation }) {
 
   const levelTitle = getLevelTitle();
 
-  /* -------------------------------------------------------- */
-  /*   🔥 MESSAGE DE MOTIVATION                                */
-  /* -------------------------------------------------------- */
   const getMotivation = () => {
     if (xpPercent >= 90) return '🔥 Tu touches le prochain niveau !';
     if (xpPercent >= 50) return '⚡ Beau flow, continue comme ça !';
@@ -111,60 +122,26 @@ export default function ProfileScreen({ navigation }) {
     { name: 'Casino Trick Slot', key: 'casino-slot', screen: 'CasinoTrickSlot', logo: logoCasino },
   ];
 
-//   const isFocused = useIsFocused();
-//   useEffect(() => {    
-//   if (!isFocused) return;
-
-//   (async () => {
-//     try {
-//       const data = await getProfile();
-//       setProfile(data);
-//       log("Profile refreshed OK", data);
-//     } catch (err) {
-//       log("ProfileScreen refresh error", err);
-//     }
-//   })();
-// }, [isFocused]);
-
-  // const onPressMiniGame = (game) => {
-  //   const isUnlocked = unlockedMiniGames.includes(game.key);
-
-  //   if (!isUnlocked && canUnlockMiniGames) {
-  //     navigation.navigate('MiniGameUnlockChoice', { selected: game.key });
-  //     return;
-  //   }
-
-  //   if (isUnlocked) {
-  //     navigation.navigate(game.screen);
-  //   }
-  // };
-
-  // ⬇️ REMPLACE TON ANCIEN par CE NOUVEAU
   const onPressMiniGame = (game) => {
     const isUnlocked = unlockedMiniGames.includes(game.key);
 
-    // 1️⃣ Déjà débloqué → on lance le mini-jeu
     if (isUnlocked) {
       navigation.navigate(game.screen);
       return;
     }
 
-    // 2️⃣ Pas encore 2 tricks → modale BoWo explicative
     if (!canUnlockMiniGames) {
       showModal({
-        title: "Mini-jeu verrouillé",
-        message: "Débloque 2 tricks pour jouer à ce mini-jeu !",
-        type: "warning",
-        confirmText: "OK",
+        title: 'Mini-jeu verrouillé',
+        message: 'Débloque 2 tricks pour jouer à ce mini-jeu !',
+        type: 'warning',
+        confirmText: 'OK',
       });
       return;
     }
 
-    // 3️⃣ 2 tricks ou plus → choix de déblocage
-    navigation.navigate("MiniGameUnlockChoice", { selected: game.key });
+    navigation.navigate('MiniGameUnlockChoice', { selected: game.key });
   };
-
-
 
   /* -------------------------------------------------------- */
   /*  🎨 RENDER                                                */
@@ -177,10 +154,7 @@ export default function ProfileScreen({ navigation }) {
         {/* PROFILE CARD */}
         <View style={styles.card}>
           <Text style={styles.label}>Niveau</Text>
-
-          {/* 🔥 N’affiche plus le numéro "0" */}
           {level > 0 && <Text style={styles.value}>{level}</Text>}
-
           <Text style={styles.levelTitle}>{levelTitle}</Text>
 
           <XPBar xp={xp} nextLevelXP={nextLevelXP} />
@@ -193,7 +167,6 @@ export default function ProfileScreen({ navigation }) {
           <Text style={styles.label}>Progression globale</Text>
           <Text style={styles.value}>{completionPercent}%</Text>
 
-          {/* ⭐ MESSAGE MOTIVATION */}
           <Text style={styles.motivation}>{motivation}</Text>
         </View>
 
@@ -235,8 +208,9 @@ export default function ProfileScreen({ navigation }) {
         >
           <Text style={styles.backText}>← Back to Home</Text>
         </TouchableOpacity>
+
         <TouchableOpacity
-          onPress={() => navigation.navigate("LegalMenu")}
+          onPress={() => navigation.navigate('LegalMenu')}
           style={styles.legalBtn}
         >
           <Text style={styles.legalText}>Informations légales</Text>
@@ -245,6 +219,7 @@ export default function ProfileScreen({ navigation }) {
     </View>
   );
 }
+
 
 /* -------------------------------------------------------- */
 /*              🎨 SANTA CRUZ STYLES                         */
