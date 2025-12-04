@@ -27,6 +27,8 @@ export default function App() {
     Bangers: require("./assets/fonts/Bangers-Regular.ttf"),
     Anton: require("./assets/fonts/Anton-Regular.ttf"),
     FugazOne: require("./assets/fonts/FugazOne-Regular.ttf"),
+    OldEast: require("./assets/fonts/OldEast.ttf"),
+    Ninja: require("./assets/fonts/Ninja.otf"),
   });
 
   // 2️⃣ ON NE REND PAS L'APP TANT QUE LA POLICE N'EST PAS CHARGÉE
