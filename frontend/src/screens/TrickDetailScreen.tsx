@@ -127,7 +127,7 @@ export default function TrickDetailScreen({ route, navigation }) {
         <View style={styles.buttonsWrap}>
           {/* UNLOCK BUTTON */}
           <TouchableOpacity style={styles.adBtn} onPress={onWatchAd}>
-            <Text style={styles.adBtnText}>Pay Only 0.49e to Unlock</Text>
+            <Text style={styles.adBtnText}>Soutenir le créateur</Text>
           </TouchableOpacity>
 
           {/* OPEN QUIZ */}

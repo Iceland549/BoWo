@@ -229,18 +229,14 @@ const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: '#3a1a6b', padding: 20 },
 
   title: {
-    fontFamily: "Bangers",     // ← Police skate stylée
-    fontSize: 40,              // ← Taille idéale pour un titre principal
+    fontFamily: "Bangers",     
+    fontSize: 40,             
     color: '#0AA5FF',
     textAlign: 'center',
     letterSpacing: 1,
     marginBottom: 30,
-
-    // Effet Santa Cruz léger
     textShadowColor: '#FF355E',
     textShadowRadius: 4,
-
-    textTransform: 'none',     // ← Enlève la mise en MAJUSCULE
   },
 
 
@@ -335,7 +331,7 @@ const styles = StyleSheet.create({
     paddingVertical: 12,
     alignItems: "center",
     borderWidth: 2,
-    borderColor: "#FFD600",     // jaune neon
+    borderColor: "#FFD600",     
     backgroundColor: "#020617",
   },
 
@@ -344,8 +340,6 @@ const styles = StyleSheet.create({
     fontSize: 26,
     color: "#FFFFFF",
     letterSpacing: 1,
-
-    // Outline jaune discret pour lisibilité maximale
     textShadowColor: "#FFD600",
     textShadowOffset: { width: 1, height: 1 },
     textShadowRadius: 1,

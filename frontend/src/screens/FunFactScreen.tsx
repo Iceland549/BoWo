@@ -42,7 +42,7 @@ export default function FunFactScreen({ route, navigation }) {
             style={styles.backBtn}
             onPress={onBack}
           >
-            <Text style={styles.backText}>← Retour au park</Text>
+            <Text style={styles.backBtnText}>Back to Park</Text>
           </TouchableOpacity>
         </View>
       </ScreenWrapper>    
@@ -54,7 +54,7 @@ export default function FunFactScreen({ route, navigation }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#111215',
+    backgroundColor: '#3a1a6b',
     paddingHorizontal: 20,
     paddingTop: 40,
   },
@@ -103,29 +103,45 @@ const styles = StyleSheet.create({
   },
 
   retryBtn: {
-    backgroundColor: '#FFD600',
+    marginTop: 10,
+    marginBottom: 4,
+    backgroundColor: "#0AA5FF",
     paddingVertical: 14,
-    borderRadius: 16,
-    marginBottom: 20,
-  },
-  retryText: {
-    fontWeight: '900',
-    textAlign: 'center',
-    color: '#1A1B20',
-    fontSize: 16,
-    textTransform: 'uppercase',
+    borderRadius: 14,
+    alignItems: "center",
+    borderWidth: 2,
+    borderColor: "#FFD600", // outline jaune Santa Cruz
   },
 
+  retryText: {
+    fontFamily: "Bangers",
+    color: "#FFFFFF",
+    fontSize: 24,
+    letterSpacing: 1,
+    textShadowColor: "#FFD600",
+    textShadowOffset: { width: 1, height: 1 },
+    textShadowRadius: 1,       // très léger → NET
+  }, 
+
+  // BACK BUTTON
   backBtn: {
-    borderColor: '#FF355E',
-    borderWidth: 2,
+    marginTop: 16,
+    marginBottom: 24,
+    borderRadius: 999,
     paddingVertical: 12,
-    borderRadius: 16,
+    alignItems: "center",
+    borderWidth: 2,
+    borderColor: "#FFD600",     // jaune neon
+    backgroundColor: "#020617",
   },
-  backText: {
-    color: '#FF355E',
-    textAlign: 'center',
-    fontWeight: '800',
-    fontSize: 15,
+
+  backBtnText: {
+    fontFamily: "Bangers",
+    fontSize: 26,
+    color: "#FFFFFF",
+    letterSpacing: 1,
+    textShadowColor: "#FFD600",
+    textShadowOffset: { width: 1, height: 1 },
+    textShadowRadius: 1,
   },
 });
