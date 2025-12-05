@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useAuthStore } from '../store/authStore';
 import ScreenWrapper from '../components/ScreenWrapper';
-import { useGlobalProgress } from "../context/GlobalProgressContext";
 
 import {
   View,
@@ -20,10 +19,9 @@ import useModal from '../hooks/useModal';
 import { getProfile } from '../services/authService';
 
 // === DUOLINGO-LIKE ADDITIONS ===
-import { useProgress } from "../context/ProgressContext";
-import { useQuestion } from "../hooks/useQuestion";
-import { useModalContext } from "../context/ModalContext";
-import BoWoXPBar from "../components/BoWoXPBar";
+import { useProgress } from '../context/ProgressContext';
+import { useModalContext } from '../context/ModalContext';
+import BoWoXPBar from '../components/BoWoXPBar';
 
 /* -------------------------------------------
  * TRICK ROW COMPONENT
@@ -37,14 +35,14 @@ const TrickRow = ({
   showLevelUp,
 }) => {
   const trickId = item._id || item.id;
-  const { refreshProgress } = useGlobalProgress();
+
+  // 🔥 On utilise directement le ProgressContext Upgrade 3
+  const { fetchQuestion, answerQuestion } = useProgress();
 
   const isUnlocked =
     profile?.unlockedTricks?.includes(trickId) === true;
 
   const prog = progressByTrick[trickId] ?? { level: 0, totalXp: 0 };
-
-  const { loadQuestion, submit } = useQuestion(trickId);
 
   const continueOrAsk = async () => {
     if (!isUnlocked) {
@@ -52,30 +50,50 @@ const TrickRow = ({
       return;
     }
 
-    const q = await loadQuestion();
+    // 1️⃣ On récupère la prochaine question via /progress/{trickId}/next
+    const q: any = await fetchQuestion(trickId);
+
     if (q?.question) {
       openQuestionModal({
         trickId,
         question: q.question,
-        onAnswer: async (selected) => {
-          const result = await submit(q.question.level, selected);
+        onAnswer: async (selected: string) => {
+          // Niveau à envoyer au backend :
+          // priorité à question.level (comme avant),
+          // sinon currentLevel, sinon niveau local connu.
+          const levelForAnswer =
+            q?.question?.level ??
+            q?.currentLevel ??
+            prog.level;
 
-          await refreshProgress(); // 🔥 synchro XP globale
+          // 2️⃣ On soumet la réponse via ProgressContext
+          const result: any = await answerQuestion(
+            trickId,
+            levelForAnswer,
+            selected
+          );
 
-          if (result.correct && result.newLevel > prog.level) {
+          const correct: boolean = !!result.correct;
+          const newLevel: number = result.newLevel ?? prog.level;
+          const xpGained: number = result.xpGained ?? 0;
+
+          // 3️⃣ Affichage de l’écran de level-up local (trick)
+          if (correct && newLevel > prog.level) {
             showLevelUp({
               trickId,
-              newLevel: result.newLevel,
-              xpGained: result.xpGained,
+              newLevel,
+              xpGained,
             });
           }
 
-          return result.correct;
+          // La modale a juste besoin de savoir si c’était correct
+          return correct;
         },
       });
       return;
     }
 
+    // Pas de question → on envoie vers l’écran d’apprentissage
     navigation.navigate('TrickLearn', { trickId });
   };
 
@@ -89,9 +107,10 @@ const TrickRow = ({
         <TrickCard trick={{ ...item, isUnlocked }} />
       </TouchableOpacity>
 
-      {/* XP BAR */}
+      {/* XP BAR LOCALE POUR LE TRICK */}
       <View style={{ marginTop: 6, paddingHorizontal: 6 }}>
-        <BoWoXPBar currentXp={prog.totalXp} nextLevelXp={80} />
+        {/* totalXp va de 0 → 160 (8 niveaux x 20 XP locaux) */}
+        <BoWoXPBar currentXp={prog.totalXp} nextLevelXp={160} />
       </View>
 
       {/* BOUTON CONTINUER */}
@@ -115,14 +134,14 @@ const TrickRow = ({
  * HOME SCREEN
  * ------------------------------------------- */
 export default function HomeScreen({ navigation }) {
-  const [tricks, setTricks] = useState([]);
+  const [tricks, setTricks] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
-  const [profile, setProfile] = useState(null);
+  const [profile, setProfile] = useState<any>(null);
 
   const { token, clearCredentials } = useAuthStore();
   const { showModal } = useModal();
 
-  // 🔥 Progression locale par trick
+  // 🔥 Progression locale par trick (Upgrade 3)
   const { progress: progressByTrick, fetchQuestion } = useProgress();
 
   const { openQuestionModal, showLevelUp } = useModalContext();
@@ -296,7 +315,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 12,
     borderRadius: 12,
     borderWidth: 2,
-    borderColor: '#DFFF00 ',
+    borderColor: '#DFFF00',
   },
 
   loadingScreen: {
@@ -318,16 +337,15 @@ const styles = StyleSheet.create({
   },
 
   headerTitle: {
-    fontFamily: "Bangers",       
+    fontFamily: 'Bangers',
     color: '#0AA5FF',
     fontSize: 40,
     letterSpacing: 1,
-    textShadowColor: '#FFD600', 
+    textShadowColor: '#FFD600',
     textShadowRadius: 3,
     textAlign: 'left',
-    textTransform: 'none',    
+    textTransform: 'none',
   },
-
 
   headerSubtitle: {
     color: '#FFD600',
@@ -343,7 +361,7 @@ const styles = StyleSheet.create({
     paddingVertical: 12,
     borderRadius: 16,
     borderWidth: 2,
-    borderColor: '#FFD600 ',
+    borderColor: '#FFD600',
   },
 
   continueBtnText: {

@@ -1,5 +1,5 @@
 // frontend/src/screens/TrickLearnScreen.tsx
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import {
   View,
   Text,
@@ -9,6 +9,8 @@ import {
   StyleSheet,
   TouchableOpacity,
   ActivityIndicator,
+  Animated,
+  Dimensions,
 } from "react-native";
 import { Video, ResizeMode } from "expo-av";
 import { useGlobalProgress } from "../context/GlobalProgressContext";
@@ -24,6 +26,8 @@ import { useQuestion } from "../hooks/useQuestion";
 import { useModalContext } from "../context/ModalContext";
 import BoWoXPBar from "../components/BoWoXPBar";
 
+const { width: SCREEN_WIDTH } = Dimensions.get("window");
+
 // ---------------------------------------------------------
 // TYPES
 // ---------------------------------------------------------
@@ -37,6 +41,7 @@ type TrickLearn = {
   proVideoUrl?: string | null;
   proTip?: string[];
   commonMistake?: string[];
+  funFact?: string;
 };
 
 type TrickVideoCardProps = {
@@ -63,7 +68,6 @@ const resolveMediaUrl = (raw?: string | null): string | null => {
   // défaut → concat
   return `${MEDIA_BASE_URL}/${raw}`;
 };
-
 
 // ---------------------------------------------------------
 // Components internes
@@ -112,13 +116,18 @@ export default function TrickLearnScreen({ route, navigation }: any) {
   // Niveau / XP actuel du trick
   const current = progress[trickId] ?? { level: 0, totalXp: 0 };
 
+  // === FULLSCREEN VIEWER ===
+  const [fullscreenVisible, setFullscreenVisible] = useState(false);
+  const [fullscreenIndex, setFullscreenIndex] = useState(0);
+  const fullscreenOpacity = useRef(new Animated.Value(0)).current;
+
   // ---------------------------------------------------------
   // useEffect : FETCH DATA
   // ---------------------------------------------------------
   useEffect(() => {
     (async () => {
       try {
-        console.log("[UI] TrickLearnScreen.fetch", trickId);   
+        console.log("[UI] TrickLearnScreen.fetch", trickId);
         log("TrickLearnScreen.fetch", trickId);
         const { data } = await api.get(`/content/tricks/${trickId}/learn`);
         console.log("🔍 TRICK FROM API →", JSON.stringify(data, null, 2));
@@ -155,8 +164,7 @@ export default function TrickLearnScreen({ route, navigation }: any) {
       question: res.question,
       onAnswer: async (selected: string) => {
         const result = await submit(res.question.level, selected);
-        await refreshProgress();  // 🔥 synchronise la XP globale
-
+        await refreshProgress(); // 🔥 synchronise la XP globale
 
         if (result.correct && result.newLevel > current.level) {
           showLevelUp({
@@ -167,6 +175,31 @@ export default function TrickLearnScreen({ route, navigation }: any) {
         }
         return result.correct;
       },
+    });
+  };
+
+  // ---------------------------------------------------------
+  // Fullscreen helpers
+  // ---------------------------------------------------------
+  const openFullscreen = (startIndex: number) => {
+    if (!trick?.images?.length) return;
+    setFullscreenIndex(startIndex);
+    setFullscreenVisible(true);
+    fullscreenOpacity.setValue(0);
+    Animated.timing(fullscreenOpacity, {
+      toValue: 1,
+      duration: 200,
+      useNativeDriver: true,
+    }).start();
+  };
+
+  const closeFullscreen = () => {
+    Animated.timing(fullscreenOpacity, {
+      toValue: 0,
+      duration: 200,
+      useNativeDriver: true,
+    }).start(() => {
+      setFullscreenVisible(false);
     });
   };
 
@@ -217,6 +250,62 @@ export default function TrickLearnScreen({ route, navigation }: any) {
   return (
     <ScrollView style={styles.container} contentContainerStyle={styles.content}>
       <ScreenWrapper>
+        {/* ------------------------------------------------- */}
+        {/* FULLSCREEN VIEWER OVERLAY */}
+        {/* ------------------------------------------------- */}
+        {fullscreenVisible && (
+          <Animated.View
+            style={[
+              styles.fullscreenContainer,
+              { opacity: fullscreenOpacity },
+            ]}
+          >
+            <FlatList
+              data={trick.images}
+              horizontal
+              pagingEnabled
+              showsHorizontalScrollIndicator={false}
+              initialScrollIndex={fullscreenIndex}
+              getItemLayout={(_, index) => ({
+                length: SCREEN_WIDTH,
+                offset: SCREEN_WIDTH * index,
+                index,
+              })}
+              keyExtractor={(item, index) => `${item}-${index}`}
+              renderItem={({ item }) => {
+                const url = resolveMediaUrl(item);
+                if (!url) return null;
+
+                return (
+                  <View style={styles.fullscreenWrapper}>
+                    <ScrollView
+                      style={{ flex: 1 }}
+                      maximumZoomScale={3}
+                      minimumZoomScale={1}
+                      contentContainerStyle={styles.fullscreenZoomContainer}
+                      centerContent
+                    >
+                      <Image
+                        source={{ uri: url }}
+                        style={styles.fullscreenImage}
+                        resizeMode="contain"
+                      />
+                    </ScrollView>
+                  </View>
+                );
+              }}
+            />
+
+            {/* Close button */}
+            <TouchableOpacity
+              style={styles.fullscreenClose}
+              onPress={closeFullscreen}
+            >
+              <Text style={styles.fullscreenCloseText}>✕</Text>
+            </TouchableOpacity>
+          </Animated.View>
+        )}
+
         {/* ------------------------------------------------- */}
         {/* HERO */}
         {/* ------------------------------------------------- */}
@@ -274,7 +363,7 @@ export default function TrickLearnScreen({ route, navigation }: any) {
         )}
 
         {/* ------------------------------------------------- */}
-        {/* IMAGES */}
+        {/* IMAGES (CLIC → FULLSCREEN) */}
         {/* ------------------------------------------------- */}
         {trick.images?.length > 0 && (
           <View style={styles.section}>
@@ -286,10 +375,17 @@ export default function TrickLearnScreen({ route, navigation }: any) {
               keyExtractor={(u, i) => `${u}-${i}`}
               showsHorizontalScrollIndicator={false}
               contentContainerStyle={styles.imagesList}
-              renderItem={({ item }) => {
+              renderItem={({ item, index }) => {
                 const url = resolveMediaUrl(item);
                 if (!url) return null;
-                return <Image source={{ uri: url }} style={styles.stepImage} />;
+                return (
+                  <TouchableOpacity
+                    onPress={() => openFullscreen(index)}
+                    activeOpacity={0.9}
+                  >
+                    <Image source={{ uri: url }} style={styles.stepImage} />
+                  </TouchableOpacity>
+                );
               }}
             />
           </View>
@@ -308,7 +404,7 @@ export default function TrickLearnScreen({ route, navigation }: any) {
 
               return (
                 <View style={styles.stepRow} key={i}>
-                  <View style={[styles.stepIndex, { backgroundColor: bg }]} >
+                  <View style={[styles.stepIndex, { backgroundColor: bg }]}>
                     <Text style={styles.stepIndexText}>{i + 1}</Text>
                   </View>
                   <Text style={styles.stepText}>{s}</Text>
@@ -323,13 +419,13 @@ export default function TrickLearnScreen({ route, navigation }: any) {
           <View style={styles.tipBox}>
             <Text style={styles.tipTitle}>🔥 PRO TIP</Text>
 
-              {Array.isArray(trick.proTip) &&
-                trick.proTip.map((line, idx) => (
-              <View key={idx} style={styles.bulletRow}>
-                <Text style={styles.bullet}>•</Text>
-                <Text style={styles.bulletText}>{line}</Text>
-              </View>
-            ))}
+            {Array.isArray(trick.proTip) &&
+              trick.proTip.map((line, idx) => (
+                <View key={idx} style={styles.bulletRow}>
+                  <Text style={styles.bullet}>•</Text>
+                  <Text style={styles.bulletText}>{line}</Text>
+                </View>
+              ))}
           </View>
         )}
 
@@ -338,21 +434,45 @@ export default function TrickLearnScreen({ route, navigation }: any) {
           <View style={styles.mistakeBox}>
             <Text style={styles.mistakeTitle}>⚠️ ERREUR COURANTE</Text>
 
-              {Array.isArray(trick.commonMistake) &&
-                trick.commonMistake.map((line, idx) => (
-              <View key={idx} style={styles.bulletRow}>
-                <Text style={[styles.bullet, { color: '#FF355E' }]}>•</Text>
-                <Text style={styles.bulletText}>{line}</Text>
-              </View>
-            ))}
-          </View> 
+            {Array.isArray(trick.commonMistake) &&
+              trick.commonMistake.map((line, idx) => (
+                <View key={idx} style={styles.bulletRow}>
+                  <Text style={[styles.bullet, { color: "#FF355E" }]}>•</Text>
+                  <Text style={styles.bulletText}>{line}</Text>
+                </View>
+              ))}
+          </View>
+        )}
+
+        {/* 🎉 FUN FACT */}
+        {trick.funFact && (
+          <View style={styles.funFactBox}>
+            <Text style={styles.funFactTitle}>🎉 FUN FACT</Text>
+
+            <View style={styles.bulletRow}>
+              <Text style={[styles.bullet, { color: "#FFA500" }]}>•</Text>
+              <Text style={styles.bulletText}>{trick.funFact}</Text>
+            </View>
+          </View>
         )}
 
         {/* ------------------------------------------------- */}
         {/* DUOLINGO-LIKE : Répondre à une question */}
         {/* ------------------------------------------------- */}
-        <TouchableOpacity style={styles.answerBtn} onPress={askQuestion}>
-          <Text style={styles.answerBtnText}>Répondre à une question</Text>
+        <TouchableOpacity
+          style={{
+            marginTop: 10,
+            marginBottom: 4,
+            backgroundColor: "#0AA5FF",
+            paddingVertical: 14,
+            borderRadius: 14,
+            alignItems: "center",
+          }}
+          onPress={askQuestion}
+        >
+          <Text style={{ color: "#fff", fontSize: 15, fontWeight: "700" }}>
+            Répondre à une question
+          </Text>
         </TouchableOpacity>
 
         {/* ------------------------------------------------- */}
@@ -362,7 +482,7 @@ export default function TrickLearnScreen({ route, navigation }: any) {
           style={styles.backBtn}
           onPress={() => navigation.navigate("Main", { screen: "Home" })}
         >
-          <Text style={styles.backBtnText}>Back to Park</Text>
+          <Text style={styles.backBtnText}>← Back to Park</Text>
         </TouchableOpacity>
       </ScreenWrapper>
     </ScrollView>
@@ -418,7 +538,6 @@ const styles = StyleSheet.create({
 
   // SECTION
   section: {
-    // marginHorizontal: 16,
     marginVertical: 8,
     padding: 14,
     borderRadius: 18,
@@ -439,9 +558,8 @@ const styles = StyleSheet.create({
     lineHeight: 20,
   },
 
-  //STEPSBOX
+  // STEPSBOX
   stepsBox: {
-    // marginHorizontal: 16,
     marginVertical: 8,
     padding: 16,
     borderRadius: 20,
@@ -453,8 +571,7 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.35,
     shadowRadius: 8,
     elevation: 5,
- },
-
+  },
 
   // VIDEOS
   videoCard: {
@@ -540,59 +657,56 @@ const styles = StyleSheet.create({
 
   /* --- PRO TIP BOX --- */
   tipBox: {
-    backgroundColor: '#1A1B20',
+    backgroundColor: "#1A1B20",
     borderWidth: 2,
-    borderColor: '#0AA5FF',
+    borderColor: "#0AA5FF",
     borderRadius: 14,
     padding: 14,
     marginTop: 22,
-    // marginHorizontal: 16
   },
   tipTitle: {
-    color: '#0AA5FF',
-    fontWeight: '900',
+    color: "#0AA5FF",
+    fontWeight: "900",
     fontSize: 16,
     marginBottom: 8,
-    textTransform: 'uppercase',
+    textTransform: "uppercase",
     letterSpacing: 1,
   },
   bulletRow: {
-    flexDirection: 'row',
-    alignItems: 'flex-start',
+    flexDirection: "row",
+    alignItems: "flex-start",
   },
   bullet: {
-    color: '#0AA5FF',
+    color: "#0AA5FF",
     fontSize: 22,
     marginRight: 8,
     marginTop: -3,
   },
   bulletText: {
     flex: 1,
-    color: '#EDECF8',
+    color: "#EDECF8",
     fontSize: 15,
     lineHeight: 22,
-    fontWeight: '600',
+    fontWeight: "600",
   },
 
   /* --- COMMON MISTAKE BOX --- */
   mistakeBox: {
-    backgroundColor: '#1A1B20',
+    backgroundColor: "#1A1B20",
     borderWidth: 2,
-    borderColor: '#FF355E',
+    borderColor: "#FF355E",
     borderRadius: 14,
     padding: 14,
     marginTop: 18,
-    // marginHorizontal: 16
   },
   mistakeTitle: {
-    color: '#FF355E',
-    fontWeight: '900',
+    color: "#FF355E",
+    fontWeight: "900",
     fontSize: 16,
     marginBottom: 8,
-    textTransform: 'uppercase',
+    textTransform: "uppercase",
     letterSpacing: 1,
   },
-
 
   // LOADING
   loadingContainer: {
@@ -608,7 +722,7 @@ const styles = StyleSheet.create({
     fontSize: 14,
   },
 
-  // BOUTON RÉPONDRE À UNE QUESTION
+    // BOUTON RÉPONDRE À UNE QUESTION
   answerBtn: {
     marginTop: 10,
     marginBottom: 4,
@@ -628,7 +742,7 @@ const styles = StyleSheet.create({
     textShadowColor: "#FFD600",
     textShadowOffset: { width: 1, height: 1 },
     textShadowRadius: 1,       // très léger → NET
-  },   
+  }, 
 
   // BACK BUTTON
   backBtn: {
@@ -647,12 +761,75 @@ const styles = StyleSheet.create({
     fontSize: 26,
     color: "#FFFFFF",
     letterSpacing: 1,
-
-    // Outline jaune discret pour lisibilité maximale
     textShadowColor: "#FFD600",
     textShadowOffset: { width: 1, height: 1 },
     textShadowRadius: 1,
   },
 
-});
+  funFactBox: {
+    marginVertical: 10,
+    padding: 16,
+    borderRadius: 20,
+    backgroundColor: "#2C1A05",        // brun foncé chaud pour ambiance dorée
+    borderWidth: 2,
+    borderColor: "#FFA500",            // orange doré
+    shadowColor: "#FFB020",            // halo doré
+    shadowOffset: { width: 0, height: 0 },
+    shadowOpacity: 0.45,
+    shadowRadius: 10,
+    elevation: 6,
+  },
 
+  funFactTitle: {
+    color: "#FFA500",
+    fontSize: 16,
+    fontWeight: "800",
+    textTransform: "uppercase",
+    marginBottom: 8,
+    textShadowColor: "#FFCE70",
+    textShadowOffset: { width: 0, height: 0 },
+    textShadowRadius: 6,
+  },
+
+  // FULLSCREEN VIEWER
+  fullscreenContainer: {
+    position: "absolute",
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    backgroundColor: "rgba(5,8,22,0.96)", // fond sombre type blur
+    zIndex: 50,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  fullscreenWrapper: {
+    width: SCREEN_WIDTH,
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  fullscreenZoomContainer: {
+    width: SCREEN_WIDTH,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  fullscreenImage: {
+    width: SCREEN_WIDTH,
+    height: "100%",
+  },
+  fullscreenClose: {
+    position: "absolute",
+    top: 40,
+    right: 20,
+    backgroundColor: "rgba(0,0,0,0.6)",
+    paddingHorizontal: 12,
+    paddingVertical: 6,
+    borderRadius: 999,
+  },
+  fullscreenCloseText: {
+    fontSize: 24,
+    color: "#FFF",
+    fontWeight: "900",
+  },
+});

@@ -1,13 +1,22 @@
+// frontend/src/components/BoWoXPBar.tsx
 import React from "react";
 import { View, Text, StyleSheet } from "react-native";
 
-export default function BoWoXPBar({
-  currentXp,
-  nextLevelXp,
-}: {
+type Props = {
+  /**
+   * XP déjà gagné dans le niveau en cours
+   * (ex: xp - currentLevelMinXP)
+   */
   currentXp: number;
+
+  /**
+   * XP total nécessaire POUR ce niveau
+   * (ex: nextLevelMinXP - currentLevelMinXP)
+   */
   nextLevelXp: number;
-}) {
+};
+
+export default function BoWoXPBar({ currentXp, nextLevelXp }: Props) {
   // on sécurise : éviter division par 0
   const safeNext = nextLevelXp > 0 ? nextLevelXp : 80;
 

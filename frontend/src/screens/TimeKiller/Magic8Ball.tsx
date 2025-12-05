@@ -118,6 +118,9 @@ export default function Magic8Ball({ navigation }) {
   const shakeAnim = useRef(new Animated.Value(0)).current;
   const auraOpacity = useRef(new Animated.Value(0)).current;
 
+  // ✨ Halo mystérieux derrière le logo
+  const headerHaloScale = useRef(new Animated.Value(0.9)).current;
+
   // Réponse
   const answerOpacity = useRef(new Animated.Value(0)).current;
   const answerScale = useRef(new Animated.Value(0.7)).current;
@@ -242,6 +245,7 @@ export default function Magic8Ball({ navigation }) {
     chargeAnim.setValue(0);
     rotationAnim.setValue(0);
     shakeAnim.setValue(0);
+    headerHaloScale.setValue(0.9);
 
     // Animation de "rumble" pendant la charge
     const rumble = Animated.sequence([
@@ -267,7 +271,7 @@ export default function Magic8Ball({ navigation }) {
       }),
     ]);
 
-    // Glow pulse de l’aura
+    // Glow pulse de l’aura autour de la boule
     const auraPulse = Animated.sequence([
       Animated.timing(auraOpacity, {
         toValue: 0.2,
@@ -287,6 +291,25 @@ export default function Magic8Ball({ navigation }) {
       Animated.timing(auraOpacity, {
         toValue: 1,
         duration: 300,
+        useNativeDriver: true,
+      }),
+    ]);
+
+    // Pulse du halo rouge mystique derrière le logo
+    const headerHaloPulse = Animated.sequence([
+      Animated.timing(headerHaloScale, {
+        toValue: 1,
+        duration: 300,
+        useNativeDriver: true,
+      }),
+      Animated.timing(headerHaloScale, {
+        toValue: 1.08,
+        duration: 400,
+        useNativeDriver: true,
+      }),
+      Animated.timing(headerHaloScale, {
+        toValue: 1,
+        duration: 400,
         useNativeDriver: true,
       }),
     ]);
@@ -311,6 +334,8 @@ export default function Magic8Ball({ navigation }) {
       Animated.loop(rumble, { iterations: 3 }),
       // Glow pulse de l’aura
       Animated.loop(auraPulse, { iterations: 2 }),
+      // Halo mystique header
+      Animated.loop(headerHaloPulse, { iterations: 2 }),
       // Charging bar
       charging,
     ]).start(() => {
@@ -420,11 +445,6 @@ export default function Magic8Ball({ navigation }) {
 
       // Haptics selon le résultat
       playHaptics(tag, text);
-
-      // TODO sons :
-      // if (tag === "ultra") playBoomSound();
-      // else if (tag === "rare") playTingSound();
-      // else playWhooshSound();
     });
   };
 
@@ -445,10 +465,16 @@ export default function Magic8Ball({ navigation }) {
 
   const auraColors: [string, string] =
     isUltraRare
-      ? ['#FF00FF', '#00FFFF']        // Rainbow rare
+      ? ["#FF00FF", "#00FFFF"] // Rainbow rare
       : isRare
-      ? ['#FF355E', '#FFD600']        // Rare orange/rose
-      : ['#FF355E', '#0AA5FF']; 
+      ? ["#FF355E", "#FFD600"] // Rare orange/rose
+      : ["#FF355E", "#0AA5FF"];
+
+  // Halo du header : on utilise la même auraOpacity mais en plus discret
+  const headerHaloOpacity = auraOpacity.interpolate({
+    inputRange: [0, 1],
+    outputRange: [0, 0.7],
+  });
 
   return (
     <View style={styles.pageContainer}>
@@ -457,8 +483,23 @@ export default function Magic8Ball({ navigation }) {
         showsVerticalScrollIndicator={false}
       >
         <View style={styles.inner}>
-          {/* LOGO */}
-          <Image source={logoMagic} style={styles.gameLogo} resizeMode="contain" />
+          {/* LOGO + HALO MYSTIQUE */}
+          <View style={styles.headerLogoWrapper}>
+            <Animated.View
+              style={[
+                styles.headerHalo,
+                {
+                  opacity: headerHaloOpacity,
+                  transform: [{ scale: headerHaloScale }],
+                },
+              ]}
+            />
+            <Image
+              source={logoMagic}
+              style={styles.gameLogo}
+              resizeMode="contain"
+            />
+          </View>
 
           <View style={styles.vortexWrapper}>
             <View style={styles.vortexRing} />
@@ -560,7 +601,9 @@ export default function Magic8Ball({ navigation }) {
               <Text style={styles.historyTitle}>Ton destin aujourd’hui :</Text>
               {history.map((item, idx) => (
                 <View key={idx} style={styles.historyItem}>
-                  <Text style={styles.historyQuestion}>Q: {item.question}</Text>
+                  <Text style={styles.historyQuestion}>
+                    Q: {item.question}
+                  </Text>
                   <Text style={styles.historyAnswer}>→ {item.answer}</Text>
                 </View>
               ))}
@@ -611,10 +654,30 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
   },
 
+  // HEADER LOGO + HALO
+  headerLogoWrapper: {
+    width: "100%",
+    alignItems: "center",
+    justifyContent: "center",
+    marginBottom: 4,
+  },
+  headerHalo: {
+    position: "absolute",
+    width: 260,
+    height: 260,
+    borderRadius: 130,
+    backgroundColor: "rgba(255,53,94,0.25)", 
+    shadowColor: "#FF355E",
+    shadowOpacity: 0.9,
+    shadowRadius: 30,
+    shadowOffset: { width: 0, height: 0 },
+    elevation: 12,
+  },
+
   gameLogo: {
     width: 320,
     height: 180,
-    marginBottom: 10,
+    marginBottom: 4,
   },
 
   vortexWrapper: {
@@ -755,14 +818,13 @@ const styles = StyleSheet.create({
     marginBottom: 20,
     marginTop: 4,
   },
-btnText: {
+  btnText: {
     fontFamily: "Bangers",
     fontSize: 20,
     color: "#111",
     textTransform: "uppercase",
     letterSpacing: 1.2,
-},
-
+  },
 
   historyBox: {
     width: "100%",
@@ -826,13 +888,11 @@ btnText: {
     backgroundColor: "#0AA5FF",
     marginBottom: 20,
   },
-backText: {
+  backText: {
     fontFamily: "Bangers",
     color: "#111",
     fontSize: 18,
     textTransform: "uppercase",
     letterSpacing: 1.2,
-},
-
+  },
 });
-

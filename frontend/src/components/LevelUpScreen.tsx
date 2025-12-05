@@ -21,6 +21,7 @@ export default function LevelUpScreen({
       <View style={styles.overlay}>
         <View style={styles.box}>
           <Text style={styles.title}>YOU LEVELED UP !!! 🔥</Text>
+
           <Text style={styles.text}>Trick : {trickId}</Text>
           <Text style={styles.text}>Nouveau niveau : {newLevel}</Text>
           <Text style={styles.text}>+{xpGained} XP</Text>
