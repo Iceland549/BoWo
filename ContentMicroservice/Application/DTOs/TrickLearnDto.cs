@@ -11,6 +11,8 @@
         public string? ProVideoUrl { get; set; }
         public List<string> ProTip { get; set; } = new();
         public List<string> CommonMistake { get; set; } = new();
+        public string? FunFact { get; set; }
+
 
     }
 }
