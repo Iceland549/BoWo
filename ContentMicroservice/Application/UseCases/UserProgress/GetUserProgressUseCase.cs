@@ -15,8 +15,6 @@ namespace ContentMicroservice.Application.UseCases.UserProgress
         private readonly IContentRepository _contentRepo;
         private readonly ILogger<GetUserProgressUseCase> _logger;
 
-        private const int XP_PER_LEVEL = 500;
-
         public GetUserProgressUseCase(
             IUserProgressRepository progressRepo,
             IContentRepository contentRepo,
@@ -40,6 +38,7 @@ namespace ContentMicroservice.Application.UseCases.UserProgress
                 progress.UnlockedTricks ??= new System.Collections.Generic.List<string>();
                 progress.QuizAttempts ??= new System.Collections.Generic.Dictionary<string, int>();
                 progress.UnlockedMiniGames ??= new System.Collections.Generic.List<string>();
+                progress.UnlockedShapeAvatarIds ??= new System.Collections.Generic.List<string>();
 
                 // 2) Auto-débloquer le mini-jeu "coin-flip" si 3 tricks ou plus
                 if (progress.UnlockedTricks.Count >= 3 &&
@@ -53,7 +52,7 @@ namespace ContentMicroservice.Application.UseCases.UserProgress
                         userId);
                 }
 
-                // 3) Connaitre le nombre total de tricks disponibles
+                // 3) Nombre total de tricks disponibles
                 var tricks = await _contentRepo.GetAllTricksAsync(ct);
                 var totalTricks = tricks?.Count ?? 0;
 
@@ -62,10 +61,16 @@ namespace ContentMicroservice.Application.UseCases.UserProgress
                     ? 0
                     : (int)((double)totalUnlocked / totalTricks * 100);
 
-                // 4) Niveau basé sur l'XP
-                var level = progress.XP / XP_PER_LEVEL;
+                // 4) Calcul du niveau global via LevelCalculator
+                var levelInfo = LevelCalculator.Compute(progress.XP);
 
-                // 5) Construire le DTO
+                // 5) Synchroniser les avatars forme en fonction du niveau
+                AvatarCatalog.ApplyToUserProgress(progress, levelInfo.Level);
+
+                // Sauvegarde si on a potentiellement modifié les avatars / mini-jeux
+                await _progressRepo.SaveAsync(progress, ct);
+
+                // 6) Construire le DTO
                 var dto = new UserProgressDto
                 {
                     UserId = progress.UserId,
@@ -75,19 +80,38 @@ namespace ContentMicroservice.Application.UseCases.UserProgress
                     QuizAttempts = progress.QuizAttempts,
 
                     XP = progress.XP,
-                    Level = level,
+                    Level = levelInfo.Level,
+                    LevelTitle = levelInfo.LevelTitle,
+                    LevelEmoji = levelInfo.LevelEmoji,
+                    CurrentLevelMinXP = levelInfo.CurrentLevelMinXP,
+                    NextLevelMinXP = levelInfo.NextLevelMinXP,
+                    XPToNextLevel = levelInfo.XPToNextLevel,
+                    MaxDefinedLevel = levelInfo.MaxDefinedLevel,
+
                     TotalTricksAvailable = totalTricks,
                     CompletionPercent = completionPercent,
-                    UnlockedMiniGames = progress.UnlockedMiniGames
+                    UnlockedMiniGames = progress.UnlockedMiniGames,
+                    DailyStreak = progress.DailyStreak,
+
+                    // Avatars actuels
+                    BubbleAvatarId = progress.BubbleAvatarId,
+                    ShapeAvatarId = progress.ShapeAvatarId,
+
+                    // Avatars disponibles pour le front
+                    AvailableBubbleAvatarIds = AvatarCatalog
+                        .GetAvailableBubbleAvatars(levelInfo.Level, progress.BubbleAvatarId),
+                    AvailableShapeAvatarIds = new System.Collections.Generic.List<string>(
+                        progress.UnlockedShapeAvatarIds)
                 };
 
                 _logger.LogInformation(
-                    "Returning progress for user {UserId}: {TotalUnlocked} unlocked, {Today} today, {XP} XP, level {Level}, {TotalTricks} tricks available, {MiniGames} mini-games",
+                    "Returning progress for user {UserId}: {TotalUnlocked} unlocked, {Today} today, {XP} XP, level {Level} ({Title}), {TotalTricks} tricks available, {MiniGames} mini-games",
                     userId,
                     dto.TotalUnlocked,
                     dto.TricksUnlockedToday,
                     dto.XP,
                     dto.Level,
+                    dto.LevelTitle,
                     dto.TotalTricksAvailable,
                     dto.UnlockedMiniGames?.Count ?? 0
                 );
@@ -102,3 +126,4 @@ namespace ContentMicroservice.Application.UseCases.UserProgress
         }
     }
 }
+
