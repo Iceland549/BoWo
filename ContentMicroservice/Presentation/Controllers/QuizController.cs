@@ -1,9 +1,11 @@
 ﻿using ContentMicroservice.Application.DTOs;
 using ContentMicroservice.Application.Interfaces;
 using ContentMicroservice.Application.UseCases.Quiz;
+using ContentMicroservice.Application.UseCases.UserProgress;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
+using Microsoft.Extensions.Logging;
 
 namespace ContentMicroservice.Presentation.Controllers
 {
@@ -87,7 +89,7 @@ namespace ContentMicroservice.Presentation.Controllers
                 QuizValidationResponseDto result =
                     await _validateUseCase.ExecuteAsync(userId, req.TrickId, req.AnswerIndex, ct);
 
-                return Ok(result); // <-- IMPORTANT : renvoyer l'objet complet
+                return Ok(result); // renvoie l'objet complet (state, etc.)
             }
             catch (Exception ex)
             {
@@ -105,6 +107,7 @@ namespace ContentMicroservice.Presentation.Controllers
             public string AdToken { get; set; } = null!;
         }
 
+        // route historique déjà utilisée par ton front
         [HttpPost("ad/reward")]
         public async Task<IActionResult> RewardAd([FromBody] AdRewardRequest req, CancellationToken ct = default)
         {
@@ -120,6 +123,11 @@ namespace ContentMicroservice.Presentation.Controllers
                 return StatusCode(500, "Internal error");
             }
         }
+
+        // alias pour coller au plan 3 : POST /quiz/reward-ad-complete
+        [HttpPost("reward-ad-complete")]
+        public Task<IActionResult> RewardAdComplete([FromBody] AdRewardRequest req, CancellationToken ct = default)
+            => RewardAd(req, ct);
 
         // ---------------------------------------------------------
         // PURCHASE VALIDATION

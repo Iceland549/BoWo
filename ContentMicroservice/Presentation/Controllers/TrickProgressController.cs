@@ -1,30 +1,27 @@
 ﻿using ContentMicroservice.Application.UseCases.TrickProgress;
-using ContentMicroservice.Application.UseCases.UserProgress;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
+using Microsoft.Extensions.Logging;
 
 namespace ContentMicroservice.Presentation.Controllers
 {
     [ApiController]
-    [Route("progress")]   
+    [Route("progress")]
     [Authorize]
     public class TrickProgressController : ControllerBase
     {
         private readonly GetNextQuestionUseCase _getNextQuestion;
         private readonly SubmitQuestionAnswerUseCase _submitAnswer;
-        private readonly AddXPUseCase _addXP;
         private readonly ILogger<TrickProgressController> _logger;
 
         public TrickProgressController(
             GetNextQuestionUseCase getNextQuestion,
             SubmitQuestionAnswerUseCase submitAnswer,
-            AddXPUseCase addXP,
             ILogger<TrickProgressController> logger)
         {
             _getNextQuestion = getNextQuestion;
             _submitAnswer = submitAnswer;
-            _addXP = addXP;
             _logger = logger;
         }
 
@@ -92,7 +89,8 @@ namespace ContentMicroservice.Presentation.Controllers
         // POST /progress/{trickId}/answer
         // ------------------------------------------------------------------
         [HttpPost("{trickId}/answer")]
-        public async Task<IActionResult> SubmitAnswer(string trickId,
+        public async Task<IActionResult> SubmitAnswer(
+            string trickId,
             [FromBody] SubmitAnswerBody body)
         {
             var userId = GetUserId();
@@ -117,7 +115,7 @@ namespace ContentMicroservice.Presentation.Controllers
                     result.Correct,
                     result.XpGained, result.NewLevel);
 
-                return Ok(result);
+                return Ok(result); // contient aussi GlobalProgress selon le use case
             }
             catch (KeyNotFoundException ex)
             {

@@ -1,9 +1,12 @@
 ﻿using AutoMapper;
 using ContentMicroservice.Application.DTOs;
 using ContentMicroservice.Application.UseCases.Content;
+using ContentMicroservice.Application.UseCases.UserProgress; // 👈 UnlockTrickUseCase
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
+using System;
+using Microsoft.Extensions.Logging;
 
 namespace ContentMicroservice.Presentation.Controllers
 {
@@ -14,6 +17,7 @@ namespace ContentMicroservice.Presentation.Controllers
         private readonly GetTrickUseCase _getTrickUseCase;
         private readonly GetTrickLearnUseCase _getTrickLearnUseCase;
         private readonly UploadUserVideoUseCase _uploadUseCase;
+        private readonly UnlockTrickUseCase _unlockTrickUseCase;
         private readonly IMapper _mapper;
         private readonly ILogger<ContentController> _logger;
 
@@ -21,12 +25,14 @@ namespace ContentMicroservice.Presentation.Controllers
             GetTrickUseCase getTrickUseCase,
             GetTrickLearnUseCase getTrickLearnUseCase,
             UploadUserVideoUseCase uploadUseCase,
+            UnlockTrickUseCase unlockTrickUseCase,
             IMapper mapper,
             ILogger<ContentController> logger)
         {
             _getTrickUseCase = getTrickUseCase;
             _getTrickLearnUseCase = getTrickLearnUseCase;
             _uploadUseCase = uploadUseCase;
+            _unlockTrickUseCase = unlockTrickUseCase;
             _mapper = mapper;
             _logger = logger;
         }
@@ -60,19 +66,47 @@ namespace ContentMicroservice.Presentation.Controllers
         [ResponseCache(Duration = 86400, Location = ResponseCacheLocation.Client)]
         public async Task<IActionResult> GetLearn(string id, CancellationToken ct = default)
         {
-            // userId depuis le token (NameIdentifier ou "sub")
             var claim = User.FindFirst(ClaimTypes.NameIdentifier) ?? User.FindFirst("sub");
             var userId = claim?.Value;
             if (string.IsNullOrEmpty(userId))
                 return Unauthorized();
 
-            (bool allowed, TrickLearnDto? data, string? error) = await _getTrickLearnUseCase.ExecuteAsync(userId, id, ct);
+            (bool allowed, TrickLearnDto? data, string? error) =
+                await _getTrickLearnUseCase.ExecuteAsync(userId, id, ct);
+
             if (error == "NotFound") return NotFound();
             if (!allowed) return Forbid(); // 403 quand non déverrouillé
 
             return Ok(data);
         }
 
+        /// <summary>
+        /// Déverrouille un trick pour l’utilisateur courant + XP global (UnlockTrickUseCase).
+        /// </summary>
+        [HttpPost("tricks/{id}/unlock")]
+        [Authorize]
+        public async Task<IActionResult> UnlockTrick(string id, CancellationToken ct = default)
+        {
+            var claim = User.FindFirst(ClaimTypes.NameIdentifier) ?? User.FindFirst("sub");
+            var userId = claim?.Value;
+            if (string.IsNullOrEmpty(userId))
+                return Unauthorized();
+
+            var (success, message) = await _unlockTrickUseCase.ExecuteAsync(userId, id, ct);
+
+            if (!success && string.Equals(message, "Trick not found", StringComparison.OrdinalIgnoreCase))
+            {
+                return NotFound(new { success = false, message });
+            }
+
+            if (!success)
+            {
+                // ex : Daily unlock limit reached
+                return BadRequest(new { success = false, message });
+            }
+
+            return Ok(new { success = true, message });
+        }
 
         /// <summary>
         /// Upload user video (multipart/form-data)
@@ -95,11 +129,12 @@ namespace ContentMicroservice.Presentation.Controllers
         //    return CreatedAtAction(nameof(GetTrickById), new { id = videoDto.Id }, videoDto);
         //}
 
-        // Request DTOs
-        public class ImportYoutubeRequest
-        {
-            public string Url { get; set; } = null!;
-            public string? AuthorId { get; set; }
-        }
+        // --- Upload vidéo désactivé pour l'instant (inchangé) ---
+
+        // public class ImportYoutubeRequest
+        // {
+        //     public string Url { get; set; } = null!;
+        //     public string? AuthorId { get; set; }
+        // }
     }
 }
