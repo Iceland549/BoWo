@@ -3,6 +3,7 @@ import React from "react";
 import AppNavigator from "./AppNavigator";
 import BoWoQuestionModal from "../components/BoWoQuestionModal";
 import LevelUpScreen from "../components/LevelUpScreen";
+import AvatarUnlockModal from "../components/AvatarUnlockModal";
 import { useModalContext } from "../context/ModalContext";
 
 export default function AppShell() {
@@ -11,6 +12,8 @@ export default function AppShell() {
     closeQuestionModal,
     levelUp,
     closeLevelUp,
+    avatarUnlock,
+    closeAvatarUnlock,
   } = useModalContext();
 
   return (
@@ -18,7 +21,7 @@ export default function AppShell() {
       {/* Navigation principale */}
       <AppNavigator />
 
-      {/* Modale de question */}
+      {/* Modale de question (quiz par trick) */}
       {questionModal && (
         <BoWoQuestionModal
           visible={!!questionModal}
@@ -28,7 +31,7 @@ export default function AppShell() {
         />
       )}
 
-      {/* Écran Level Up */}
+      {/* Écran Level Up (level par trick / XP local) */}
       {levelUp && (
         <LevelUpScreen
           visible={!!levelUp}
@@ -36,6 +39,15 @@ export default function AppShell() {
           newLevel={levelUp.newLevel}
           xpGained={levelUp.xpGained}
           onClose={closeLevelUp}
+        />
+      )}
+
+      {/* Modale d’avatar débloqué (bulle ou shape) */}
+      {avatarUnlock && (
+        <AvatarUnlockModal
+          visible={!!avatarUnlock}
+          payload={avatarUnlock}
+          onClose={closeAvatarUnlock}
         />
       )}
     </>
