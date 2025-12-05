@@ -19,7 +19,7 @@ export interface ModalOptions {
 }
 
 // -----------------------------------------------
-// 2. Types pour BoWoQuestionModal (nouveau)
+// 2. Types pour BoWoQuestionModal
 // -----------------------------------------------
 export interface QuestionModalPayload {
   trickId: string;
@@ -28,7 +28,7 @@ export interface QuestionModalPayload {
 }
 
 // -----------------------------------------------
-// 3. Types pour LevelUpScreen (nouveau)
+// 3. Types pour LevelUpScreen
 // -----------------------------------------------
 export interface LevelUpPayload {
   trickId: string;
@@ -37,14 +37,33 @@ export interface LevelUpPayload {
 }
 
 // -----------------------------------------------
-// 4. Le contexte complet
+// 4. Types pour AvatarUnlockModal (nouveau)
+// -----------------------------------------------
+export type AvatarUnlockType = "bubble" | "shape";
+
+export interface AvatarUnlockPayload {
+  type: AvatarUnlockType;
+  /**
+   * ID technique de l’avatar tout juste débloqué
+   * (ex: "bubble_lvl2_03" ou "shape_lvl3_rebel_shredder")
+   */
+  avatarId?: string | null;
+  /**
+   * Liste complète des avatars disponibles pour ce type
+   * (ex: AvailableBubbleAvatarIds ou AvailableShapeAvatarIds)
+   */
+  availableIds?: string[];
+}
+
+// -----------------------------------------------
+// 5. Le contexte complet
 // -----------------------------------------------
 interface ModalContextValue {
   // Modale classique
   showModal: (options: ModalOptions) => void;
   hideModal: () => void;
 
-  // Modale QUestion
+  // Modale Question
   questionModal: QuestionModalPayload | null;
   openQuestionModal: (payload: QuestionModalPayload) => void;
   closeQuestionModal: () => void;
@@ -53,12 +72,17 @@ interface ModalContextValue {
   levelUp: LevelUpPayload | null;
   showLevelUp: (payload: LevelUpPayload) => void;
   closeLevelUp: () => void;
+
+  // Avatar unlock (bubble / shape)
+  avatarUnlock: AvatarUnlockPayload | null;
+  openAvatarUnlock: (payload: AvatarUnlockPayload) => void;
+  closeAvatarUnlock: () => void;
 }
 
 const ModalContext = createContext<ModalContextValue | undefined>(undefined);
 
 // -----------------------------------------------
-// 5. Provider global (unique)
+// 6. Provider global (unique)
 // -----------------------------------------------
 export function ModalProvider({ children }: { children: ReactNode }) {
   // 🔹 MODALE CLASSIQUE
@@ -70,6 +94,10 @@ export function ModalProvider({ children }: { children: ReactNode }) {
 
   // 🔹 LEVEL UP
   const [levelUp, setLevelUp] = useState<LevelUpPayload | null>(null);
+
+  // 🔹 AVATAR UNLOCK
+  const [avatarUnlock, setAvatarUnlock] =
+    useState<AvatarUnlockPayload | null>(null);
 
   // --------------------------
   // A. API modale classique
@@ -103,7 +131,16 @@ export function ModalProvider({ children }: { children: ReactNode }) {
   const closeLevelUp = () => setLevelUp(null);
 
   // --------------------------
-  // D. Rendu
+  // D. API Avatar Unlock
+  // --------------------------
+  const openAvatarUnlock = (payload: AvatarUnlockPayload) => {
+    setAvatarUnlock(payload);
+  };
+
+  const closeAvatarUnlock = () => setAvatarUnlock(null);
+
+  // --------------------------
+  // E. Rendu
   // --------------------------
   return (
     <ModalContext.Provider
@@ -121,23 +158,23 @@ export function ModalProvider({ children }: { children: ReactNode }) {
         levelUp,
         showLevelUp,
         closeLevelUp,
+
+        // avatars
+        avatarUnlock,
+        openAvatarUnlock,
+        closeAvatarUnlock,
       }}
     >
       {children}
 
       {/* Modale classique globale */}
-      <BoWoModal
-        visible={!!options}
-        options={options}
-        onClose={hideModal}
-      />
-
+      <BoWoModal visible={!!options} options={options} onClose={hideModal} />
     </ModalContext.Provider>
   );
 }
 
 // -----------------------------------------------
-// 6. Hook d’accès
+// 7. Hook d’accès
 // -----------------------------------------------
 export function useModalContext() {
   const ctx = useContext(ModalContext);
