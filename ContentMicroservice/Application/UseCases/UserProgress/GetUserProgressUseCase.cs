@@ -92,6 +92,9 @@ namespace ContentMicroservice.Application.UseCases.UserProgress
                     CompletionPercent = completionPercent,
                     UnlockedMiniGames = progress.UnlockedMiniGames,
                     DailyStreak = progress.DailyStreak,
+                    UnlockedBadges = progress.UnlockedBadges,
+                    UnlockedDecks = progress.UnlockedDecks,
+                    MasteredTricks = progress.MasteredTricks,
 
                     // Avatars actuels
                     BubbleAvatarId = progress.BubbleAvatarId,

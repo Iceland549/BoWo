@@ -85,6 +85,31 @@ namespace ContentMicroservice.Application.DTOs
         /// </summary>
         public int DailyStreak { get; set; }
 
+        // ------------------- BADGES + DECKS + COMPTEURS -------------------
+        /// <summary>
+        /// Liste des badges débloqués (ids textuels ex: "badge_kickstart", "badge_xp_hunter").
+        /// </summary>
+        public List<string> UnlockedBadges { get; set; } = new();
+
+        /// <summary>
+        /// Decks gagnés via tricks Mastered (ex: "deck_rust_riot", "deck_neon_pulse").
+        /// </summary>
+        public List<string> UnlockedDecks { get; set; } = new();
+
+        /// <summary>
+        /// Tricks déjà Mastered (pour éviter plusieurs decks sur le même trick).
+        /// </summary>
+        public List<string> MasteredTricks { get; set; } = new();
+
+        /// <summary>
+        /// Nombre de questions (bonnes réponses) aujourd'hui (pour Quick Thinker / Trick Machine).
+        /// </summary>
+        public int QuestionsAnsweredToday { get; set; }
+
+        /// <summary>
+        /// XP gagnée aujourd'hui (pour XP Hunter).
+        /// </summary>
+        public int XpGainedToday { get; set; }
 
         // ----------- AVATARS (EXPOSÉ AU FRONT) -----------
 
