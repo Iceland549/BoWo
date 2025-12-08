@@ -1,4 +1,7 @@
-﻿using ContentMicroservice.Application.DTOs;
+﻿using System;
+using System.Threading;
+using System.Threading.Tasks;
+using ContentMicroservice.Application.DTOs;
 using ContentMicroservice.Application.Interfaces;
 using ContentMicroservice.Application.UseCases.UserProgress;
 using Microsoft.Extensions.Logging;
@@ -70,7 +73,7 @@ namespace ContentMicroservice.Application.UseCases.Quiz
                 catch (Exception ex)
                 {
                     _logger.LogWarning(ex, "Unable to load FunFact for trick {TrickId}", trickId);
-                    // On continue sans FunFact, ce n'est pas bloquant
+                    // On continue sans FunFact
                 }
 
                 // 3) Bonne réponse → déverrouillage du trick
@@ -87,12 +90,14 @@ namespace ContentMicroservice.Application.UseCases.Quiz
                         Success = ok,
                         Message = ok ? "Correct! Trick unlocked!" : msg,
                         MaxAttemptsReached = false,
-                        FunFact = string.Empty // pas besoin de FunFact en cas de succès
+                        FunFact = string.Empty
                     };
                 }
 
                 // 4) Mauvaise réponse → on incrémente les tentatives
+                // ⚠️ Nécessite que RecordQuizAttemptUseCase.ExecuteAsync renvoie Task<int>
                 var attempts = await _recordAttempt.ExecuteAsync(userId, trickId, ct);
+
                 _logger.LogInformation(
                     "User {UserId} incorrect answer for trick {TrickId}. Attempts now {Attempts}",
                     userId, trickId, attempts);

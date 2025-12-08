@@ -1,5 +1,4 @@
-﻿// ContentMicroservice.Presentation/Controllers/UserProgressController.cs
-using System;
+﻿using System;
 using System.Security.Claims;
 using System.Threading;
 using System.Threading.Tasks;
@@ -206,7 +205,7 @@ namespace ContentMicroservice.Presentation.Controllers
                     return NotFound(new { success = false, message = "Progress not found." });
                 }
 
-                // ✅ On utilise XP + LevelCalculator pour connaître le niveau
+                // ✅ Niveau via XP
                 var levelInfo = LevelCalculator.Compute(progress.XP);
                 if (levelInfo.Level < 2)
                 {
@@ -227,7 +226,7 @@ namespace ContentMicroservice.Presentation.Controllers
                     });
                 }
 
-                // Optionnel : ne permettre le choix qu'une seule fois
+                // Optionnel : choix unique
                 if (!string.IsNullOrWhiteSpace(progress.BubbleAvatarId))
                 {
                     return BadRequest(new
@@ -241,9 +240,7 @@ namespace ContentMicroservice.Presentation.Controllers
 
                 await _userProgressRepository.SaveAsync(progress, ct);
 
-                // On renvoie le DTO complet recalculé (avec XP, avatars, etc.)
                 var dto = await _getUseCase.ExecuteAsync(userId, ct);
-
                 return Ok(new { success = true, data = dto });
             }
             catch (Exception ex)
