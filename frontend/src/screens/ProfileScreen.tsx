@@ -21,6 +21,33 @@ import { getProfile } from "../services/authService";
 import { log } from "../utils/logger";
 import BoWoXPBar from "../components/BoWoXPBar";
 
+// 🎖 Catalogue client léger des badges (id → titre + emoji)
+const BADGE_CLIENT_CATALOG: Record<
+  string,
+  { title: string; emoji: string }
+> = {
+  badge_kickstart: { title: "Kickstart Rookie", emoji: "🛹" },
+  badge_quick_thinker: { title: "Quick Thinker", emoji: "⚡" },
+  badge_trick_machine: { title: "Trick Machine", emoji: "🤖" },
+  badge_full_send: { title: "Full Send", emoji: "💥" },
+  badge_commit_or_quit: { title: "Commit or Quit", emoji: "🎯" },
+  badge_perfect_trick: { title: "Perfect Trick", emoji: "🌟" },
+  badge_double_master: { title: "Double Master", emoji: "✌️" },
+  badge_triple_threat: { title: "Triple Threat", emoji: "💣" },
+  badge_perfectionist: { title: "The Perfectionist", emoji: "💎" },
+  badge_streak_rider: { title: "Streak Rider", emoji: "🔥" },
+  badge_streak_destroyer: { title: "Streak Destroyer", emoji: "🚀" },
+  badge_streak_legend: { title: "Streak Legend", emoji: "🏆" },
+  badge_quiz_master: { title: "Quiz Master", emoji: "📚" },
+  badge_xp_hunter: { title: "XP Hunter", emoji: "💰" },
+  badge_park_explorer: { title: "Park Explorer", emoji: "🗺️" },
+  badge_park_dominator: { title: "Park Dominator", emoji: "👑" },
+  badge_avatar_collector: { title: "Avatar Collector", emoji: "🧩" },
+  badge_ultimate_collector: { title: "Ultimate Collector", emoji: "🌈" },
+  badge_early_bird: { title: "Early Bird Session", emoji: "🌅" },
+  badge_midnight_session: { title: "Midnight Session", emoji: "🌙" },
+};
+
 export default function ProfileScreen({ navigation }) {
   const [profile, setProfile] = useState<any>(null);
   const [loading, setLoading] = useState(true);
@@ -34,6 +61,11 @@ export default function ProfileScreen({ navigation }) {
 
   // Animation pour le gros sticker (float + tilt)
   const pulseAnim = React.useRef(new Animated.Value(0)).current;
+
+  // 🔄 NOUVELLE ANIM DE SPIN POUR LE TAP SUR L'AVATAR
+  const spinAnim = React.useRef(new Animated.Value(0)).current;
+  const [isSpinning, setIsSpinning] = useState(false);
+  const [showLevelOnAvatar, setShowLevelOnAvatar] = useState(false);
 
   useEffect(() => {
     Animated.loop(
@@ -64,9 +96,15 @@ export default function ProfileScreen({ navigation }) {
     outputRange: [0, -8],
   });
 
-  const rotate = pulseAnim.interpolate({
+  const idleRotate = pulseAnim.interpolate({
     inputRange: [0, 0.5, 1],
     outputRange: ["-3deg", "3deg", "-3deg"],
+  });
+
+  // 🔁 INTERPOLATION POUR LE SPIN "COOL" (3 tours complets)
+  const spin = spinAnim.interpolate({
+    inputRange: [0, 1],
+    outputRange: ["0deg", "1080deg"], // 3 x 360°
   });
 
   /* -------------------------------------------------------- */
@@ -121,6 +159,10 @@ export default function ProfileScreen({ navigation }) {
 
   const totalUnlocked: number =
     profile?.totalUnlocked ?? profile?.unlockedTricks?.length ?? 0;
+
+  // 🆕 BADGES + DECKS
+  const unlockedDecks: string[] = profile?.unlockedDecks ?? [];
+  const unlockedBadges: string[] = profile?.unlockedBadges ?? [];
 
   const totalTricksAvailable: number = profile?.totalTricksAvailable ?? 0;
   const completionPercent: number = profile?.completionPercent ?? 0;
@@ -219,6 +261,25 @@ export default function ProfileScreen({ navigation }) {
     navigation.navigate("MiniGameUnlockChoice", { selected: game.key });
   };
 
+  // 🌀 TAP SUR LE GROS AVATAR : SPIN + AFFICHAGE NIVEAU
+  const onPressBigAvatar = () => {
+    if (isSpinning) return; // évite le spam
+
+    setIsSpinning(true);
+    setShowLevelOnAvatar(true);
+    spinAnim.setValue(0);
+
+    Animated.timing(spinAnim, {
+      toValue: 1,
+      duration: 1800,
+      easing: Easing.out(Easing.cubic),
+      useNativeDriver: true,
+    }).start(() => {
+      setIsSpinning(false);
+      setShowLevelOnAvatar(false);
+    });
+  };
+
   /* -------------------------------------------------------- */
   /*  🎨 RENDER                                                */
   /* -------------------------------------------------------- */
@@ -273,17 +334,59 @@ export default function ProfileScreen({ navigation }) {
           <Text style={styles.value}>{completionPercent}%</Text>
 
           <Text style={styles.motivation}>{motivation}</Text>
+        </View>
 
-          {bubbleAvatarId && (
-            <Text style={styles.avatarDebug}>
-              Bubble avatar : {bubbleAvatarId}
+        {/* 🎖 BADGES DÉBLOQUÉS */}
+        <View style={styles.sectionCard}>
+          <Text style={styles.sectionTitle}>Badges débloqués</Text>
+
+          {unlockedBadges.length === 0 ? (
+            <Text style={styles.sectionEmpty}>
+              Aucun badge pour l&apos;instant... continue à shredder le park !
             </Text>
+          ) : (
+            <View style={styles.badgeList}>
+              {unlockedBadges.map((id) => {
+                const meta = BADGE_CLIENT_CATALOG[id] ?? {
+                  title: id,
+                  emoji: "🏅",
+                };
+                return (
+                  <View key={id} style={styles.badgePill}>
+                    <Text style={styles.badgeEmoji}>{meta.emoji}</Text>
+                    <Text style={styles.badgeText}>{meta.title}</Text>
+                  </View>
+                );
+              })}
+            </View>
           )}
-          {shapeAvatarId && (
-            <Text style={styles.avatarDebug}>
-              Shape avatar : {shapeAvatarId}
-            </Text>
-          )}
+        </View>
+
+        {/* 🎴 COLLECTION DE DECKS */}
+        <View style={[styles.sectionCard, styles.sectionDecksCard]}>
+          <View style={styles.sectionHeaderRow}>
+            <Text style={styles.sectionTitle}>Collection de decks</Text>
+            <View style={styles.sectionChip}>
+              <Text style={styles.sectionChipText}>
+                {Array.from(new Set(unlockedDecks)).length}/20
+              </Text>
+            </View>
+          </View>
+
+          <Text style={styles.sectionSubtitle}>
+            Masterise des tricks pour débloquer des decks exclusifs.
+          </Text>
+
+          <TouchableOpacity
+            style={styles.sectionButton}
+            onPress={() =>
+              navigation.navigate("DeckCollection", {
+                unlockedDecks: Array.from(new Set(unlockedDecks)),
+              })
+            }
+          >
+            <Text style={styles.sectionButtonText}>VOIR LA COLLECTION</Text>
+          </TouchableOpacity>
         </View>
 
         {/* 🔥 TIME-KILLER ZONE */}
@@ -333,20 +436,36 @@ export default function ProfileScreen({ navigation }) {
           <Text style={styles.legalText}>Informations légales</Text>
         </TouchableOpacity>
 
-        {/* GROS STICKER ANIMÉ (sans cercle bizarre) */}
+        {/* GROS STICKER ANIMÉ CLIQUABLE + SPIN & NIVEAU */}
         {shapeAvatarSource && (
-          <View style={styles.bigShapeContainer}>
+          <TouchableOpacity
+            style={styles.bigShapeContainer}
+            onPress={onPressBigAvatar}
+            activeOpacity={0.9}
+          >
             <Animated.Image
               source={shapeAvatarSource}
               style={[
                 styles.avatarShapeBig,
                 {
-                  transform: [{ scale }, { translateY }, { rotate }],
+                  transform: [
+                    { scale },
+                    { translateY },
+                    { rotate: isSpinning ? spin : idleRotate },
+                  ],
                 },
               ]}
               resizeMode="contain"
             />
-          </View>
+
+            {showLevelOnAvatar && (
+              <View style={styles.avatarLevelBadge}>
+                <Text style={styles.avatarLevelBadgeText}>
+                  LEVEL {level}
+                </Text>
+              </View>
+            )}
+          </TouchableOpacity>
         )}
       </ScreenWrapper>
     </View>
@@ -377,7 +496,7 @@ const styles = StyleSheet.create({
     borderRadius: 18,
     borderWidth: 2,
     borderColor: "#FFD600",
-    marginBottom: 40,
+    marginBottom: 24,
   },
   label: {
     color: "#FFD600",
@@ -424,6 +543,107 @@ const styles = StyleSheet.create({
     fontSize: 12,
   },
 
+  // --- Sections Badges / Decks ---
+  sectionCard: {
+    marginTop: 18,
+    marginBottom: 8,
+    borderRadius: 20,
+    padding: 14,
+    backgroundColor: "#020617",
+    borderWidth: 2,
+    borderColor: "#F97316",
+    shadowColor: "#000",
+    shadowOpacity: 0.45,
+    shadowRadius: 8,
+    shadowOffset: { width: 0, height: 4 },
+  },
+  sectionDecksCard: {
+    borderColor: "#0AA5FF",
+  },
+  sectionTitle: {
+    fontFamily: "Bangers",
+    fontSize: 22,
+    color: "#FFD600",
+    letterSpacing: 1,
+    marginBottom: 6,
+  },
+  sectionSubtitle: {
+    color: "#E5E7EB",
+    fontSize: 13,
+    marginBottom: 10,
+  },
+  sectionEmpty: {
+    color: "#9CA3AF",
+    fontSize: 13,
+    marginTop: 4,
+  },
+  sectionHeaderRow: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+  },
+  sectionChip: {
+    paddingHorizontal: 10,
+    paddingVertical: 4,
+    borderRadius: 999,
+    backgroundColor: "#111827",
+    borderWidth: 1,
+    borderColor: "#0AA5FF",
+  },
+  sectionChipText: {
+    color: "#0AA5FF",
+    fontWeight: "800",
+    fontSize: 12,
+  },
+
+  // --- Badges list ---
+  badgeList: {
+    flexDirection: "row",
+    flexWrap: "wrap",
+    marginTop: 4,
+  },
+  badgePill: {
+    flexDirection: "row",
+    alignItems: "center",
+    paddingHorizontal: 10,
+    paddingVertical: 6,
+    borderRadius: 999,
+    backgroundColor: "#111827",
+    marginRight: 6,
+    marginBottom: 6,
+    borderWidth: 1,
+    borderColor: "#F97316",
+  },
+  badgeEmoji: {
+    fontSize: 14,
+    marginRight: 4,
+  },
+  badgeText: {
+    color: "#F9FAFB",
+    fontSize: 12,
+    fontWeight: "700",
+  },
+
+  // --- Bouton decks dans la carte ---
+  sectionButton: {
+    marginTop: 8,
+    borderRadius: 999,
+    paddingVertical: 10,
+    alignItems: "center",
+    borderWidth: 2,
+    borderColor: "#0AA5FF",
+    backgroundColor: "#020617",
+  },
+  sectionButtonText: {
+    fontFamily: "Bangers",
+    fontSize: 22,
+    color: "#0AA5FF",
+    letterSpacing: 1,
+    textShadowColor: "#000",
+    textShadowOffset: { width: 1, height: 1 },
+    textShadowRadius: 2,
+  },
+
   // Row pour les mini avatars
   avatarsRow: {
     flexDirection: "row",
@@ -443,16 +663,44 @@ const styles = StyleSheet.create({
     borderRadius: 16,
   },
 
+  // ⬇️⬇️ CSS MODIFIÉ POUR LE GROS AVATAR CLIQUABLE + OMBRE
   bigShapeContainer: {
     marginTop: 8,
     marginBottom: 24,
     alignItems: "center",
     justifyContent: "center",
+    paddingVertical: 12, // zone cliquable un peu plus grande
   },
   avatarShapeBig: {
     width: "92%",
     height: 280,
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 6 },
+    shadowOpacity: 0.45,
+    shadowRadius: 10,
+    elevation: 12,
   },
+  // ⬆️⬆️ FIN MODIF
+
+  // ⬇️⬇️ NOUVEAU BADGE NIVEAU AFFICHÉ PENDANT LE SPIN
+  avatarLevelBadge: {
+    position: "absolute",
+    bottom: 16,
+    alignSelf: "center",
+    backgroundColor: "rgba(0,0,0,0.9)",
+    borderRadius: 24,
+    paddingHorizontal: 18,
+    paddingVertical: 6,
+    borderWidth: 2,
+    borderColor: "#FFD600",
+  },
+  avatarLevelBadgeText: {
+    fontFamily: "Bangers",
+    color: "#FFD600",
+    fontSize: 18,
+    letterSpacing: 1,
+  },
+  // ⬆️⬆️ FIN NOUVEAU BADGE
 
   /* TIME-KILLER */
   killZoneTitle: {
