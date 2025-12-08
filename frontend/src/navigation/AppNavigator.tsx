@@ -1,3 +1,4 @@
+// src/navigation/AppNavigator.tsx
 import React from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import {
@@ -25,8 +26,10 @@ import TermsOfUseScreen from '@/legal/TermsScreen';
 import PrivacyPolicyScreen from '@/legal/PrivacyScreen';
 import DeleteAccountScreen from '@/legal/DeleteAccountScreen';
 
-const Stack = createNativeStackNavigator<RootStackParamList>();
+// 🆕 Collection de decks
+import DeckCollectionScreen from '@/screens/DeckCollectionScreen';
 
+const Stack = createNativeStackNavigator<RootStackParamList>();
 const BottomTab = createBottomTabNavigator();
 
 /* -------------------------------------------------------------------------- */
@@ -81,7 +84,7 @@ function MainTabs() {
 }
 
 /* -------------------------------------------------------------------------- */
-/*                              🧭 ROOT NAVIGATION                              */
+/*                              🧭 ROOT NAVIGATION                             */
 /* -------------------------------------------------------------------------- */
 
 export default function AppNavigator() {
@@ -97,15 +100,24 @@ export default function AppNavigator() {
       <Stack.Screen name="TrickDetail" component={TrickDetailScreen} />
       <Stack.Screen name="TrickLearn" component={TrickLearnScreen} />
       <Stack.Screen name="Quiz" component={QuizScreen} />
+
+      {/* 🆕 Collection de decks */}
+      <Stack.Screen name="DeckCollection" component={DeckCollectionScreen} />
+
+      {/* TIME-KILLERS / FUN FACT */}
       <Stack.Screen name="FunFact" component={FunFactScreen} />
       <Stack.Screen
         name="MiniGameUnlockChoice"
         component={MiniGameUnlockChoice}
       />
-      <Stack.Screen name="KillerTimeCoinFlip" component={KillerTimeCoinFlip} />
+      <Stack.Screen
+        name="KillerTimeCoinFlip"
+        component={KillerTimeCoinFlip}
+      />
       <Stack.Screen name="Magic8Ball" component={Magic8Ball} />
       <Stack.Screen name="FortuneCookie" component={FortuneCookie} />
       <Stack.Screen name="CasinoTrickSlot" component={CasinoTrickSlot} />
+
       {/* // Legal screens */}
       <Stack.Screen name="LegalMenu" component={LegalMenuScreen} />
       <Stack.Screen name="Terms" component={TermsOfUseScreen} />

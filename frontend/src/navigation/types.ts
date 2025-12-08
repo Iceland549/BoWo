@@ -3,9 +3,9 @@ export type RootStackParamList = {
   Main: undefined;
 
   // Trick flow
-  TrickDetail: { trick: string };          // Écran détaillé
-  TrickLearn: { trickId: string };      // TrickLearn par ID
-  Quiz: { trickId: string };            // Quiz lié à un trick
+  TrickDetail: { trick: string };         
+  TrickLearn: { trickId: string };      
+  Quiz: { trickId: string };          
 
   // Mini-games
   MiniGameUnlockChoice: undefined;
@@ -18,12 +18,17 @@ export type RootStackParamList = {
   FunFact: undefined;
 
   // Réel screens
-  Home: undefined;                      // Dans TopTab
-  Profile: undefined;                   // Dans TopTab
+  Home: undefined;                      
+  Profile: undefined;                   
 
   // Leagl screens
   LegalMenu: undefined;
   Terms: undefined;
   Privacy: undefined;
   DeleteAccount: undefined;
+
+  // Deck collection screen
+  DeckCollection: {
+    unlockedDecks: string[];
+  };
 };
