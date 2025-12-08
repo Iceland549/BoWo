@@ -48,6 +48,11 @@ export interface GlobalProgress {
   shapeAvatarId: string | null;
   availableBubbleAvatarIds: string[];
   availableShapeAvatarIds: string[];
+
+  // --- 🆕 BADGES + DECKS + MASTERED TRICKS ---
+  unlockedBadges: string[];
+  unlockedDecks: string[];
+  masteredTricks: string[];
 }
 
 interface GlobalProgressContextValue {
@@ -57,7 +62,7 @@ interface GlobalProgressContextValue {
   refreshProgress: () => Promise<void>;
 
   // helpers dérivés pour la barre d’XP
-  xpPercent: number;       // 0–100% dans le niveau courant
+  xpPercent: number; // 0–100% dans le niveau courant
   currentLevelMinXP: number;
   nextLevelMinXP: number;
 }
@@ -83,7 +88,7 @@ function normalizeProfile(raw: any | null | undefined): GlobalProgress | null {
     raw.TotalUnlocked ??
     (Array.isArray(unlockedTricks) ? unlockedTricks.length : 0);
 
-  // -------- XP / LEVEL (nouveaux champs) ----------
+  // -------- XP / LEVEL ----------
   const xp = raw.xp ?? raw.XP ?? 0;
   const level = raw.level ?? raw.Level ?? 1;
 
@@ -125,6 +130,14 @@ function normalizeProfile(raw: any | null | undefined): GlobalProgress | null {
   const availableShapeAvatarIds =
     raw.availableShapeAvatarIds ?? raw.AvailableShapeAvatarIds ?? [];
 
+  // -------- 🆕 BADGES + DECKS + MASTERED TRICKS ----------
+  const unlockedBadges: string[] =
+    raw.unlockedBadges ?? raw.UnlockedBadges ?? [];
+  const unlockedDecks: string[] =
+    raw.unlockedDecks ?? raw.UnlockedDecks ?? [];
+  const masteredTricks: string[] =
+    raw.masteredTricks ?? raw.MasteredTricks ?? [];
+
   return {
     userId,
     unlockedTricks,
@@ -154,6 +167,10 @@ function normalizeProfile(raw: any | null | undefined): GlobalProgress | null {
     shapeAvatarId,
     availableBubbleAvatarIds,
     availableShapeAvatarIds,
+
+    unlockedBadges,
+    unlockedDecks,
+    masteredTricks,
   };
 }
 
@@ -256,7 +273,7 @@ export function GlobalProgressProvider({ children }: { children: ReactNode }) {
   // Chargement initial
   useEffect(() => {
     load();
-    //eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const refreshProgress = async () => {
@@ -295,11 +312,12 @@ export function GlobalProgressProvider({ children }: { children: ReactNode }) {
   );
 }
 
-// --------- Hook ---------
-export function useGlobalProgress(): GlobalProgressContextValue {
+export function useGlobalProgress() {
   const ctx = useContext(GlobalProgressContext);
   if (!ctx) {
-    throw new Error("useGlobalProgress must be used within GlobalProgressProvider");
+    throw new Error(
+      "useGlobalProgress must be used within a GlobalProgressProvider"
+    );
   }
   return ctx;
 }
