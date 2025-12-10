@@ -53,6 +53,7 @@ export interface GlobalProgress {
   unlockedBadges: string[];
   unlockedDecks: string[];
   masteredTricks: string[];
+  aliveDeckTokens?: number;
 }
 
 interface GlobalProgressContextValue {
