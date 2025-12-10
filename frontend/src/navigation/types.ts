@@ -31,4 +31,5 @@ export type RootStackParamList = {
   DeckCollection: {
     unlockedDecks: string[];
   };
+  AliveDecks: undefined
 };

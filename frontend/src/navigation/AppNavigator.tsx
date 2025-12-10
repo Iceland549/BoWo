@@ -28,6 +28,9 @@ import DeleteAccountScreen from '@/legal/DeleteAccountScreen';
 
 // 🆕 Collection de decks
 import DeckCollectionScreen from '@/screens/DeckCollectionScreen';
+// 🆕 Decks Alive (mode labo)
+import AliveDecksScreen from '@/screens/AliveDecksScreen';
+
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 const BottomTab = createBottomTabNavigator();
@@ -103,7 +106,7 @@ export default function AppNavigator() {
 
       {/* 🆕 Collection de decks */}
       <Stack.Screen name="DeckCollection" component={DeckCollectionScreen} />
-
+      <Stack.Screen name="AliveDecks" component={AliveDecksScreen} />
       {/* TIME-KILLERS / FUN FACT */}
       <Stack.Screen name="FunFact" component={FunFactScreen} />
       <Stack.Screen
