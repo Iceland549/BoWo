@@ -1,10 +1,11 @@
-﻿using System;
-using System.Threading;
-using System.Threading.Tasks;
-using ContentMicroservice.Application.DTOs;
+﻿using ContentMicroservice.Application.DTOs;
 using ContentMicroservice.Application.Interfaces;
 using ContentMicroservice.Infrastructure.Persistence.Entities;
 using Microsoft.Extensions.Logging;
+using System;
+using System.Threading;
+using System.Threading.Tasks;
+using static System.Net.Mime.MediaTypeNames;
 using ProgressEntity = ContentMicroservice.Infrastructure.Persistence.Entities.UserProgress;
 
 namespace ContentMicroservice.Application.UseCases.UserProgress
@@ -52,6 +53,17 @@ namespace ContentMicroservice.Application.UseCases.UserProgress
                         userId);
                 }
 
+                // 2bis) Decks Alive: pour la V1 de test, on débloque TOUTES les spirales pour tout le monde
+                // (tu pourras remplacer cette logique plus tard par une vraie condition XP / badges)
+                //progress.UnlockedAliveDecks ??= new System.Collections.Generic.List<string>();
+                //AliveDeckCatalog.EnsureAllAliveDecksUnlockedForTesting(progress);
+
+                progress.UnlockedAliveDecks ??= new System.Collections.Generic.List<string>();
+                progress.UnlockedAliveDecks =
+                    AliveDeckCatalog.SanitizeUnlockedAliveDecks(progress.UnlockedAliveDecks);
+
+
+
                 // 3) Nombre total de tricks disponibles
                 var tricks = await _contentRepo.GetAllTricksAsync(ct);
                 var totalTricks = tricks?.Count ?? 0;
@@ -94,6 +106,9 @@ namespace ContentMicroservice.Application.UseCases.UserProgress
                     DailyStreak = progress.DailyStreak,
                     UnlockedBadges = progress.UnlockedBadges,
                     UnlockedDecks = progress.UnlockedDecks,
+                    UnlockedAliveDecks = progress.UnlockedAliveDecks,
+                    AliveDeckTokens = AliveDeckCatalog.ComputeAvailableTokens(progress),
+
                     MasteredTricks = progress.MasteredTricks,
 
                     // Avatars actuels
