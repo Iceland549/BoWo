@@ -17,6 +17,8 @@ namespace ContentMicroservice.Infrastructure.Persistence.Entities
         public List<string> Steps { get; set; } = new();
         public List<string> Images { get; set; } = new();
         public TrickVideos Videos { get; set; } = new();
+
+        [BsonElement("funFact")]
         public string? FunFact { get; set; }
         public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
 
