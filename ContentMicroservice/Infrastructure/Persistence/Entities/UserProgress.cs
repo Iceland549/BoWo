@@ -57,6 +57,15 @@ namespace ContentMicroservice.Infrastructure.Persistence.Entities
         /// </summary>
         public List<string> UnlockedDecks { get; set; } = new();
 
+
+        /// <summary>
+        /// Decks spéciaux "Alive" (illusions animées).
+        /// V1 : collection de decks auto-débloqués pour tests (AliveDecksScreen).
+        /// Exemple d'ids : "deck_alive_spiral_bw", "deck_alive_spiral_double", etc.
+        /// </summary>
+        public List<string> UnlockedAliveDecks { get; set; } = new();
+
+
         /// <summary>
         /// Tricks déjà Mastered (pour éviter plusieurs decks sur le même trick).
         /// </summary>

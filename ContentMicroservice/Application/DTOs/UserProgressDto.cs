@@ -97,6 +97,17 @@ namespace ContentMicroservice.Application.DTOs
         public List<string> UnlockedDecks { get; set; } = new();
 
         /// <summary>
+        /// Decks spéciaux "Alive" débloqués pour l'utilisateur.
+        /// Utilisé par AliveDecksScreen pour afficher les decks animés.
+        /// </summary>
+        public List<string> UnlockedAliveDecks { get; set; } = new();
+
+        /// <summary>
+        /// Nombre de "tokens Alive" disponibles (XP/1000 - decks déjà débloqués)
+        /// </summary>
+        public int AliveDeckTokens { get; set; }
+
+        /// <summary>
         /// Tricks déjà Mastered (pour éviter plusieurs decks sur le même trick).
         /// </summary>
         public List<string> MasteredTricks { get; set; } = new();
