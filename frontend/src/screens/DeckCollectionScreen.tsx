@@ -52,7 +52,7 @@ const DECK_CATALOG: DeckMeta[] = [
   { id: "deck_venice_sunset", name: "Venice Sunset", rarity: "RARE", emoji: "🌴" },
 ];
 
-export default function DeckCollectionScreen({ route }: Props) {
+export default function DeckCollectionScreen({ route, navigation }: Props) {
   const { progress } = useGlobalProgress();
 
   const fromRoute = route.params?.unlockedDecks ?? [];
@@ -190,6 +190,18 @@ export default function DeckCollectionScreen({ route }: Props) {
           {ownedCount} / {totalDecks} decks débloqués
         </Text>
 
+        
+        {/* 🔥 Bouton Decks Alive */}
+        <TouchableOpacity
+          style={styles.aliveButton}
+          onPress={() => navigation.navigate("AliveDecks")}
+        >
+          <Text style={styles.aliveButtonText}>🔥 Decks Alive (mode labo)</Text>
+          <Text style={styles.aliveButtonSub}>
+            Illusions optiques & animations spéciales
+          </Text>
+        </TouchableOpacity>
+
         <FlatList
           data={DECK_CATALOG}
           keyExtractor={(item) => item.id}
@@ -322,6 +334,30 @@ const styles = StyleSheet.create({
     textAlign: "center",
     marginBottom: 16,
   },
+
+    aliveButton: {
+    marginTop: 8,
+    marginBottom: 12,
+    paddingVertical: 10,
+    paddingHorizontal: 14,
+    borderRadius: 18,
+    backgroundColor: "#111827",
+    borderWidth: 2,
+    borderColor: "#FACC15",
+  },
+  aliveButtonText: {
+    fontFamily: "Bangers",
+    fontSize: 20,
+    color: "#FACC15",
+    textAlign: "center",
+  },
+  aliveButtonSub: {
+    marginTop: 2,
+    fontSize: 11,
+    color: "#E5E7EB",
+    textAlign: "center",
+  },
+
   listContent: {
     paddingBottom: 24,
   },
