@@ -18,7 +18,7 @@ import { deckImages } from "../../assets/decks/deckImages";
 import { unlockAliveDeck } from "../services/aliveDeckService";
 import { log } from "../utils/logger";
 
-type AliveModeKey = "SPIRAL" | "MOIRE" | "FLUID" | "TUNNEL" | "PHENAKISTO";
+type AliveModeKey = "SPIRAL" | "MOIRE" | "FLUID" | "TUNNEL" | "PHENAKISTO" | "LENT" | "MORPH";
 type DeckVariant = "grid" | "modal";
 
 type AliveDeckMeta = {
@@ -44,10 +44,8 @@ const ALIVE_DECKS: AliveDeckMeta[] = [
   { id: "deck_alive_spiral_rings", name: "Spirale Rings", mode: "SPIRAL" },
   { id: "deck_alive_spiral_sun", name: "Neon Sunburst", mode: "SPIRAL" },
 
-  // MODE 2 — Moiré Vibration (3)
-  { id: "deck_alive_feather_moire", name: "Feather Moiré", mode: "MOIRE" },
-  { id: "deck_alive_skull_moire", name: "Skull Moiré", mode: "MOIRE" },
-  { id: "deck_alive_tribal_moire", name: "Tribal Moiré", mode: "MOIRE" },
+  // MODE 2 — Moiré Rainbow Shardz (1)
+  { id: "deck_alive_moire_hexagon", name: "Moiré Hexagon", mode: "MOIRE" },
 
   // MODE 3 — Fluid Wave (5)
   { id: "deck_alive_fluid_chrome", name: "Fluid Chrome", mode: "FLUID" },
@@ -57,24 +55,13 @@ const ALIVE_DECKS: AliveDeckMeta[] = [
   { id: "deck_alive_fluid_sea",  name: "Fluid Sea",  mode: "FLUID" },
 
   // MODE 4 — Infinite Tunnel (6)
-  {
-    id: "deck_alive_tunnel_astronaute_black_hole",
-    name: "Tunnel Astronaute",
-    mode: "TUNNEL",
-  },
+  { id: "deck_alive_tunnel_astronaute_black_hole", name: "Tunnel Astronaute", mode: "TUNNEL" },
   { id: "deck_alive_tunnel_church", name: "Tunnel Church", mode: "TUNNEL" },
   { id: "deck_alive_tunnel_dragon", name: "Tunnel Dragon", mode: "TUNNEL" },
   { id: "deck_alive_tunnel_neon", name: "Tunnel Neon", mode: "TUNNEL" },
-  {
-    id: "deck_alive_tunnel_skate_black_hole",
-    name: "Tunnel Skate",
-    mode: "TUNNEL",
-  },
-  {
-    id: "deck_alive_tunnel_tron_skate",
-    name: "Tunnel Tron Skate",
-    mode: "TUNNEL",
-  },
+  { id: "deck_alive_tunnel_skate_black_hole", name: "Tunnel Skate", mode: "TUNNEL" },
+  { id: "deck_alive_tunnel_tron_skate", name: "Tunnel Tron Skate", mode: "TUNNEL",},
+  { id: "deck_alive_tunnel_shark", name: "Tunnel Shark", mode: "TUNNEL" },
 
   // MODE 5 — PhenakistoSkate (5)
   { id: "deck_alive_phena_dragon", name: "Phena Dragon", mode: "PHENAKISTO" },
@@ -82,6 +69,9 @@ const ALIVE_DECKS: AliveDeckMeta[] = [
   { id: "deck_alive_phena_flip", name: "Phena Flip", mode: "PHENAKISTO" },
   { id: "deck_alive_phena_ghost", name: "Phena Ghost", mode: "PHENAKISTO" },
   { id: "deck_alive_phena_heart", name: "Phena Heart", mode: "PHENAKISTO" },
+
+  // MODE 6 — LENTICULAR (2)
+  { id: "deck_alive_lent_calm", name: "Lenticular Calm", mode: "LENT" },
 ];
 
 // ---------- MODE 1 : HYPNOTIC SPIRAL DANGEREUSE !!! ----------
@@ -313,60 +303,195 @@ function HypnoticSpiralDeck({
 //   );
 // }
 
-
-
-
-// ---------- MODE 2 : MOIRÉ VIBRATION ----------
-function MoireVibrationDeck({
+// ---------- MODE 2 : MOIRÉ GEOMETRIC CIRCLES ----------
+function MoireCirclesDeck({
   deckId,
   variant,
 }: {
   deckId: string;
   variant: DeckVariant;
 }) {
-  const source: ImageSourcePropType | undefined = deckImages[deckId];
-  const distortAnim = useRef(new Animated.Value(0)).current;
   const isModal = variant === "modal";
+  const anim = useRef(new Animated.Value(0)).current;
+
+  // phase = "vertical" ou "triangle"
+  const [phase, setPhase] = useState<"vertical" | "triangle">("vertical");
+  const cycleCountRef = useRef(0);
+  const isMountedRef = useRef(true);
 
   useEffect(() => {
-    Animated.loop(
-      Animated.sequence([
-        Animated.timing(distortAnim, {
-          toValue: 1,
-          duration: isModal ? 450 : 600,
-          easing: Easing.inOut(Easing.quad),
-          useNativeDriver: true,
-        }),
-        Animated.timing(distortAnim, {
-          toValue: 0,
-          duration: isModal ? 450 : 600,
-          easing: Easing.inOut(Easing.quad),
-          useNativeDriver: true,
-        }),
-      ])
-    ).start();
-  }, [distortAnim, isModal]);
+    if (!isModal) return; // 👉 pas d'animation en grid
 
-  const translateX = distortAnim.interpolate({
-    inputRange: [0, 1],
-    outputRange: isModal ? [-7, 7] : [-4, 4],
-  });
+    isMountedRef.current = true;
 
-  const scaleX = distortAnim.interpolate({
-    inputRange: [0, 1],
-    outputRange: isModal ? [1, 1.07] : [1, 1.03],
-  });
+    const runOneCycle = () => {
+      if (!isMountedRef.current) return;
 
+      anim.setValue(0);
+
+      Animated.timing(anim, {
+        toValue: 1,
+        duration: 2800,
+        easing: Easing.linear,
+        useNativeDriver: true,
+      }).start(({ finished }) => {
+        if (!finished || !isMountedRef.current) return;
+
+        cycleCountRef.current += 1;
+
+        if (cycleCountRef.current >= 3) {
+          cycleCountRef.current = 0;
+          setPhase((prev) => (prev === "vertical" ? "triangle" : "vertical"));
+        }
+
+        runOneCycle();
+      });
+    };
+
+    runOneCycle();
+
+    return () => {
+      isMountedRef.current = false;
+      anim.stopAnimation();
+    };
+  }, [anim, isModal]);
+
+  const source = deckImages[deckId];
   if (!source) return null;
+
+  // 👉 en grid : deck statique (aucun moiré, surprise gardée)
+  if (!isModal) {
+    return (
+      <View style={styles.aliveDeckContainer}>
+        <Animated.Image
+          source={source}
+          style={styles.aliveDeckImage}
+          resizeMode="contain"
+        />
+      </View>
+    );
+  }
+
+  const baseStyle = styles.aliveDeckImageBig;
+
+  // zoom global pour mieux voir les cercles
+  const baseScale = 1.22;
+
+  // --------------------------
+  // PHASE 1 : VERTICAL MOIRÉ
+  // --------------------------
+  const slideRange = 70;
+
+  const verticalY1 = anim.interpolate({
+    inputRange: [0, 0.5, 1],
+    outputRange: [0, -slideRange, 0], // centre -> haut -> centre
+  });
+
+  const verticalY2 = anim.interpolate({
+    inputRange: [0, 0.5, 1],
+    outputRange: [0, slideRange, 0], // centre -> bas -> centre
+  });
+
+  // --------------------------
+  // PHASE 2 : TRIANGLE MOIRÉ
+  // --------------------------
+  const spreadRange = 80;
+
+  const centerY = anim.interpolate({
+    inputRange: [0, 0.5, 1],
+    outputRange: [0, -spreadRange, 0],
+  });
+
+  const bottomLeftX = anim.interpolate({
+    inputRange: [0, 0.5, 1],
+    outputRange: [0, -spreadRange, 0],
+  });
+  const bottomLeftY = anim.interpolate({
+    inputRange: [0, 0.5, 1],
+    outputRange: [0, spreadRange, 0],
+  });
+
+  const bottomRightX = anim.interpolate({
+    inputRange: [0, 0.5, 1],
+    outputRange: [0, spreadRange, 0],
+  });
+  const bottomRightY = anim.interpolate({
+    inputRange: [0, 0.5, 1],
+    outputRange: [0, spreadRange, 0],
+  });
+
+  // ----- transforms & opacités par deck -----
+  const deck0Transform =
+    phase === "vertical"
+      ? [{ scale: baseScale }]
+      : [{ scale: baseScale }, { translateY: centerY }];
+
+  const deck1Transform =
+    phase === "vertical"
+      ? [{ scale: baseScale }, { translateY: verticalY1 }]
+      : [
+          { scale: baseScale },
+          { translateX: bottomLeftX },
+          { translateY: bottomLeftY },
+        ];
+
+  const deck2Transform =
+    phase === "vertical"
+      ? [{ scale: baseScale }, { translateY: verticalY2 }]
+      : [
+          { scale: baseScale },
+          { translateX: bottomRightX },
+          { translateY: bottomRightY },
+        ];
+
+  const deck0Opacity = phase === "vertical" ? 0.9 : 0.85;
+  const deck1Opacity = phase === "vertical" ? 0.9 : 0.7;
+  const deck2Opacity = phase === "vertical" ? 0.5 : 0.7;
+
+  // petits cast pour calmer TypeScript
+  const deck0TransformAny = deck0Transform as any;
+  const deck1TransformAny = deck1Transform as any;
+  const deck2TransformAny = deck2Transform as any;
 
   return (
     <View style={styles.aliveDeckContainer}>
+      {/* Deck 0 */}
       <Animated.Image
         source={source}
         style={[
-          isModal ? styles.aliveDeckImageBig : styles.aliveDeckImage,
+          baseStyle,
           {
-            transform: [{ translateX }, { scaleX }],
+            position: "absolute",
+            opacity: deck0Opacity,
+            transform: deck0TransformAny,
+          },
+        ]}
+        resizeMode="contain"
+      />
+
+      {/* Deck 1 */}
+      <Animated.Image
+        source={source}
+        style={[
+          baseStyle,
+          {
+            position: "absolute",
+            opacity: deck1Opacity,
+            transform: deck1TransformAny,
+          },
+        ]}
+        resizeMode="contain"
+      />
+
+      {/* Deck 2 */}
+      <Animated.Image
+        source={source}
+        style={[
+          baseStyle,
+          {
+            position: "absolute",
+            opacity: deck2Opacity,
+            transform: deck2TransformAny,
           },
         ]}
         resizeMode="contain"
@@ -374,6 +499,11 @@ function MoireVibrationDeck({
     </View>
   );
 }
+
+
+
+
+
 
 // ---------- MODE 3 : FLUID WAVE (v2.1 "liquide safe") ----------
 function FluidWaveDeck({
@@ -620,6 +750,139 @@ function PhenakistoSkateDeck({
   );
 }
 
+// ---------- MODE 6 : LENTICULAR (Calm <-> Chaotic) ----------
+function LenticularDeck({
+  deckId,
+  variant,
+}: {
+  deckId: string;
+  variant: DeckVariant;
+}) {
+  const isModal = variant === "modal";
+
+  // On force les deux textures : calm + chaotic
+  const calmSource = deckImages["deck_alive_lent_calm"] as ImageSourcePropType;
+  const chaoticSource = deckImages["deck_alive_lent_chaotic"] as ImageSourcePropType;
+
+  // ref anim (jamais conditionnel → pas d’erreur de hooks)
+  const flipAnimRef = useRef<Animated.Value | null>(null);
+  if (!flipAnimRef.current) {
+    flipAnimRef.current = new Animated.Value(0);
+  }
+  const flipAnim = flipAnimRef.current;
+
+  // Animation uniquement en modale (mais useEffect est toujours appelé)
+  useEffect(() => {
+    if (!isModal) return;
+
+    flipAnim.setValue(0);
+
+    // 1 boucle complète 0 → 1 = ~12s
+    const loop = Animated.loop(
+      Animated.timing(flipAnim, {
+        toValue: 1,
+        duration: 12000,              // 👈 très lent, effet carte postale
+        easing: Easing.linear,
+        useNativeDriver: true,
+      })
+    );
+
+    loop.start();
+    return () => {
+      loop.stop();
+    };
+  }, [flipAnim, isModal]);
+
+  // GRID : juste la board CALM, sans anim
+  if (!isModal) {
+    return (
+      <View style={styles.aliveDeckContainer}>
+        <Animated.Image
+          source={calmSource}
+          style={styles.aliveDeckImage}
+          resizeMode="contain"
+        />
+      </View>
+    );
+  }
+
+  // === MODALE : vrai effet "lenticular" ===
+  // On simule "je tourne la carte" : pivot Y très léger
+  const tiltY = flipAnim.interpolate({
+    inputRange: [0, 0.5, 1],
+    outputRange: ["-10deg", "10deg", "-10deg"],
+  });
+
+  // Zoom léger pour rester bien dans le cadre bleu
+  const zoom = flipAnim.interpolate({
+    inputRange: [0, 0.5, 1],
+    outputRange: [0.95, 1, 0.95],
+  });
+
+  // Timeline :
+  //  0.00–0.15 : CALM plein pot
+  //  0.15–0.30 : crossfade calm -> chaotic
+  //  0.30–0.70 : CHAOTIC plein pot (≈ 5 s)
+  //  0.70–0.85 : crossfade chaotic -> calm
+  //  0.85–1.00 : CALM plein pot
+  const calmOpacity = flipAnim.interpolate({
+    inputRange: [0, 0.15, 0.30, 0.70, 0.85, 1],
+    outputRange: [1, 1, 0, 0, 1, 1],
+  });
+
+  const chaoticOpacity = flipAnim.interpolate({
+    inputRange: [0, 0.15, 0.30, 0.70, 0.85, 1],
+    outputRange: [0, 0, 1, 1, 0, 0],
+  });
+
+  return (
+    <View style={styles.aliveDeckContainer}>
+      <Animated.View
+        style={{
+          alignItems: "center",
+          justifyContent: "center",
+          transform: [
+            { perspective: 1200 },
+            { rotateY: tiltY },
+            { scale: zoom },
+          ],
+        }}
+      >
+        {/* CALM (dessous) */}
+        <Animated.Image
+          source={calmSource}
+          style={[
+            styles.aliveDeckImageBig,
+            {
+              position: "absolute",
+              opacity: calmOpacity,
+            },
+          ]}
+          resizeMode="contain"
+        />
+
+        {/* CHAOTIC (au-dessus) */}
+        <Animated.Image
+          source={chaoticSource}
+          style={[
+            styles.aliveDeckImageBig,
+            {
+              position: "absolute",
+              opacity: chaoticOpacity,
+            },
+          ]}
+          resizeMode="contain"
+        />
+      </Animated.View>
+    </View>
+  );
+}
+
+
+
+
+
+
 // =============================================
 //          ÉCRAN PRINCIPAL ALIVE DECKS
 // =============================================
@@ -651,13 +914,17 @@ export default function AliveDecksScreen() {
     SPIRAL:
       "Appuie sur le deck en grand pour déclencher une grosse rotation, sinon il respire doucement.",
     MOIRE:
-      "Les decks Moiré vibrent tout seuls : laisse l’animation tourner pour sentir l’effet optique.",
+      "Laisse faire on s'occupe de tout.",
     FLUID:
       "Les decks Fluid ondulent en continu : les vagues montent et descendent automatiquement.",
     TUNNEL:
       "Les decks Tunnel zooment et dézooment en boucle pour simuler un tunnel infini.",
     PHENAKISTO:
       "Les decks Phenakisto loopent en mode flipbook, comme une mini animation de skateur.",
+    LENT:
+      "Laisse faire on s'occupe de tout.",
+    MORPH:
+      "Laisse faire on s'occupe de tout.",  
   };
 
   const resolvedUnlockedIds = testUnlockAll
@@ -678,10 +945,11 @@ export default function AliveDecksScreen() {
     },
     {
       key: "MOIRE",
-      title: "Mode 2 — Moiré Vibration",
-      subtitle: "Micro-vibration optique (lignes/damier)",
-      renderer: (p) => <MoireVibrationDeck {...p} />,
+      title: "Mode 2 — Moiré Circles",
+      subtitle: "Double image géométrique à interférence moiré",
+      renderer: (p) => <MoireCirclesDeck {...p} />,
     },
+
     {
       key: "FLUID",
       title: "Mode 3 — Fluid Wave",
@@ -700,6 +968,14 @@ export default function AliveDecksScreen() {
       subtitle: "Loop façon flipbook / animation cyclique",
       renderer: (p) => <PhenakistoSkateDeck {...p} />,
     },
+
+    {
+      key: "LENT",
+      title: "Mode 6 — Lenticular",
+      subtitle: "Calm vs Chaos avec effet magique",
+      renderer: (p) => <LenticularDeck {...p} />,
+    },
+
   ];
 
   const groupedByMode: Record<AliveModeKey, AliveDeckMeta[]> = {
@@ -708,6 +984,8 @@ export default function AliveDecksScreen() {
     FLUID: [],
     TUNNEL: [],
     PHENAKISTO: [],
+    LENT: [],
+    MORPH: [],
   };
 
   ALIVE_DECKS.forEach((deck) => {
@@ -881,12 +1159,21 @@ export default function AliveDecksScreen() {
           <TouchableOpacity
             style={styles.deckModalBackdrop}
             activeOpacity={1}
-            onPress={() => setSelectedDeck(null)}
+            onPress={() => setSelectedDeck(null)} // tap sur le fond = fermer
           >
             <View style={styles.deckModalCard}>
               {selectedDeck && (
                 <>
+                  {/* bouton croix en haut à droite */}
+                  <TouchableOpacity
+                    style={styles.deckModalCloseButton}
+                    onPress={() => setSelectedDeck(null)}
+                  >
+                    <Text style={styles.deckModalCloseButtonText}>✕</Text>
+                  </TouchableOpacity>
+
                   <Text style={styles.deckModalTitle}>{selectedDeck.name}</Text>
+
                   <View style={styles.deckModalImageWrapper}>
                     {currentModeDef &&
                       currentModeDef.renderer({
@@ -894,13 +1181,6 @@ export default function AliveDecksScreen() {
                         variant: "modal",
                       })}
                   </View>
-
-                  <TouchableOpacity
-                    style={styles.deckModalButton}
-                    onPress={() => setSelectedDeck(null)}
-                  >
-                    <Text style={styles.deckModalButtonText}>Fermer</Text>
-                  </TouchableOpacity>
                 </>
               )}
             </View>
@@ -961,7 +1241,7 @@ const styles = StyleSheet.create({
     gap: 8,
   },
 
-    tokensRow: {
+  tokensRow: {
     marginTop: 10,
     paddingVertical: 6,
     paddingHorizontal: 10,
@@ -1071,6 +1351,23 @@ const styles = StyleSheet.create({
     fontSize: 11,
     textAlign: "center",
   },
+    deckModalCloseButton: {
+    position: "absolute",
+    top: 10,
+    right: 10,
+    width: 32,
+    height: 32,
+    borderRadius: 16,
+    backgroundColor: "rgba(0,0,0,0.6)",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  deckModalCloseButtonText: {
+    color: "#FEE54A",
+    fontSize: 18,
+    fontWeight: "900",
+  },
+
   aliveDeckContainer: {
     width: "100%",
     alignItems: "center",
@@ -1192,6 +1489,8 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     marginBottom: 18,
+    marginTop: 8,
+    minHeight: 360,
   },
   deckModalButton: {
     alignSelf: "center",

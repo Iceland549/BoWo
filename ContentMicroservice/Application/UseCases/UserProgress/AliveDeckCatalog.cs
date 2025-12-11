@@ -20,10 +20,9 @@ namespace ContentMicroservice.Application.UseCases.UserProgress
         public const string SpiralRings = "deck_alive_spiral_rings";
         public const string SpiralSun = "deck_alive_spiral_sun";
 
-        // === MOIRÉ (3) ===
-        public const string FeatherMoire = "deck_alive_feather_moire";
-        public const string SkullMoire = "deck_alive_skull_moire";
-        public const string TribalMoire = "deck_alive_tribal_moire";
+        // === MOIRÉ (1) ===
+        public const string MoireHexagon = "deck_alive_moire_hexagon";
+
 
         // === FLUID (5) ===
         public const string FluidChrome = "deck_alive_fluid_chrome";
@@ -39,6 +38,7 @@ namespace ContentMicroservice.Application.UseCases.UserProgress
         public const string TunnelNeon = "deck_alive_tunnel_neon";
         public const string TunnelSkateBlackHole = "deck_alive_tunnel_skate_black_hole";
         public const string TunnelTronSkate = "deck_alive_tunnel_tron_skate";
+        public const string TunnelShark = "deck_alive_tunnel_shark";
 
         // === PHENAKISTO (5) ===
         public const string PhenaDragon = "deck_alive_phena_dragon";
@@ -52,13 +52,13 @@ namespace ContentMicroservice.Application.UseCases.UserProgress
             // Spiral
             Spiral, SpiralColor2, SpiralCosmicIris, SpiralFractal, SpiralGalaxy, SpiralRings, SpiralSun, 
             // Moiré
-            FeatherMoire, SkullMoire, TribalMoire,
+            MoireHexagon,
             // Fluid
             FluidChrome, FluidCosmic, FluidLava, FluidNeon,
             FluidSea,
             // Tunnel
             TunnelAstronautBlackHole, TunnelChurch, TunnelDragon,
-            TunnelNeon, TunnelSkateBlackHole, TunnelTronSkate,
+            TunnelNeon, TunnelSkateBlackHole, TunnelTronSkate, TunnelShark,
             // Phena
             PhenaDragon, PhenaEye, PhenaFlip, PhenaGhost, PhenaHeart
         };
