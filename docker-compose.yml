@@ -37,6 +37,7 @@ services:
       - ConnectionStrings__DefaultConnection=Server=sqlserver,1433;Database=AuthDb;User Id=sa;Password=YourStrong!Passw0rd;TrustServerCertificate=True
       - Jwt__Secret=TaCleSuperSecreteDoitFaireAuMoins32Chars!
       - Admin__Email=admin@bowo.app
+      - Admin__Password=Admin123!   
     depends_on:
       sqlserver:
         condition: service_healthy
@@ -44,6 +45,9 @@ services:
       - "5001:5001"
     networks:
       - bowo-net
+    volumes:
+        - auth_keys:/root/.aspnet/DataProtection-Keys
+
 
   content:
     build:
@@ -87,3 +91,4 @@ networks:
 volumes:
   sql-data:
   mongo-data:
+  auth_keys:
