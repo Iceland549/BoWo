@@ -17,6 +17,7 @@ import { useGlobalProgress } from "../context/GlobalProgressContext";
 import { deckImages } from "../../assets/decks/deckImages";
 import { unlockAliveDeck } from "../services/aliveDeckService";
 import { log } from "../utils/logger";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 type AliveModeKey = "SPIRAL" | "MOIRE" | "FLUID" | "TUNNEL" | "PHENAKISTO" | "LENT" | "MORPH";
 type DeckVariant = "grid" | "modal";
@@ -74,7 +75,19 @@ const ALIVE_DECKS: AliveDeckMeta[] = [
   { id: "deck_alive_lent_calm", name: "Lenticular Calm", mode: "LENT" },
 ];
 
-// ---------- MODE 1 : HYPNOTIC SPIRAL DANGEREUSE !!! ----------
+// ================================
+//  Sécurité Hypnotic Spiral (BoWo)
+// ================================
+const HYPNO_WARNING_KEY = "bowo_hypno_warning_v1";
+const HYPNO_SESSIONS_KEY = "bowo_hypno_sessions_v1";
+const HYPNO_DAILY_KEY = "bowo_hypno_daily_v1";
+
+// 👉 LIMITES UNIFIÉES (SAFE)
+const HYPNO_MAX_SESSIONS = 3;              // 3 utilisations
+const HYPNO_WINDOW_MS = 5 * 60 * 1000;     // toutes les 5 minutes
+const HYPNO_DAILY_MAX = 3;                 // 3 par jour
+const HYPNO_BAR_MAX = 3;                   // HUD visible = 3 points
+
 function HypnoticSpiralDeck({
   deckId,
   variant,
@@ -82,14 +95,42 @@ function HypnoticSpiralDeck({
   deckId: string;
   variant: DeckVariant;
 }) {
-  const spiralSource: ImageSourcePropType | undefined = deckImages[deckId];
+  const spiralSource = deckImages[deckId];
+
   const pulseAnim = useRef(new Animated.Value(0)).current;
   const spinAnim = useRef(new Animated.Value(0)).current;
+  const batteryPulse = useRef(new Animated.Value(0)).current;
+
   const [isSpinning, setIsSpinning] = useState(false);
+
+  // Sécurité
+  const [hasAcceptedWarning, setHasAcceptedWarning] = useState(false);
+  const [showWarningModal, setShowWarningModal] = useState(false);
+  const [showLimitModal, setShowLimitModal] = useState(false);
+  const [cooldownMin, setCooldownMin] = useState<number | null>(null);
+
+  // HUD
+  const [recentCount, setRecentCount] = useState(0);
 
   const isModal = variant === "modal";
 
-  // --- Respiration douce (idle) — on la garde pour le grid ---
+  // ---------- helpers ----------
+  const getTodayKey = () => {
+    const d = new Date();
+    const yyyy = d.getFullYear();
+    const mm = String(d.getMonth() + 1).padStart(2, "0");
+    const dd = String(d.getDate()).padStart(2, "0");
+    return `${yyyy}-${mm}-${dd}`;
+  };
+
+  // ---------- load disclaimer ----------
+  useEffect(() => {
+    AsyncStorage.getItem(HYPNO_WARNING_KEY).then((v) => {
+      if (v === "true") setHasAcceptedWarning(true);
+    });
+  }, []);
+
+  // ---------- idle breathing ----------
   useEffect(() => {
     Animated.loop(
       Animated.sequence([
@@ -114,194 +155,230 @@ function HypnoticSpiralDeck({
     outputRange: isModal ? [1, 1.16] : [1, 1.06],
   });
 
-  // Petit balancement seulement pour la vue grid
   const idleRotate = pulseAnim.interpolate({
     inputRange: [0, 0.5, 1],
     outputRange: isModal ? ["0deg", "0deg", "0deg"] : ["-4deg", "4deg", "-4deg"],
   });
 
-  // Grande rotation hypnotique (modale) – 6 tours complets
   const spin = spinAnim.interpolate({
     inputRange: [0, 1],
-    outputRange: isModal ? ["0deg", "2160deg"] : ["0deg", "1080deg"],
+    outputRange: ["0deg", "2160deg"], // 6 tours
   });
 
-  const onPressSpin = () => {
-    if (!isModal || isSpinning) return;
+  // ---------- sécurité ----------
+  const canUseHypno = async (): Promise<boolean> => {
+    const now = Date.now();
+    const todayKey = getTodayKey();
 
+    try {
+      // ----- limite journalière -----
+      const rawDaily = await AsyncStorage.getItem(HYPNO_DAILY_KEY);
+      const daily = rawDaily ? JSON.parse(rawDaily) : null;
+
+      const dailyCount =
+        daily?.date === todayKey && typeof daily?.count === "number"
+          ? daily.count
+          : 0;
+
+      if (dailyCount >= HYPNO_DAILY_MAX) {
+        setCooldownMin(null); // message "demain"
+        setShowLimitModal(true);
+        return false;
+      }
+
+      // ----- limite 3 / 5 minutes -----
+      const raw = await AsyncStorage.getItem(HYPNO_SESSIONS_KEY);
+      const sessions: number[] = raw ? JSON.parse(raw) : [];
+      const recent = sessions.filter((t) => now - t < HYPNO_WINDOW_MS);
+
+      setRecentCount(recent.length);
+
+      if (recent.length >= HYPNO_MAX_SESSIONS) {
+        const remaining = HYPNO_WINDOW_MS - (now - Math.min(...recent));
+        setCooldownMin(Math.ceil(remaining / 60000));
+        setShowLimitModal(true);
+        return false;
+      }
+
+      // ----- autorisé -----
+      recent.push(now);
+      await AsyncStorage.setItem(HYPNO_SESSIONS_KEY, JSON.stringify(recent));
+
+      await AsyncStorage.setItem(
+        HYPNO_DAILY_KEY,
+        JSON.stringify({ date: todayKey, count: dailyCount + 1 })
+      );
+
+      setRecentCount(recent.length);
+
+      // petite pulse batterie
+      batteryPulse.setValue(0);
+      Animated.sequence([
+        Animated.timing(batteryPulse, {
+          toValue: 1,
+          duration: 140,
+          useNativeDriver: true,
+        }),
+        Animated.timing(batteryPulse, {
+          toValue: 0,
+          duration: 220,
+          useNativeDriver: true,
+        }),
+      ]).start();
+
+      return true;
+    } catch (e) {
+      log("hypno_limit_error", e);
+      return true;
+    }
+  };
+
+  // ---------- animation ----------
+  const startSpin = () => {
     setIsSpinning(true);
     spinAnim.setValue(0);
 
-    // Accélération douce → vitesse stable → ralentissement
     Animated.sequence([
-      // Phase 1 : démarrage naturel
       Animated.timing(spinAnim, {
         toValue: 0.15,
         duration: 700,
         easing: Easing.in(Easing.quad),
         useNativeDriver: true,
       }),
-      // Phase 2 : plein régime hypnotique
       Animated.timing(spinAnim, {
         toValue: 0.85,
         duration: 2300,
         easing: Easing.linear,
         useNativeDriver: true,
       }),
-      // Phase 3 : décélération progressive façon "Twilight Zone"
       Animated.timing(spinAnim, {
         toValue: 1,
         duration: 1000,
         easing: Easing.out(Easing.quad),
         useNativeDriver: true,
       }),
-    ]).start(() => {
-      setIsSpinning(false);
-    });
+    ]).start(() => setIsSpinning(false));
+  };
+
+  const onPressSpin = async () => {
+    if (!isModal || isSpinning) return;
+
+    if (!hasAcceptedWarning) {
+      setShowWarningModal(true);
+      return;
+    }
+
+    if (await canUseHypno()) startSpin();
+  };
+
+  const acceptWarning = async () => {
+    await AsyncStorage.setItem(HYPNO_WARNING_KEY, "true");
+    setHasAcceptedWarning(true);
+    setShowWarningModal(false);
+    if (await canUseHypno()) startSpin();
   };
 
   if (!spiralSource) return null;
 
   const Container = isModal ? TouchableOpacity : View;
-
-  // 👉 En modale : on suit toujours spinAnim (0deg au repos, 6 tours sur la séquence)
-  // 👉 En grid : on reste sur le petit balancement idle
   const rotation = isModal ? spin : idleRotate;
 
   return (
-    <Container
-      style={styles.aliveDeckContainer}
-      activeOpacity={0.9}
-      onPress={isModal ? onPressSpin : undefined}
-    >
-      <Animated.Image
-        source={spiralSource}
-        style={[
-          isModal ? styles.aliveDeckImageBig : styles.aliveDeckImage,
-          {
-            transform: [{ scale }, { rotate: rotation }],
-          },
-        ]}
-        resizeMode="contain"
-      />
-    </Container>
+    <>
+      <Container
+        style={styles.aliveDeckContainer}
+        activeOpacity={0.9}
+        onPress={isModal ? onPressSpin : undefined}
+      >
+        <Animated.Image
+          source={spiralSource}
+          style={[
+            isModal ? styles.aliveDeckImageBig : styles.aliveDeckImage,
+            { transform: [{ scale }, { rotate: rotation }] },
+          ]}
+          resizeMode="contain"
+        />
+
+        {/* HUD ÉNERGIE (3 points) */}
+        {isModal && (
+          <View style={styles.hypnoHud}>
+            <Text style={styles.hypnoHudText}>
+              Hypnotic energy: {recentCount}/{HYPNO_BAR_MAX}
+            </Text>
+
+            <Animated.View
+              style={[
+                styles.hypnoBattery,
+                {
+                  transform: [
+                    {
+                      scale: batteryPulse.interpolate({
+                        inputRange: [0, 1],
+                        outputRange: [1, 1.08],
+                      }),
+                    },
+                  ],
+                },
+              ]}
+            >
+              {Array.from({ length: HYPNO_BAR_MAX }).map((_, i) => (
+                <View
+                  key={i}
+                  style={[
+                    styles.hypnoCell,
+                    i < recentCount
+                      ? styles.hypnoCellOn
+                      : styles.hypnoCellOff,
+                  ]}
+                />
+              ))}
+            </Animated.View>
+          </View>
+        )}
+      </Container>
+
+      {/* DISCLAIMER */}
+      <Modal visible={showWarningModal} transparent animationType="fade">
+        <View style={styles.helpModalBackdrop}>
+          <View style={styles.helpModalCard}>
+            <Text style={styles.helpModalTitle}>Attention</Text>
+            <Text style={styles.helpModalText}>
+              Les effets hypnotiques peuvent provoquer une sensation de vertige.
+              Utilise ce deck avec modération et jamais juste avant de faire du
+              skate.
+            </Text>
+            <TouchableOpacity
+              style={styles.helpModalButton}
+              onPress={acceptWarning}
+            >
+              <Text style={styles.helpModalButtonText}>J’ai compris</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+      </Modal>
+
+      {/* LIMITE */}
+      <Modal visible={showLimitModal} transparent animationType="fade">
+        <View style={styles.helpModalBackdrop}>
+          <View style={styles.helpModalCard}>
+            <Text style={styles.helpModalTitle}>Pause recommandée</Text>
+            <Text style={styles.helpModalText}>
+              {cooldownMin != null
+                ? `Trop d’utilisations rapprochées. Réessaie dans ${cooldownMin} minute(s).`
+                : `Limite journalière atteinte. Reviens demain.`}
+            </Text>
+            <TouchableOpacity
+              style={styles.helpModalButton}
+              onPress={() => setShowLimitModal(false)}
+            >
+              <Text style={styles.helpModalButtonText}>OK</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+      </Modal>
+    </>
   );
 }
-
-// // ---------- MODE 1 : HYPNOTIC SPIRAL ----------
-// function HypnoticSpiralDeck({
-//   deckId,
-//   variant,
-// }: {
-//   deckId: string;
-//   variant: DeckVariant;
-// }) {
-//   const spiralSource: ImageSourcePropType | undefined = deckImages[deckId];
-//   const pulseAnim = useRef(new Animated.Value(0)).current;
-//   const spinAnim = useRef(new Animated.Value(0)).current;
-//   const [isSpinning, setIsSpinning] = useState(false);
-
-//   const isModal = variant === "modal";
-
-//   // --- Respiration douce (idle) — on la garde pour le grid ---
-//   useEffect(() => {
-//     Animated.loop(
-//       Animated.sequence([
-//         Animated.timing(pulseAnim, {
-//           toValue: 1,
-//           duration: isModal ? 1200 : 1400,
-//           easing: Easing.inOut(Easing.quad),
-//           useNativeDriver: true,
-//         }),
-//         Animated.timing(pulseAnim, {
-//           toValue: 0,
-//           duration: isModal ? 1200 : 1400,
-//           easing: Easing.inOut(Easing.quad),
-//           useNativeDriver: true,
-//         }),
-//       ])
-//     ).start();
-//   }, [pulseAnim, isModal]);
-
-//   const scale = pulseAnim.interpolate({
-//     inputRange: [0, 1],
-//     outputRange: isModal ? [1, 1.16] : [1, 1.06],
-//   });
-
-//   // Petit balancement seulement pour la vue grid
-//   const idleRotate = pulseAnim.interpolate({
-//     inputRange: [0, 0.5, 1],
-//     outputRange: isModal ? ["0deg", "0deg", "0deg"] : ["-4deg", "4deg", "-4deg"],
-//   });
-
-//   // Grande rotation hypnotique (modale) – 9 tours complets
-//   const spin = spinAnim.interpolate({
-//     inputRange: [0, 1],
-//     outputRange: isModal ? ["0deg", "3240deg"] : ["0deg", "1080deg"],
-//   });
-
-//   const onPressSpin = () => {
-//     if (!isModal || isSpinning) return;
-
-//     setIsSpinning(true);
-//     spinAnim.setValue(0);
-
-//     // Accélération → plein régime rapide → décélération douce
-//     Animated.sequence([
-//       // Phase 1 : démarrage naturel (un peu plus court)
-//       Animated.timing(spinAnim, {
-//         toValue: 0.1,
-//         duration: 500,
-//         easing: Easing.in(Easing.quad),
-//         useNativeDriver: true,
-//       }),
-//       // Phase 2 : plein régime bien plus rapide et plus long
-//       Animated.timing(spinAnim, {
-//         toValue: 0.9,
-//         duration: 2600,
-//         easing: Easing.linear,
-//         useNativeDriver: true,
-//       }),
-//       // Phase 3 : décélération progressive
-//       Animated.timing(spinAnim, {
-//         toValue: 1,
-//         duration: 900,
-//         easing: Easing.out(Easing.quad),
-//         useNativeDriver: true,
-//       }),
-//     ]).start(() => {
-//       setIsSpinning(false);
-//     });
-//   };
-
-
-//   if (!spiralSource) return null;
-
-//   const Container = isModal ? TouchableOpacity : View;
-
-//   // 👉 En modale : on suit toujours spinAnim (0deg au repos, 6 tours sur la séquence)
-//   // 👉 En grid : on reste sur le petit balancement idle
-//   const rotation = isModal ? spin : idleRotate;
-
-//   return (
-//     <Container
-//       style={styles.aliveDeckContainer}
-//       activeOpacity={0.9}
-//       onPress={isModal ? onPressSpin : undefined}
-//     >
-//       <Animated.Image
-//         source={spiralSource}
-//         style={[
-//           isModal ? styles.aliveDeckImageBig : styles.aliveDeckImage,
-//           {
-//             transform: [{ scale }, { rotate: rotation }],
-//           },
-//         ]}
-//         resizeMode="contain"
-//       />
-//     </Container>
-//   );
-// }
 
 // ---------- MODE 2 : MOIRÉ GEOMETRIC CIRCLES ----------
 function MoireCirclesDeck({
@@ -1208,6 +1285,47 @@ const styles = StyleSheet.create({
     shadowOffset: { width: 0, height: 0 },
     elevation: 12,
   },
+
+  hypnoHud: {
+    marginTop: 8,
+    alignItems: "center",
+    justifyContent: "center",
+    gap: 6,
+  },
+  hypnoHudText: {
+    color: "#C2C6FF",
+    fontSize: 12,
+    fontWeight: "700",
+    textAlign: "center",
+    letterSpacing: 0.2,
+  },
+  hypnoBattery: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
+    gap: 6,
+    paddingHorizontal: 10,
+    paddingVertical: 6,
+    borderRadius: 999,
+    borderWidth: 1.5,
+    borderColor: "#FEE54A",
+    backgroundColor: "rgba(17, 19, 37, 0.85)",
+  },
+  hypnoCell: {
+    width: 12,
+    height: 12,
+    borderRadius: 6,
+    borderWidth: 1,
+  },
+  hypnoCellOn: {
+    backgroundColor: "#FEE54A",
+    borderColor: "#FFD600",
+  },
+  hypnoCellOff: {
+    backgroundColor: "rgba(255, 255, 255, 0.10)",
+    borderColor: "rgba(255, 255, 255, 0.18)",
+  },
+
   scroll: {
     flex: 1,
     marginTop: 8,

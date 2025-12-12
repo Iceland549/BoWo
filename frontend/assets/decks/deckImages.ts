@@ -2,27 +2,28 @@
 // ALIGNED EXACTLY with your folder: assets/decks/*.png
 
 export const deckImages: Record<string, any> = {
-  // === DECKS CLASSIQUES ===
-  deck_abyssal_demon: require("./abyssal_demon.png"),
-  deck_anarchy_slash: require("./anarchy_slash.png"),
-  deck_candy_swirl: require("./candy_swirl.png"),
-  deck_cursed_totem: require("./aztec_jaguar.png"),
-  deck_emoji_madness: require("./emoji_madness.png"),
-  deck_favela_vibes: require("./favela_vibes.png"),
-  deck_grunge_burner: require("./grunge_burner.png"),
-  deck_kanji_rebellion: require("./kanji_rebellion.png"),
-  deck_kawaii_bubble: require("./kawaii_bubble_2.png"),
-  deck_koi: require("./koi.png"),
-  deck_lucha_flame: require("./lucha_flame.png"),
-  deck_power_man: require("./power_man.png"),
-  deck_rising_sun_oni: require("./rising_sun_oni.png"),
-  deck_rust_riot: require("./rust_riot.png"),
-  deck_sakura: require("./sakura.png"),
-  deck_street_chaos: require("./street_chaos.png"),
-  deck_sugar_skull: require("./sugar_skull.png"),
-  deck_toxic_trash: require("./toxic_trash.png"),
-  deck_tron: require("./tron.png"),
-  deck_sunset_palms: require("./venice_sunset.png"),
+  // === DECKS CLASSIC ===
+  deck_abyssal_demon: require("./Classic/abyssal_demon.png"),
+  deck_anarchy_slash: require("./Classic/anarchy_slash.png"),
+  deck_candy_swirl: require("./Classic/candy_swirl.png"),
+  deck_cursed_totem: require("./Classic/aztec_jaguar.png"),
+  deck_emoji_madness: require("./Classic/emoji_madness.png"),
+  deck_favela_vibes: require("./Classic/favela_vibes.png"),
+  deck_grunge_burner: require("./Classic/grunge_burner.png"),
+  deck_kanji_rebellion: require("./Classic/kanji_rebellion.png"),
+  deck_kawaii_bubble: require("./Classic/kawaii_bubble_2.png"),
+  deck_koi: require("./Classic/koi.png"),
+  deck_lucha_flame: require("./Classic/lucha_flame.png"),
+  deck_power_man: require("./Classic/power_man.png"),
+  deck_rising_sun_oni: require("./Classic/rising_sun_oni.png"),
+  deck_rust_riot: require("./Classic/rust_riot.png"),
+  deck_sakura: require("./Classic/sakura.png"),
+  deck_street_chaos: require("./Classic/street_chaos.png"),
+  deck_sugar_skull: require("./Classic/sugar_skull.png"),
+  deck_toxic_trash: require("./Classic/toxic_trash.png"),
+  deck_tron: require("./Classic/tron.png"),
+  deck_sunset_palms: require("./Classic/venice_sunset.png"),
+  deck_vitraux: require("./Classic/vitraux.png"),
 
   // === ALIVE : SPIRAL ===
   "deck_alive_spiral": require("./spiral.png"),
@@ -34,9 +35,7 @@ export const deckImages: Record<string, any> = {
   "deck_alive_spiral_sun": require("./spiral_sun.png"),
 
   // === ALIVE : MOIRÉ ===
-  "deck_alive_feather_moire": require("./feather_moire.png"),
-  "deck_alive_skull_moire": require("./skull_moire.png"),
-  "deck_alive_tribal_moire": require("./tribal_moire.png"),
+  "deck_alive_moire_hexagon": require("./Alive/Moire/moire_hexagon.png"),
 
   // === ALIVE : FLUID ===
   "deck_alive_fluid_chrome": require("./fluid_chrome.png"),
@@ -52,6 +51,7 @@ export const deckImages: Record<string, any> = {
   "deck_alive_tunnel_neon": require("./tunnel_neon.png"),
   "deck_alive_tunnel_skate_black_hole": require("./tunnel_skate_black_hole.png"),
   "deck_alive_tunnel_tron_skate": require("./tunnel_tron_skate.png"),
+  "deck_alive_tunnel_shark": require("./tunnel_shark.png"),
 
   // === ALIVE : PHENAKISTO ===
   "deck_alive_phena_dragon": require("./phena_dragon.png"),
@@ -59,4 +59,10 @@ export const deckImages: Record<string, any> = {
   "deck_alive_phena_flip": require("./phena_flip.png"),
   "deck_alive_phena_ghost": require("./phena_ghost.png"),
   "deck_alive_phena_heart": require("./phena_heart.png"),
+
+  // === ALIVE : LENTICULAR ===
+  "deck_alive_lent_calm": require("./Alive/Lent/lent_calm.png"),
+  "deck_alive_lent_chaotic": require("./Alive/Lent/lent_chaotic.png"),
+
+  // === ALIVE : MORPH ===
 };
