@@ -123,8 +123,8 @@ using (var scope = app.Services.CreateScope())
             // Seed Admin
             var seeder = services.GetRequiredService<SeedAdminUseCase>();
             await seeder.ExecuteAsync(
-                builder.Configuration["Admin:Email"]!,
-                builder.Configuration["Admin:Password"]!
+                builder.Configuration["Admin__Email"]!,
+                builder.Configuration["Admin__Password"]!
             );
 
             // Seed Service Clients
