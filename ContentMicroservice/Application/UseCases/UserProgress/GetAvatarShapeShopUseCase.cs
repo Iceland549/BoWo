@@ -22,7 +22,7 @@ namespace ContentMicroservice.Application.UseCases.UserProgress
             _logger = logger;
         }
 
-        public async Task<AvatarShopDto> ExecuteAsync(string userId, CancellationToken ct = default)
+        public async Task<ShopDto> ExecuteAsync(string userId, CancellationToken ct = default)
         {
             var progress = await _progressRepo.GetByUserIdAsync(userId, ct)
                            ?? new Infrastructure.Persistence.Entities.UserProgress { UserId = userId };
@@ -34,11 +34,11 @@ namespace ContentMicroservice.Application.UseCases.UserProgress
 
             var families = catalog
                 .GroupBy(i => i.Family)
-                .Select(g => new AvatarShopFamilyDto
+                .Select(g => new ShopFamilyDto
                 {
                     Key = g.Key,
                     Label = g.Key,
-                    Items = g.Select(item => new AvatarShopItemDto
+                    Items = g.Select(item => new ShopItemDto
                     {
                         Id = item.Id,
                         DisplayName = item.DisplayName,
@@ -51,9 +51,10 @@ namespace ContentMicroservice.Application.UseCases.UserProgress
 
             _logger.LogDebug("Shape shop returned for user {UserId}. Families={Count}", userId, families.Count);
 
-            return new AvatarShopDto
+            return new ShopDto
             {
-                CurrentShapeAvatarId = progress.ShapeAvatarId,
+                // anciennement CurrentShapeAvatarId
+                CurrentSelectedId = progress.ShapeAvatarId,
                 Families = families
             };
         }
