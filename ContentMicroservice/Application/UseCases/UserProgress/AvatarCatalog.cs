@@ -1,18 +1,20 @@
-﻿// ContentMicroservice.Application/UseCases/UserProgress/AvatarCatalog.cs
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using ProgressEntity = ContentMicroservice.Infrastructure.Persistence.Entities.UserProgress;
 
 namespace ContentMicroservice.Application.UseCases.UserProgress
 {
     /// <summary>
-    /// Catalogue des avatars bulle + avatars "forme skateur".
-    ///  - Bulle : choix unique à partir du niveau 2 (5 avatars).
-    ///  - Forme : un sticker automatiquement débloqué à chaque niveau >= 3.
+    /// Catalogue des avatars :
+    ///  - Bubble : choix unique à partir du niveau 2.
+    ///  - Shape (level) : un sticker automatiquement débloqué à chaque niveau >= 3.
+    ///  - Shape (shop) : 3 familles payantes (Archetype / Mascot / Emotion).
     /// </summary>
     internal static class AvatarCatalog
     {
-        // 5 avatars bulle de base (portraits ronds).
+        // -------------------------
+        // BUBBLES (assets/avatars/bubbles)
+        // -------------------------
         private static readonly string[] BubbleAvatars =
         {
             "bubble_lvl2_01",
@@ -33,7 +35,9 @@ namespace ContentMicroservice.Application.UseCases.UserProgress
         private static readonly HashSet<string> BubbleAvatarSet =
             new HashSet<string>(BubbleAvatars);
 
-        // Un avatar "forme skateur" par niveau >= 3.
+        // -------------------------
+        // SHAPES (auto unlock by level)
+        // -------------------------
         private static readonly Dictionary<int, string> ShapeAvatarsByLevel = new()
         {
             { 3,  "shape_lvl3_rebel_shredder" },
@@ -56,38 +60,91 @@ namespace ContentMicroservice.Application.UseCases.UserProgress
             { 20, "shape_lvl20_bowo_demigod" }
         };
 
-        /// <summary>
-        /// Renvoie les avatars bulle sélectionnables MAINTENANT.
-        /// - Level < 2 → aucun avatar bulle.
-        /// - Level >= 2 & avatar déjà choisi → liste vide (plus de choix).
-        /// - Level >= 2 & pas encore de choix → les 5 bulles.
-        /// </summary>
+        // -------------------------
+        // SHAPES (shop)
+        // -------------------------
+        public record ShapeShopItem(string Id, string Family, string DisplayName, int PriceCents);
+
+        private static readonly IReadOnlyList<ShapeShopItem> ShapeShopCatalog = new[]
+        {
+            // ARCHETYPE (assets/avatars/shapesFamily/Archetypes)
+            new ShapeShopItem("archetype_1_punk",       "Archetype", "Punk", 19),
+            new ShapeShopItem("archetype_2_retro",      "Archetype", "Retro", 19),
+            new ShapeShopItem("archetype_3_cyber",      "Archetype", "Cyber", 19),
+            new ShapeShopItem("archetype_4_favela",     "Archetype", "Favela", 19),
+            new ShapeShopItem("archetype_5_french",     "Archetype", "French", 19),
+            new ShapeShopItem("archetype_6_grime",      "Archetype", "Grime", 19),
+            new ShapeShopItem("archetype_7_luchador",   "Archetype", "Luchador", 19),
+            new ShapeShopItem("archetype_8_mechanic",   "Archetype", "Mechanic", 19),
+            new ShapeShopItem("archetype_9_ronin",      "Archetype", "Ronin", 19),
+            new ShapeShopItem("archetype_10_ghost",     "Archetype", "Ghost", 19),
+            new ShapeShopItem("archetype_11_sexy",      "Archetype", "Sexy", 19),
+            new ShapeShopItem("archetype_12_queen",     "Archetype", "Queen", 19),
+
+            // MASCOT (assets/avatars/shapesFamily/Mascot)
+            new ShapeShopItem("mascot_alien",     "Mascot", "Alien", 19),
+            new ShapeShopItem("mascot_bear",      "Mascot", "Bear", 19),
+            new ShapeShopItem("mascot_bunny",     "Mascot", "Bunny", 19),
+            new ShapeShopItem("mascot_dog",       "Mascot", "Dog", 19),
+            new ShapeShopItem("mascot_dragon",    "Mascot", "Dragon", 19),
+            new ShapeShopItem("mascot_dragon_2",  "Mascot", "Dragon 2", 19),
+            new ShapeShopItem("mascot_fox",       "Mascot", "Fox", 19),
+            new ShapeShopItem("mascot_frog",      "Mascot", "Frog", 19),
+            new ShapeShopItem("mascot_grumpy",    "Mascot", "Grumpy", 19),
+            new ShapeShopItem("mascot_koala",     "Mascot", "Koala", 19),
+            new ShapeShopItem("mascot_monkey",    "Mascot", "Monkey", 19),
+            new ShapeShopItem("mascot_mouse",     "Mascot", "Mouse", 19),
+            new ShapeShopItem("mascot_octo",      "Mascot", "Octopus", 19),
+            new ShapeShopItem("mascot_owl",       "Mascot", "Owl", 19),
+            new ShapeShopItem("mascot_panda",     "Mascot", "Panda", 19),
+            new ShapeShopItem("mascot_panda_2",   "Mascot", "Panda 2", 19),
+            new ShapeShopItem("mascot_panda_3",   "Mascot", "Panda 3", 19),
+            new ShapeShopItem("mascot_penguin",   "Mascot", "Penguin", 19),
+            new ShapeShopItem("mascot_pig",       "Mascot", "Pig", 19),
+            new ShapeShopItem("mascot_robot",     "Mascot", "Robot", 19),
+            new ShapeShopItem("mascot_shark",     "Mascot", "Shark", 19),
+            new ShapeShopItem("mascot_shark_2",   "Mascot", "Shark 2", 19),
+            new ShapeShopItem("mascot_sheep",     "Mascot", "Sheep", 19),
+            new ShapeShopItem("mascot_tako",      "Mascot", "Tako", 19),
+            new ShapeShopItem("mascot_tiger",     "Mascot", "Tiger", 19),
+            new ShapeShopItem("mascot_turtle",    "Mascot", "Turtle", 19),
+            new ShapeShopItem("mascot_unicorn",   "Mascot", "Unicorn", 19),
+
+            // EMOTION (assets/avatars/shapesFamily/Emotion)
+            new ShapeShopItem("emoji_1_rage",   "Emotion", "Rage", 19),
+            new ShapeShopItem("emoji_2_chill",  "Emotion", "Chill", 19),
+            new ShapeShopItem("emoji_3_pride",  "Emotion", "Pride", 19),
+            new ShapeShopItem("emoji_4_joy",    "Emotion", "Joy", 19),
+            new ShapeShopItem("emoji_5_fear",   "Emotion", "Fear", 19),
+            new ShapeShopItem("emoji_6_greed",  "Emotion", "Greed", 19),
+            new ShapeShopItem("emoji_7_turbo",  "Emotion", "Turbo", 19),
+            new ShapeShopItem("emoji_8_lazy",   "Emotion", "Lazy", 19),
+            new ShapeShopItem("emoji_9_donut",  "Emotion", "Donut", 19),
+            new ShapeShopItem("emoji_10_envy",  "Emotion", "Envy", 19),
+        };
+
+        private static readonly HashSet<string> ShapeShopIdSet =
+            new HashSet<string>(ShapeShopCatalog.Select(s => s.Id));
+
+        // -------------------------
+        // BUBBLES API
+        // -------------------------
         public static List<string> GetAvailableBubbleAvatars(int level, string? currentBubbleAvatarId)
         {
-            if (level < 2)
-                return new List<string>();
-
-            if (!string.IsNullOrWhiteSpace(currentBubbleAvatarId))
-                return new List<string>(); // choix déjà fait → plus de sélection.
-
+            if (level < 2) return new List<string>();
+            if (!string.IsNullOrWhiteSpace(currentBubbleAvatarId)) return new List<string>();
             return BubbleAvatars.ToList();
         }
 
-        /// <summary>
-        /// Vérifie qu'un ID de bulle est valide.
-        /// </summary>
         public static bool IsValidBubbleAvatar(string avatarId)
             => BubbleAvatarSet.Contains(avatarId);
 
-        /// <summary>
-        /// Retourne la liste complète des IDs de bulles disponibles.
-        /// </summary>
         public static IReadOnlyCollection<string> GetAllBubbleAvatarIds()
             => BubbleAvatars;
 
-        /// <summary>
-        /// Synchronise la liste des avatars forme débloqués par rapport au niveau.
-        /// </summary>
+        // -------------------------
+        // SHAPES (level) API
+        // -------------------------
         public static (List<string> UpdatedUnlocked, string? ActiveShapeId) SyncShapeAvatars(
             int level,
             List<string>? currentUnlocked)
@@ -106,18 +163,20 @@ namespace ContentMicroservice.Application.UseCases.UserProgress
             return (unlocked, active);
         }
 
-        /// <summary>
-        /// Méthode utilitaire pour mettre à jour proprement UserProgress
-        /// à partir de son niveau actuel.
-        /// </summary>
         public static void ApplyToUserProgress(ProgressEntity progress, int level)
         {
-            // Bulle : le choix vient d'un autre endpoint (SelectBubbleAvatar).
-
-            // Forme : sync auto en fonction du level
             var (updated, active) = SyncShapeAvatars(level, progress.UnlockedShapeAvatarIds);
             progress.UnlockedShapeAvatarIds = updated;
             progress.ShapeAvatarId = active;
         }
+
+        // -------------------------
+        // SHAPES (shop) API
+        // -------------------------
+        public static IReadOnlyList<ShapeShopItem> GetShapeShopCatalog()
+            => ShapeShopCatalog;
+
+        public static bool IsValidShopShape(string id)
+            => !string.IsNullOrWhiteSpace(id) && ShapeShopIdSet.Contains(id);
     }
 }

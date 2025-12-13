@@ -46,6 +46,10 @@ namespace ContentMicroservice.Extensions
             services.AddScoped<GetTrickLearnUseCase>();
             services.AddScoped<UploadUserVideoUseCase>();
 
+            // Avatar Shop UseCases
+            services.AddScoped<GetShapeAvatarShopUseCase>();
+            services.AddScoped<UnlockShopShapeAvatarUseCase>();
+
             // XP UseCase
             services.AddScoped<AddXPUseCase>();
 
