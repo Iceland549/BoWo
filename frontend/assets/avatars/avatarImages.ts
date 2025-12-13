@@ -38,8 +38,76 @@ export const shapeAvatarImages: Record<string, any> = {
   shape_lvl20_bowo_demigod: require("./shapesXP/shape_lvl20_bowo_demigod.png"),
 };
 
+// =========================================================
+// SHAPE SHOP (paid) — assets/avatars/shapesFamily/*
+// =========================================================
+export const shapeShopAvatarImages: Record<string, any> = {
+
+  // -------------------------
+  // ARCHETYPE
+  // -------------------------
+  archetype_1_punk: require("./shapesFamily/Archetypes/archetype_1_punk.png"),
+  archetype_2_retro: require("./shapesFamily/Archetypes/archetype_2_retro.png"),
+  archetype_3_cyber: require("./shapesFamily/Archetypes/archetype_3_cyber.png"),
+  archetype_4_favela: require("./shapesFamily/Archetypes/archetype_4_favela.png"),
+  archetype_5_french: require("./shapesFamily/Archetypes/archetype_5_french.png"),
+  archetype_6_grime: require("./shapesFamily/Archetypes/archetype_6_grime.png"),
+  archetype_7_luchador: require("./shapesFamily/Archetypes/archetype_7_luchador.png"),
+  archetype_8_mechanic: require("./shapesFamily/Archetypes/archetype_8_mechanic.png"),
+  archetype_9_ronin: require("./shapesFamily/Archetypes/archetype_9_ronin.png"),
+  archetype_10_ghost: require("./shapesFamily/Archetypes/archetype_10_ghost.png"),
+  archetype_11_sexy: require("./shapesFamily/Archetypes/archetype_11_sexy.png"),
+  archetype_12_queen: require("./shapesFamily/Archetypes/archetype_12_queen.png"),
+
+  // -------------------------
+  // MASCOT
+  // -------------------------
+  mascot_alien: require("./shapesFamily/Mascot/mascot_alien.png"),
+  mascot_bear: require("./shapesFamily/Mascot/mascot_bear.png"),
+  mascot_bunny: require("./shapesFamily/Mascot/mascot_bunny.png"),
+  mascot_dog: require("./shapesFamily/Mascot/mascot_dog.png"),
+  mascot_dragon: require("./shapesFamily/Mascot/mascot_dragon.png"),
+  mascot_dragon_2: require("./shapesFamily/Mascot/mascot_dragon_2.png"),
+  mascot_fox: require("./shapesFamily/Mascot/mascot_fox.png"),
+  mascot_frog: require("./shapesFamily/Mascot/mascot_frog.png"),
+  mascot_grumpy: require("./shapesFamily/Mascot/mascot_grumpy.png"),
+  mascot_koala: require("./shapesFamily/Mascot/mascot_koala.png"),
+  mascot_monkey: require("./shapesFamily/Mascot/mascot_monkey.png"),
+  mascot_mouse: require("./shapesFamily/Mascot/mascot_mouse.png"),
+  mascot_octo: require("./shapesFamily/Mascot/mascot_octo.png"),
+  mascot_owl: require("./shapesFamily/Mascot/mascot_owl.png"),
+  mascot_panda: require("./shapesFamily/Mascot/mascot_panda.png"),
+  mascot_panda_2: require("./shapesFamily/Mascot/mascot_panda_2.png"),
+  mascot_panda_3: require("./shapesFamily/Mascot/mascot_panda_3.png"),
+  mascot_penguin: require("./shapesFamily/Mascot/mascot_penguin.png"),
+  mascot_pig: require("./shapesFamily/Mascot/mascot_pig.png"),
+  mascot_robot: require("./shapesFamily/Mascot/mascot_robot.png"),
+  mascot_shark: require("./shapesFamily/Mascot/mascot_shark.png"),
+  mascot_shark_2: require("./shapesFamily/Mascot/mascot_shark_2.png"),
+  mascot_sheep: require("./shapesFamily/Mascot/mascot_sheep.png"),
+  mascot_tako: require("./shapesFamily/Mascot/mascot_tako.png"),
+  mascot_tiger: require("./shapesFamily/Mascot/mascot_tiger.png"),
+  mascot_turtle: require("./shapesFamily/Mascot/mascot_turtle.png"),
+  mascot_unicorn: require("./shapesFamily/Mascot/mascot_unicorn.png"),
+
+  // -------------------------
+  // EMOTION
+  // -------------------------
+  emoji_1_rage: require("./shapesFamily/Emotion/emoji_1_rage.png"),
+  emoji_2_chill: require("./shapesFamily/Emotion/emoji_2_chill.png"),
+  emoji_3_pride: require("./shapesFamily/Emotion/emoji_3_pride.png"),
+  emoji_4_joy: require("./shapesFamily/Emotion/emoji_4_joy.png"),
+  emoji_5_fear: require("./shapesFamily/Emotion/emoji_5_fear.png"),
+  emoji_6_greed: require("./shapesFamily/Emotion/emoji_6_greed.png"),
+  emoji_7_turbo: require("./shapesFamily/Emotion/emoji_7_turbo.png"),
+  emoji_8_lazy: require("./shapesFamily/Emotion/emoji_8_lazy.png"),
+  emoji_9_donut: require("./shapesFamily/Emotion/emoji_9_donut.png"),
+  emoji_10_envy: require("./shapesFamily/Emotion/emoji_10_envy.png"),
+};
+
 
 export const allAvatarImages: Record<string, any> = {
   ...bubbleAvatarImages,
   ...shapeAvatarImages,
+  ...shapeShopAvatarImages,
 };
