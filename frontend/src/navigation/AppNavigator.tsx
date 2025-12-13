@@ -25,11 +25,13 @@ import LegalMenuScreen from '@/legal/LegalMenuScreen';
 import TermsOfUseScreen from '@/legal/TermsScreen';
 import PrivacyPolicyScreen from '@/legal/PrivacyScreen';
 import DeleteAccountScreen from '@/legal/DeleteAccountScreen';
-
+import CollectionScreen from '@/screens/CollectionScreen';
 // 🆕 Collection de decks
 import DeckCollectionScreen from '@/screens/DeckCollectionScreen';
 // 🆕 Decks Alive (mode labo)
 import AliveDecksScreen from '@/screens/AliveDecksScreen';
+// Collecion d'Avatar Shop
+import AvatarShapeShopScreen from '@/screens/AvatarShapeShopScreen';
 
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -104,9 +106,16 @@ export default function AppNavigator() {
       <Stack.Screen name="TrickLearn" component={TrickLearnScreen} />
       <Stack.Screen name="Quiz" component={QuizScreen} />
 
+      {/* Collection Screen */}
+      <Stack.Screen name="Collection" component={CollectionScreen} />
+
       {/* 🆕 Collection de decks */}
       <Stack.Screen name="DeckCollection" component={DeckCollectionScreen} />
       <Stack.Screen name="AliveDecks" component={AliveDecksScreen} />
+
+      {/* 🆕 Avatar Shape Shop */}
+      <Stack.Screen name="AvatarShapeShop" component={AvatarShapeShopScreen} /> 
+      
       {/* TIME-KILLERS / FUN FACT */}
       <Stack.Screen name="FunFact" component={FunFactScreen} />
       <Stack.Screen

@@ -27,9 +27,15 @@ export type RootStackParamList = {
   Privacy: undefined;
   DeleteAccount: undefined;
 
+  // Collection screen
+  Collection: undefined;
+  
   // Deck collection screen
   DeckCollection: {
     unlockedDecks: string[];
   };
   AliveDecks: undefined
+
+  // Avatar Shape Shop
+  AvatarShapeShop: undefined;
 };

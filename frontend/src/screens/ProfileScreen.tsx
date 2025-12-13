@@ -14,6 +14,7 @@ import {
 import {
   bubbleAvatarImages,
   shapeAvatarImages,
+  shapeShopAvatarImages,
 } from "../../assets/avatars/avatarImages";
 import { useIsFocused } from "@react-navigation/native";
 import { useModalContext } from "@/context/ModalContext";
@@ -22,10 +23,7 @@ import { log } from "../utils/logger";
 import BoWoXPBar from "../components/BoWoXPBar";
 
 // 🎖 Catalogue client léger des badges (id → titre + emoji)
-const BADGE_CLIENT_CATALOG: Record<
-  string,
-  { title: string; emoji: string }
-> = {
+const BADGE_CLIENT_CATALOG: Record<string, { title: string; emoji: string }> = {
   badge_kickstart: { title: "Kickstart Rookie", emoji: "🛹" },
   badge_quick_thinker: { title: "Quick Thinker", emoji: "⚡" },
   badge_trick_machine: { title: "Trick Machine", emoji: "🤖" },
@@ -171,13 +169,20 @@ export default function ProfileScreen({ navigation }) {
 
   const bubbleAvatarId: string | undefined =
     profile?.bubbleAvatarId ?? undefined;
+
+  // ⚠️ shapeAvatarId peut être soit un shape "XP", soit un shape "SHOP"
   const shapeAvatarId: string | undefined =
     profile?.shapeAvatarId ?? undefined;
 
   const bubbleAvatarSource =
     bubbleAvatarId ? bubbleAvatarImages[bubbleAvatarId] : null;
+
   const shapeAvatarSource =
-    shapeAvatarId ? shapeAvatarImages[shapeAvatarId] : null;
+    shapeAvatarId
+      ? (shapeAvatarImages as any)[shapeAvatarId] ??
+        (shapeShopAvatarImages as any)[shapeAvatarId] ??
+        null
+      : null;
 
   const getFallbackLevelTitle = () => {
     if (level >= 5) return "Skate Legend";
@@ -198,10 +203,8 @@ export default function ProfileScreen({ navigation }) {
   const getMotivation = () => {
     if (xpPercent >= 90) return "🔥 Tu touches le prochain niveau !";
     if (xpPercent >= 50) return "⚡ Beau flow, continue comme ça !";
-    if (totalUnlocked >= 10)
-      return "🛹 Tu commences à avoir un vrai style !";
-    if (totalUnlocked >= 5)
-      return "💥 Tu montes en puissance, keep pushing !";
+    if (totalUnlocked >= 10) return "🛹 Tu commences à avoir un vrai style !";
+    if (totalUnlocked >= 5) return "💥 Tu montes en puissance, keep pushing !";
     return "🌟 Chaque trick débloqué fait de toi un meilleur rider !";
   };
 
@@ -281,7 +284,7 @@ export default function ProfileScreen({ navigation }) {
   };
 
   /* -------------------------------------------------------- */
-  /*  🎨 RENDER                                                */
+  /*  🎨 RENDER                                               */
   /* -------------------------------------------------------- */
   return (
     <View style={styles.container}>
@@ -360,6 +363,31 @@ export default function ProfileScreen({ navigation }) {
               })}
             </View>
           )}
+        </View>
+
+        {/* 🧩 AVATAR SHAPE SHOP */}
+        <View style={[styles.sectionCard, styles.sectionAvatarShopCard]}>
+          <View style={styles.sectionHeaderRow}>
+            <Text style={styles.sectionTitle}>Avatar Shape Shop</Text>
+            <View style={[styles.sectionChip, styles.sectionChipGold]}>
+              <Text style={[styles.sectionChipText, styles.sectionChipTextGold]}>
+                0,19€
+              </Text>
+            </View>
+          </View>
+
+          <Text style={styles.sectionSubtitle}>
+            Archetype • Mascot • Emotion
+          </Text>
+
+          <TouchableOpacity
+            style={[styles.sectionButton, styles.sectionButtonGold]}
+            onPress={() => navigation.navigate("Collection")}
+          >
+            <Text style={[styles.sectionButtonText, styles.sectionButtonTextGold]}>
+              COLLECTIONS
+            </Text>
+          </TouchableOpacity>
         </View>
 
         {/* 🎴 COLLECTION DE DECKS */}
@@ -460,9 +488,7 @@ export default function ProfileScreen({ navigation }) {
 
             {showLevelOnAvatar && (
               <View style={styles.avatarLevelBadge}>
-                <Text style={styles.avatarLevelBadgeText}>
-                  LEVEL {level}
-                </Text>
+                <Text style={styles.avatarLevelBadgeText}>LEVEL {level}</Text>
               </View>
             )}
           </TouchableOpacity>
@@ -543,7 +569,7 @@ const styles = StyleSheet.create({
     fontSize: 12,
   },
 
-  // --- Sections Badges / Decks ---
+  // --- Sections Badges / Decks / Shop ---
   sectionCard: {
     marginTop: 18,
     marginBottom: 8,
@@ -559,6 +585,9 @@ const styles = StyleSheet.create({
   },
   sectionDecksCard: {
     borderColor: "#0AA5FF",
+  },
+  sectionAvatarShopCard: {
+    borderColor: "#FFD600",
   },
   sectionTitle: {
     fontFamily: "Bangers",
@@ -590,10 +619,16 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: "#0AA5FF",
   },
+  sectionChipGold: {
+    borderColor: "#FFD600",
+  },
   sectionChipText: {
     color: "#0AA5FF",
     fontWeight: "800",
     fontSize: 12,
+  },
+  sectionChipTextGold: {
+    color: "#FFD600",
   },
 
   // --- Badges list ---
@@ -624,7 +659,7 @@ const styles = StyleSheet.create({
     fontWeight: "700",
   },
 
-  // --- Bouton decks dans la carte ---
+  // --- Boutons sections ---
   sectionButton: {
     marginTop: 8,
     borderRadius: 999,
@@ -634,6 +669,9 @@ const styles = StyleSheet.create({
     borderColor: "#0AA5FF",
     backgroundColor: "#020617",
   },
+  sectionButtonGold: {
+    borderColor: "#FFD600",
+  },
   sectionButtonText: {
     fontFamily: "Bangers",
     fontSize: 22,
@@ -642,6 +680,9 @@ const styles = StyleSheet.create({
     textShadowColor: "#000",
     textShadowOffset: { width: 1, height: 1 },
     textShadowRadius: 2,
+  },
+  sectionButtonTextGold: {
+    color: "#FFD600",
   },
 
   // Row pour les mini avatars
@@ -680,7 +721,6 @@ const styles = StyleSheet.create({
     shadowRadius: 10,
     elevation: 12,
   },
-  // ⬆️⬆️ FIN MODIF
 
   // ⬇️⬇️ NOUVEAU BADGE NIVEAU AFFICHÉ PENDANT LE SPIN
   avatarLevelBadge: {
@@ -700,7 +740,6 @@ const styles = StyleSheet.create({
     fontSize: 18,
     letterSpacing: 1,
   },
-  // ⬆️⬆️ FIN NOUVEAU BADGE
 
   /* TIME-KILLER */
   killZoneTitle: {
